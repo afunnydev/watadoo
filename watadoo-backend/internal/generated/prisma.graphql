@@ -1,0 +1,2552 @@
+type AggregateEvent {
+  count: Int!
+}
+
+type AggregateEventOccurrence {
+  count: Int!
+}
+
+type AggregateRequestedCity {
+  count: Int!
+}
+
+type AggregateSearch {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type AggregateVenue {
+  count: Int!
+}
+
+type BatchPayload {
+  count: Long!
+}
+
+enum City {
+  GATINEAU
+  OTTAWA
+  MONTREAL
+  QUEBEC
+  TORONTO
+}
+
+scalar DateTime
+
+type Event {
+  id: ID!
+  name: String!
+  description: String
+  shortDescription: String
+  link: String!
+  imageUrl: String!
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: Venue
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean!
+  importNotes: String
+  isRecurring: Boolean!
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean!
+  occurrences(where: EventOccurrenceWhereInput, orderBy: EventOccurrenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventOccurrence!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type EventConnection {
+  pageInfo: PageInfo!
+  edges: [EventEdge]!
+  aggregate: AggregateEvent!
+}
+
+input EventCreateInput {
+  id: ID
+  name: String!
+  description: String
+  shortDescription: String
+  link: String!
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: VenueCreateOneWithoutEventsInput
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+  occurrences: EventOccurrenceCreateManyWithoutEventInput
+}
+
+input EventCreateManyInput {
+  create: [EventCreateInput!]
+  connect: [EventWhereUniqueInput!]
+}
+
+input EventCreateManyWithoutVenueInput {
+  create: [EventCreateWithoutVenueInput!]
+  connect: [EventWhereUniqueInput!]
+}
+
+input EventCreateOneWithoutOccurrencesInput {
+  create: EventCreateWithoutOccurrencesInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateWithoutOccurrencesInput {
+  id: ID
+  name: String!
+  description: String
+  shortDescription: String
+  link: String!
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: VenueCreateOneWithoutEventsInput
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+}
+
+input EventCreateWithoutVenueInput {
+  id: ID
+  name: String!
+  description: String
+  shortDescription: String
+  link: String!
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+  occurrences: EventOccurrenceCreateManyWithoutEventInput
+}
+
+type EventEdge {
+  node: Event!
+  cursor: String!
+}
+
+type EventOccurrence {
+  id: ID!
+  name: String!
+  description: String!
+  imageUrl: String!
+  startDate: DateTime!
+  endDate: DateTime
+  lat: Float!
+  long: Float!
+  price: Int
+  city: City!
+  ticketUrl: String
+  event: Event!
+  createdAt: DateTime!
+}
+
+type EventOccurrenceConnection {
+  pageInfo: PageInfo!
+  edges: [EventOccurrenceEdge]!
+  aggregate: AggregateEventOccurrence!
+}
+
+input EventOccurrenceCreateInput {
+  id: ID
+  name: String!
+  description: String
+  imageUrl: String
+  startDate: DateTime!
+  endDate: DateTime
+  lat: Float!
+  long: Float!
+  price: Int
+  city: City!
+  ticketUrl: String
+  event: EventCreateOneWithoutOccurrencesInput!
+}
+
+input EventOccurrenceCreateManyInput {
+  create: [EventOccurrenceCreateInput!]
+  connect: [EventOccurrenceWhereUniqueInput!]
+}
+
+input EventOccurrenceCreateManyWithoutEventInput {
+  create: [EventOccurrenceCreateWithoutEventInput!]
+  connect: [EventOccurrenceWhereUniqueInput!]
+}
+
+input EventOccurrenceCreateWithoutEventInput {
+  id: ID
+  name: String!
+  description: String
+  imageUrl: String
+  startDate: DateTime!
+  endDate: DateTime
+  lat: Float!
+  long: Float!
+  price: Int
+  city: City!
+  ticketUrl: String
+}
+
+type EventOccurrenceEdge {
+  node: EventOccurrence!
+  cursor: String!
+}
+
+enum EventOccurrenceOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  startDate_ASC
+  startDate_DESC
+  endDate_ASC
+  endDate_DESC
+  lat_ASC
+  lat_DESC
+  long_ASC
+  long_DESC
+  price_ASC
+  price_DESC
+  city_ASC
+  city_DESC
+  ticketUrl_ASC
+  ticketUrl_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type EventOccurrencePreviousValues {
+  id: ID!
+  name: String!
+  description: String!
+  imageUrl: String!
+  startDate: DateTime!
+  endDate: DateTime
+  lat: Float!
+  long: Float!
+  price: Int
+  city: City!
+  ticketUrl: String
+  createdAt: DateTime!
+}
+
+input EventOccurrenceScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  startDate: DateTime
+  startDate_not: DateTime
+  startDate_in: [DateTime!]
+  startDate_not_in: [DateTime!]
+  startDate_lt: DateTime
+  startDate_lte: DateTime
+  startDate_gt: DateTime
+  startDate_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
+  lat: Float
+  lat_not: Float
+  lat_in: [Float!]
+  lat_not_in: [Float!]
+  lat_lt: Float
+  lat_lte: Float
+  lat_gt: Float
+  lat_gte: Float
+  long: Float
+  long_not: Float
+  long_in: [Float!]
+  long_not_in: [Float!]
+  long_lt: Float
+  long_lte: Float
+  long_gt: Float
+  long_gte: Float
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [EventOccurrenceScalarWhereInput!]
+  OR: [EventOccurrenceScalarWhereInput!]
+  NOT: [EventOccurrenceScalarWhereInput!]
+}
+
+type EventOccurrenceSubscriptionPayload {
+  mutation: MutationType!
+  node: EventOccurrence
+  updatedFields: [String!]
+  previousValues: EventOccurrencePreviousValues
+}
+
+input EventOccurrenceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EventOccurrenceWhereInput
+  AND: [EventOccurrenceSubscriptionWhereInput!]
+  OR: [EventOccurrenceSubscriptionWhereInput!]
+  NOT: [EventOccurrenceSubscriptionWhereInput!]
+}
+
+input EventOccurrenceUpdateDataInput {
+  name: String
+  description: String
+  imageUrl: String
+  startDate: DateTime
+  endDate: DateTime
+  lat: Float
+  long: Float
+  price: Int
+  city: City
+  ticketUrl: String
+  event: EventUpdateOneRequiredWithoutOccurrencesInput
+}
+
+input EventOccurrenceUpdateInput {
+  name: String
+  description: String
+  imageUrl: String
+  startDate: DateTime
+  endDate: DateTime
+  lat: Float
+  long: Float
+  price: Int
+  city: City
+  ticketUrl: String
+  event: EventUpdateOneRequiredWithoutOccurrencesInput
+}
+
+input EventOccurrenceUpdateManyDataInput {
+  name: String
+  description: String
+  imageUrl: String
+  startDate: DateTime
+  endDate: DateTime
+  lat: Float
+  long: Float
+  price: Int
+  city: City
+  ticketUrl: String
+}
+
+input EventOccurrenceUpdateManyInput {
+  create: [EventOccurrenceCreateInput!]
+  update: [EventOccurrenceUpdateWithWhereUniqueNestedInput!]
+  upsert: [EventOccurrenceUpsertWithWhereUniqueNestedInput!]
+  delete: [EventOccurrenceWhereUniqueInput!]
+  connect: [EventOccurrenceWhereUniqueInput!]
+  set: [EventOccurrenceWhereUniqueInput!]
+  disconnect: [EventOccurrenceWhereUniqueInput!]
+  deleteMany: [EventOccurrenceScalarWhereInput!]
+  updateMany: [EventOccurrenceUpdateManyWithWhereNestedInput!]
+}
+
+input EventOccurrenceUpdateManyMutationInput {
+  name: String
+  description: String
+  imageUrl: String
+  startDate: DateTime
+  endDate: DateTime
+  lat: Float
+  long: Float
+  price: Int
+  city: City
+  ticketUrl: String
+}
+
+input EventOccurrenceUpdateManyWithoutEventInput {
+  create: [EventOccurrenceCreateWithoutEventInput!]
+  delete: [EventOccurrenceWhereUniqueInput!]
+  connect: [EventOccurrenceWhereUniqueInput!]
+  set: [EventOccurrenceWhereUniqueInput!]
+  disconnect: [EventOccurrenceWhereUniqueInput!]
+  update: [EventOccurrenceUpdateWithWhereUniqueWithoutEventInput!]
+  upsert: [EventOccurrenceUpsertWithWhereUniqueWithoutEventInput!]
+  deleteMany: [EventOccurrenceScalarWhereInput!]
+  updateMany: [EventOccurrenceUpdateManyWithWhereNestedInput!]
+}
+
+input EventOccurrenceUpdateManyWithWhereNestedInput {
+  where: EventOccurrenceScalarWhereInput!
+  data: EventOccurrenceUpdateManyDataInput!
+}
+
+input EventOccurrenceUpdateWithoutEventDataInput {
+  name: String
+  description: String
+  imageUrl: String
+  startDate: DateTime
+  endDate: DateTime
+  lat: Float
+  long: Float
+  price: Int
+  city: City
+  ticketUrl: String
+}
+
+input EventOccurrenceUpdateWithWhereUniqueNestedInput {
+  where: EventOccurrenceWhereUniqueInput!
+  data: EventOccurrenceUpdateDataInput!
+}
+
+input EventOccurrenceUpdateWithWhereUniqueWithoutEventInput {
+  where: EventOccurrenceWhereUniqueInput!
+  data: EventOccurrenceUpdateWithoutEventDataInput!
+}
+
+input EventOccurrenceUpsertWithWhereUniqueNestedInput {
+  where: EventOccurrenceWhereUniqueInput!
+  update: EventOccurrenceUpdateDataInput!
+  create: EventOccurrenceCreateInput!
+}
+
+input EventOccurrenceUpsertWithWhereUniqueWithoutEventInput {
+  where: EventOccurrenceWhereUniqueInput!
+  update: EventOccurrenceUpdateWithoutEventDataInput!
+  create: EventOccurrenceCreateWithoutEventInput!
+}
+
+input EventOccurrenceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  startDate: DateTime
+  startDate_not: DateTime
+  startDate_in: [DateTime!]
+  startDate_not_in: [DateTime!]
+  startDate_lt: DateTime
+  startDate_lte: DateTime
+  startDate_gt: DateTime
+  startDate_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
+  lat: Float
+  lat_not: Float
+  lat_in: [Float!]
+  lat_not_in: [Float!]
+  lat_lt: Float
+  lat_lte: Float
+  lat_gt: Float
+  lat_gte: Float
+  long: Float
+  long_not: Float
+  long_in: [Float!]
+  long_not_in: [Float!]
+  long_lt: Float
+  long_lte: Float
+  long_gt: Float
+  long_gte: Float
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  event: EventWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [EventOccurrenceWhereInput!]
+  OR: [EventOccurrenceWhereInput!]
+  NOT: [EventOccurrenceWhereInput!]
+}
+
+input EventOccurrenceWhereUniqueInput {
+  id: ID
+}
+
+enum EventOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  shortDescription_ASC
+  shortDescription_DESC
+  link_ASC
+  link_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  nextOccurrenceDate_ASC
+  nextOccurrenceDate_DESC
+  price_ASC
+  price_DESC
+  type_ASC
+  type_DESC
+  tags_ASC
+  tags_DESC
+  ticketUrl_ASC
+  ticketUrl_DESC
+  source_ASC
+  source_DESC
+  wpFrId_ASC
+  wpFrId_DESC
+  wpEnId_ASC
+  wpEnId_DESC
+  possibleDuplicate_ASC
+  possibleDuplicate_DESC
+  importNotes_ASC
+  importNotes_DESC
+  isRecurring_ASC
+  isRecurring_DESC
+  recurrencePattern_ASC
+  recurrencePattern_DESC
+  occurrencesAreUnique_ASC
+  occurrencesAreUnique_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type EventPreviousValues {
+  id: ID!
+  name: String!
+  description: String
+  shortDescription: String
+  link: String!
+  imageUrl: String!
+  nextOccurrenceDate: DateTime
+  price: Int
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean!
+  importNotes: String
+  isRecurring: Boolean!
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input EventScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  shortDescription: String
+  shortDescription_not: String
+  shortDescription_in: [String!]
+  shortDescription_not_in: [String!]
+  shortDescription_lt: String
+  shortDescription_lte: String
+  shortDescription_gt: String
+  shortDescription_gte: String
+  shortDescription_contains: String
+  shortDescription_not_contains: String
+  shortDescription_starts_with: String
+  shortDescription_not_starts_with: String
+  shortDescription_ends_with: String
+  shortDescription_not_ends_with: String
+  link: String
+  link_not: String
+  link_in: [String!]
+  link_not_in: [String!]
+  link_lt: String
+  link_lte: String
+  link_gt: String
+  link_gte: String
+  link_contains: String
+  link_not_contains: String
+  link_starts_with: String
+  link_not_starts_with: String
+  link_ends_with: String
+  link_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  nextOccurrenceDate: DateTime
+  nextOccurrenceDate_not: DateTime
+  nextOccurrenceDate_in: [DateTime!]
+  nextOccurrenceDate_not_in: [DateTime!]
+  nextOccurrenceDate_lt: DateTime
+  nextOccurrenceDate_lte: DateTime
+  nextOccurrenceDate_gt: DateTime
+  nextOccurrenceDate_gte: DateTime
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  tags: String
+  tags_not: String
+  tags_in: [String!]
+  tags_not_in: [String!]
+  tags_lt: String
+  tags_lte: String
+  tags_gt: String
+  tags_gte: String
+  tags_contains: String
+  tags_not_contains: String
+  tags_starts_with: String
+  tags_not_starts_with: String
+  tags_ends_with: String
+  tags_not_ends_with: String
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  source: String
+  source_not: String
+  source_in: [String!]
+  source_not_in: [String!]
+  source_lt: String
+  source_lte: String
+  source_gt: String
+  source_gte: String
+  source_contains: String
+  source_not_contains: String
+  source_starts_with: String
+  source_not_starts_with: String
+  source_ends_with: String
+  source_not_ends_with: String
+  wpFrId: Int
+  wpFrId_not: Int
+  wpFrId_in: [Int!]
+  wpFrId_not_in: [Int!]
+  wpFrId_lt: Int
+  wpFrId_lte: Int
+  wpFrId_gt: Int
+  wpFrId_gte: Int
+  wpEnId: Int
+  wpEnId_not: Int
+  wpEnId_in: [Int!]
+  wpEnId_not_in: [Int!]
+  wpEnId_lt: Int
+  wpEnId_lte: Int
+  wpEnId_gt: Int
+  wpEnId_gte: Int
+  possibleDuplicate: Boolean
+  possibleDuplicate_not: Boolean
+  importNotes: String
+  importNotes_not: String
+  importNotes_in: [String!]
+  importNotes_not_in: [String!]
+  importNotes_lt: String
+  importNotes_lte: String
+  importNotes_gt: String
+  importNotes_gte: String
+  importNotes_contains: String
+  importNotes_not_contains: String
+  importNotes_starts_with: String
+  importNotes_not_starts_with: String
+  importNotes_ends_with: String
+  importNotes_not_ends_with: String
+  isRecurring: Boolean
+  isRecurring_not: Boolean
+  recurrencePattern: String
+  recurrencePattern_not: String
+  recurrencePattern_in: [String!]
+  recurrencePattern_not_in: [String!]
+  recurrencePattern_lt: String
+  recurrencePattern_lte: String
+  recurrencePattern_gt: String
+  recurrencePattern_gte: String
+  recurrencePattern_contains: String
+  recurrencePattern_not_contains: String
+  recurrencePattern_starts_with: String
+  recurrencePattern_not_starts_with: String
+  recurrencePattern_ends_with: String
+  recurrencePattern_not_ends_with: String
+  occurrencesAreUnique: Boolean
+  occurrencesAreUnique_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [EventScalarWhereInput!]
+  OR: [EventScalarWhereInput!]
+  NOT: [EventScalarWhereInput!]
+}
+
+type EventSubscriptionPayload {
+  mutation: MutationType!
+  node: Event
+  updatedFields: [String!]
+  previousValues: EventPreviousValues
+}
+
+input EventSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EventWhereInput
+  AND: [EventSubscriptionWhereInput!]
+  OR: [EventSubscriptionWhereInput!]
+  NOT: [EventSubscriptionWhereInput!]
+}
+
+input EventUpdateDataInput {
+  name: String
+  description: String
+  shortDescription: String
+  link: String
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: VenueUpdateOneWithoutEventsInput
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+  occurrences: EventOccurrenceUpdateManyWithoutEventInput
+}
+
+input EventUpdateInput {
+  name: String
+  description: String
+  shortDescription: String
+  link: String
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: VenueUpdateOneWithoutEventsInput
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+  occurrences: EventOccurrenceUpdateManyWithoutEventInput
+}
+
+input EventUpdateManyDataInput {
+  name: String
+  description: String
+  shortDescription: String
+  link: String
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+}
+
+input EventUpdateManyInput {
+  create: [EventCreateInput!]
+  update: [EventUpdateWithWhereUniqueNestedInput!]
+  upsert: [EventUpsertWithWhereUniqueNestedInput!]
+  delete: [EventWhereUniqueInput!]
+  connect: [EventWhereUniqueInput!]
+  set: [EventWhereUniqueInput!]
+  disconnect: [EventWhereUniqueInput!]
+  deleteMany: [EventScalarWhereInput!]
+  updateMany: [EventUpdateManyWithWhereNestedInput!]
+}
+
+input EventUpdateManyMutationInput {
+  name: String
+  description: String
+  shortDescription: String
+  link: String
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+}
+
+input EventUpdateManyWithoutVenueInput {
+  create: [EventCreateWithoutVenueInput!]
+  delete: [EventWhereUniqueInput!]
+  connect: [EventWhereUniqueInput!]
+  set: [EventWhereUniqueInput!]
+  disconnect: [EventWhereUniqueInput!]
+  update: [EventUpdateWithWhereUniqueWithoutVenueInput!]
+  upsert: [EventUpsertWithWhereUniqueWithoutVenueInput!]
+  deleteMany: [EventScalarWhereInput!]
+  updateMany: [EventUpdateManyWithWhereNestedInput!]
+}
+
+input EventUpdateManyWithWhereNestedInput {
+  where: EventScalarWhereInput!
+  data: EventUpdateManyDataInput!
+}
+
+input EventUpdateOneRequiredWithoutOccurrencesInput {
+  create: EventCreateWithoutOccurrencesInput
+  update: EventUpdateWithoutOccurrencesDataInput
+  upsert: EventUpsertWithoutOccurrencesInput
+  connect: EventWhereUniqueInput
+}
+
+input EventUpdateWithoutOccurrencesDataInput {
+  name: String
+  description: String
+  shortDescription: String
+  link: String
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: VenueUpdateOneWithoutEventsInput
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+}
+
+input EventUpdateWithoutVenueDataInput {
+  name: String
+  description: String
+  shortDescription: String
+  link: String
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean
+  occurrences: EventOccurrenceUpdateManyWithoutEventInput
+}
+
+input EventUpdateWithWhereUniqueNestedInput {
+  where: EventWhereUniqueInput!
+  data: EventUpdateDataInput!
+}
+
+input EventUpdateWithWhereUniqueWithoutVenueInput {
+  where: EventWhereUniqueInput!
+  data: EventUpdateWithoutVenueDataInput!
+}
+
+input EventUpsertWithoutOccurrencesInput {
+  update: EventUpdateWithoutOccurrencesDataInput!
+  create: EventCreateWithoutOccurrencesInput!
+}
+
+input EventUpsertWithWhereUniqueNestedInput {
+  where: EventWhereUniqueInput!
+  update: EventUpdateDataInput!
+  create: EventCreateInput!
+}
+
+input EventUpsertWithWhereUniqueWithoutVenueInput {
+  where: EventWhereUniqueInput!
+  update: EventUpdateWithoutVenueDataInput!
+  create: EventCreateWithoutVenueInput!
+}
+
+input EventWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  shortDescription: String
+  shortDescription_not: String
+  shortDescription_in: [String!]
+  shortDescription_not_in: [String!]
+  shortDescription_lt: String
+  shortDescription_lte: String
+  shortDescription_gt: String
+  shortDescription_gte: String
+  shortDescription_contains: String
+  shortDescription_not_contains: String
+  shortDescription_starts_with: String
+  shortDescription_not_starts_with: String
+  shortDescription_ends_with: String
+  shortDescription_not_ends_with: String
+  link: String
+  link_not: String
+  link_in: [String!]
+  link_not_in: [String!]
+  link_lt: String
+  link_lte: String
+  link_gt: String
+  link_gte: String
+  link_contains: String
+  link_not_contains: String
+  link_starts_with: String
+  link_not_starts_with: String
+  link_ends_with: String
+  link_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  nextOccurrenceDate: DateTime
+  nextOccurrenceDate_not: DateTime
+  nextOccurrenceDate_in: [DateTime!]
+  nextOccurrenceDate_not_in: [DateTime!]
+  nextOccurrenceDate_lt: DateTime
+  nextOccurrenceDate_lte: DateTime
+  nextOccurrenceDate_gt: DateTime
+  nextOccurrenceDate_gte: DateTime
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  venue: VenueWhereInput
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  tags: String
+  tags_not: String
+  tags_in: [String!]
+  tags_not_in: [String!]
+  tags_lt: String
+  tags_lte: String
+  tags_gt: String
+  tags_gte: String
+  tags_contains: String
+  tags_not_contains: String
+  tags_starts_with: String
+  tags_not_starts_with: String
+  tags_ends_with: String
+  tags_not_ends_with: String
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  source: String
+  source_not: String
+  source_in: [String!]
+  source_not_in: [String!]
+  source_lt: String
+  source_lte: String
+  source_gt: String
+  source_gte: String
+  source_contains: String
+  source_not_contains: String
+  source_starts_with: String
+  source_not_starts_with: String
+  source_ends_with: String
+  source_not_ends_with: String
+  wpFrId: Int
+  wpFrId_not: Int
+  wpFrId_in: [Int!]
+  wpFrId_not_in: [Int!]
+  wpFrId_lt: Int
+  wpFrId_lte: Int
+  wpFrId_gt: Int
+  wpFrId_gte: Int
+  wpEnId: Int
+  wpEnId_not: Int
+  wpEnId_in: [Int!]
+  wpEnId_not_in: [Int!]
+  wpEnId_lt: Int
+  wpEnId_lte: Int
+  wpEnId_gt: Int
+  wpEnId_gte: Int
+  possibleDuplicate: Boolean
+  possibleDuplicate_not: Boolean
+  importNotes: String
+  importNotes_not: String
+  importNotes_in: [String!]
+  importNotes_not_in: [String!]
+  importNotes_lt: String
+  importNotes_lte: String
+  importNotes_gt: String
+  importNotes_gte: String
+  importNotes_contains: String
+  importNotes_not_contains: String
+  importNotes_starts_with: String
+  importNotes_not_starts_with: String
+  importNotes_ends_with: String
+  importNotes_not_ends_with: String
+  isRecurring: Boolean
+  isRecurring_not: Boolean
+  recurrencePattern: String
+  recurrencePattern_not: String
+  recurrencePattern_in: [String!]
+  recurrencePattern_not_in: [String!]
+  recurrencePattern_lt: String
+  recurrencePattern_lte: String
+  recurrencePattern_gt: String
+  recurrencePattern_gte: String
+  recurrencePattern_contains: String
+  recurrencePattern_not_contains: String
+  recurrencePattern_starts_with: String
+  recurrencePattern_not_starts_with: String
+  recurrencePattern_ends_with: String
+  recurrencePattern_not_ends_with: String
+  occurrencesAreUnique: Boolean
+  occurrencesAreUnique_not: Boolean
+  occurrences_every: EventOccurrenceWhereInput
+  occurrences_some: EventOccurrenceWhereInput
+  occurrences_none: EventOccurrenceWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [EventWhereInput!]
+  OR: [EventWhereInput!]
+  NOT: [EventWhereInput!]
+}
+
+input EventWhereUniqueInput {
+  id: ID
+}
+
+scalar Long
+
+type Mutation {
+  createEvent(data: EventCreateInput!): Event!
+  updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
+  updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
+  upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
+  deleteEvent(where: EventWhereUniqueInput!): Event
+  deleteManyEvents(where: EventWhereInput): BatchPayload!
+  createEventOccurrence(data: EventOccurrenceCreateInput!): EventOccurrence!
+  updateEventOccurrence(data: EventOccurrenceUpdateInput!, where: EventOccurrenceWhereUniqueInput!): EventOccurrence
+  updateManyEventOccurrences(data: EventOccurrenceUpdateManyMutationInput!, where: EventOccurrenceWhereInput): BatchPayload!
+  upsertEventOccurrence(where: EventOccurrenceWhereUniqueInput!, create: EventOccurrenceCreateInput!, update: EventOccurrenceUpdateInput!): EventOccurrence!
+  deleteEventOccurrence(where: EventOccurrenceWhereUniqueInput!): EventOccurrence
+  deleteManyEventOccurrences(where: EventOccurrenceWhereInput): BatchPayload!
+  createRequestedCity(data: RequestedCityCreateInput!): RequestedCity!
+  updateRequestedCity(data: RequestedCityUpdateInput!, where: RequestedCityWhereUniqueInput!): RequestedCity
+  updateManyRequestedCities(data: RequestedCityUpdateManyMutationInput!, where: RequestedCityWhereInput): BatchPayload!
+  upsertRequestedCity(where: RequestedCityWhereUniqueInput!, create: RequestedCityCreateInput!, update: RequestedCityUpdateInput!): RequestedCity!
+  deleteRequestedCity(where: RequestedCityWhereUniqueInput!): RequestedCity
+  deleteManyRequestedCities(where: RequestedCityWhereInput): BatchPayload!
+  createSearch(data: SearchCreateInput!): Search!
+  updateSearch(data: SearchUpdateInput!, where: SearchWhereUniqueInput!): Search
+  updateManySearches(data: SearchUpdateManyMutationInput!, where: SearchWhereInput): BatchPayload!
+  upsertSearch(where: SearchWhereUniqueInput!, create: SearchCreateInput!, update: SearchUpdateInput!): Search!
+  deleteSearch(where: SearchWhereUniqueInput!): Search
+  deleteManySearches(where: SearchWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createVenue(data: VenueCreateInput!): Venue!
+  updateVenue(data: VenueUpdateInput!, where: VenueWhereUniqueInput!): Venue
+  updateManyVenues(data: VenueUpdateManyMutationInput!, where: VenueWhereInput): BatchPayload!
+  upsertVenue(where: VenueWhereUniqueInput!, create: VenueCreateInput!, update: VenueUpdateInput!): Venue!
+  deleteVenue(where: VenueWhereUniqueInput!): Venue
+  deleteManyVenues(where: VenueWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+enum Notification {
+  ANYTIME
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+  NEVER
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+enum Permission {
+  USER
+  MANAGEEVENT
+  ADMIN
+}
+
+type Query {
+  event(where: EventWhereUniqueInput!): Event
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
+  eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
+  eventOccurrence(where: EventOccurrenceWhereUniqueInput!): EventOccurrence
+  eventOccurrences(where: EventOccurrenceWhereInput, orderBy: EventOccurrenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventOccurrence]!
+  eventOccurrencesConnection(where: EventOccurrenceWhereInput, orderBy: EventOccurrenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventOccurrenceConnection!
+  requestedCity(where: RequestedCityWhereUniqueInput!): RequestedCity
+  requestedCities(where: RequestedCityWhereInput, orderBy: RequestedCityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RequestedCity]!
+  requestedCitiesConnection(where: RequestedCityWhereInput, orderBy: RequestedCityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RequestedCityConnection!
+  search(where: SearchWhereUniqueInput!): Search
+  searches(where: SearchWhereInput, orderBy: SearchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Search]!
+  searchesConnection(where: SearchWhereInput, orderBy: SearchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SearchConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  venue(where: VenueWhereUniqueInput!): Venue
+  venues(where: VenueWhereInput, orderBy: VenueOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Venue]!
+  venuesConnection(where: VenueWhereInput, orderBy: VenueOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VenueConnection!
+  node(id: ID!): Node
+}
+
+enum Relationship {
+  COUPLE
+  SINGLE
+  MARRIED
+  OTHER
+  NONE
+}
+
+type RequestedCity {
+  id: ID!
+  city: String!
+  user: User
+  sendEmail: Boolean!
+}
+
+type RequestedCityConnection {
+  pageInfo: PageInfo!
+  edges: [RequestedCityEdge]!
+  aggregate: AggregateRequestedCity!
+}
+
+input RequestedCityCreateInput {
+  id: ID
+  city: String!
+  user: UserCreateOneInput
+  sendEmail: Boolean
+}
+
+type RequestedCityEdge {
+  node: RequestedCity!
+  cursor: String!
+}
+
+enum RequestedCityOrderByInput {
+  id_ASC
+  id_DESC
+  city_ASC
+  city_DESC
+  sendEmail_ASC
+  sendEmail_DESC
+}
+
+type RequestedCityPreviousValues {
+  id: ID!
+  city: String!
+  sendEmail: Boolean!
+}
+
+type RequestedCitySubscriptionPayload {
+  mutation: MutationType!
+  node: RequestedCity
+  updatedFields: [String!]
+  previousValues: RequestedCityPreviousValues
+}
+
+input RequestedCitySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RequestedCityWhereInput
+  AND: [RequestedCitySubscriptionWhereInput!]
+  OR: [RequestedCitySubscriptionWhereInput!]
+  NOT: [RequestedCitySubscriptionWhereInput!]
+}
+
+input RequestedCityUpdateInput {
+  city: String
+  user: UserUpdateOneInput
+  sendEmail: Boolean
+}
+
+input RequestedCityUpdateManyMutationInput {
+  city: String
+  sendEmail: Boolean
+}
+
+input RequestedCityWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  city: String
+  city_not: String
+  city_in: [String!]
+  city_not_in: [String!]
+  city_lt: String
+  city_lte: String
+  city_gt: String
+  city_gte: String
+  city_contains: String
+  city_not_contains: String
+  city_starts_with: String
+  city_not_starts_with: String
+  city_ends_with: String
+  city_not_ends_with: String
+  user: UserWhereInput
+  sendEmail: Boolean
+  sendEmail_not: Boolean
+  AND: [RequestedCityWhereInput!]
+  OR: [RequestedCityWhereInput!]
+  NOT: [RequestedCityWhereInput!]
+}
+
+input RequestedCityWhereUniqueInput {
+  id: ID
+}
+
+type Search {
+  id: ID!
+  createdAt: DateTime!
+  city: City!
+  startDate: DateTime!
+  endDate: DateTime!
+  info: String
+  suggested: Int!
+  user: User
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  eventOccurrences(where: EventOccurrenceWhereInput, orderBy: EventOccurrenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventOccurrence!]
+}
+
+type SearchConnection {
+  pageInfo: PageInfo!
+  edges: [SearchEdge]!
+  aggregate: AggregateSearch!
+}
+
+input SearchCreateInput {
+  id: ID
+  city: City!
+  startDate: DateTime!
+  endDate: DateTime!
+  info: String
+  suggested: Int
+  user: UserCreateOneInput
+  events: EventCreateManyInput
+  eventOccurrences: EventOccurrenceCreateManyInput
+}
+
+type SearchEdge {
+  node: Search!
+  cursor: String!
+}
+
+enum SearchOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  city_ASC
+  city_DESC
+  startDate_ASC
+  startDate_DESC
+  endDate_ASC
+  endDate_DESC
+  info_ASC
+  info_DESC
+  suggested_ASC
+  suggested_DESC
+}
+
+type SearchPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  city: City!
+  startDate: DateTime!
+  endDate: DateTime!
+  info: String
+  suggested: Int!
+}
+
+type SearchSubscriptionPayload {
+  mutation: MutationType!
+  node: Search
+  updatedFields: [String!]
+  previousValues: SearchPreviousValues
+}
+
+input SearchSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SearchWhereInput
+  AND: [SearchSubscriptionWhereInput!]
+  OR: [SearchSubscriptionWhereInput!]
+  NOT: [SearchSubscriptionWhereInput!]
+}
+
+input SearchUpdateInput {
+  city: City
+  startDate: DateTime
+  endDate: DateTime
+  info: String
+  suggested: Int
+  user: UserUpdateOneInput
+  events: EventUpdateManyInput
+  eventOccurrences: EventOccurrenceUpdateManyInput
+}
+
+input SearchUpdateManyMutationInput {
+  city: City
+  startDate: DateTime
+  endDate: DateTime
+  info: String
+  suggested: Int
+}
+
+input SearchWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  startDate: DateTime
+  startDate_not: DateTime
+  startDate_in: [DateTime!]
+  startDate_not_in: [DateTime!]
+  startDate_lt: DateTime
+  startDate_lte: DateTime
+  startDate_gt: DateTime
+  startDate_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
+  info: String
+  info_not: String
+  info_in: [String!]
+  info_not_in: [String!]
+  info_lt: String
+  info_lte: String
+  info_gt: String
+  info_gte: String
+  info_contains: String
+  info_not_contains: String
+  info_starts_with: String
+  info_not_starts_with: String
+  info_ends_with: String
+  info_not_ends_with: String
+  suggested: Int
+  suggested_not: Int
+  suggested_in: [Int!]
+  suggested_not_in: [Int!]
+  suggested_lt: Int
+  suggested_lte: Int
+  suggested_gt: Int
+  suggested_gte: Int
+  user: UserWhereInput
+  events_every: EventWhereInput
+  events_some: EventWhereInput
+  events_none: EventWhereInput
+  eventOccurrences_every: EventOccurrenceWhereInput
+  eventOccurrences_some: EventOccurrenceWhereInput
+  eventOccurrences_none: EventOccurrenceWhereInput
+  AND: [SearchWhereInput!]
+  OR: [SearchWhereInput!]
+  NOT: [SearchWhereInput!]
+}
+
+input SearchWhereUniqueInput {
+  id: ID
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  OTHER
+}
+
+type Subscription {
+  event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
+  eventOccurrence(where: EventOccurrenceSubscriptionWhereInput): EventOccurrenceSubscriptionPayload
+  requestedCity(where: RequestedCitySubscriptionWhereInput): RequestedCitySubscriptionPayload
+  search(where: SearchSubscriptionWhereInput): SearchSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  venue(where: VenueSubscriptionWhereInput): VenueSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  facebookid: String
+  fname: String
+  lname: String
+  picture: String
+  email: String
+  password: String
+  sex: Sex
+  age: Int
+  city: City
+  permissions: [Permission!]!
+  relationship: Relationship
+  suggestedEvents(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  interestedEvents(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  boringEvents(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastInteraction: DateTime!
+  messengerNotifications: Notification!
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  id: ID
+  facebookid: String
+  fname: String
+  lname: String
+  picture: String
+  email: String
+  password: String
+  sex: Sex
+  age: Int
+  city: City
+  permissions: UserCreatepermissionsInput
+  relationship: Relationship
+  suggestedEvents: EventCreateManyInput
+  interestedEvents: EventCreateManyInput
+  boringEvents: EventCreateManyInput
+  lastInteraction: DateTime!
+  messengerNotifications: Notification
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreatepermissionsInput {
+  set: [Permission!]
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  facebookid_ASC
+  facebookid_DESC
+  fname_ASC
+  fname_DESC
+  lname_ASC
+  lname_DESC
+  picture_ASC
+  picture_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  sex_ASC
+  sex_DESC
+  age_ASC
+  age_DESC
+  city_ASC
+  city_DESC
+  relationship_ASC
+  relationship_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  lastInteraction_ASC
+  lastInteraction_DESC
+  messengerNotifications_ASC
+  messengerNotifications_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  facebookid: String
+  fname: String
+  lname: String
+  picture: String
+  email: String
+  password: String
+  sex: Sex
+  age: Int
+  city: City
+  permissions: [Permission!]!
+  relationship: Relationship
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  lastInteraction: DateTime!
+  messengerNotifications: Notification!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateDataInput {
+  facebookid: String
+  fname: String
+  lname: String
+  picture: String
+  email: String
+  password: String
+  sex: Sex
+  age: Int
+  city: City
+  permissions: UserUpdatepermissionsInput
+  relationship: Relationship
+  suggestedEvents: EventUpdateManyInput
+  interestedEvents: EventUpdateManyInput
+  boringEvents: EventUpdateManyInput
+  lastInteraction: DateTime
+  messengerNotifications: Notification
+}
+
+input UserUpdateInput {
+  facebookid: String
+  fname: String
+  lname: String
+  picture: String
+  email: String
+  password: String
+  sex: Sex
+  age: Int
+  city: City
+  permissions: UserUpdatepermissionsInput
+  relationship: Relationship
+  suggestedEvents: EventUpdateManyInput
+  interestedEvents: EventUpdateManyInput
+  boringEvents: EventUpdateManyInput
+  lastInteraction: DateTime
+  messengerNotifications: Notification
+}
+
+input UserUpdateManyMutationInput {
+  facebookid: String
+  fname: String
+  lname: String
+  picture: String
+  email: String
+  password: String
+  sex: Sex
+  age: Int
+  city: City
+  permissions: UserUpdatepermissionsInput
+  relationship: Relationship
+  lastInteraction: DateTime
+  messengerNotifications: Notification
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdatepermissionsInput {
+  set: [Permission!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  facebookid: String
+  facebookid_not: String
+  facebookid_in: [String!]
+  facebookid_not_in: [String!]
+  facebookid_lt: String
+  facebookid_lte: String
+  facebookid_gt: String
+  facebookid_gte: String
+  facebookid_contains: String
+  facebookid_not_contains: String
+  facebookid_starts_with: String
+  facebookid_not_starts_with: String
+  facebookid_ends_with: String
+  facebookid_not_ends_with: String
+  fname: String
+  fname_not: String
+  fname_in: [String!]
+  fname_not_in: [String!]
+  fname_lt: String
+  fname_lte: String
+  fname_gt: String
+  fname_gte: String
+  fname_contains: String
+  fname_not_contains: String
+  fname_starts_with: String
+  fname_not_starts_with: String
+  fname_ends_with: String
+  fname_not_ends_with: String
+  lname: String
+  lname_not: String
+  lname_in: [String!]
+  lname_not_in: [String!]
+  lname_lt: String
+  lname_lte: String
+  lname_gt: String
+  lname_gte: String
+  lname_contains: String
+  lname_not_contains: String
+  lname_starts_with: String
+  lname_not_starts_with: String
+  lname_ends_with: String
+  lname_not_ends_with: String
+  picture: String
+  picture_not: String
+  picture_in: [String!]
+  picture_not_in: [String!]
+  picture_lt: String
+  picture_lte: String
+  picture_gt: String
+  picture_gte: String
+  picture_contains: String
+  picture_not_contains: String
+  picture_starts_with: String
+  picture_not_starts_with: String
+  picture_ends_with: String
+  picture_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  sex: Sex
+  sex_not: Sex
+  sex_in: [Sex!]
+  sex_not_in: [Sex!]
+  age: Int
+  age_not: Int
+  age_in: [Int!]
+  age_not_in: [Int!]
+  age_lt: Int
+  age_lte: Int
+  age_gt: Int
+  age_gte: Int
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  relationship: Relationship
+  relationship_not: Relationship
+  relationship_in: [Relationship!]
+  relationship_not_in: [Relationship!]
+  suggestedEvents_every: EventWhereInput
+  suggestedEvents_some: EventWhereInput
+  suggestedEvents_none: EventWhereInput
+  interestedEvents_every: EventWhereInput
+  interestedEvents_some: EventWhereInput
+  interestedEvents_none: EventWhereInput
+  boringEvents_every: EventWhereInput
+  boringEvents_some: EventWhereInput
+  boringEvents_none: EventWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  lastInteraction: DateTime
+  lastInteraction_not: DateTime
+  lastInteraction_in: [DateTime!]
+  lastInteraction_not_in: [DateTime!]
+  lastInteraction_lt: DateTime
+  lastInteraction_lte: DateTime
+  lastInteraction_gt: DateTime
+  lastInteraction_gte: DateTime
+  messengerNotifications: Notification
+  messengerNotifications_not: Notification
+  messengerNotifications_in: [Notification!]
+  messengerNotifications_not_in: [Notification!]
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  facebookid: String
+  email: String
+}
+
+type Venue {
+  id: ID!
+  nameFr: String!
+  nameEn: String!
+  lat: Float!
+  long: Float!
+  address: String
+  city: City!
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  possibleDuplicate: Boolean
+}
+
+type VenueConnection {
+  pageInfo: PageInfo!
+  edges: [VenueEdge]!
+  aggregate: AggregateVenue!
+}
+
+input VenueCreateInput {
+  id: ID
+  nameFr: String!
+  nameEn: String!
+  lat: Float!
+  long: Float!
+  address: String
+  city: City!
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  events: EventCreateManyWithoutVenueInput
+  possibleDuplicate: Boolean
+}
+
+input VenueCreateOneWithoutEventsInput {
+  create: VenueCreateWithoutEventsInput
+  connect: VenueWhereUniqueInput
+}
+
+input VenueCreateWithoutEventsInput {
+  id: ID
+  nameFr: String!
+  nameEn: String!
+  lat: Float!
+  long: Float!
+  address: String
+  city: City!
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+}
+
+type VenueEdge {
+  node: Venue!
+  cursor: String!
+}
+
+enum VenueOrderByInput {
+  id_ASC
+  id_DESC
+  nameFr_ASC
+  nameFr_DESC
+  nameEn_ASC
+  nameEn_DESC
+  lat_ASC
+  lat_DESC
+  long_ASC
+  long_DESC
+  address_ASC
+  address_DESC
+  city_ASC
+  city_DESC
+  state_ASC
+  state_DESC
+  zip_ASC
+  zip_DESC
+  country_ASC
+  country_DESC
+  url_ASC
+  url_DESC
+  wpFrId_ASC
+  wpFrId_DESC
+  wpEnId_ASC
+  wpEnId_DESC
+  possibleDuplicate_ASC
+  possibleDuplicate_DESC
+}
+
+type VenuePreviousValues {
+  id: ID!
+  nameFr: String!
+  nameEn: String!
+  lat: Float!
+  long: Float!
+  address: String
+  city: City!
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+}
+
+type VenueSubscriptionPayload {
+  mutation: MutationType!
+  node: Venue
+  updatedFields: [String!]
+  previousValues: VenuePreviousValues
+}
+
+input VenueSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VenueWhereInput
+  AND: [VenueSubscriptionWhereInput!]
+  OR: [VenueSubscriptionWhereInput!]
+  NOT: [VenueSubscriptionWhereInput!]
+}
+
+input VenueUpdateInput {
+  nameFr: String
+  nameEn: String
+  lat: Float
+  long: Float
+  address: String
+  city: City
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  events: EventUpdateManyWithoutVenueInput
+  possibleDuplicate: Boolean
+}
+
+input VenueUpdateManyMutationInput {
+  nameFr: String
+  nameEn: String
+  lat: Float
+  long: Float
+  address: String
+  city: City
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+}
+
+input VenueUpdateOneWithoutEventsInput {
+  create: VenueCreateWithoutEventsInput
+  update: VenueUpdateWithoutEventsDataInput
+  upsert: VenueUpsertWithoutEventsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: VenueWhereUniqueInput
+}
+
+input VenueUpdateWithoutEventsDataInput {
+  nameFr: String
+  nameEn: String
+  lat: Float
+  long: Float
+  address: String
+  city: City
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+}
+
+input VenueUpsertWithoutEventsInput {
+  update: VenueUpdateWithoutEventsDataInput!
+  create: VenueCreateWithoutEventsInput!
+}
+
+input VenueWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  nameFr: String
+  nameFr_not: String
+  nameFr_in: [String!]
+  nameFr_not_in: [String!]
+  nameFr_lt: String
+  nameFr_lte: String
+  nameFr_gt: String
+  nameFr_gte: String
+  nameFr_contains: String
+  nameFr_not_contains: String
+  nameFr_starts_with: String
+  nameFr_not_starts_with: String
+  nameFr_ends_with: String
+  nameFr_not_ends_with: String
+  nameEn: String
+  nameEn_not: String
+  nameEn_in: [String!]
+  nameEn_not_in: [String!]
+  nameEn_lt: String
+  nameEn_lte: String
+  nameEn_gt: String
+  nameEn_gte: String
+  nameEn_contains: String
+  nameEn_not_contains: String
+  nameEn_starts_with: String
+  nameEn_not_starts_with: String
+  nameEn_ends_with: String
+  nameEn_not_ends_with: String
+  lat: Float
+  lat_not: Float
+  lat_in: [Float!]
+  lat_not_in: [Float!]
+  lat_lt: Float
+  lat_lte: Float
+  lat_gt: Float
+  lat_gte: Float
+  long: Float
+  long_not: Float
+  long_in: [Float!]
+  long_not_in: [Float!]
+  long_lt: Float
+  long_lte: Float
+  long_gt: Float
+  long_gte: Float
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  state: String
+  state_not: String
+  state_in: [String!]
+  state_not_in: [String!]
+  state_lt: String
+  state_lte: String
+  state_gt: String
+  state_gte: String
+  state_contains: String
+  state_not_contains: String
+  state_starts_with: String
+  state_not_starts_with: String
+  state_ends_with: String
+  state_not_ends_with: String
+  zip: String
+  zip_not: String
+  zip_in: [String!]
+  zip_not_in: [String!]
+  zip_lt: String
+  zip_lte: String
+  zip_gt: String
+  zip_gte: String
+  zip_contains: String
+  zip_not_contains: String
+  zip_starts_with: String
+  zip_not_starts_with: String
+  zip_ends_with: String
+  zip_not_ends_with: String
+  country: String
+  country_not: String
+  country_in: [String!]
+  country_not_in: [String!]
+  country_lt: String
+  country_lte: String
+  country_gt: String
+  country_gte: String
+  country_contains: String
+  country_not_contains: String
+  country_starts_with: String
+  country_not_starts_with: String
+  country_ends_with: String
+  country_not_ends_with: String
+  url: String
+  url_not: String
+  url_in: [String!]
+  url_not_in: [String!]
+  url_lt: String
+  url_lte: String
+  url_gt: String
+  url_gte: String
+  url_contains: String
+  url_not_contains: String
+  url_starts_with: String
+  url_not_starts_with: String
+  url_ends_with: String
+  url_not_ends_with: String
+  wpFrId: Int
+  wpFrId_not: Int
+  wpFrId_in: [Int!]
+  wpFrId_not_in: [Int!]
+  wpFrId_lt: Int
+  wpFrId_lte: Int
+  wpFrId_gt: Int
+  wpFrId_gte: Int
+  wpEnId: Int
+  wpEnId_not: Int
+  wpEnId_in: [Int!]
+  wpEnId_not_in: [Int!]
+  wpEnId_lt: Int
+  wpEnId_lte: Int
+  wpEnId_gt: Int
+  wpEnId_gte: Int
+  events_every: EventWhereInput
+  events_some: EventWhereInput
+  events_none: EventWhereInput
+  possibleDuplicate: Boolean
+  possibleDuplicate_not: Boolean
+  AND: [VenueWhereInput!]
+  OR: [VenueWhereInput!]
+  NOT: [VenueWhereInput!]
+}
+
+input VenueWhereUniqueInput {
+  id: ID
+  nameFr: String
+  nameEn: String
+}

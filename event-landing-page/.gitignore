@@ -1,0 +1,7 @@
+node_modules
+.next
+build
+out
+.DS_Store
+*/.DS_Store
+*/**/.DS_Store

@@ -1,0 +1,5 @@
+variables.env
+node_modules
+.DS_Store
+*.csv
+src/migrations

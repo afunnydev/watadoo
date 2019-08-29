@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+$orange: #f98615;
+$blue: #3de9f3;
+$yellow: #ffb300;
+
+@import "../../node_modules/react-datepicker/src/stylesheets/datepicker.scss";
+@import "../../node_modules/bulma/bulma.sass";
+@import "../../node_modules/react-toastify/scss/main.scss";
+@import "./nprogress.scss";
+
+html {
+  box-sizing: border-box;
+  font-size: 15px;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 2;
+  font-family: "Raleway",sans-serif;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+h1, h2, h3 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+h1 {
+  font-size: 26px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 22px;
+}
+a.button {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 1rem;
+  font-family: inherit;
+  padding: 1em 1.25em;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: background-color .25s ease-out,color .25s ease-out;
+  font-size: 16px;
+  line-height: 4px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: auto;
+  z-index: 100;
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  background-color: #ffb300;
+}
+
+/* Bulma Customization */
+
+/* DatePicker Customization */
+.react-datepicker-wrapper, .react-datepicker__input-container {
+  display: block;
+}

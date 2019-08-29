@@ -1,0 +1,18 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+datamodel: datamodel.prisma
+secret: ${env:PRISMA_SECRET}
+
+generate:
+  - generator: javascript-client
+    output: ../watadoo-bot/src/generated/prisma-client/
+  - generator: graphql-schema
+    output: ../watadoo-bot/src/generated/prisma.graphql
+  - generator: go-client
+    output: ../watadoo-backend/internal/generated/prisma-client/
+  - generator: graphql-schema
+    output: ../watadoo-backend/internal/generated/prisma.graphql
+
+# hooks:
+#   post-deploy:
+#     - prisma generate
+

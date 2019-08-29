@@ -1,0 +1,151 @@
+enum Permission {
+  USER
+  MANAGEEVENT
+  ADMIN
+}
+
+enum City {
+  GATINEAU
+  OTTAWA
+  MONTREAL
+  QUEBEC
+  TORONTO
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Relationship {
+  COUPLE
+  SINGLE
+  MARRIED
+  OTHER
+  NONE
+}
+
+enum EventType {
+  CORPO
+  SPORTS
+  LEARN
+  MEET
+  THEATRE
+  MUSIC
+  PARTY
+  HUMOR
+  MUSEUMS
+  CHARITY
+  OTHER
+}
+
+enum Notification {
+  ANYTIME
+  WEEKLY
+  BIWEEKLY
+  MONTHLY
+  NEVER
+}
+
+type User {
+  id: ID! @id
+  facebookid: String @unique 
+  fname: String
+  lname: String
+  picture: String
+  email: String @unique
+  password: String
+  sex: Sex
+  age: Int
+  city: City
+  permissions: [Permission] @scalarList(strategy: RELATION)
+  relationship: Relationship
+  suggestedEvents: [Event]! @relation(name: "SuggestedEvents", link: TABLE)
+  interestedEvents: [Event]! @relation(name: "InterestedEvents", link: TABLE)
+  boringEvents: [Event]! @relation(name: "BoringEvents", link: TABLE)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  lastInteraction: DateTime!
+  messengerNotifications: Notification! @default(value: NEVER)
+}
+
+type Event {
+  id: ID! @id
+  name: String!
+  description: String
+  shortDescription: String
+  link: String!
+  imageUrl: String! @default(value: "https://watadoo.ca/wp-content/uploads/2019/03/watadoo-icon.jpg")
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: Venue @relation(name: "EventVenue", link: TABLE)
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean! @default(value: false)
+  importNotes: String
+  isRecurring: Boolean! @default(value: false)
+  recurrencePattern: String
+  occurrencesAreUnique: Boolean! @default(value: false)
+  occurrences: [EventOccurrence] @relation(name: "EventOccurrences", link: TABLE, onDelete: CASCADE)
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+}
+
+type EventOccurrence {
+  id: ID! @id
+  name: String!
+  description: String! @default(value: "Aucune information disponible à propos de cet événement.")
+  imageUrl: String! @default(value: "https://watadoo.ca/wp-content/uploads/2019/03/watadoo-icon.jpg")
+  startDate: DateTime!
+  endDate: DateTime
+  lat: Float!
+  long: Float!
+  price: Int
+  city: City!
+  ticketUrl: String
+  event: Event! @relation(name: "EventOccurrences")
+  createdAt: DateTime! @createdAt
+}
+
+type Venue {
+  id: ID! @id
+  nameFr: String! @unique
+  nameEn: String! @unique
+  lat: Float!
+  long: Float!
+  address: String
+  city: City!
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  events: [Event] @relation(name: "EventVenue")
+  possibleDuplicate: Boolean @default(value: false)
+}
+
+type RequestedCity {
+  id: ID! @id
+  city: String!
+  user: User @relation(name: "UserRequestingCity", link: INLINE)
+  sendEmail: Boolean! @default(value: false)
+}
+
+type Search {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  city: City!
+  startDate: DateTime!
+  endDate: DateTime!
+  info: String
+  suggested: Int! @default(value: 0)
+  user: User @relation(name: "UserSearch", link: TABLE)
+  events: [Event] @relation(name: "SearchEvents", link: TABLE)
+  eventOccurrences: [EventOccurrence] @relation(name: "SearchEventOccurences", link: TABLE)
+}

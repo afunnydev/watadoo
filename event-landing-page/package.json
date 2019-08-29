@@ -1,0 +1,93 @@
+{
+  "name": "event-landing-page",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "deploy": "npm run build && npm run export"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "apollo-boost": "^0.3.1",
+    "babel-plugin-styled-components": "^1.10.0",
+    "bloomer": "^0.6.5",
+    "bulma": "^0.7.4",
+    "graphql": "^14.3.0",
+    "next": "^8.1.0",
+    "next-with-apollo": "^3.4.0",
+    "node-sass": "^4.12.0",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.2.0",
+    "url-search-params-polyfill": "^6.0.0",
+    "webpack": "^4.31.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.13.0"
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "production": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "preset-env": {
+                "modules": "commonjs"
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      }
+    }
+  }
+}

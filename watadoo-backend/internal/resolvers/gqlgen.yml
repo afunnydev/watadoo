@@ -1,0 +1,48 @@
+# .gqlgen.yml example
+#
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+  - schema.graphql
+exec:
+  filename: generated.go
+  package: resolvers
+models:
+  User:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.User
+  Event:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.Event
+  Venue:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.Venue
+  City:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.City
+  Permission:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.Permission
+  EventUpdateInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventUpdateInput
+  VenueUpdateOneWithoutEventsInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.VenueUpdateOneWithoutEventsInput
+  VenueWhereUniqueInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.VenueWhereUniqueInput
+  VenueUpdateInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.VenueUpdateInput
+  EventOccurrence:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventOccurrence
+  EventOccurrenceCreateWithoutEventInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventOccurrenceCreateWithoutEventInput
+  EventOccurrenceWhereUniqueInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventOccurrenceWhereUniqueInput
+  EventOccurrenceUpdateWithoutEventDataInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventOccurrenceUpdateWithoutEventDataInput
+  EventOccurrenceUpdateWithWhereUniqueWithoutEventInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventOccurrenceUpdateWithWhereUniqueWithoutEventInput
+  EventOccurrenceUpdateManyWithoutEventInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventOccurrenceUpdateManyWithoutEventInput
+  EventOccurrenceScalarWhereInput:
+    model: github.com/afunnydev/watadoo-backend/internal/generated/prisma-client.EventOccurrenceScalarWhereInput
+resolver:
+  # goal: You can copy past from the generated file if needed
+  filename: tmp/resolver.go
+  type: Resolver
+autobind: []

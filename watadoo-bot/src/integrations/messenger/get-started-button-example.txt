@@ -1,0 +1,6 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+    "get_started": {
+        "payload":"Salut"
+    }
+}' "https://graph.facebook.com/v3.3/me/messenger_profile?access_token=<PAGE_ACCESS_TOKEN>"
+

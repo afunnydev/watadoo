@@ -1,0 +1,193 @@
+scalar DateTime
+
+enum Permission {
+  USER
+  MANAGEEVENT
+  ADMIN
+}
+
+enum City {
+  GATINEAU
+  OTTAWA
+  MONTREAL
+  QUEBEC
+}
+
+input VenueWhereUniqueInput {
+  id: ID
+  nameFr: String
+  nameEn: String
+}
+
+input VenueUpdateOneWithoutEventsInput {
+  connect: VenueWhereUniqueInput
+}
+
+input EventOccurrenceCreateWithoutEventInput {
+  id: ID
+  name: String!
+  description: String
+  imageUrl: String
+  startDate: DateTime!
+  endDate: DateTime
+  lat: Float!
+  long: Float!
+  price: Int
+  city: City!
+  ticketUrl: String
+}
+
+input EventOccurrenceWhereUniqueInput {
+  id: ID
+}
+
+input EventOccurrenceUpdateWithoutEventDataInput {
+  name: String
+  description: String
+  imageUrl: String
+  startDate: DateTime
+  endDate: DateTime
+  lat: Float
+  long: Float
+  price: Int
+  city: City
+  ticketUrl: String
+}
+
+input EventOccurrenceScalarWhereInput {
+  id_not: ID
+  createdAt_lt: DateTime
+}
+
+input EventOccurrenceUpdateWithWhereUniqueWithoutEventInput {
+  where: EventOccurrenceWhereUniqueInput!
+  data: EventOccurrenceUpdateWithoutEventDataInput!
+}
+
+input EventOccurrenceUpdateManyWithoutEventInput {
+  create: [EventOccurrenceCreateWithoutEventInput!]
+  delete: [EventOccurrenceWhereUniqueInput!]
+  update: [EventOccurrenceUpdateWithWhereUniqueWithoutEventInput!]
+  deleteMany: [EventOccurrenceScalarWhereInput!]
+}
+
+input EventUpdateInput {
+  name: String
+  description: String
+  shortDescription: String
+  link: String
+  imageUrl: String
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: VenueUpdateOneWithoutEventsInput
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  occurrencesAreUnique: Boolean
+  isRecurring: Boolean
+  recurrencePattern: String
+  occurrences: EventOccurrenceUpdateManyWithoutEventInput
+}
+
+input VenueUpdateInput {
+  nameFr: String
+  nameEn: String
+  lat: Float
+  long: Float
+  address: String
+  city: City
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+}
+
+type User {
+  id: ID!
+  facebookid: String 
+  fname: String
+  email: String
+  password: String
+  permissions: [Permission]
+}
+
+type Event {
+  id: ID!
+  name: String!
+  description: String
+  shortDescription: String
+  link: String!
+  imageUrl: String!
+  nextOccurrenceDate: DateTime
+  price: Int
+  venue: Venue
+  type: String
+  tags: String
+  ticketUrl: String
+  source: String
+  wpFrId: Int
+  wpEnId: Int
+  possibleDuplicate: Boolean
+  importNotes: String
+  occurrencesAreUnique: Boolean!
+  isRecurring: Boolean!
+  recurrencePattern: String
+  occurrences: [EventOccurrence]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type EventOccurrence {
+  id: ID!
+  name: String!
+  description: String!
+  imageUrl: String!
+  startDate: DateTime!
+  endDate: DateTime
+  lat: Float!
+  long: Float!
+  price: Int
+  city: City!
+  ticketUrl: String
+}
+
+type Venue {
+  id: ID!
+  nameFr: String!
+  nameEn: String!
+  lat: Float!
+  long: Float!
+  address: String
+  city: City!
+  state: String
+  zip: String
+  country: String
+  url: String
+  wpFrId: Int
+  wpEnId: Int
+  events: [Event]
+  possibleDuplicate: Boolean
+}
+
+type Mutation {
+  signIn(email: String!, password: String!): User
+  updateEvent(eventId: ID!, event: EventUpdateInput!): Event
+  updateVenue(venueId: ID!, venue: VenueUpdateInput!): Venue
+  createEvent(name: String!): Event
+  createVenue(name: String!): Venue
+}
+
+type Query {
+  event(id: ID!): Event
+  venue(id: ID!): Venue
+  events(withoutOccurrence: Boolean!): [Event]
+  venues: [Venue]
+}

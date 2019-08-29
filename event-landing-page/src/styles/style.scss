@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+$orange: #f98615;
+$blue: #3de9f3;
+$yellow: #ffb300;
+
+@import "../../node_modules/bulma/bulma.sass";
+@import "./nprogress.scss";
+
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 2;
+  font-family: "Raleway",sans-serif;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+a.button {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 1rem;
+  font-family: inherit;
+  padding: 1em 1.25em;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: background-color .25s ease-out,color .25s ease-out;
+  font-size: 16px;
+  line-height: 4px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: auto;
+  z-index: 100;
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  background-color: #ffb300;
+}

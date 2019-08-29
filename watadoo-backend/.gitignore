@@ -1,0 +1,8 @@
+.env
+*.env
+cache
+output
+internal/resolvers/tmp
+cmd/automation/*_cache
+cmd/automation/output
+.DS_Store

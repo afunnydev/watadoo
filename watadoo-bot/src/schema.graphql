@@ -1,0 +1,13 @@
+# import * from './generated/prisma.graphql'
+
+type Message {
+  message: String!
+}
+
+type Mutation {
+  saveSeenEvent(eventId: ID!, userId: ID!): User
+}
+
+type Query {
+  event(id: ID!): Event
+}
