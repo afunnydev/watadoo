@@ -5,7 +5,7 @@ package resolvers
 import (
 	"context"
 
-	"github.com/afunnydev/watadoo-backend/internal/generated/prisma-client"
+	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
 )
 
 // THIS CODE IS A STARTING POINT ONLY. IT WILL NOT BE UPDATED WITH SCHEMA CHANGES.

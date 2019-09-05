@@ -1,14 +1,17 @@
 package scraper
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
+	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/gocolly/colly"
 
-	"github.com/afunnydev/watadoo-backend/pkg/scraper/models"
+	"github.com/afunnydev/watadoo/watadoo-backend/pkg/scraper/models"
 )
 
 func newCollector(domain string) *colly.Collector {
@@ -81,4 +84,79 @@ func FetchListPage(spider models.Spider) ([]models.Event, error) {
 	}
 
 	return events, nil
+}
+
+type toResponse struct {
+	Data    Data `json:"data"`
+	Success bool `json:"success"`
+}
+
+type Data struct {
+	CurrentPage int      `json:"currentPage"`
+	More        bool     `json:"more"`
+	Items       []string `json:"items"`
+	PageCount   int      `json:"pageCount"`
+	PageSize    int      `json:"pageSize"`
+	TotalCount  int      `json:"totalCount"`
+}
+
+// FetchTourismeOutaouais gets the events from the Tourisme Outaouais site.
+func FetchTourismeOutaouais() ([]models.Event, error) {
+	c := newCollector("tourismeoutaouais.com")
+
+	var events []models.Event
+
+	URL := "https://www.tourismeoutaouais.com/wp-admin/admin-ajax.php?_t=1567102613418&lang=fr&isajax=1&action=things-todo-widget-grid"
+	var response toResponse
+
+	c.OnResponse(func(r *colly.Response) {
+		json.Unmarshal(r.Body, &response)
+	})
+
+	err := c.Post(URL, generatePostData("0"))
+
+	if err != nil {
+		fmt.Println(err)
+		return events, err
+	}
+
+	totalPages := response.Data.PageCount
+	re := regexp.MustCompile(`https:\/\/www.tourismeoutaouais.com\/evenements\/(\w+-?)+`)
+	eventDetailCollector := c.Clone()
+	spider := models.GetTourismeOutaouaisSpider()
+
+	eventDetailCollector.OnHTML(spider.EventDetailsContainerSelector, func(e *colly.HTMLElement) {
+		event := extractEvent(e, spider)
+		if event.Name != "" {
+			events = append(events, event)
+		}
+	})
+
+	eventDetailCollector.OnRequest(func(r *colly.Request) {
+		fmt.Println("Visiting: ", r.URL)
+	})
+
+	eventDetailCollector.OnError(func(r *colly.Response, err error) {
+		log.Println("Request URL:", r.Request.URL, "failed with response: Error:", err)
+	})
+
+	for i := 0; i < totalPages+1; i++ {
+		_ = c.Post(URL, generatePostData(strconv.Itoa(i)))
+		if response.Success {
+			for _, post := range response.Data.Items {
+				eventDetailCollector.Visit(re.FindString(post))
+			}
+		}
+	}
+
+	return events, nil
+}
+
+func generatePostData(page string) map[string]string {
+	return map[string]string{
+		"page":   page,
+		"period": "yearround",
+		"type":   "event",
+		"isHome": "false",
+	}
 }

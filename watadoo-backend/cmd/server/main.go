@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/99designs/gqlgen/handler"
 	"github.com/go-chi/chi"
 	"github.com/joho/godotenv"
 	"github.com/rs/cors"
-	"github.com/99designs/gqlgen/handler"
 
-	"github.com/afunnydev/watadoo-backend/pkg/auth"
-	prisma "github.com/afunnydev/watadoo-backend/internal/generated/prisma-client"
-	"github.com/afunnydev/watadoo-backend/internal/resolvers"
+	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
+	"github.com/afunnydev/watadoo/watadoo-backend/internal/resolvers"
+	"github.com/afunnydev/watadoo/watadoo-backend/pkg/auth"
 )
 
 const defaultPort = "8080"
@@ -47,7 +47,11 @@ func main() {
 
 	router := chi.NewRouter()
 	router.Use(cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000", "https://epic-mirzakhani-6e1302.netlify.com"},
+		AllowedOrigins: []string{
+			"http://localhost:3000",
+			"https://epic-mirzakhani-6e1302.netlify.com",
+			"https://manager.watadoo.ca",
+		},
 		AllowCredentials: true,
 		Debug:            false,
 	}).Handler)

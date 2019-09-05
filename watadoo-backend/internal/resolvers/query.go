@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/afunnydev/watadoo-backend/internal/generated/prisma-client"
-	"github.com/afunnydev/watadoo-backend/pkg/auth"
+	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
+	"github.com/afunnydev/watadoo/watadoo-backend/pkg/auth"
 )
 
 type queryResolver struct{ *Resolver }

@@ -10,8 +10,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/afunnydev/watadoo-backend/internal/generated/prisma-client"
-	"github.com/afunnydev/watadoo-backend/pkg/auth"
+	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
+	"github.com/afunnydev/watadoo/watadoo-backend/pkg/auth"
 )
 
 type mutationResolver struct{ *Resolver }

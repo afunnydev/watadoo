@@ -12,7 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/afunnydev/watadoo-backend/internal/generated/prisma-client"
+	"github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
 	"github.com/vektah/gqlparser"
 	"github.com/vektah/gqlparser/ast"
 )
@@ -977,7 +977,7 @@ func (ec *executionContext) field_Mutation_updateEvent_args(ctx context.Context,
 	args["eventId"] = arg0
 	var arg1 prisma.EventUpdateInput
 	if tmp, ok := rawArgs["event"]; ok {
-		arg1, err = ec.unmarshalNEventUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventUpdateInput(ctx, tmp)
+		arg1, err = ec.unmarshalNEventUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventUpdateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -999,7 +999,7 @@ func (ec *executionContext) field_Mutation_updateVenue_args(ctx context.Context,
 	args["venueId"] = arg0
 	var arg1 prisma.VenueUpdateInput
 	if tmp, ok := rawArgs["venue"]; ok {
-		arg1, err = ec.unmarshalNVenueUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateInput(ctx, tmp)
+		arg1, err = ec.unmarshalNVenueUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1415,7 +1415,7 @@ func (ec *executionContext) _Event_venue(ctx context.Context, field graphql.Coll
 	res := resTmp.(*prisma.Venue)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
+	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Event_type(ctx context.Context, field graphql.CollectedField, obj *prisma.Event) (ret graphql.Marshaler) {
@@ -1829,7 +1829,7 @@ func (ec *executionContext) _Event_occurrences(ctx context.Context, field graphq
 	res := resTmp.([]*prisma.EventOccurrence)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOEventOccurrence2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx, field.Selections, res)
+	return ec.marshalOEventOccurrence2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Event_createdAt(ctx context.Context, field graphql.CollectedField, obj *prisma.Event) (ret graphql.Marshaler) {
@@ -2261,7 +2261,7 @@ func (ec *executionContext) _EventOccurrence_city(ctx context.Context, field gra
 	res := resTmp.(prisma.City)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, field.Selections, res)
+	return ec.marshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _EventOccurrence_ticketUrl(ctx context.Context, field graphql.CollectedField, obj *prisma.EventOccurrence) (ret graphql.Marshaler) {
@@ -2336,7 +2336,7 @@ func (ec *executionContext) _Mutation_signIn(ctx context.Context, field graphql.
 	res := resTmp.(*prisma.User)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOUser2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateEvent(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2377,7 +2377,7 @@ func (ec *executionContext) _Mutation_updateEvent(ctx context.Context, field gra
 	res := resTmp.(*prisma.Event)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
+	return ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateVenue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2418,7 +2418,7 @@ func (ec *executionContext) _Mutation_updateVenue(ctx context.Context, field gra
 	res := resTmp.(*prisma.Venue)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
+	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createEvent(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2459,7 +2459,7 @@ func (ec *executionContext) _Mutation_createEvent(ctx context.Context, field gra
 	res := resTmp.(*prisma.Event)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
+	return ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createVenue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2500,7 +2500,7 @@ func (ec *executionContext) _Mutation_createVenue(ctx context.Context, field gra
 	res := resTmp.(*prisma.Venue)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
+	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_event(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2541,7 +2541,7 @@ func (ec *executionContext) _Query_event(ctx context.Context, field graphql.Coll
 	res := resTmp.(*prisma.Event)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
+	return ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_venue(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2582,7 +2582,7 @@ func (ec *executionContext) _Query_venue(ctx context.Context, field graphql.Coll
 	res := resTmp.(*prisma.Venue)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
+	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_events(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2623,7 +2623,7 @@ func (ec *executionContext) _Query_events(ctx context.Context, field graphql.Col
 	res := resTmp.([]*prisma.Event)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
+	return ec.marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_venues(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2657,7 +2657,7 @@ func (ec *executionContext) _Query_venues(ctx context.Context, field graphql.Col
 	res := resTmp.([]*prisma.Venue)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
+	return ec.marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2939,7 +2939,7 @@ func (ec *executionContext) _User_permissions(ctx context.Context, field graphql
 	res := resTmp.([]prisma.Permission)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx, field.Selections, res)
+	return ec.marshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_id(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -3195,7 +3195,7 @@ func (ec *executionContext) _Venue_city(ctx context.Context, field graphql.Colle
 	res := resTmp.(prisma.City)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, field.Selections, res)
+	return ec.marshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_state(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -3433,7 +3433,7 @@ func (ec *executionContext) _Venue_events(ctx context.Context, field graphql.Col
 	res := resTmp.([]*prisma.Event)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
+	return ec.marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_possibleDuplicate(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -4683,7 +4683,7 @@ func (ec *executionContext) unmarshalInputEventOccurrenceCreateWithoutEventInput
 			}
 		case "city":
 			var err error
-			it.City, err = ec.unmarshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			it.City, err = ec.unmarshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4731,25 +4731,25 @@ func (ec *executionContext) unmarshalInputEventOccurrenceUpdateManyWithoutEventI
 		switch k {
 		case "create":
 			var err error
-			it.Create, err = ec.unmarshalOEventOccurrenceCreateWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx, v)
+			it.Create, err = ec.unmarshalOEventOccurrenceCreateWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
 		case "delete":
 			var err error
-			it.Delete, err = ec.unmarshalOEventOccurrenceWhereUniqueInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx, v)
+			it.Delete, err = ec.unmarshalOEventOccurrenceWhereUniqueInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
 		case "update":
 			var err error
-			it.Update, err = ec.unmarshalOEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx, v)
+			it.Update, err = ec.unmarshalOEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
 		case "deleteMany":
 			var err error
-			it.DeleteMany, err = ec.unmarshalOEventOccurrenceScalarWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx, v)
+			it.DeleteMany, err = ec.unmarshalOEventOccurrenceScalarWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4767,13 +4767,13 @@ func (ec *executionContext) unmarshalInputEventOccurrenceUpdateWithWhereUniqueWi
 		switch k {
 		case "where":
 			var err error
-			it.Where, err = ec.unmarshalNEventOccurrenceWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx, v)
+			it.Where, err = ec.unmarshalNEventOccurrenceWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
 		case "data":
 			var err error
-			it.Data, err = ec.unmarshalNEventOccurrenceUpdateWithoutEventDataInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithoutEventDataInput(ctx, v)
+			it.Data, err = ec.unmarshalNEventOccurrenceUpdateWithoutEventDataInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithoutEventDataInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4839,7 +4839,7 @@ func (ec *executionContext) unmarshalInputEventOccurrenceUpdateWithoutEventDataI
 			}
 		case "city":
 			var err error
-			it.City, err = ec.unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			it.City, err = ec.unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4923,7 +4923,7 @@ func (ec *executionContext) unmarshalInputEventUpdateInput(ctx context.Context, 
 			}
 		case "venue":
 			var err error
-			it.Venue, err = ec.unmarshalOVenueUpdateOneWithoutEventsInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx, v)
+			it.Venue, err = ec.unmarshalOVenueUpdateOneWithoutEventsInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -4995,7 +4995,7 @@ func (ec *executionContext) unmarshalInputEventUpdateInput(ctx context.Context, 
 			}
 		case "occurrences":
 			var err error
-			it.Occurrences, err = ec.unmarshalOEventOccurrenceUpdateManyWithoutEventInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx, v)
+			it.Occurrences, err = ec.unmarshalOEventOccurrenceUpdateManyWithoutEventInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -5043,7 +5043,7 @@ func (ec *executionContext) unmarshalInputVenueUpdateInput(ctx context.Context, 
 			}
 		case "city":
 			var err error
-			it.City, err = ec.unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			it.City, err = ec.unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -5103,7 +5103,7 @@ func (ec *executionContext) unmarshalInputVenueUpdateOneWithoutEventsInput(ctx c
 		switch k {
 		case "connect":
 			var err error
-			it.Connect, err = ec.unmarshalOVenueWhereUniqueInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx, v)
+			it.Connect, err = ec.unmarshalOVenueWhereUniqueInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -5808,12 +5808,12 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, v interface{}) (prisma.City, error) {
+func (ec *executionContext) unmarshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, v interface{}) (prisma.City, error) {
 	tmp, err := graphql.UnmarshalString(v)
 	return prisma.City(tmp), err
 }
 
-func (ec *executionContext) marshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, sel ast.SelectionSet, v prisma.City) graphql.Marshaler {
+func (ec *executionContext) marshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, sel ast.SelectionSet, v prisma.City) graphql.Marshaler {
 	res := graphql.MarshalString(string(v))
 	if res == graphql.Null {
 		if !ec.HasError(graphql.GetResolverContext(ctx)) {
@@ -5837,27 +5837,27 @@ func (ec *executionContext) marshalNDateTime2string(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) unmarshalNEventOccurrenceCreateWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceCreateWithoutEventInput, error) {
+func (ec *executionContext) unmarshalNEventOccurrenceCreateWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceCreateWithoutEventInput, error) {
 	return ec.unmarshalInputEventOccurrenceCreateWithoutEventInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNEventOccurrenceScalarWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceScalarWhereInput, error) {
+func (ec *executionContext) unmarshalNEventOccurrenceScalarWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceScalarWhereInput, error) {
 	return ec.unmarshalInputEventOccurrenceScalarWhereInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceUpdateWithWhereUniqueWithoutEventInput, error) {
+func (ec *executionContext) unmarshalNEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceUpdateWithWhereUniqueWithoutEventInput, error) {
 	return ec.unmarshalInputEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNEventOccurrenceUpdateWithoutEventDataInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithoutEventDataInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceUpdateWithoutEventDataInput, error) {
+func (ec *executionContext) unmarshalNEventOccurrenceUpdateWithoutEventDataInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithoutEventDataInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceUpdateWithoutEventDataInput, error) {
 	return ec.unmarshalInputEventOccurrenceUpdateWithoutEventDataInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNEventOccurrenceWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceWhereUniqueInput, error) {
+func (ec *executionContext) unmarshalNEventOccurrenceWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceWhereUniqueInput, error) {
 	return ec.unmarshalInputEventOccurrenceWhereUniqueInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalNEventUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventUpdateInput(ctx context.Context, v interface{}) (prisma.EventUpdateInput, error) {
+func (ec *executionContext) unmarshalNEventUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventUpdateInput(ctx context.Context, v interface{}) (prisma.EventUpdateInput, error) {
 	return ec.unmarshalInputEventUpdateInput(ctx, v)
 }
 
@@ -5903,7 +5903,7 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) unmarshalNVenueUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateInput(ctx context.Context, v interface{}) (prisma.VenueUpdateInput, error) {
+func (ec *executionContext) unmarshalNVenueUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateInput(ctx context.Context, v interface{}) (prisma.VenueUpdateInput, error) {
 	return ec.unmarshalInputVenueUpdateInput(ctx, v)
 }
 
@@ -6156,28 +6156,28 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return ec.marshalOBoolean2bool(ctx, sel, *v)
 }
 
-func (ec *executionContext) unmarshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, v interface{}) (prisma.City, error) {
+func (ec *executionContext) unmarshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, v interface{}) (prisma.City, error) {
 	tmp, err := graphql.UnmarshalString(v)
 	return prisma.City(tmp), err
 }
 
-func (ec *executionContext) marshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, sel ast.SelectionSet, v prisma.City) graphql.Marshaler {
+func (ec *executionContext) marshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, sel ast.SelectionSet, v prisma.City) graphql.Marshaler {
 	return graphql.MarshalString(string(v))
 }
 
-func (ec *executionContext) unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, v interface{}) (*prisma.City, error) {
+func (ec *executionContext) unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, v interface{}) (*prisma.City, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+	res, err := ec.unmarshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
 	return &res, err
 }
 
-func (ec *executionContext) marshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, sel ast.SelectionSet, v *prisma.City) graphql.Marshaler {
+func (ec *executionContext) marshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx context.Context, sel ast.SelectionSet, v *prisma.City) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
-	return ec.marshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, sel, *v)
+	return ec.marshalOCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, sel, *v)
 }
 
 func (ec *executionContext) unmarshalODateTime2string(ctx context.Context, v interface{}) (string, error) {
@@ -6203,11 +6203,11 @@ func (ec *executionContext) marshalODateTime2ᚖstring(ctx context.Context, sel 
 	return ec.marshalODateTime2string(ctx, sel, *v)
 }
 
-func (ec *executionContext) marshalOEvent2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v prisma.Event) graphql.Marshaler {
+func (ec *executionContext) marshalOEvent2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v prisma.Event) graphql.Marshaler {
 	return ec._Event(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v []*prisma.Event) graphql.Marshaler {
+func (ec *executionContext) marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v []*prisma.Event) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -6234,7 +6234,7 @@ func (ec *executionContext) marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatad
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, sel, v[i])
+			ret[i] = ec.marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -6247,18 +6247,18 @@ func (ec *executionContext) marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatad
 	return ret
 }
 
-func (ec *executionContext) marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v *prisma.Event) graphql.Marshaler {
+func (ec *executionContext) marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v *prisma.Event) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Event(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOEventOccurrence2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx context.Context, sel ast.SelectionSet, v prisma.EventOccurrence) graphql.Marshaler {
+func (ec *executionContext) marshalOEventOccurrence2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx context.Context, sel ast.SelectionSet, v prisma.EventOccurrence) graphql.Marshaler {
 	return ec._EventOccurrence(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOEventOccurrence2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx context.Context, sel ast.SelectionSet, v []*prisma.EventOccurrence) graphql.Marshaler {
+func (ec *executionContext) marshalOEventOccurrence2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx context.Context, sel ast.SelectionSet, v []*prisma.EventOccurrence) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -6285,7 +6285,7 @@ func (ec *executionContext) marshalOEventOccurrence2ᚕᚖgithubᚗcomᚋafunnyd
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOEventOccurrence2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx, sel, v[i])
+			ret[i] = ec.marshalOEventOccurrence2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -6298,14 +6298,14 @@ func (ec *executionContext) marshalOEventOccurrence2ᚕᚖgithubᚗcomᚋafunnyd
 	return ret
 }
 
-func (ec *executionContext) marshalOEventOccurrence2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx context.Context, sel ast.SelectionSet, v *prisma.EventOccurrence) graphql.Marshaler {
+func (ec *executionContext) marshalOEventOccurrence2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx context.Context, sel ast.SelectionSet, v *prisma.EventOccurrence) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._EventOccurrence(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOEventOccurrenceCreateWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceCreateWithoutEventInput, error) {
+func (ec *executionContext) unmarshalOEventOccurrenceCreateWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceCreateWithoutEventInput, error) {
 	var vSlice []interface{}
 	if v != nil {
 		if tmp1, ok := v.([]interface{}); ok {
@@ -6317,7 +6317,7 @@ func (ec *executionContext) unmarshalOEventOccurrenceCreateWithoutEventInput2ᚕ
 	var err error
 	res := make([]prisma.EventOccurrenceCreateWithoutEventInput, len(vSlice))
 	for i := range vSlice {
-		res[i], err = ec.unmarshalNEventOccurrenceCreateWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNEventOccurrenceCreateWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6325,7 +6325,7 @@ func (ec *executionContext) unmarshalOEventOccurrenceCreateWithoutEventInput2ᚕ
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalOEventOccurrenceScalarWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceScalarWhereInput, error) {
+func (ec *executionContext) unmarshalOEventOccurrenceScalarWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceScalarWhereInput, error) {
 	var vSlice []interface{}
 	if v != nil {
 		if tmp1, ok := v.([]interface{}); ok {
@@ -6337,7 +6337,7 @@ func (ec *executionContext) unmarshalOEventOccurrenceScalarWhereInput2ᚕgithub�
 	var err error
 	res := make([]prisma.EventOccurrenceScalarWhereInput, len(vSlice))
 	for i := range vSlice {
-		res[i], err = ec.unmarshalNEventOccurrenceScalarWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNEventOccurrenceScalarWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceScalarWhereInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6345,19 +6345,19 @@ func (ec *executionContext) unmarshalOEventOccurrenceScalarWhereInput2ᚕgithub�
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalOEventOccurrenceUpdateManyWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceUpdateManyWithoutEventInput, error) {
+func (ec *executionContext) unmarshalOEventOccurrenceUpdateManyWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceUpdateManyWithoutEventInput, error) {
 	return ec.unmarshalInputEventOccurrenceUpdateManyWithoutEventInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalOEventOccurrenceUpdateManyWithoutEventInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx context.Context, v interface{}) (*prisma.EventOccurrenceUpdateManyWithoutEventInput, error) {
+func (ec *executionContext) unmarshalOEventOccurrenceUpdateManyWithoutEventInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx context.Context, v interface{}) (*prisma.EventOccurrenceUpdateManyWithoutEventInput, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalOEventOccurrenceUpdateManyWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx, v)
+	res, err := ec.unmarshalOEventOccurrenceUpdateManyWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx, v)
 	return &res, err
 }
 
-func (ec *executionContext) unmarshalOEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceUpdateWithWhereUniqueWithoutEventInput, error) {
+func (ec *executionContext) unmarshalOEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceUpdateWithWhereUniqueWithoutEventInput, error) {
 	var vSlice []interface{}
 	if v != nil {
 		if tmp1, ok := v.([]interface{}); ok {
@@ -6369,7 +6369,7 @@ func (ec *executionContext) unmarshalOEventOccurrenceUpdateWithWhereUniqueWithou
 	var err error
 	res := make([]prisma.EventOccurrenceUpdateWithWhereUniqueWithoutEventInput, len(vSlice))
 	for i := range vSlice {
-		res[i], err = ec.unmarshalNEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNEventOccurrenceUpdateWithWhereUniqueWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateWithWhereUniqueWithoutEventInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6377,7 +6377,7 @@ func (ec *executionContext) unmarshalOEventOccurrenceUpdateWithWhereUniqueWithou
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalOEventOccurrenceWhereUniqueInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceWhereUniqueInput, error) {
+func (ec *executionContext) unmarshalOEventOccurrenceWhereUniqueInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceWhereUniqueInput, error) {
 	var vSlice []interface{}
 	if v != nil {
 		if tmp1, ok := v.([]interface{}); ok {
@@ -6389,7 +6389,7 @@ func (ec *executionContext) unmarshalOEventOccurrenceWhereUniqueInput2ᚕgithub�
 	var err error
 	res := make([]prisma.EventOccurrenceWhereUniqueInput, len(vSlice))
 	for i := range vSlice {
-		res[i], err = ec.unmarshalNEventOccurrenceWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNEventOccurrenceWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6466,16 +6466,16 @@ func (ec *executionContext) marshalOInt2ᚖint32(ctx context.Context, sel ast.Se
 	return ec.marshalOInt2int32(ctx, sel, *v)
 }
 
-func (ec *executionContext) unmarshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, v interface{}) (prisma.Permission, error) {
+func (ec *executionContext) unmarshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, v interface{}) (prisma.Permission, error) {
 	tmp, err := graphql.UnmarshalString(v)
 	return prisma.Permission(tmp), err
 }
 
-func (ec *executionContext) marshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, sel ast.SelectionSet, v prisma.Permission) graphql.Marshaler {
+func (ec *executionContext) marshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, sel ast.SelectionSet, v prisma.Permission) graphql.Marshaler {
 	return graphql.MarshalString(string(v))
 }
 
-func (ec *executionContext) unmarshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, v interface{}) ([]prisma.Permission, error) {
+func (ec *executionContext) unmarshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, v interface{}) ([]prisma.Permission, error) {
 	var vSlice []interface{}
 	if v != nil {
 		if tmp1, ok := v.([]interface{}); ok {
@@ -6487,7 +6487,7 @@ func (ec *executionContext) unmarshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋw
 	var err error
 	res := make([]prisma.Permission, len(vSlice))
 	for i := range vSlice {
-		res[i], err = ec.unmarshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx, vSlice[i])
+		res[i], err = ec.unmarshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -6495,7 +6495,7 @@ func (ec *executionContext) unmarshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋw
 	return res, nil
 }
 
-func (ec *executionContext) marshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, sel ast.SelectionSet, v []prisma.Permission) graphql.Marshaler {
+func (ec *executionContext) marshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx context.Context, sel ast.SelectionSet, v []prisma.Permission) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -6522,7 +6522,7 @@ func (ec *executionContext) marshalOPermission2ᚕgithubᚗcomᚋafunnydevᚋwat
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx, sel, v[i])
+			ret[i] = ec.marshalOPermission2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐPermission(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -6558,22 +6558,22 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return ec.marshalOString2string(ctx, sel, *v)
 }
 
-func (ec *executionContext) marshalOUser2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐUser(ctx context.Context, sel ast.SelectionSet, v prisma.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐUser(ctx context.Context, sel ast.SelectionSet, v prisma.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐUser(ctx context.Context, sel ast.SelectionSet, v *prisma.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐUser(ctx context.Context, sel ast.SelectionSet, v *prisma.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._User(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOVenue2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v prisma.Venue) graphql.Marshaler {
+func (ec *executionContext) marshalOVenue2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v prisma.Venue) graphql.Marshaler {
 	return ec._Venue(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v []*prisma.Venue) graphql.Marshaler {
+func (ec *executionContext) marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v []*prisma.Venue) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -6600,7 +6600,7 @@ func (ec *executionContext) marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatad
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, sel, v[i])
+			ret[i] = ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -6613,34 +6613,34 @@ func (ec *executionContext) marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatad
 	return ret
 }
 
-func (ec *executionContext) marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v *prisma.Venue) graphql.Marshaler {
+func (ec *executionContext) marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v *prisma.Venue) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Venue(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOVenueUpdateOneWithoutEventsInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx context.Context, v interface{}) (prisma.VenueUpdateOneWithoutEventsInput, error) {
+func (ec *executionContext) unmarshalOVenueUpdateOneWithoutEventsInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx context.Context, v interface{}) (prisma.VenueUpdateOneWithoutEventsInput, error) {
 	return ec.unmarshalInputVenueUpdateOneWithoutEventsInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalOVenueUpdateOneWithoutEventsInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx context.Context, v interface{}) (*prisma.VenueUpdateOneWithoutEventsInput, error) {
+func (ec *executionContext) unmarshalOVenueUpdateOneWithoutEventsInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx context.Context, v interface{}) (*prisma.VenueUpdateOneWithoutEventsInput, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalOVenueUpdateOneWithoutEventsInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx, v)
+	res, err := ec.unmarshalOVenueUpdateOneWithoutEventsInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateOneWithoutEventsInput(ctx, v)
 	return &res, err
 }
 
-func (ec *executionContext) unmarshalOVenueWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx context.Context, v interface{}) (prisma.VenueWhereUniqueInput, error) {
+func (ec *executionContext) unmarshalOVenueWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx context.Context, v interface{}) (prisma.VenueWhereUniqueInput, error) {
 	return ec.unmarshalInputVenueWhereUniqueInput(ctx, v)
 }
 
-func (ec *executionContext) unmarshalOVenueWhereUniqueInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx context.Context, v interface{}) (*prisma.VenueWhereUniqueInput, error) {
+func (ec *executionContext) unmarshalOVenueWhereUniqueInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx context.Context, v interface{}) (*prisma.VenueWhereUniqueInput, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalOVenueWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx, v)
+	res, err := ec.unmarshalOVenueWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereUniqueInput(ctx, v)
 	return &res, err
 }
 

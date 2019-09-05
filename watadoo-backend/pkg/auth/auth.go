@@ -8,7 +8,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 
-	"github.com/afunnydev/watadoo-backend/internal/generated/prisma-client"
+	"github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
 )
 
 // A private key for context that only this package can access. This is important

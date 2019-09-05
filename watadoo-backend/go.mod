@@ -1,4 +1,4 @@
-module github.com/afunnydev/watadoo-backend
+module github.com/afunnydev/watadoo/watadoo-backend
 
 go 1.12
 

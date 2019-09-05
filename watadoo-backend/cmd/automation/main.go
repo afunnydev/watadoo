@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -9,10 +9,10 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"github.com/afunnydev/watadoo-backend/internal/automation"
-	prisma "github.com/afunnydev/watadoo-backend/internal/generated/prisma-client"
-	"github.com/afunnydev/watadoo-backend/pkg/scraper"
-	"github.com/afunnydev/watadoo-backend/pkg/scraper/models"
+	// "github.com/afunnydev/watadoo/watadoo-backend/internal/automation"
+	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
+	// "github.com/afunnydev/watadoo/watadoo-backend/pkg/scraper"
+	// "github.com/afunnydev/watadoo/watadoo-backend/pkg/scraper/models"
 )
 
 func init() {
@@ -40,28 +40,28 @@ func main() {
 	client := prisma.New(&options)
 	fmt.Println(client)
 
-	spider := models.GetOttawaTourismSpider()
+	// // spider := models.GetOttawaTourismSpider()
 
-	events, _ := scraper.FetchListPage(spider)
-	fmt.Printf("There's %d from this source\n", len(events))
+	// // events, _ := scraper.FetchListPage(spider)
+	// // fmt.Printf("There's %d from this source\n", len(events))
 
-	fileName := "output/events.json"
-	fileWriter, err := os.Create(fileName)
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer fileWriter.Close()
+	// events, _ := scraper.FetchTourismeOutaouais()
 
-	json.NewEncoder(fileWriter).Encode(events)
+	// fileName := "output/events.json"
+	// fileWriter, err := os.Create(fileName)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// defer fileWriter.Close()
 
-	for i, event := range events {
-		if i < 50 {
-			newEvent := automation.CreateEvent(event, client)
-			if newEvent != nil {
-				fmt.Println("PRISMA EVENT", *newEvent)
-			} else {
-				fmt.Println("Couldn't create:", event.Name)
-			}
-		}
-	}
+	// json.NewEncoder(fileWriter).Encode(events)
+
+	// for _, event := range events {
+	// 	newEvent := automation.CreateEvent(event, client)
+	// 	if newEvent != nil {
+	// 		fmt.Println("PRISMA EVENT", newEvent.ID)
+	// 	} else {
+	// 		fmt.Println("Couldn't create:", event.Name)
+	// 	}
+	// }
 }
