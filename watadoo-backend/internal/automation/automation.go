@@ -319,7 +319,7 @@ func tryMatchingVenue(venueName string, possibleVenues []prisma.Venue) (*strsim.
 func findCityInAddress(address string) (prisma.City, error) {
 	a := []byte(address)
 	reGatineau := regexp.MustCompile("(?i)(Gat(ineau)?|Wakefield|Chelsea|Cantley|Hull|Aylmer|Saint-André-Avellin|St-André-Avellin)")
-	reOttawa := regexp.MustCompile("(?i)(Ott(awa)?|Nepean|Orlean)")
+	reOttawa := regexp.MustCompile("(?i)(Ott(awa)?|Nepean|Orleans|Kanata|Manotick|Orléans)")
 	reMontreal := regexp.MustCompile("(?i)(Mtl|Montreal|Montréal)")
 	if reGatineau.Match(a) {
 		return prisma.CityGatineau, nil

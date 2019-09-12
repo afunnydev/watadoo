@@ -27,6 +27,9 @@ func newCollector(domain string) *colly.Collector {
 
 		// To help with special characters
 		colly.DetectCharset(),
+
+		// Set user agent
+		colly.UserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"),
 	)
 
 	return c
@@ -56,9 +59,6 @@ func FetchListPage(spider models.Spider) ([]models.Event, error) {
 		})
 	}
 
-	// c.OnRequest(func(r *colly.Request) {
-	//   fmt.Println("Visiting: ", r.URL)
-	// })
 	c.OnError(func(r *colly.Response, err error) {
 		log.Println("Request URL:", r.Request.URL, "failed with response: Error:", err)
 	})
@@ -70,9 +70,6 @@ func FetchListPage(spider models.Spider) ([]models.Event, error) {
 		}
 	})
 
-	// eventDetailCollector.OnRequest(func(r *colly.Request) {
-	//   fmt.Println("Visiting: ", r.URL)
-	// })
 	eventDetailCollector.OnError(func(r *colly.Response, err error) {
 		log.Println("Request URL:", r.Request.URL, "failed with response: Error:", err)
 	})
