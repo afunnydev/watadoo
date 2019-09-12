@@ -40,15 +40,16 @@ type Spider struct {
 	Notes                         string
 }
 
-// GetSpiders returns all the active spiders for the scraper
-func GetSpiders() []Spider {
+// GetCronSpiders returns all the spiders that can run without human supervision
+func GetCronSpiders() []Spider {
 	var spiders []Spider
 
 	cnaSpider := GetCNASpider()
 	houseOfTargSpider := GetHouseOfTargSpider()
+	liveOnElginSpider := GetLiveOnElginSpider()
 	ovationSpider := GetOvationSpider()
 
-	spiders = append(spiders, cnaSpider, houseOfTargSpider, ovationSpider)
+	spiders = append(spiders, cnaSpider, houseOfTargSpider, liveOnElginSpider, ovationSpider)
 
 	return spiders
 }

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 
+	"github.com/afunnydev/watadoo/watadoo-backend/internal/automation"
 	"github.com/afunnydev/watadoo/watadoo-backend/internal/utils"
 )
 
@@ -21,5 +21,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(client)
+
+	// Save next occurrence for every events
+	err = automation.ManageNextOccurrence(client)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Manage occurrences for recurring events
+	// Delete old events and old occurrences
+	// Spot possible duplicated venues
+	// Spot possible duplicated events
+
 }

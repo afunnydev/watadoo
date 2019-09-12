@@ -1,10 +1,9 @@
 package main
 
 import (
-	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/afunnydev/watadoo/watadoo-backend/internal/automation"
@@ -22,40 +21,46 @@ func init() {
 }
 
 func main() {
+	var toJSON bool
+	var save bool
+	flag.BoolVar(&toJSON, "json", false, "If you want the scraping result to be exported in a JSON file.")
+	flag.BoolVar(&save, "json", false, "If you want to save the result to the database.")
+	flag.Parse()
+
 	client, err := utils.CreatePrismaClient()
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(client)
 
-	spider := models.GetTodoCanadaSpider()
-	// GetOttawaTourismSpider
-	// GetCNASpider
-	// GetHouseOfTargSpider
-	// GetOvationSpider
-	// GetLiveOnElginSpider
-	// GetTodoCanadaSpider
+	var events []models.Event
+	spiders := models.GetCronSpiders()
 
-	events, _ := scraper.FetchListPage(spider)
-	fmt.Printf("There's %d from this source\n", len(events))
-
-	// events, _ := scraper.FetchTourismeOutaouais()
-
-	fileName := "output/events.json"
-	fileWriter, err := os.Create(fileName)
-	if err != nil {
-		fmt.Println(err)
+	for _, spider := range spiders {
+		spiderEvents, _ := scraper.FetchListPage(spider)
+		fmt.Printf("There's %d from %s\n", len(spiderEvents), spider.Domain)
+		events = append(events, spiderEvents...)
 	}
-	defer fileWriter.Close()
 
-	json.NewEncoder(fileWriter).Encode(events)
+	// All the special scrapers need to be run manually
+	tourismeOutaouaisEvents, _ := scraper.FetchTourismeOutaouais()
+	events = append(events, tourismeOutaouaisEvents...)
 
-	for _, event := range events {
-		newEvent := automation.CreateEvent(event, client)
-		if newEvent != nil {
-			fmt.Println("PRISMA EVENT", newEvent.ID)
-		} else {
-			fmt.Println("Couldn't create:", event.Name)
+	if save != true || toJSON == true {
+		utils.SaveToJSON(&events)
+	}
+
+	if save == true {
+		for _, event := range events {
+			newEvent := automation.CreateEvent(event, client)
+			if newEvent != nil {
+				fmt.Println("PRISMA EVENT", newEvent.ID)
+			} else {
+				fmt.Println("Couldn't create:", event.Name)
+			}
 		}
 	}
+
+	// Import events in the WP
 }

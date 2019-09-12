@@ -24,7 +24,7 @@ func (r *queryResolver) Events(ctx context.Context, withoutOccurrence bool) ([]*
 		return pointerToEvents, fmt.Errorf("Access denied")
 	}
 
-	orderBy := prisma.EventOrderByInputCreatedAtAsc
+	orderBy := prisma.EventOrderByInputNextOccurrenceDateAsc
 	now := time.Now().Format(time.RFC3339)
 	eventWhereInput := prisma.EventWhereInput{
 		OccurrencesSome: &prisma.EventOccurrenceWhereInput{
@@ -33,7 +33,8 @@ func (r *queryResolver) Events(ctx context.Context, withoutOccurrence bool) ([]*
 	}
 
 	if withoutOccurrence == true {
-		orderBy = prisma.EventOrderByInputCreatedAtDesc
+		// I prefer Dsc because I want to see the most recent event first, but for now there's some event with null in the createdAt field so they appear first.
+		orderBy = prisma.EventOrderByInputCreatedAtAsc
 		eventWhereInput = prisma.EventWhereInput{
 			OccurrencesNone: &prisma.EventOccurrenceWhereInput{
 				IDNot: nil,
