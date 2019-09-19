@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "variables.env" });
+require("dotenv").config({ path: ".env.development" });
 
 const needle = require("needle");
 const inquirer = require("inquirer");

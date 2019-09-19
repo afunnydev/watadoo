@@ -11,7 +11,7 @@
     "wp-venues": "node src/integrations/wordpress/venues.js",
     "wp-events": "node src/integrations/wordpress/events.js",
     "migrate": "node src/migrations/index.js",
-    "deploy": "prisma deploy --env-file variables.env"
+    "deploy": "prisma deploy --env-file .env.development"
   },
   "author": "AkiaMarketing",
   "license": "ISC",

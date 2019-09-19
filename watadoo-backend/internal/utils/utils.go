@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -15,9 +14,18 @@ import (
 
 // CreatePrismaClient returns a configured Prisma Client
 func CreatePrismaClient() (*prisma.Client, error) {
-	if err := godotenv.Load(); err != nil {
-		log.Print("No .env file found")
+	env := os.Getenv("WATADOO_ENV")
+	if "" == env {
+		env = "development"
 	}
+
+	godotenv.Load(".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(".env.local")
+	}
+	godotenv.Load(".env." + env)
+	godotenv.Load(".env")
+
 	prismaSecret, exist := os.LookupEnv("PRISMA_SECRET")
 	if exist != true {
 		return nil, errors.New("can't set env variables correctly")

@@ -1,5 +1,3 @@
-.env
-*.env
 cache
 output
 internal/resolvers/tmp

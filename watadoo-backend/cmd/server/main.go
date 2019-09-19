@@ -18,9 +18,17 @@ import (
 const defaultPort = "8080"
 
 func init() {
-	if err := godotenv.Load(); err != nil {
-		log.Print("No .env file found")
+	env := os.Getenv("WATADOO_ENV")
+	if "" == env {
+		env = "development"
 	}
+
+	godotenv.Load(".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(".env.local")
+	}
+	godotenv.Load(".env." + env)
+	godotenv.Load(".env")
 }
 
 func main() {

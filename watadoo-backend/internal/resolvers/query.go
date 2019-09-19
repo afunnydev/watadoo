@@ -56,8 +56,10 @@ func (r *queryResolver) Events(ctx context.Context, withoutOccurrence bool) ([]*
 
 	return pointerToEvents, err
 }
-func (r *queryResolver) Venues(ctx context.Context) ([]*prisma.Venue, error) {
-	venues, err := r.Prisma.Venues(nil).Exec(ctx)
+func (r *queryResolver) Venues(ctx context.Context, where *prisma.VenueWhereInput) ([]*prisma.Venue, error) {
+	venues, err := r.Prisma.Venues(&prisma.VenuesParams{
+		Where: where,
+	}).Exec(ctx)
 	var pointerToVenues []*prisma.Venue
 
 	if err != nil {

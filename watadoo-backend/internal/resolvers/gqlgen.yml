@@ -41,6 +41,8 @@ models:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventOccurrenceUpdateManyWithoutEventInput
   EventOccurrenceScalarWhereInput:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventOccurrenceScalarWhereInput
+  VenueWhereInput:
+    model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.VenueWhereInput
 resolver:
   # goal: You can copy past from the generated file if needed
   filename: tmp/resolver.go

@@ -13,6 +13,88 @@ enum City {
   QUEBEC
 }
 
+input VenueWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  nameFr: String
+  nameFr_not: String
+  nameFr_in: [String!]
+  nameFr_not_in: [String!]
+  nameFr_lt: String
+  nameFr_lte: String
+  nameFr_gt: String
+  nameFr_gte: String
+  nameFr_contains: String
+  nameFr_not_contains: String
+  nameFr_starts_with: String
+  nameFr_not_starts_with: String
+  nameFr_ends_with: String
+  nameFr_not_ends_with: String
+  nameEn: String
+  nameEn_not: String
+  nameEn_in: [String!]
+  nameEn_not_in: [String!]
+  nameEn_lt: String
+  nameEn_lte: String
+  nameEn_gt: String
+  nameEn_gte: String
+  nameEn_contains: String
+  nameEn_not_contains: String
+  nameEn_starts_with: String
+  nameEn_not_starts_with: String
+  nameEn_ends_with: String
+  nameEn_not_ends_with: String
+  lat: Float
+  lat_not: Float
+  lat_in: [Float!]
+  lat_not_in: [Float!]
+  lat_lt: Float
+  lat_lte: Float
+  lat_gt: Float
+  lat_gte: Float
+  long: Float
+  long_not: Float
+  long_in: [Float!]
+  long_not_in: [Float!]
+  long_lt: Float
+  long_lte: Float
+  long_gt: Float
+  long_gte: Float
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  AND: [VenueWhereInput!]
+  OR: [VenueWhereInput!]
+  NOT: [VenueWhereInput!]
+}
+
 input VenueWhereUniqueInput {
   id: ID
   nameFr: String
@@ -189,5 +271,5 @@ type Query {
   event(id: ID!): Event
   venue(id: ID!): Venue
   events(withoutOccurrence: Boolean!): [Event]
-  venues: [Venue]
+  venues(where: VenueWhereInput): [Venue]
 }

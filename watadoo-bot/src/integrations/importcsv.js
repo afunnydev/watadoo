@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "variables.env" });
+require("dotenv").config({ path: ".env.development" });
 const csv = require("csvtojson");
 const { prisma } = require("../generated/prisma-client");
 

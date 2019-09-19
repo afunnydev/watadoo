@@ -6,6 +6,7 @@ import { Box, Columns, Column, Field, Control, Label, Input, TextArea, Button } 
 import DatePicker from "react-datepicker"
 import { Widget } from "@uploadcare/react-widget"
 
+import addMinutes from "../lib/addMinutes"
 import { occurrenceFragment } from "../lib/fragments"
 import RemoveOccurrenceButton from "./RemoveOccurrenceButton"
 
@@ -23,9 +24,12 @@ const OccurrenceBox = ({ id, full, client }) => {
   const updateStore = (e) => client.writeData(
     { id: `EventOccurrence:${id}`, data: { [e.target.name]: e.target.value } }
   )
-  const updateDate = (name, date) => client.writeData(
-    { id: `EventOccurrence:${id}`, data: { [name]: date.toISOString() } }
-  )
+  const updateDate = (name, date) => {
+    // The timezone in QC and ONT is GMT-4, representing a offset of 240. Let's say I'm managing this events hour from Japan. I will be in GMT+9 (represented by a offset of -540). When I select a time, this time is the time in QC/ONT, so I need to adjust the selected time by -780. Work In Progress, this doesn't work because the react-datepicker still shows the time in the timezone.
+    // const minutesToAdd = -240 + date.getTimezoneOffset()
+    const timezoneAdjustedDate = addMinutes(date, 0)
+    client.writeData({ id: `EventOccurrence:${id}`, data: { [name]: timezoneAdjustedDate.toISOString() } })
+  }
   const updateImageUrl = (imageUrl) => client.writeData(
     { id: `EventOccurrence:${id}`, data: { imageUrl } }
   )

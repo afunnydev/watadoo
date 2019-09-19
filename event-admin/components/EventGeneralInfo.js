@@ -9,7 +9,7 @@ import { Widget } from "@uploadcare/react-widget"
 import { eventInfoFragment } from "../lib/fragments"
 
 import MessengerCard from "./MessengerCard"
-import VenueSelect from "./VenueSelect"
+import VenueAutocompleteSelect from "./VenueAutocompleteSelect"
 import OverrideTabStyleA from "./styles/OverrideTabStyleA"
 
 const EVENT_GENERAL_INFO_QUERY = gql`
@@ -28,7 +28,6 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
   const updateImageUrl = (imageUrl) => client.writeData(
     { id: `Event:${eventId}`, data: { imageUrl } }
   )
-  const updateVenue = (e) => setNewVenueId(e.target.value)
 
   return (
     <Query
@@ -63,7 +62,7 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
                 </Field>
                 <Field>
                   <Label>Venue*</Label>
-                  <VenueSelect value={newVenueId || venue && venue.id || ""} onChange={updateVenue} />
+                  <VenueAutocompleteSelect defaultValue={venue && venue.nameFr} onChange={setNewVenueId} />
                   <Help isColor="black">More info on this venue <Link href={{ pathname: "/venue", query: { id: newVenueId || venue && venue.id || "" } }}><OverrideTabStyleA target="_blank">here</OverrideTabStyleA></Link>.</Help>
                 </Field>
                 <Field>
@@ -95,7 +94,7 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
                       imageShrink="600x314"
                       onChange={info => updateImageUrl(info.cdnUrl)}
                     />
-                    <Help isColor="info">Don't forget to save after changing the image.</Help>
+                    <Help isColor="info">Don&#39;t forget to save after changing the image.</Help>
                   </Control>
                 </Field>
                 <Field>

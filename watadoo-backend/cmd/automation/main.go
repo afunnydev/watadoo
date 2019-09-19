@@ -24,15 +24,13 @@ func main() {
 	var toJSON bool
 	var save bool
 	flag.BoolVar(&toJSON, "json", false, "If you want the scraping result to be exported in a JSON file.")
-	flag.BoolVar(&save, "json", false, "If you want to save the result to the database.")
+	flag.BoolVar(&save, "save", false, "If you want to save the result to the database.")
 	flag.Parse()
 
 	client, err := utils.CreatePrismaClient()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println(client)
 
 	var events []models.Event
 	spiders := models.GetCronSpiders()
@@ -52,14 +50,17 @@ func main() {
 	}
 
 	if save == true {
+		var created int
 		for _, event := range events {
 			newEvent := automation.CreateEvent(event, client)
 			if newEvent != nil {
 				fmt.Println("PRISMA EVENT", newEvent.ID)
+				created++
 			} else {
 				fmt.Println("Couldn't create:", event.Name)
 			}
 		}
+		fmt.Printf("Just created %d events out of %d scraped events.", created, len(events))
 	}
 
 	// Import events in the WP

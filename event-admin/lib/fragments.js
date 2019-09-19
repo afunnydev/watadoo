@@ -21,6 +21,7 @@ const eventInfoFragment = gql`
     description
     venue {
       id
+      nameFr
       lat
       long
       city
