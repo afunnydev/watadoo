@@ -90,6 +90,8 @@ input VenueWhereInput {
   city_not: City
   city_in: [City!]
   city_not_in: [City!]
+  possibleDuplicate: Boolean
+  possibleDuplicate_not: Boolean
   AND: [VenueWhereInput!]
   OR: [VenueWhereInput!]
   NOT: [VenueWhereInput!]
@@ -183,9 +185,7 @@ input VenueUpdateInput {
   long: Float
   address: String
   city: City
-  state: String
   zip: String
-  country: String
   url: String
   wpFrId: Int
   wpEnId: Int
@@ -249,14 +249,13 @@ type Venue {
   long: Float!
   address: String
   city: City!
-  state: String
   zip: String
-  country: String
+  country: String!
   url: String
   wpFrId: Int
   wpEnId: Int
   events: [Event]
-  possibleDuplicate: Boolean
+  possibleDuplicate: Boolean!
 }
 
 type Mutation {

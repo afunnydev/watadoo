@@ -812,6 +812,8 @@ input VenueWhereInput {
   city_not: City
   city_in: [City!]
   city_not_in: [City!]
+  possibleDuplicate: Boolean
+  possibleDuplicate_not: Boolean
   AND: [VenueWhereInput!]
   OR: [VenueWhereInput!]
   NOT: [VenueWhereInput!]
@@ -5680,6 +5682,18 @@ func (ec *executionContext) unmarshalInputVenueWhereInput(ctx context.Context, o
 		case "city_not_in":
 			var err error
 			it.CityNotIn, err = ec.unmarshalOCity2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "possibleDuplicate":
+			var err error
+			it.PossibleDuplicate, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "possibleDuplicate_not":
+			var err error
+			it.PossibleDuplicateNot, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
 			if err != nil {
 				return it, err
 			}

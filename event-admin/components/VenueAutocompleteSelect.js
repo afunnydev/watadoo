@@ -79,7 +79,7 @@ const VenueAutocompleteSelect = ({ defaultValue, onChange, client }) => {
                 </div>
               ))}
               {!venues.length && !loading && searched && <div>
-                Nous n&#39;avons pas trouvé de lieu pour {inputValue}.
+                Nous n&#39;avons pas trouvé de lieu pour {inputValue}. {inputValue[0] !== inputValue[0].toUpperCase() && `Essayez avec '${inputValue.charAt(0).toUpperCase() + inputValue.substring(1)}'.`}
               </div>}
             </SearchContainer>
           )}

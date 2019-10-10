@@ -119,8 +119,28 @@ type EventsConnectionParams struct {
 	Last    *int32             `json:"last,omitempty"`
 }
 
-func (client *Client) EventsConnection(params *EventsConnectionParams) EventConnectionExec {
-	panic("not implemented")
+func (client *Client) EventsConnection(params *EventsConnectionParams) *EventConnectionExec {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := client.Client.GetMany(
+		nil,
+		wparams,
+		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
+		"eventsConnection",
+		[]string{"edges", "pageInfo"})
+
+	return &EventConnectionExec{ret}
 }
 
 func (client *Client) EventOccurrence(params EventOccurrenceWhereUniqueInput) *EventOccurrenceExec {
@@ -178,8 +198,28 @@ type EventOccurrencesConnectionParams struct {
 	Last    *int32                       `json:"last,omitempty"`
 }
 
-func (client *Client) EventOccurrencesConnection(params *EventOccurrencesConnectionParams) EventOccurrenceConnectionExec {
-	panic("not implemented")
+func (client *Client) EventOccurrencesConnection(params *EventOccurrencesConnectionParams) *EventOccurrenceConnectionExec {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := client.Client.GetMany(
+		nil,
+		wparams,
+		[3]string{"EventOccurrenceWhereInput", "EventOccurrenceOrderByInput", "EventOccurrence"},
+		"eventOccurrencesConnection",
+		[]string{"edges", "pageInfo"})
+
+	return &EventOccurrenceConnectionExec{ret}
 }
 
 func (client *Client) RequestedCity(params RequestedCityWhereUniqueInput) *RequestedCityExec {
@@ -237,8 +277,28 @@ type RequestedCitiesConnectionParams struct {
 	Last    *int32                     `json:"last,omitempty"`
 }
 
-func (client *Client) RequestedCitiesConnection(params *RequestedCitiesConnectionParams) RequestedCityConnectionExec {
-	panic("not implemented")
+func (client *Client) RequestedCitiesConnection(params *RequestedCitiesConnectionParams) *RequestedCityConnectionExec {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := client.Client.GetMany(
+		nil,
+		wparams,
+		[3]string{"RequestedCitieWhereInput", "RequestedCitieOrderByInput", "RequestedCitie"},
+		"requestedCitiesConnection",
+		[]string{"edges", "pageInfo"})
+
+	return &RequestedCityConnectionExec{ret}
 }
 
 func (client *Client) Search(params SearchWhereUniqueInput) *SearchExec {
@@ -296,8 +356,28 @@ type SearchesConnectionParams struct {
 	Last    *int32              `json:"last,omitempty"`
 }
 
-func (client *Client) SearchesConnection(params *SearchesConnectionParams) SearchConnectionExec {
-	panic("not implemented")
+func (client *Client) SearchesConnection(params *SearchesConnectionParams) *SearchConnectionExec {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := client.Client.GetMany(
+		nil,
+		wparams,
+		[3]string{"SearcheWhereInput", "SearcheOrderByInput", "Searche"},
+		"searchesConnection",
+		[]string{"edges", "pageInfo"})
+
+	return &SearchConnectionExec{ret}
 }
 
 func (client *Client) User(params UserWhereUniqueInput) *UserExec {
@@ -355,8 +435,28 @@ type UsersConnectionParams struct {
 	Last    *int32            `json:"last,omitempty"`
 }
 
-func (client *Client) UsersConnection(params *UsersConnectionParams) UserConnectionExec {
-	panic("not implemented")
+func (client *Client) UsersConnection(params *UsersConnectionParams) *UserConnectionExec {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := client.Client.GetMany(
+		nil,
+		wparams,
+		[3]string{"UserWhereInput", "UserOrderByInput", "User"},
+		"usersConnection",
+		[]string{"edges", "pageInfo"})
+
+	return &UserConnectionExec{ret}
 }
 
 func (client *Client) Venue(params VenueWhereUniqueInput) *VenueExec {
@@ -365,7 +465,7 @@ func (client *Client) Venue(params VenueWhereUniqueInput) *VenueExec {
 		params,
 		[2]string{"VenueWhereUniqueInput!", "Venue"},
 		"venue",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -399,7 +499,7 @@ func (client *Client) Venues(params *VenuesParams) *VenueExecArray {
 		wparams,
 		[3]string{"VenueWhereInput", "VenueOrderByInput", "Venue"},
 		"venues",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExecArray{ret}
 }
@@ -414,8 +514,28 @@ type VenuesConnectionParams struct {
 	Last    *int32             `json:"last,omitempty"`
 }
 
-func (client *Client) VenuesConnection(params *VenuesConnectionParams) VenueConnectionExec {
-	panic("not implemented")
+func (client *Client) VenuesConnection(params *VenuesConnectionParams) *VenueConnectionExec {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := client.Client.GetMany(
+		nil,
+		wparams,
+		[3]string{"VenueWhereInput", "VenueOrderByInput", "Venue"},
+		"venuesConnection",
+		[]string{"edges", "pageInfo"})
+
+	return &VenueConnectionExec{ret}
 }
 
 func (client *Client) CreateEvent(params EventCreateInput) *EventExec {
@@ -823,7 +943,7 @@ func (client *Client) CreateVenue(params VenueCreateInput) *VenueExec {
 		params,
 		[2]string{"VenueCreateInput!", "Venue"},
 		"createVenue",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -841,7 +961,7 @@ func (client *Client) UpdateVenue(params VenueUpdateParams) *VenueExec {
 		},
 		[3]string{"VenueUpdateInput!", "VenueWhereUniqueInput!", "Venue"},
 		"updateVenue",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -878,7 +998,7 @@ func (client *Client) UpsertVenue(params VenueUpsertParams) *VenueExec {
 		uparams,
 		[4]string{"VenueWhereUniqueInput!", "VenueCreateInput!", "VenueUpdateInput!", "Venue"},
 		"upsertVenue",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -888,7 +1008,7 @@ func (client *Client) DeleteVenue(params VenueWhereUniqueInput) *VenueExec {
 		params,
 		[2]string{"VenueWhereUniqueInput!", "Venue"},
 		"deleteVenue",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -978,12 +1098,10 @@ const (
 	VenueOrderByInputLatDesc               VenueOrderByInput = "lat_DESC"
 	VenueOrderByInputLongAsc               VenueOrderByInput = "long_ASC"
 	VenueOrderByInputLongDesc              VenueOrderByInput = "long_DESC"
-	VenueOrderByInputAddressAsc            VenueOrderByInput = "address_ASC"
-	VenueOrderByInputAddressDesc           VenueOrderByInput = "address_DESC"
 	VenueOrderByInputCityAsc               VenueOrderByInput = "city_ASC"
 	VenueOrderByInputCityDesc              VenueOrderByInput = "city_DESC"
-	VenueOrderByInputStateAsc              VenueOrderByInput = "state_ASC"
-	VenueOrderByInputStateDesc             VenueOrderByInput = "state_DESC"
+	VenueOrderByInputAddressAsc            VenueOrderByInput = "address_ASC"
+	VenueOrderByInputAddressDesc           VenueOrderByInput = "address_DESC"
 	VenueOrderByInputZipAsc                VenueOrderByInput = "zip_ASC"
 	VenueOrderByInputZipDesc               VenueOrderByInput = "zip_DESC"
 	VenueOrderByInputCountryAsc            VenueOrderByInput = "country_ASC"
@@ -1359,9 +1477,8 @@ type VenueCreateWithoutEventsInput struct {
 	NameEn            string  `json:"nameEn"`
 	Lat               float64 `json:"lat"`
 	Long              float64 `json:"long"`
-	Address           *string `json:"address,omitempty"`
 	City              City    `json:"city"`
-	State             *string `json:"state,omitempty"`
+	Address           *string `json:"address,omitempty"`
 	Zip               *string `json:"zip,omitempty"`
 	Country           *string `json:"country,omitempty"`
 	Url               *string `json:"url,omitempty"`
@@ -1476,9 +1593,8 @@ type VenueUpdateWithoutEventsDataInput struct {
 	NameEn            *string  `json:"nameEn,omitempty"`
 	Lat               *float64 `json:"lat,omitempty"`
 	Long              *float64 `json:"long,omitempty"`
-	Address           *string  `json:"address,omitempty"`
 	City              *City    `json:"city,omitempty"`
-	State             *string  `json:"state,omitempty"`
+	Address           *string  `json:"address,omitempty"`
 	Zip               *string  `json:"zip,omitempty"`
 	Country           *string  `json:"country,omitempty"`
 	Url               *string  `json:"url,omitempty"`
@@ -1788,9 +1904,8 @@ type VenueUpdateInput struct {
 	NameEn            *string                           `json:"nameEn,omitempty"`
 	Lat               *float64                          `json:"lat,omitempty"`
 	Long              *float64                          `json:"long,omitempty"`
-	Address           *string                           `json:"address,omitempty"`
 	City              *City                             `json:"city,omitempty"`
-	State             *string                           `json:"state,omitempty"`
+	Address           *string                           `json:"address,omitempty"`
 	Zip               *string                           `json:"zip,omitempty"`
 	Country           *string                           `json:"country,omitempty"`
 	Url               *string                           `json:"url,omitempty"`
@@ -2425,9 +2540,8 @@ type VenueUpdateManyMutationInput struct {
 	NameEn            *string  `json:"nameEn,omitempty"`
 	Lat               *float64 `json:"lat,omitempty"`
 	Long              *float64 `json:"long,omitempty"`
-	Address           *string  `json:"address,omitempty"`
 	City              *City    `json:"city,omitempty"`
-	State             *string  `json:"state,omitempty"`
+	Address           *string  `json:"address,omitempty"`
 	Zip               *string  `json:"zip,omitempty"`
 	Country           *string  `json:"country,omitempty"`
 	Url               *string  `json:"url,omitempty"`
@@ -2778,9 +2892,8 @@ type VenueCreateInput struct {
 	NameEn            string                            `json:"nameEn"`
 	Lat               float64                           `json:"lat"`
 	Long              float64                           `json:"long"`
-	Address           *string                           `json:"address,omitempty"`
 	City              City                              `json:"city"`
-	State             *string                           `json:"state,omitempty"`
+	Address           *string                           `json:"address,omitempty"`
 	Zip               *string                           `json:"zip,omitempty"`
 	Country           *string                           `json:"country,omitempty"`
 	Url               *string                           `json:"url,omitempty"`
@@ -2920,6 +3033,10 @@ type VenueWhereInput struct {
 	LongLte              *float64          `json:"long_lte,omitempty"`
 	LongGt               *float64          `json:"long_gt,omitempty"`
 	LongGte              *float64          `json:"long_gte,omitempty"`
+	City                 *City             `json:"city,omitempty"`
+	CityNot              *City             `json:"city_not,omitempty"`
+	CityIn               []City            `json:"city_in,omitempty"`
+	CityNotIn            []City            `json:"city_not_in,omitempty"`
 	Address              *string           `json:"address,omitempty"`
 	AddressNot           *string           `json:"address_not,omitempty"`
 	AddressIn            []string          `json:"address_in,omitempty"`
@@ -2934,24 +3051,6 @@ type VenueWhereInput struct {
 	AddressNotStartsWith *string           `json:"address_not_starts_with,omitempty"`
 	AddressEndsWith      *string           `json:"address_ends_with,omitempty"`
 	AddressNotEndsWith   *string           `json:"address_not_ends_with,omitempty"`
-	City                 *City             `json:"city,omitempty"`
-	CityNot              *City             `json:"city_not,omitempty"`
-	CityIn               []City            `json:"city_in,omitempty"`
-	CityNotIn            []City            `json:"city_not_in,omitempty"`
-	State                *string           `json:"state,omitempty"`
-	StateNot             *string           `json:"state_not,omitempty"`
-	StateIn              []string          `json:"state_in,omitempty"`
-	StateNotIn           []string          `json:"state_not_in,omitempty"`
-	StateLt              *string           `json:"state_lt,omitempty"`
-	StateLte             *string           `json:"state_lte,omitempty"`
-	StateGt              *string           `json:"state_gt,omitempty"`
-	StateGte             *string           `json:"state_gte,omitempty"`
-	StateContains        *string           `json:"state_contains,omitempty"`
-	StateNotContains     *string           `json:"state_not_contains,omitempty"`
-	StateStartsWith      *string           `json:"state_starts_with,omitempty"`
-	StateNotStartsWith   *string           `json:"state_not_starts_with,omitempty"`
-	StateEndsWith        *string           `json:"state_ends_with,omitempty"`
-	StateNotEndsWith     *string           `json:"state_not_ends_with,omitempty"`
 	Zip                  *string           `json:"zip,omitempty"`
 	ZipNot               *string           `json:"zip_not,omitempty"`
 	ZipIn                []string          `json:"zip_in,omitempty"`
@@ -3097,15 +3196,14 @@ type VenuePreviousValues struct {
 	NameEn            string  `json:"nameEn"`
 	Lat               float64 `json:"lat"`
 	Long              float64 `json:"long"`
-	Address           *string `json:"address,omitempty"`
 	City              City    `json:"city"`
-	State             *string `json:"state,omitempty"`
+	Address           *string `json:"address,omitempty"`
 	Zip               *string `json:"zip,omitempty"`
-	Country           *string `json:"country,omitempty"`
+	Country           string  `json:"country"`
 	Url               *string `json:"url,omitempty"`
 	WpFrId            *int32  `json:"wpFrId,omitempty"`
 	WpEnId            *int32  `json:"wpEnId,omitempty"`
-	PossibleDuplicate *bool   `json:"possibleDuplicate,omitempty"`
+	PossibleDuplicate bool    `json:"possibleDuplicate"`
 }
 
 type EventConnectionExec struct {
@@ -3123,18 +3221,25 @@ func (instance *EventConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *EventConnectionExec) Edges() *EventEdgeExec {
-	ret := instance.exec.Client.GetOne(
+func (instance *EventConnectionExec) Edges() *EventEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[2]string{"", "EventEdge"},
+		[3]string{"EventWhereInput", "EventOrderByInput", "EventEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	return &EventEdgeExec{ret}
+	nodes := edges.Client.GetMany(
+		edges,
+		nil,
+		[3]string{"", "", "Event"},
+		"node",
+		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+
+	return &EventEdgeExecArray{nodes}
 }
 
-func (instance *EventConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
+func (instance *EventConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -3144,7 +3249,7 @@ func (instance *EventConnectionExec) Aggregate(ctx context.Context) (Aggregate, 
 
 	var v Aggregate
 	_, err := ret.Exec(ctx, &v)
-	return v, err
+	return &v, err
 }
 
 func (instance EventConnectionExec) Exec(ctx context.Context) (*EventConnection, error) {
@@ -3174,6 +3279,8 @@ func (instance EventConnectionExecArray) Exec(ctx context.Context) ([]EventConne
 }
 
 type EventConnection struct {
+	PageInfo PageInfo    `json:"pageInfo"`
+	Edges    []EventEdge `json:"edges"`
 }
 
 type PageInfoExec struct {
@@ -3283,15 +3390,14 @@ type Venue struct {
 	NameEn            string  `json:"nameEn"`
 	Lat               float64 `json:"lat"`
 	Long              float64 `json:"long"`
-	Address           *string `json:"address,omitempty"`
 	City              City    `json:"city"`
-	State             *string `json:"state,omitempty"`
+	Address           *string `json:"address,omitempty"`
 	Zip               *string `json:"zip,omitempty"`
-	Country           *string `json:"country,omitempty"`
+	Country           string  `json:"country"`
 	Url               *string `json:"url,omitempty"`
 	WpFrId            *int32  `json:"wpFrId,omitempty"`
 	WpEnId            *int32  `json:"wpEnId,omitempty"`
-	PossibleDuplicate *bool   `json:"possibleDuplicate,omitempty"`
+	PossibleDuplicate bool    `json:"possibleDuplicate"`
 }
 
 type EventOccurrenceExec struct {
@@ -3365,18 +3471,25 @@ func (instance *VenueConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *VenueConnectionExec) Edges() *VenueEdgeExec {
-	ret := instance.exec.Client.GetOne(
+func (instance *VenueConnectionExec) Edges() *VenueEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[2]string{"", "VenueEdge"},
+		[3]string{"VenueWhereInput", "VenueOrderByInput", "VenueEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	return &VenueEdgeExec{ret}
+	nodes := edges.Client.GetMany(
+		edges,
+		nil,
+		[3]string{"", "", "Venue"},
+		"node",
+		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+
+	return &VenueEdgeExecArray{nodes}
 }
 
-func (instance *VenueConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
+func (instance *VenueConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -3386,7 +3499,7 @@ func (instance *VenueConnectionExec) Aggregate(ctx context.Context) (Aggregate, 
 
 	var v Aggregate
 	_, err := ret.Exec(ctx, &v)
-	return v, err
+	return &v, err
 }
 
 func (instance VenueConnectionExec) Exec(ctx context.Context) (*VenueConnection, error) {
@@ -3416,6 +3529,8 @@ func (instance VenueConnectionExecArray) Exec(ctx context.Context) ([]VenueConne
 }
 
 type VenueConnection struct {
+	PageInfo PageInfo    `json:"pageInfo"`
+	Edges    []VenueEdge `json:"edges"`
 }
 
 type UserExec struct {
@@ -3631,18 +3746,25 @@ func (instance *UserConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *UserConnectionExec) Edges() *UserEdgeExec {
-	ret := instance.exec.Client.GetOne(
+func (instance *UserConnectionExec) Edges() *UserEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[2]string{"", "UserEdge"},
+		[3]string{"UserWhereInput", "UserOrderByInput", "UserEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	return &UserEdgeExec{ret}
+	nodes := edges.Client.GetMany(
+		edges,
+		nil,
+		[3]string{"", "", "User"},
+		"node",
+		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+
+	return &UserEdgeExecArray{nodes}
 }
 
-func (instance *UserConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
+func (instance *UserConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -3652,7 +3774,7 @@ func (instance *UserConnectionExec) Aggregate(ctx context.Context) (Aggregate, e
 
 	var v Aggregate
 	_, err := ret.Exec(ctx, &v)
-	return v, err
+	return &v, err
 }
 
 func (instance UserConnectionExec) Exec(ctx context.Context) (*UserConnection, error) {
@@ -3682,6 +3804,8 @@ func (instance UserConnectionExecArray) Exec(ctx context.Context) ([]UserConnect
 }
 
 type UserConnection struct {
+	PageInfo PageInfo   `json:"pageInfo"`
+	Edges    []UserEdge `json:"edges"`
 }
 
 type EventExec struct {
@@ -3694,7 +3818,7 @@ func (instance *EventExec) Venue() *VenueExec {
 		nil,
 		[2]string{"", "Venue"},
 		"venue",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -3837,6 +3961,7 @@ func (instance EventSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]E
 
 type EventSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
+	Node          *Event       `json:"node,omitempty"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
 }
 
@@ -3855,18 +3980,25 @@ func (instance *SearchConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *SearchConnectionExec) Edges() *SearchEdgeExec {
-	ret := instance.exec.Client.GetOne(
+func (instance *SearchConnectionExec) Edges() *SearchEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[2]string{"", "SearchEdge"},
+		[3]string{"SearchWhereInput", "SearchOrderByInput", "SearchEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	return &SearchEdgeExec{ret}
+	nodes := edges.Client.GetMany(
+		edges,
+		nil,
+		[3]string{"", "", "Search"},
+		"node",
+		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+
+	return &SearchEdgeExecArray{nodes}
 }
 
-func (instance *SearchConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
+func (instance *SearchConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -3876,7 +4008,7 @@ func (instance *SearchConnectionExec) Aggregate(ctx context.Context) (Aggregate,
 
 	var v Aggregate
 	_, err := ret.Exec(ctx, &v)
-	return v, err
+	return &v, err
 }
 
 func (instance SearchConnectionExec) Exec(ctx context.Context) (*SearchConnection, error) {
@@ -3906,6 +4038,8 @@ func (instance SearchConnectionExecArray) Exec(ctx context.Context) ([]SearchCon
 }
 
 type SearchConnection struct {
+	PageInfo PageInfo     `json:"pageInfo"`
+	Edges    []SearchEdge `json:"edges"`
 }
 
 type EventPreviousValuesExec struct {
@@ -4113,7 +4247,8 @@ func (instance RequestedCityEdgeExecArray) Exec(ctx context.Context) ([]Requeste
 }
 
 type RequestedCityEdge struct {
-	Cursor string `json:"cursor"`
+	Node   RequestedCity `json:"node"`
+	Cursor string        `json:"cursor"`
 }
 
 type EventOccurrenceSubscriptionPayloadExec struct {
@@ -4169,8 +4304,9 @@ func (instance EventOccurrenceSubscriptionPayloadExecArray) Exec(ctx context.Con
 }
 
 type EventOccurrenceSubscriptionPayload struct {
-	Mutation      MutationType `json:"mutation"`
-	UpdatedFields []string     `json:"updatedFields,omitempty"`
+	Mutation      MutationType     `json:"mutation"`
+	Node          *EventOccurrence `json:"node,omitempty"`
+	UpdatedFields []string         `json:"updatedFields,omitempty"`
 }
 
 type VenueSubscriptionPayloadExec struct {
@@ -4183,7 +4319,7 @@ func (instance *VenueSubscriptionPayloadExec) Node() *VenueExec {
 		nil,
 		[2]string{"", "Venue"},
 		"node",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -4194,7 +4330,7 @@ func (instance *VenueSubscriptionPayloadExec) PreviousValues() *VenuePreviousVal
 		nil,
 		[2]string{"", "VenuePreviousValues"},
 		"previousValues",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenuePreviousValuesExec{ret}
 }
@@ -4227,6 +4363,7 @@ func (instance VenueSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]V
 
 type VenueSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
+	Node          *Venue       `json:"node,omitempty"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
 }
 
@@ -4317,6 +4454,7 @@ func (instance EventEdgeExecArray) Exec(ctx context.Context) ([]EventEdge, error
 }
 
 type EventEdge struct {
+	Node   Event  `json:"node"`
 	Cursor string `json:"cursor"`
 }
 
@@ -4362,7 +4500,8 @@ func (instance EventOccurrenceEdgeExecArray) Exec(ctx context.Context) ([]EventO
 }
 
 type EventOccurrenceEdge struct {
-	Cursor string `json:"cursor"`
+	Node   EventOccurrence `json:"node"`
+	Cursor string          `json:"cursor"`
 }
 
 type UserPreviousValuesExec struct {
@@ -4467,8 +4606,9 @@ func (instance RequestedCitySubscriptionPayloadExecArray) Exec(ctx context.Conte
 }
 
 type RequestedCitySubscriptionPayload struct {
-	Mutation      MutationType `json:"mutation"`
-	UpdatedFields []string     `json:"updatedFields,omitempty"`
+	Mutation      MutationType   `json:"mutation"`
+	Node          *RequestedCity `json:"node,omitempty"`
+	UpdatedFields []string       `json:"updatedFields,omitempty"`
 }
 
 type UserSubscriptionPayloadExec struct {
@@ -4525,6 +4665,7 @@ func (instance UserSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]Us
 
 type UserSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
+	Node          *User        `json:"node,omitempty"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
 }
 
@@ -4622,6 +4763,7 @@ func (instance SearchSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]
 
 type SearchSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
+	Node          *Search      `json:"node,omitempty"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
 }
 
@@ -4640,18 +4782,25 @@ func (instance *EventOccurrenceConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *EventOccurrenceConnectionExec) Edges() *EventOccurrenceEdgeExec {
-	ret := instance.exec.Client.GetOne(
+func (instance *EventOccurrenceConnectionExec) Edges() *EventOccurrenceEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[2]string{"", "EventOccurrenceEdge"},
+		[3]string{"EventOccurrenceWhereInput", "EventOccurrenceOrderByInput", "EventOccurrenceEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	return &EventOccurrenceEdgeExec{ret}
+	nodes := edges.Client.GetMany(
+		edges,
+		nil,
+		[3]string{"", "", "EventOccurrence"},
+		"node",
+		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+
+	return &EventOccurrenceEdgeExecArray{nodes}
 }
 
-func (instance *EventOccurrenceConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
+func (instance *EventOccurrenceConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -4661,7 +4810,7 @@ func (instance *EventOccurrenceConnectionExec) Aggregate(ctx context.Context) (A
 
 	var v Aggregate
 	_, err := ret.Exec(ctx, &v)
-	return v, err
+	return &v, err
 }
 
 func (instance EventOccurrenceConnectionExec) Exec(ctx context.Context) (*EventOccurrenceConnection, error) {
@@ -4691,6 +4840,8 @@ func (instance EventOccurrenceConnectionExecArray) Exec(ctx context.Context) ([]
 }
 
 type EventOccurrenceConnection struct {
+	PageInfo PageInfo              `json:"pageInfo"`
+	Edges    []EventOccurrenceEdge `json:"edges"`
 }
 
 type RequestedCityPreviousValuesExec struct {
@@ -4771,6 +4922,7 @@ func (instance SearchEdgeExecArray) Exec(ctx context.Context) ([]SearchEdge, err
 }
 
 type SearchEdge struct {
+	Node   Search `json:"node"`
 	Cursor string `json:"cursor"`
 }
 
@@ -4816,6 +4968,7 @@ func (instance UserEdgeExecArray) Exec(ctx context.Context) ([]UserEdge, error) 
 }
 
 type UserEdge struct {
+	Node   User   `json:"node"`
 	Cursor string `json:"cursor"`
 }
 
@@ -4829,7 +4982,7 @@ func (instance *VenueEdgeExec) Node() *VenueExec {
 		nil,
 		[2]string{"", "Venue"},
 		"node",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "address", "city", "state", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
 
 	return &VenueExec{ret}
 }
@@ -4861,6 +5014,7 @@ func (instance VenueEdgeExecArray) Exec(ctx context.Context) ([]VenueEdge, error
 }
 
 type VenueEdge struct {
+	Node   Venue  `json:"node"`
 	Cursor string `json:"cursor"`
 }
 
@@ -4879,18 +5033,25 @@ func (instance *RequestedCityConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *RequestedCityConnectionExec) Edges() *RequestedCityEdgeExec {
-	ret := instance.exec.Client.GetOne(
+func (instance *RequestedCityConnectionExec) Edges() *RequestedCityEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[2]string{"", "RequestedCityEdge"},
+		[3]string{"RequestedCityWhereInput", "RequestedCityOrderByInput", "RequestedCityEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	return &RequestedCityEdgeExec{ret}
+	nodes := edges.Client.GetMany(
+		edges,
+		nil,
+		[3]string{"", "", "RequestedCity"},
+		"node",
+		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+
+	return &RequestedCityEdgeExecArray{nodes}
 }
 
-func (instance *RequestedCityConnectionExec) Aggregate(ctx context.Context) (Aggregate, error) {
+func (instance *RequestedCityConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -4900,7 +5061,7 @@ func (instance *RequestedCityConnectionExec) Aggregate(ctx context.Context) (Agg
 
 	var v Aggregate
 	_, err := ret.Exec(ctx, &v)
-	return v, err
+	return &v, err
 }
 
 func (instance RequestedCityConnectionExec) Exec(ctx context.Context) (*RequestedCityConnection, error) {
@@ -4930,4 +5091,6 @@ func (instance RequestedCityConnectionExecArray) Exec(ctx context.Context) ([]Re
 }
 
 type RequestedCityConnection struct {
+	PageInfo PageInfo            `json:"pageInfo"`
+	Edges    []RequestedCityEdge `json:"edges"`
 }
