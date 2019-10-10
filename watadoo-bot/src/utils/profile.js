@@ -9,6 +9,7 @@ exports.getFacebookInformations = async (senderId) => {
   ).then(function({statusCode, body}) {
     if (statusCode === 200) { return body; }
   }).catch(function(err) {
+    // eslint-disable-next-line no-console
     console.log(Error(err));
   });
   return fbUser || {};

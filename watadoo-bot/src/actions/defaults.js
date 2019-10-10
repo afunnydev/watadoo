@@ -7,8 +7,9 @@ const { askForRelationship, askForAge, askForLocation } = require("../messages/p
 const { momentMessage } = require("../messages/search");
 
 exports.welcome = async agent => {
+  const __ = agent["request_"].res.__;
   const senderId = agent.parameters.facebook_sender_id || agent.originalRequest.payload.data.sender.id;
-  if (!senderId) { return agent.add("Je ne suis pas capable de vous identifer. Réessayez plus tard 😅"); }
+  if (!senderId) { return agent.add(__("user-unknown")); }
 
   const user = await prisma.user({ facebookid: senderId });
 
@@ -25,7 +26,7 @@ exports.welcome = async agent => {
 
     const payload = new Payload(agent.FACEBOOK, [
       {
-        text: "Salut! Je m'appelle Watadoo. Je suis là pour t'aider à trouver des sorties, des événements ou des activités."
+        text: __("presentation")
       },
       askForLocation,
     ]);
@@ -36,7 +37,7 @@ exports.welcome = async agent => {
 
   let messages = agent.intent === "New Search" ? [] : [
     {
-      text: `Salut${user.fname ? ` ${user.fname}` : ""} ! J'espère que tu vas bien.`
+      text: __("greet-with-name", user.fname ? ` ${user.fname}` : "")
     },
   ];
 

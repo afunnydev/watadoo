@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require("dotenv").config({ path: ".env.development" });
 
 const needle = require("needle");
@@ -25,8 +26,8 @@ const slugify = (string) => {
     .replace(/\s+/g, "-") // Replace spaces with -
     .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
     .replace(/&/g, "-and-") // Replace & with ‘and’
-    .replace(/[^\w\-]+/g, "") // Remove all non-word characters
-    .replace(/\-\-+/g, "-") // Replace multiple - with single -
+    .replace(/[^\w-]+/g, "") // Remove all non-word characters
+    .replace(/--+/g, "-") // Replace multiple - with single -
     .replace(/^-+/, "") // Trim - from start of text
     .replace(/-+$/, ""); // Trim - from end of text
 };
@@ -102,7 +103,7 @@ const checkIfEventExistInWp = async (eventName) => {
         name: "eventId",
         message: `Which event from WP fits best with ${eventName}?`,
         default: events[0].id,
-        choices: events.map((event, index) => ({
+        choices: events.map((event) => ({
           name: event.title,
           value: event.id,
           short: event.id
@@ -268,22 +269,22 @@ const linkEventsBetweenLang = async (event) => {
   // TODO: check if events were really linked.
 };
 
-const deleteEventInWp = async (event) => {
-  const linkedEvent = await needle(
-    "delete",
-    `https://watadoo.ca/wp-json/wp/v2/event/${event.wpFrId}`,
-    null,
-    postOptions,
-  ).then(function({statusCode, body}) {
-    console.log(body);
-    if (statusCode === 200) { return body; }
-  }).catch(function(err) {
-    console.log(Error(err));
-  });
+// const deleteEventInWp = async (event) => {
+//   const linkedEvent = await needle(
+//     "delete",
+//     `https://watadoo.ca/wp-json/wp/v2/event/${event.wpFrId}`,
+//     null,
+//     postOptions,
+//   ).then(function({statusCode, body}) {
+//     console.log(body);
+//     if (statusCode === 200) { return body; }
+//   }).catch(function(err) {
+//     console.log(Error(err));
+//   });
 
-  // TODO: Check answer
-  // Is the translation deleted?
-};
+//   // TODO: Check answer
+//   // Is the translation deleted?
+// };
 
 const importEvents = async () => {
   const fragment = `

@@ -1,5 +1,7 @@
 const daysOfTheWeek = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi",];
 
+// const daysOfTheWeek = [i18n.__("sunday"), i18n.__("monday"), i18n.__("tuesday"), i18n.__("wednesday"), i18n.__("thursday"), i18n.__("friday"), i18n.__("saturday"),];
+
 const monthsOfTheYear = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre",];
 
 const getNextDayOfWeek = (date, dayOfWeek, evening = false) => {

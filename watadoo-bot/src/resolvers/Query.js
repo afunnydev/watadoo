@@ -12,6 +12,16 @@ const Query = {
         venue {
           id
           nameFr
+          address
+        }
+        isRecurring
+        recurrencePattern
+        occurrencesAreUnique
+        occurrences {
+          id
+          name
+          description
+          startDate
         }
         type
         tags

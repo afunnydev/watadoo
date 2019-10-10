@@ -20,6 +20,7 @@
     "bloomer": "^0.6.5",
     "bulma": "^0.7.4",
     "graphql": "^14.3.0",
+    "moment": "^2.24.0",
     "next": "^8.1.0",
     "next-with-apollo": "^3.4.0",
     "node-sass": "^4.12.0",

@@ -86,6 +86,7 @@ exports.viewProfile = async (agent) => {
   try {
     user = await prisma.user({ facebookid: senderId });
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
     user = await prisma.user({ facebookid: senderId });
   }
@@ -130,6 +131,7 @@ exports.deleteProfile = async (agent) => {
   try {
     user = await prisma.deleteUser({ facebookid: senderId });
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
 

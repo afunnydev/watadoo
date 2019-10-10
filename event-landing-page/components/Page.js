@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 
 import { ThemeProvider } from "styled-components"
 import Router from "next/router"
@@ -31,5 +32,9 @@ const Page = props => (
     </div>
   </ThemeProvider>
 )
+
+Page.propTypes = {
+  children: PropTypes.object.isRequired
+}
 
 export default Page

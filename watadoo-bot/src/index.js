@@ -1,7 +1,7 @@
 require("dotenv").config({ path: ".env.development" });
 
 const express = require("express");
-const app = express();
+const i18n = require("i18n");
 const createServer = require("./createServer");
 
 const { WebhookClient } = require("dialogflow-fulfillment");
@@ -14,11 +14,17 @@ const { notification, notificationFrequency } = require("./actions/notification"
 
 const { uptime } = require("./tests/uptime");
 
+const app = express();
 const corsOptions = {
   credentials: true,
   origin: process.env.FRONTEND_URL
 };
+i18n.configure({
+  locales: ["fr", "en",],
+  directory: __dirname + "/locales"
+});
 
+app.use(i18n.init);
 app.use(bodyParser.json());
 
 app.get("/monitor", async (req, res) => {
@@ -42,8 +48,11 @@ app.post("/webhook/dialogflow", async (req, res) => {
 
   const agent = new WebhookClient({ request: req, response: res });
   if (process.env.NODE_ENV === "development") {
+    // eslint-disable-next-line no-console
     console.log(JSON.stringify(req.body));
   }
+
+  res.setLocale("en");
 
   let intentMap = new Map(); // Map functions to Dialogflow intent names
 
@@ -79,4 +88,5 @@ server.applyMiddleware({ app, cors: corsOptions });
 const port = process.env.PORT || 5000;
 
 // Start server
+// eslint-disable-next-line no-console
 app.listen(port, () => console.log(`App listening on port ${port}!`));

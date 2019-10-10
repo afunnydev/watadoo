@@ -4,7 +4,11 @@ exports.uptime = async () => {
   try {
     let date = new Date();
     const events = await prisma.events({
-      first: 5
+      first: 5,
+      where: {
+        nextOccurrenceDate_gte: new Date(),
+        nextOccurrenceDate_lte: new Date(date.setMonth(date.getMonth() + 1))
+      }
     });
     if (!events || !events.length) return false;
   } catch(e) {

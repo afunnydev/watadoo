@@ -94,6 +94,7 @@ exports.search = async agent => {
   try {
     user = await prisma.user({ facebookid: senderId });
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
     user = await prisma.user({ facebookid: senderId });
   }
@@ -132,8 +133,9 @@ exports.search = async agent => {
         }
       });
     } catch(e) {
+      // eslint-disable-next-line no-console
       console.log(e);
-      return agent.add("Une erreur s'est produite. Peux-tu recommencer SVP?");
+      return agent.add("Une erreur s'est produite. Je suis vraiment désolé ...😅 Peux-tu recommencer ta recherche SVP?");
     }
     messages.push(
       {
@@ -308,6 +310,7 @@ exports.searchCancel = async agent => {
   try {
     await prisma.deleteSearch({ id: queryId });
   } catch(e) {
+    // eslint-disable-next-line no-console
     console.log(e);
     return agent.add("Une erreur s'est produite. Je suis vraiment désolé ...😅 Tu peux dire 'Nouvelle recherche' pour recommencer.");
   }
