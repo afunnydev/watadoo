@@ -1,9 +1,9 @@
+/* eslint-disable no-console */
 import React from "react"
 import PropTypes from "prop-types"
 import { Mutation, withApollo } from "react-apollo"
 import gql from "graphql-tag"
 import { toast } from "react-toastify"
-import "react-toastify/scss/main.scss"
 
 import SaveButton from "./styles/SaveButton"
 import { EVENT_QUERY } from "../pages/event.js"

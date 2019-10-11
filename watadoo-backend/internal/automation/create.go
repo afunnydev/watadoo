@@ -9,13 +9,14 @@ import (
 	"time"
 
 	"github.com/hbakhtiyor/strsim"
+	"googlemaps.github.io/maps"
 
 	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
 	"github.com/afunnydev/watadoo/watadoo-backend/pkg/scraper/models"
 )
 
 // CreateEvent create an event that was just scraped.
-func CreateEvent(event models.Event, client *prisma.Client) *prisma.Event {
+func CreateEvent(event models.Event, client *prisma.Client, googleClient *maps.Client) *prisma.Event {
 	ctx := context.TODO()
 
 	// 1. Where is this event?
@@ -39,17 +40,31 @@ func CreateEvent(event models.Event, client *prisma.Client) *prisma.Event {
 			fmt.Printf("Can't create the venue %s because I don't know in which city it is in %s. Aborting.\n", event.VenueName, event.Location)
 			return nil
 		}
-		// TODO: We should find this location's lat/long through Google, so that Stéfanie doesn't have to do it.
-		var defaultLatLong float64
-		lat = defaultLatLong
-		long = defaultLatLong
+
+		// Find the zip, address, lat and long from Google Geocode API.
+		ctx := context.TODO()
+		result, err := googleClient.Geocode(ctx, &maps.GeocodingRequest{
+			Address: event.VenueName,
+			Components: map[maps.Component]string{
+				maps.ComponentCountry: "CA",
+			},
+		})
+
+		if err != nil || len(result) == 0 {
+			fmt.Printf("Can't geocode the venue %s. Err from Google %s. Nb results is %d. Aborting.\n", event.VenueName, err, len(result))
+			return nil
+		}
+
+		zip := findZipFromGeocoding(result[0].AddressComponents)
+
 		venueInput = prisma.VenueCreateOneWithoutEventsInput{
 			Create: &prisma.VenueCreateWithoutEventsInput{
 				NameFr:  event.VenueName,
 				NameEn:  event.VenueName,
-				Address: &event.Location,
-				Lat:     defaultLatLong,
-				Long:    defaultLatLong,
+				Address: &result[0].FormattedAddress,
+				Lat:     result[0].Geometry.Location.Lat,
+				Long:    result[0].Geometry.Location.Lng,
+				Zip:     &zip,
 				City:    city,
 			},
 		}
@@ -329,4 +344,16 @@ func findCityInAddress(address string) (prisma.City, error) {
 		return prisma.CityMontreal, nil
 	}
 	return prisma.CityGatineau, errors.New("can't find the city in this string")
+}
+
+func findZipFromGeocoding(a []maps.AddressComponent) string {
+	zip := ""
+	// Loop in reverse because postal_code is usually last.
+	for i := len(a) - 1; i >= 0; i-- {
+		if a[i].Types[0] == "postal_code" {
+			zip = a[i].LongName
+			break
+		}
+	}
+	return zip
 }

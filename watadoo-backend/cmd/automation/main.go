@@ -51,8 +51,12 @@ func main() {
 
 	if save == true {
 		var created int
+		googleClient, err := utils.CreateGoogleClient()
+		if err != nil {
+			log.Fatal(err)
+		}
 		for _, event := range events {
-			newEvent := automation.CreateEvent(event, client)
+			newEvent := automation.CreateEvent(event, client, googleClient)
 			if newEvent != nil {
 				fmt.Println("PRISMA EVENT", newEvent.ID)
 				created++

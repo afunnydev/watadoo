@@ -120,7 +120,6 @@ type ComplexityRoot struct {
 		NameEn            func(childComplexity int) int
 		NameFr            func(childComplexity int) int
 		PossibleDuplicate func(childComplexity int) int
-		State             func(childComplexity int) int
 		Url               func(childComplexity int) int
 		WpEnId            func(childComplexity int) int
 		WpFrId            func(childComplexity int) int
@@ -623,13 +622,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Venue.PossibleDuplicate(childComplexity), true
 
-	case "Venue.state":
-		if e.complexity.Venue.State == nil {
-			break
-		}
-
-		return e.complexity.Venue.State(childComplexity), true
-
 	case "Venue.url":
 		if e.complexity.Venue.Url == nil {
 			break
@@ -907,9 +899,7 @@ input VenueUpdateInput {
   long: Float
   address: String
   city: City
-  state: String
   zip: String
-  country: String
   url: String
   wpFrId: Int
   wpEnId: Int
@@ -973,14 +963,13 @@ type Venue {
   long: Float!
   address: String
   city: City!
-  state: String
   zip: String
-  country: String
+  country: String!
   url: String
   wpFrId: Int
   wpEnId: Int
   events: [Event]
-  possibleDuplicate: Boolean
+  possibleDuplicate: Boolean!
 }
 
 type Mutation {
@@ -3308,40 +3297,6 @@ func (ec *executionContext) _Venue_city(ctx context.Context, field graphql.Colle
 	return ec.marshalNCity2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Venue_state(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
-	ctx = ec.Tracer.StartFieldExecution(ctx, field)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-		ec.Tracer.EndFieldExecution(ctx)
-	}()
-	rctx := &graphql.ResolverContext{
-		Object:   "Venue",
-		Field:    field,
-		Args:     nil,
-		IsMethod: false,
-	}
-	ctx = graphql.WithResolverContext(ctx, rctx)
-	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.State, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*string)
-	rctx.Result = res
-	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _Venue_zip(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
@@ -3402,12 +3357,15 @@ func (ec *executionContext) _Venue_country(ctx context.Context, field graphql.Co
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(string)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_url(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -3572,12 +3530,15 @@ func (ec *executionContext) _Venue_possibleDuplicate(ctx context.Context, field 
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*bool)
+	res := resTmp.(bool)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -5157,21 +5118,9 @@ func (ec *executionContext) unmarshalInputVenueUpdateInput(ctx context.Context, 
 			if err != nil {
 				return it, err
 			}
-		case "state":
-			var err error
-			it.State, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
 		case "zip":
 			var err error
 			it.Zip, err = ec.unmarshalOString2ᚖstring(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "country":
-			var err error
-			it.Country, err = ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -6121,12 +6070,13 @@ func (ec *executionContext) _Venue(ctx context.Context, sel ast.SelectionSet, ob
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "state":
-			out.Values[i] = ec._Venue_state(ctx, field, obj)
 		case "zip":
 			out.Values[i] = ec._Venue_zip(ctx, field, obj)
 		case "country":
 			out.Values[i] = ec._Venue_country(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "url":
 			out.Values[i] = ec._Venue_url(ctx, field, obj)
 		case "wpFrId":
@@ -6146,6 +6096,9 @@ func (ec *executionContext) _Venue(ctx context.Context, sel ast.SelectionSet, ob
 			})
 		case "possibleDuplicate":
 			out.Values[i] = ec._Venue_possibleDuplicate(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

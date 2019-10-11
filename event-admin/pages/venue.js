@@ -13,6 +13,7 @@ const VENUE_QUERY = gql`
       nameFr
       address
       city
+      zip
       lat
       long
       events {
@@ -25,21 +26,23 @@ const VENUE_QUERY = gql`
 `
 
 const VenuePage = ({ router }) => (
-  <Query
-    query={VENUE_QUERY}
-    variables={{
-      id: router.query.id
-    }}
-  >
-    {({ data, loading, error, client }) => {
-      if (error) return <p>Error</p>
-      if (loading) return <p>Loading...</p>
-      if (!data || !data.venue) return <p>No venue in here</p>
-      return (
-        <SingleVenue venue={data.venue} client={client} />
-      )
-    }}
-  </Query>
+  <>
+    {router.query.id && <Query
+      query={VENUE_QUERY}
+      variables={{
+        id: router.query.id
+      }}
+    >
+      {({ data, loading, error, client }) => {
+        if (error) return <p>Error</p>
+        if (loading) return <p>Loading...</p>
+        if (!data || !data.venue) return <p>No venue in here</p>
+        return (
+          <SingleVenue venue={data.venue} client={client} />
+        )
+      }}
+    </Query>}
+  </>
 )
 
 VenuePage.propTypes = {

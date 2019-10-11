@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"googlemaps.github.io/maps"
 
 	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
 	"github.com/afunnydev/watadoo/watadoo-backend/pkg/scraper/models"
@@ -37,6 +38,28 @@ func CreatePrismaClient() (*prisma.Client, error) {
 		Secret:   prismaSecret,
 	}
 	return prisma.New(&options), nil
+}
+
+// CreateGoogleClient returns a configured Google Client
+func CreateGoogleClient() (*maps.Client, error) {
+	env := os.Getenv("WATADOO_ENV")
+	if "" == env {
+		env = "development"
+	}
+
+	godotenv.Load(".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(".env.local")
+	}
+	godotenv.Load(".env." + env)
+	godotenv.Load(".env")
+
+	geocodeAPIKey, exist := os.LookupEnv("GEOCODE_API_KEY")
+	if exist != true {
+		return nil, errors.New("can't set google maps env variables correctly")
+	}
+
+	return maps.NewClient(maps.WithAPIKey(geocodeAPIKey))
 }
 
 // SaveToJSON saves an array of events in a JSON file
