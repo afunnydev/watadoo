@@ -19,6 +19,8 @@ models:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.City
   Permission:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.Permission
+  EventCategory:
+    model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventCategory
   EventUpdateInput:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventUpdateInput
   VenueUpdateOneWithoutEventsInput:

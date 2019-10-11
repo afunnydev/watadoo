@@ -51,7 +51,7 @@ type Event {
   nextOccurrenceDate: DateTime
   price: Int
   venue: Venue
-  type: String
+  category: EventCategory!
   tags: String
   ticketUrl: String
   source: String
@@ -65,6 +65,20 @@ type Event {
   occurrences(where: EventOccurrenceWhereInput, orderBy: EventOccurrenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventOccurrence!]
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+enum EventCategory {
+  ACTIVITES
+  COMEDY
+  FAMILY
+  FESTIVALS
+  FOOD
+  MUSEUMS
+  MUSIC
+  SPORTS
+  THEATER
+  VARIETY
+  OTHER
 }
 
 type EventConnection {
@@ -83,7 +97,7 @@ input EventCreateInput {
   nextOccurrenceDate: DateTime
   price: Int
   venue: VenueCreateOneWithoutEventsInput
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -122,7 +136,7 @@ input EventCreateWithoutOccurrencesInput {
   nextOccurrenceDate: DateTime
   price: Int
   venue: VenueCreateOneWithoutEventsInput
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -144,7 +158,7 @@ input EventCreateWithoutVenueInput {
   imageUrl: String
   nextOccurrenceDate: DateTime
   price: Int
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -685,8 +699,8 @@ enum EventOrderByInput {
   nextOccurrenceDate_DESC
   price_ASC
   price_DESC
-  type_ASC
-  type_DESC
+  category_ASC
+  category_DESC
   tags_ASC
   tags_DESC
   ticketUrl_ASC
@@ -722,7 +736,7 @@ type EventPreviousValues {
   imageUrl: String!
   nextOccurrenceDate: DateTime
   price: Int
-  type: String
+  category: EventCategory!
   tags: String
   ticketUrl: String
   source: String
@@ -838,20 +852,10 @@ input EventScalarWhereInput {
   price_lte: Int
   price_gt: Int
   price_gte: Int
-  type: String
-  type_not: String
-  type_in: [String!]
-  type_not_in: [String!]
-  type_lt: String
-  type_lte: String
-  type_gt: String
-  type_gte: String
-  type_contains: String
-  type_not_contains: String
-  type_starts_with: String
-  type_not_starts_with: String
-  type_ends_with: String
-  type_not_ends_with: String
+  category: EventCategory
+  category_not: EventCategory
+  category_in: [EventCategory!]
+  category_not_in: [EventCategory!]
   tags: String
   tags_not: String
   tags_in: [String!]
@@ -992,7 +996,7 @@ input EventUpdateDataInput {
   nextOccurrenceDate: DateTime
   price: Int
   venue: VenueUpdateOneWithoutEventsInput
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -1015,7 +1019,7 @@ input EventUpdateInput {
   nextOccurrenceDate: DateTime
   price: Int
   venue: VenueUpdateOneWithoutEventsInput
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -1037,7 +1041,7 @@ input EventUpdateManyDataInput {
   imageUrl: String
   nextOccurrenceDate: DateTime
   price: Int
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -1070,7 +1074,7 @@ input EventUpdateManyMutationInput {
   imageUrl: String
   nextOccurrenceDate: DateTime
   price: Int
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -1116,7 +1120,7 @@ input EventUpdateWithoutOccurrencesDataInput {
   nextOccurrenceDate: DateTime
   price: Int
   venue: VenueUpdateOneWithoutEventsInput
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -1137,7 +1141,7 @@ input EventUpdateWithoutVenueDataInput {
   imageUrl: String
   nextOccurrenceDate: DateTime
   price: Int
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -1280,20 +1284,10 @@ input EventWhereInput {
   price_gt: Int
   price_gte: Int
   venue: VenueWhereInput
-  type: String
-  type_not: String
-  type_in: [String!]
-  type_not_in: [String!]
-  type_lt: String
-  type_lte: String
-  type_gt: String
-  type_gte: String
-  type_contains: String
-  type_not_contains: String
-  type_starts_with: String
-  type_not_starts_with: String
-  type_ends_with: String
-  type_not_ends_with: String
+  category: EventCategory
+  category_not: EventCategory
+  category_in: [EventCategory!]
+  category_not_in: [EventCategory!]
   tags: String
   tags_not: String
   tags_in: [String!]
@@ -2204,8 +2198,8 @@ type Venue {
   zip: String
   country: String!
   url: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
   possibleDuplicate: Boolean!
 }
@@ -2299,8 +2293,8 @@ type VenuePreviousValues {
   zip: String
   country: String!
   url: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   possibleDuplicate: Boolean!
 }
 

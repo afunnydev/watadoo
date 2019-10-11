@@ -21,7 +21,7 @@ var models = [
     embedded: false
   },
   {
-    name: "EventType",
+    name: "EventCategory",
     embedded: false
   },
   {

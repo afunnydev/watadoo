@@ -29,6 +29,14 @@ func main() {
 	}
 	// Manage occurrences for recurring events
 	// Delete old events and old occurrences
+	// Get a JWT from WP
+	token, err := utils.GetJWTToken()
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Import venues in WP
+	automation.ImportVenuesInWP(client, token)
+	// Import events in WP
 	// Spot possible duplicated venues
 	// Spot possible duplicated events
 

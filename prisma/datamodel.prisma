@@ -26,17 +26,17 @@ enum Relationship {
   NONE
 }
 
-enum EventType {
-  CORPO
-  SPORTS
-  LEARN
-  MEET
-  THEATRE
-  MUSIC
-  PARTY
-  HUMOR
+enum EventCategory {
+  ACTIVITES
+  COMEDY
+  FAMILY
+  FESTIVALS
+  FOOD
   MUSEUMS
-  CHARITY
+  MUSIC
+  SPORTS
+  THEATER
+  VARIETY
   OTHER
 }
 
@@ -80,7 +80,7 @@ type Event {
   nextOccurrenceDate: DateTime
   price: Int
   venue: Venue @relation(name: "EventVenue", link: TABLE)
-  type: String
+  category: EventCategory! @default(value: OTHER)
   tags: String
   ticketUrl: String
   source: String
@@ -123,8 +123,8 @@ type Venue {
   zip: String
   country: String! @default(value: "CA")
   url: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int! @default(value: 0)
+  wpEnId: Int! @default(value: 0)
   events: [Event] @relation(name: "EventVenue")
   possibleDuplicate: Boolean! @default(value: false)
 }

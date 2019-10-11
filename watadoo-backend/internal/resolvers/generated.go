@@ -46,6 +46,7 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Event struct {
+		Category             func(childComplexity int) int
 		CreatedAt            func(childComplexity int) int
 		Description          func(childComplexity int) int
 		ID                   func(childComplexity int) int
@@ -64,7 +65,6 @@ type ComplexityRoot struct {
 		Source               func(childComplexity int) int
 		Tags                 func(childComplexity int) int
 		TicketUrl            func(childComplexity int) int
-		Type                 func(childComplexity int) int
 		UpdatedAt            func(childComplexity int) int
 		Venue                func(childComplexity int) int
 		WpEnId               func(childComplexity int) int
@@ -163,6 +163,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e}
 	_ = ec
 	switch typeName + "." + field {
+
+	case "Event.category":
+		if e.complexity.Event.Category == nil {
+			break
+		}
+
+		return e.complexity.Event.Category(childComplexity), true
 
 	case "Event.createdAt":
 		if e.complexity.Event.CreatedAt == nil {
@@ -289,13 +296,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Event.TicketUrl(childComplexity), true
-
-	case "Event.type":
-		if e.complexity.Event.Type == nil {
-			break
-		}
-
-		return e.complexity.Event.Type(childComplexity), true
 
 	case "Event.updatedAt":
 		if e.complexity.Event.UpdatedAt == nil {
@@ -727,6 +727,20 @@ enum City {
   QUEBEC
 }
 
+enum EventCategory {
+  ACTIVITES
+  COMEDY
+  FAMILY
+  FESTIVALS
+  FOOD
+  MUSEUMS
+  MUSIC
+  SPORTS
+  THEATER
+  VARIETY
+  OTHER
+}
+
 input VenueWhereInput {
   id: ID
   id_not: ID
@@ -878,7 +892,7 @@ input EventUpdateInput {
   nextOccurrenceDate: DateTime
   price: Int
   venue: VenueUpdateOneWithoutEventsInput
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -925,7 +939,7 @@ type Event {
   nextOccurrenceDate: DateTime
   price: Int
   venue: Venue
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -1510,7 +1524,7 @@ func (ec *executionContext) _Event_venue(ctx context.Context, field graphql.Coll
 	return ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Event_type(ctx context.Context, field graphql.CollectedField, obj *prisma.Event) (ret graphql.Marshaler) {
+func (ec *executionContext) _Event_category(ctx context.Context, field graphql.CollectedField, obj *prisma.Event) (ret graphql.Marshaler) {
 	ctx = ec.Tracer.StartFieldExecution(ctx, field)
 	defer func() {
 		if r := recover(); r != nil {
@@ -1529,7 +1543,7 @@ func (ec *executionContext) _Event_type(ctx context.Context, field graphql.Colle
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Type, nil
+		return obj.Category, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1538,10 +1552,10 @@ func (ec *executionContext) _Event_type(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*string)
+	res := resTmp.(prisma.EventCategory)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+	return ec.marshalOEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Event_tags(ctx context.Context, field graphql.CollectedField, obj *prisma.Event) (ret graphql.Marshaler) {
@@ -3430,10 +3444,10 @@ func (ec *executionContext) _Venue_wpFrId(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int32)
+	res := resTmp.(int32)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOInt2ᚖint32(ctx, field.Selections, res)
+	return ec.marshalOInt2int32(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_wpEnId(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -3464,10 +3478,10 @@ func (ec *executionContext) _Venue_wpEnId(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int32)
+	res := resTmp.(int32)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOInt2ᚖint32(ctx, field.Selections, res)
+	return ec.marshalOInt2int32(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_events(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -4998,9 +5012,9 @@ func (ec *executionContext) unmarshalInputEventUpdateInput(ctx context.Context, 
 			if err != nil {
 				return it, err
 			}
-		case "type":
+		case "category":
 			var err error
-			it.Type, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Category, err = ec.unmarshalOEventCategory2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -5758,8 +5772,8 @@ func (ec *executionContext) _Event(ctx context.Context, sel ast.SelectionSet, ob
 				res = ec._Event_venue(ctx, field, obj)
 				return res
 			})
-		case "type":
-			out.Values[i] = ec._Event_type(ctx, field, obj)
+		case "category":
+			out.Values[i] = ec._Event_category(ctx, field, obj)
 		case "tags":
 			out.Values[i] = ec._Event_tags(ctx, field, obj)
 		case "ticketUrl":
@@ -6877,6 +6891,30 @@ func (ec *executionContext) marshalOEvent2ᚖgithubᚗcomᚋafunnydevᚋwatadoo�
 		return graphql.Null
 	}
 	return ec._Event(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalOEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, v interface{}) (prisma.EventCategory, error) {
+	tmp, err := graphql.UnmarshalString(v)
+	return prisma.EventCategory(tmp), err
+}
+
+func (ec *executionContext) marshalOEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, sel ast.SelectionSet, v prisma.EventCategory) graphql.Marshaler {
+	return graphql.MarshalString(string(v))
+}
+
+func (ec *executionContext) unmarshalOEventCategory2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, v interface{}) (*prisma.EventCategory, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalOEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, v)
+	return &res, err
+}
+
+func (ec *executionContext) marshalOEventCategory2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, sel ast.SelectionSet, v *prisma.EventCategory) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec.marshalOEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, sel, *v)
 }
 
 func (ec *executionContext) marshalOEventOccurrence2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrence(ctx context.Context, sel ast.SelectionSet, v prisma.EventOccurrence) graphql.Marshaler {

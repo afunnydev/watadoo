@@ -310,12 +310,7 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type Notification =
-  | "ANYTIME"
-  | "WEEKLY"
-  | "BIWEEKLY"
-  | "MONTHLY"
-  | "NEVER";
+export type City = "GATINEAU" | "OTTAWA" | "MONTREAL" | "QUEBEC" | "TORONTO";
 
 export type EventOrderByInput =
   | "id_ASC"
@@ -334,8 +329,8 @@ export type EventOrderByInput =
   | "nextOccurrenceDate_DESC"
   | "price_ASC"
   | "price_DESC"
-  | "type_ASC"
-  | "type_DESC"
+  | "category_ASC"
+  | "category_DESC"
   | "tags_ASC"
   | "tags_DESC"
   | "ticketUrl_ASC"
@@ -361,7 +356,7 @@ export type EventOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type City = "GATINEAU" | "OTTAWA" | "MONTREAL" | "QUEBEC" | "TORONTO";
+export type Relationship = "COUPLE" | "SINGLE" | "MARRIED" | "OTHER" | "NONE";
 
 export type VenueOrderByInput =
   | "id_ASC"
@@ -417,11 +412,22 @@ export type EventOccurrenceOrderByInput =
   | "createdAt_ASC"
   | "createdAt_DESC";
 
+export type EventCategory =
+  | "ACTIVITES"
+  | "COMEDY"
+  | "FAMILY"
+  | "FESTIVALS"
+  | "FOOD"
+  | "MUSEUMS"
+  | "MUSIC"
+  | "SPORTS"
+  | "THEATER"
+  | "VARIETY"
+  | "OTHER";
+
 export type Sex = "MALE" | "FEMALE" | "OTHER";
 
 export type Permission = "USER" | "MANAGEEVENT" | "ADMIN";
-
-export type Relationship = "COUPLE" | "SINGLE" | "MARRIED" | "OTHER" | "NONE";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -457,6 +463,13 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
+export type Notification =
+  | "ANYTIME"
+  | "WEEKLY"
+  | "BIWEEKLY"
+  | "MONTHLY"
+  | "NEVER";
+
 export type RequestedCityOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -481,9 +494,138 @@ export type SearchOrderByInput =
   | "suggested_ASC"
   | "suggested_DESC";
 
-export interface EventOccurrenceUpdateManyWithWhereNestedInput {
-  where: EventOccurrenceScalarWhereInput;
-  data: EventOccurrenceUpdateManyDataInput;
+export interface EventOccurrenceScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  imageUrl_not?: Maybe<String>;
+  imageUrl_in?: Maybe<String[] | String>;
+  imageUrl_not_in?: Maybe<String[] | String>;
+  imageUrl_lt?: Maybe<String>;
+  imageUrl_lte?: Maybe<String>;
+  imageUrl_gt?: Maybe<String>;
+  imageUrl_gte?: Maybe<String>;
+  imageUrl_contains?: Maybe<String>;
+  imageUrl_not_contains?: Maybe<String>;
+  imageUrl_starts_with?: Maybe<String>;
+  imageUrl_not_starts_with?: Maybe<String>;
+  imageUrl_ends_with?: Maybe<String>;
+  imageUrl_not_ends_with?: Maybe<String>;
+  startDate?: Maybe<DateTimeInput>;
+  startDate_not?: Maybe<DateTimeInput>;
+  startDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  startDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  startDate_lt?: Maybe<DateTimeInput>;
+  startDate_lte?: Maybe<DateTimeInput>;
+  startDate_gt?: Maybe<DateTimeInput>;
+  startDate_gte?: Maybe<DateTimeInput>;
+  endDate?: Maybe<DateTimeInput>;
+  endDate_not?: Maybe<DateTimeInput>;
+  endDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  endDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  endDate_lt?: Maybe<DateTimeInput>;
+  endDate_lte?: Maybe<DateTimeInput>;
+  endDate_gt?: Maybe<DateTimeInput>;
+  endDate_gte?: Maybe<DateTimeInput>;
+  lat?: Maybe<Float>;
+  lat_not?: Maybe<Float>;
+  lat_in?: Maybe<Float[] | Float>;
+  lat_not_in?: Maybe<Float[] | Float>;
+  lat_lt?: Maybe<Float>;
+  lat_lte?: Maybe<Float>;
+  lat_gt?: Maybe<Float>;
+  lat_gte?: Maybe<Float>;
+  long?: Maybe<Float>;
+  long_not?: Maybe<Float>;
+  long_in?: Maybe<Float[] | Float>;
+  long_not_in?: Maybe<Float[] | Float>;
+  long_lt?: Maybe<Float>;
+  long_lte?: Maybe<Float>;
+  long_gt?: Maybe<Float>;
+  long_gte?: Maybe<Float>;
+  price?: Maybe<Int>;
+  price_not?: Maybe<Int>;
+  price_in?: Maybe<Int[] | Int>;
+  price_not_in?: Maybe<Int[] | Int>;
+  price_lt?: Maybe<Int>;
+  price_lte?: Maybe<Int>;
+  price_gt?: Maybe<Int>;
+  price_gte?: Maybe<Int>;
+  city?: Maybe<City>;
+  city_not?: Maybe<City>;
+  city_in?: Maybe<City[] | City>;
+  city_not_in?: Maybe<City[] | City>;
+  ticketUrl?: Maybe<String>;
+  ticketUrl_not?: Maybe<String>;
+  ticketUrl_in?: Maybe<String[] | String>;
+  ticketUrl_not_in?: Maybe<String[] | String>;
+  ticketUrl_lt?: Maybe<String>;
+  ticketUrl_lte?: Maybe<String>;
+  ticketUrl_gt?: Maybe<String>;
+  ticketUrl_gte?: Maybe<String>;
+  ticketUrl_contains?: Maybe<String>;
+  ticketUrl_not_contains?: Maybe<String>;
+  ticketUrl_starts_with?: Maybe<String>;
+  ticketUrl_not_starts_with?: Maybe<String>;
+  ticketUrl_ends_with?: Maybe<String>;
+  ticketUrl_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<
+    EventOccurrenceScalarWhereInput[] | EventOccurrenceScalarWhereInput
+  >;
+  OR?: Maybe<
+    EventOccurrenceScalarWhereInput[] | EventOccurrenceScalarWhereInput
+  >;
+  NOT?: Maybe<
+    EventOccurrenceScalarWhereInput[] | EventOccurrenceScalarWhereInput
+  >;
 }
 
 export type EventWhereUniqueInput = AtLeastOne<{
@@ -500,7 +642,7 @@ export interface EventCreateWithoutOccurrencesInput {
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
   venue?: Maybe<VenueCreateOneWithoutEventsInput>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -652,7 +794,7 @@ export interface EventCreateInput {
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
   venue?: Maybe<VenueCreateOneWithoutEventsInput>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -675,7 +817,7 @@ export interface EventUpdateDataInput {
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
   venue?: Maybe<VenueUpdateOneWithoutEventsInput>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -799,7 +941,7 @@ export interface EventUpdateInput {
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
   venue?: Maybe<VenueUpdateOneWithoutEventsInput>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -956,20 +1098,10 @@ export interface EventWhereInput {
   price_gt?: Maybe<Int>;
   price_gte?: Maybe<Int>;
   venue?: Maybe<VenueWhereInput>;
-  type?: Maybe<String>;
-  type_not?: Maybe<String>;
-  type_in?: Maybe<String[] | String>;
-  type_not_in?: Maybe<String[] | String>;
-  type_lt?: Maybe<String>;
-  type_lte?: Maybe<String>;
-  type_gt?: Maybe<String>;
-  type_gte?: Maybe<String>;
-  type_contains?: Maybe<String>;
-  type_not_contains?: Maybe<String>;
-  type_starts_with?: Maybe<String>;
-  type_not_starts_with?: Maybe<String>;
-  type_ends_with?: Maybe<String>;
-  type_not_ends_with?: Maybe<String>;
+  category?: Maybe<EventCategory>;
+  category_not?: Maybe<EventCategory>;
+  category_in?: Maybe<EventCategory[] | EventCategory>;
+  category_not_in?: Maybe<EventCategory[] | EventCategory>;
   tags?: Maybe<String>;
   tags_not?: Maybe<String>;
   tags_in?: Maybe<String[] | String>;
@@ -1288,138 +1420,9 @@ export interface SearchWhereInput {
   NOT?: Maybe<SearchWhereInput[] | SearchWhereInput>;
 }
 
-export interface EventOccurrenceScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  description?: Maybe<String>;
-  description_not?: Maybe<String>;
-  description_in?: Maybe<String[] | String>;
-  description_not_in?: Maybe<String[] | String>;
-  description_lt?: Maybe<String>;
-  description_lte?: Maybe<String>;
-  description_gt?: Maybe<String>;
-  description_gte?: Maybe<String>;
-  description_contains?: Maybe<String>;
-  description_not_contains?: Maybe<String>;
-  description_starts_with?: Maybe<String>;
-  description_not_starts_with?: Maybe<String>;
-  description_ends_with?: Maybe<String>;
-  description_not_ends_with?: Maybe<String>;
-  imageUrl?: Maybe<String>;
-  imageUrl_not?: Maybe<String>;
-  imageUrl_in?: Maybe<String[] | String>;
-  imageUrl_not_in?: Maybe<String[] | String>;
-  imageUrl_lt?: Maybe<String>;
-  imageUrl_lte?: Maybe<String>;
-  imageUrl_gt?: Maybe<String>;
-  imageUrl_gte?: Maybe<String>;
-  imageUrl_contains?: Maybe<String>;
-  imageUrl_not_contains?: Maybe<String>;
-  imageUrl_starts_with?: Maybe<String>;
-  imageUrl_not_starts_with?: Maybe<String>;
-  imageUrl_ends_with?: Maybe<String>;
-  imageUrl_not_ends_with?: Maybe<String>;
-  startDate?: Maybe<DateTimeInput>;
-  startDate_not?: Maybe<DateTimeInput>;
-  startDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  startDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  startDate_lt?: Maybe<DateTimeInput>;
-  startDate_lte?: Maybe<DateTimeInput>;
-  startDate_gt?: Maybe<DateTimeInput>;
-  startDate_gte?: Maybe<DateTimeInput>;
-  endDate?: Maybe<DateTimeInput>;
-  endDate_not?: Maybe<DateTimeInput>;
-  endDate_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  endDate_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  endDate_lt?: Maybe<DateTimeInput>;
-  endDate_lte?: Maybe<DateTimeInput>;
-  endDate_gt?: Maybe<DateTimeInput>;
-  endDate_gte?: Maybe<DateTimeInput>;
-  lat?: Maybe<Float>;
-  lat_not?: Maybe<Float>;
-  lat_in?: Maybe<Float[] | Float>;
-  lat_not_in?: Maybe<Float[] | Float>;
-  lat_lt?: Maybe<Float>;
-  lat_lte?: Maybe<Float>;
-  lat_gt?: Maybe<Float>;
-  lat_gte?: Maybe<Float>;
-  long?: Maybe<Float>;
-  long_not?: Maybe<Float>;
-  long_in?: Maybe<Float[] | Float>;
-  long_not_in?: Maybe<Float[] | Float>;
-  long_lt?: Maybe<Float>;
-  long_lte?: Maybe<Float>;
-  long_gt?: Maybe<Float>;
-  long_gte?: Maybe<Float>;
-  price?: Maybe<Int>;
-  price_not?: Maybe<Int>;
-  price_in?: Maybe<Int[] | Int>;
-  price_not_in?: Maybe<Int[] | Int>;
-  price_lt?: Maybe<Int>;
-  price_lte?: Maybe<Int>;
-  price_gt?: Maybe<Int>;
-  price_gte?: Maybe<Int>;
-  city?: Maybe<City>;
-  city_not?: Maybe<City>;
-  city_in?: Maybe<City[] | City>;
-  city_not_in?: Maybe<City[] | City>;
-  ticketUrl?: Maybe<String>;
-  ticketUrl_not?: Maybe<String>;
-  ticketUrl_in?: Maybe<String[] | String>;
-  ticketUrl_not_in?: Maybe<String[] | String>;
-  ticketUrl_lt?: Maybe<String>;
-  ticketUrl_lte?: Maybe<String>;
-  ticketUrl_gt?: Maybe<String>;
-  ticketUrl_gte?: Maybe<String>;
-  ticketUrl_contains?: Maybe<String>;
-  ticketUrl_not_contains?: Maybe<String>;
-  ticketUrl_starts_with?: Maybe<String>;
-  ticketUrl_not_starts_with?: Maybe<String>;
-  ticketUrl_ends_with?: Maybe<String>;
-  ticketUrl_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<
-    EventOccurrenceScalarWhereInput[] | EventOccurrenceScalarWhereInput
-  >;
-  OR?: Maybe<
-    EventOccurrenceScalarWhereInput[] | EventOccurrenceScalarWhereInput
-  >;
-  NOT?: Maybe<
-    EventOccurrenceScalarWhereInput[] | EventOccurrenceScalarWhereInput
-  >;
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -1438,9 +1441,9 @@ export interface UserUpdateManyMutationInput {
   messengerNotifications?: Maybe<Notification>;
 }
 
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput;
-  create: UserCreateInput;
+export interface EventOccurrenceUpdateManyWithWhereNestedInput {
+  where: EventOccurrenceScalarWhereInput;
+  data: EventOccurrenceUpdateManyDataInput;
 }
 
 export interface SearchUpdateManyMutationInput {
@@ -1478,7 +1481,7 @@ export interface EventUpdateManyMutationInput {
   imageUrl?: Maybe<String>;
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -1504,7 +1507,7 @@ export interface EventUpdateManyDataInput {
   imageUrl?: Maybe<String>;
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -1672,20 +1675,10 @@ export interface EventScalarWhereInput {
   price_lte?: Maybe<Int>;
   price_gt?: Maybe<Int>;
   price_gte?: Maybe<Int>;
-  type?: Maybe<String>;
-  type_not?: Maybe<String>;
-  type_in?: Maybe<String[] | String>;
-  type_not_in?: Maybe<String[] | String>;
-  type_lt?: Maybe<String>;
-  type_lte?: Maybe<String>;
-  type_gt?: Maybe<String>;
-  type_gte?: Maybe<String>;
-  type_contains?: Maybe<String>;
-  type_not_contains?: Maybe<String>;
-  type_starts_with?: Maybe<String>;
-  type_not_starts_with?: Maybe<String>;
-  type_ends_with?: Maybe<String>;
-  type_not_ends_with?: Maybe<String>;
+  category?: Maybe<EventCategory>;
+  category_not?: Maybe<EventCategory>;
+  category_in?: Maybe<EventCategory[] | EventCategory>;
+  category_not_in?: Maybe<EventCategory[] | EventCategory>;
   tags?: Maybe<String>;
   tags_not?: Maybe<String>;
   tags_in?: Maybe<String[] | String>;
@@ -1852,7 +1845,7 @@ export interface EventUpdateWithoutVenueDataInput {
   imageUrl?: Maybe<String>;
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -1875,7 +1868,7 @@ export interface EventUpdateWithoutOccurrencesDataInput {
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
   venue?: Maybe<VenueUpdateOneWithoutEventsInput>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -2468,7 +2461,7 @@ export interface EventCreateWithoutVenueInput {
   imageUrl?: Maybe<String>;
   nextOccurrenceDate?: Maybe<DateTimeInput>;
   price?: Maybe<Int>;
-  type?: Maybe<String>;
+  category?: Maybe<EventCategory>;
   tags?: Maybe<String>;
   ticketUrl?: Maybe<String>;
   source?: Maybe<String>;
@@ -2497,8 +2490,8 @@ export interface VenuePreviousValues {
   zip?: String;
   country: String;
   url?: String;
-  wpFrId?: Int;
-  wpEnId?: Int;
+  wpFrId: Int;
+  wpEnId: Int;
   possibleDuplicate: Boolean;
 }
 
@@ -2593,8 +2586,8 @@ export interface Venue {
   zip?: String;
   country: String;
   url?: String;
-  wpFrId?: Int;
-  wpEnId?: Int;
+  wpFrId: Int;
+  wpEnId: Int;
   possibleDuplicate: Boolean;
 }
 
@@ -3055,7 +3048,7 @@ export interface Event {
   imageUrl: String;
   nextOccurrenceDate?: DateTimeOutput;
   price?: Int;
-  type?: String;
+  category: EventCategory;
   tags?: String;
   ticketUrl?: String;
   source?: String;
@@ -3080,7 +3073,7 @@ export interface EventPromise extends Promise<Event>, Fragmentable {
   nextOccurrenceDate: () => Promise<DateTimeOutput>;
   price: () => Promise<Int>;
   venue: <T = VenuePromise>() => T;
-  type: () => Promise<String>;
+  category: () => Promise<EventCategory>;
   tags: () => Promise<String>;
   ticketUrl: () => Promise<String>;
   source: () => Promise<String>;
@@ -3116,7 +3109,7 @@ export interface EventSubscription
   nextOccurrenceDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   price: () => Promise<AsyncIterator<Int>>;
   venue: <T = VenueSubscription>() => T;
-  type: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<EventCategory>>;
   tags: () => Promise<AsyncIterator<String>>;
   ticketUrl: () => Promise<AsyncIterator<String>>;
   source: () => Promise<AsyncIterator<String>>;
@@ -3154,7 +3147,7 @@ export interface EventNullablePromise
   nextOccurrenceDate: () => Promise<DateTimeOutput>;
   price: () => Promise<Int>;
   venue: <T = VenuePromise>() => T;
-  type: () => Promise<String>;
+  category: () => Promise<EventCategory>;
   tags: () => Promise<String>;
   ticketUrl: () => Promise<String>;
   source: () => Promise<String>;
@@ -3249,7 +3242,7 @@ export interface EventPreviousValues {
   imageUrl: String;
   nextOccurrenceDate?: DateTimeOutput;
   price?: Int;
-  type?: String;
+  category: EventCategory;
   tags?: String;
   ticketUrl?: String;
   source?: String;
@@ -3275,7 +3268,7 @@ export interface EventPreviousValuesPromise
   imageUrl: () => Promise<String>;
   nextOccurrenceDate: () => Promise<DateTimeOutput>;
   price: () => Promise<Int>;
-  type: () => Promise<String>;
+  category: () => Promise<EventCategory>;
   tags: () => Promise<String>;
   ticketUrl: () => Promise<String>;
   source: () => Promise<String>;
@@ -3301,7 +3294,7 @@ export interface EventPreviousValuesSubscription
   imageUrl: () => Promise<AsyncIterator<String>>;
   nextOccurrenceDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   price: () => Promise<AsyncIterator<Int>>;
-  type: () => Promise<AsyncIterator<String>>;
+  category: () => Promise<AsyncIterator<EventCategory>>;
   tags: () => Promise<AsyncIterator<String>>;
   ticketUrl: () => Promise<AsyncIterator<String>>;
   source: () => Promise<AsyncIterator<String>>;
@@ -3950,7 +3943,7 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "EventType",
+    name: "EventCategory",
     embedded: false
   },
   {

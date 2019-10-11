@@ -3,4 +3,5 @@ output
 internal/resolvers/tmp
 cmd/automation/*_cache
 cmd/automation/output
+cmd/migrate
 .DS_Store

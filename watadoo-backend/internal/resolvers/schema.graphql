@@ -13,6 +13,20 @@ enum City {
   QUEBEC
 }
 
+enum EventCategory {
+  ACTIVITES
+  COMEDY
+  FAMILY
+  FESTIVALS
+  FOOD
+  MUSEUMS
+  MUSIC
+  SPORTS
+  THEATER
+  VARIETY
+  OTHER
+}
+
 input VenueWhereInput {
   id: ID
   id_not: ID
@@ -164,7 +178,7 @@ input EventUpdateInput {
   nextOccurrenceDate: DateTime
   price: Int
   venue: VenueUpdateOneWithoutEventsInput
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String
@@ -211,7 +225,7 @@ type Event {
   nextOccurrenceDate: DateTime
   price: Int
   venue: Venue
-  type: String
+  category: EventCategory
   tags: String
   ticketUrl: String
   source: String

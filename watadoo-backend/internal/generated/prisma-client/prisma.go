@@ -70,7 +70,7 @@ func (client *Client) Event(params EventWhereUniqueInput) *EventExec {
 		params,
 		[2]string{"EventWhereUniqueInput!", "Event"},
 		"event",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
@@ -104,7 +104,7 @@ func (client *Client) Events(params *EventsParams) *EventExecArray {
 		wparams,
 		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
 		"events",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExecArray{ret}
 }
@@ -543,7 +543,7 @@ func (client *Client) CreateEvent(params EventCreateInput) *EventExec {
 		params,
 		[2]string{"EventCreateInput!", "Event"},
 		"createEvent",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
@@ -561,7 +561,7 @@ func (client *Client) UpdateEvent(params EventUpdateParams) *EventExec {
 		},
 		[3]string{"EventUpdateInput!", "EventWhereUniqueInput!", "Event"},
 		"updateEvent",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
@@ -598,7 +598,7 @@ func (client *Client) UpsertEvent(params EventUpsertParams) *EventExec {
 		uparams,
 		[4]string{"EventWhereUniqueInput!", "EventCreateInput!", "EventUpdateInput!", "Event"},
 		"upsertEvent",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
@@ -608,7 +608,7 @@ func (client *Client) DeleteEvent(params EventWhereUniqueInput) *EventExec {
 		params,
 		[2]string{"EventWhereUniqueInput!", "Event"},
 		"deleteEvent",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
@@ -1018,14 +1018,14 @@ func (client *Client) DeleteManyVenues(params *VenueWhereInput) *BatchPayloadExe
 	return &BatchPayloadExec{exec}
 }
 
-type Notification string
+type City string
 
 const (
-	NotificationAnytime  Notification = "ANYTIME"
-	NotificationWeekly   Notification = "WEEKLY"
-	NotificationBiweekly Notification = "BIWEEKLY"
-	NotificationMonthly  Notification = "MONTHLY"
-	NotificationNever    Notification = "NEVER"
+	CityGatineau City = "GATINEAU"
+	CityOttawa   City = "OTTAWA"
+	CityMontreal City = "MONTREAL"
+	CityQuebec   City = "QUEBEC"
+	CityToronto  City = "TORONTO"
 )
 
 type EventOrderByInput string
@@ -1047,8 +1047,8 @@ const (
 	EventOrderByInputNextOccurrenceDateDesc   EventOrderByInput = "nextOccurrenceDate_DESC"
 	EventOrderByInputPriceAsc                 EventOrderByInput = "price_ASC"
 	EventOrderByInputPriceDesc                EventOrderByInput = "price_DESC"
-	EventOrderByInputTypeAsc                  EventOrderByInput = "type_ASC"
-	EventOrderByInputTypeDesc                 EventOrderByInput = "type_DESC"
+	EventOrderByInputCategoryAsc              EventOrderByInput = "category_ASC"
+	EventOrderByInputCategoryDesc             EventOrderByInput = "category_DESC"
 	EventOrderByInputTagsAsc                  EventOrderByInput = "tags_ASC"
 	EventOrderByInputTagsDesc                 EventOrderByInput = "tags_DESC"
 	EventOrderByInputTicketUrlAsc             EventOrderByInput = "ticketUrl_ASC"
@@ -1075,14 +1075,14 @@ const (
 	EventOrderByInputUpdatedAtDesc            EventOrderByInput = "updatedAt_DESC"
 )
 
-type City string
+type Relationship string
 
 const (
-	CityGatineau City = "GATINEAU"
-	CityOttawa   City = "OTTAWA"
-	CityMontreal City = "MONTREAL"
-	CityQuebec   City = "QUEBEC"
-	CityToronto  City = "TORONTO"
+	RelationshipCouple  Relationship = "COUPLE"
+	RelationshipSingle  Relationship = "SINGLE"
+	RelationshipMarried Relationship = "MARRIED"
+	RelationshipOther   Relationship = "OTHER"
+	RelationshipNone    Relationship = "NONE"
 )
 
 type VenueOrderByInput string
@@ -1145,6 +1145,22 @@ const (
 	EventOccurrenceOrderByInputCreatedAtDesc   EventOccurrenceOrderByInput = "createdAt_DESC"
 )
 
+type EventCategory string
+
+const (
+	EventCategoryActivites EventCategory = "ACTIVITES"
+	EventCategoryComedy    EventCategory = "COMEDY"
+	EventCategoryFamily    EventCategory = "FAMILY"
+	EventCategoryFestivals EventCategory = "FESTIVALS"
+	EventCategoryFood      EventCategory = "FOOD"
+	EventCategoryMuseums   EventCategory = "MUSEUMS"
+	EventCategoryMusic     EventCategory = "MUSIC"
+	EventCategorySports    EventCategory = "SPORTS"
+	EventCategoryTheater   EventCategory = "THEATER"
+	EventCategoryVariety   EventCategory = "VARIETY"
+	EventCategoryOther     EventCategory = "OTHER"
+)
+
 type Sex string
 
 const (
@@ -1159,16 +1175,6 @@ const (
 	PermissionUser        Permission = "USER"
 	PermissionManageevent Permission = "MANAGEEVENT"
 	PermissionAdmin       Permission = "ADMIN"
-)
-
-type Relationship string
-
-const (
-	RelationshipCouple  Relationship = "COUPLE"
-	RelationshipSingle  Relationship = "SINGLE"
-	RelationshipMarried Relationship = "MARRIED"
-	RelationshipOther   Relationship = "OTHER"
-	RelationshipNone    Relationship = "NONE"
 )
 
 type UserOrderByInput string
@@ -1214,6 +1220,16 @@ const (
 	MutationTypeDeleted MutationType = "DELETED"
 )
 
+type Notification string
+
+const (
+	NotificationAnytime  Notification = "ANYTIME"
+	NotificationWeekly   Notification = "WEEKLY"
+	NotificationBiweekly Notification = "BIWEEKLY"
+	NotificationMonthly  Notification = "MONTHLY"
+	NotificationNever    Notification = "NEVER"
+)
+
 type RequestedCityOrderByInput string
 
 const (
@@ -1244,9 +1260,132 @@ const (
 	SearchOrderByInputSuggestedDesc SearchOrderByInput = "suggested_DESC"
 )
 
-type EventOccurrenceUpdateManyWithWhereNestedInput struct {
-	Where EventOccurrenceScalarWhereInput    `json:"where"`
-	Data  EventOccurrenceUpdateManyDataInput `json:"data"`
+type EventOccurrenceScalarWhereInput struct {
+	ID                       *string                           `json:"id,omitempty"`
+	IDNot                    *string                           `json:"id_not,omitempty"`
+	IDIn                     []string                          `json:"id_in,omitempty"`
+	IDNotIn                  []string                          `json:"id_not_in,omitempty"`
+	IDLt                     *string                           `json:"id_lt,omitempty"`
+	IDLte                    *string                           `json:"id_lte,omitempty"`
+	IDGt                     *string                           `json:"id_gt,omitempty"`
+	IDGte                    *string                           `json:"id_gte,omitempty"`
+	IDContains               *string                           `json:"id_contains,omitempty"`
+	IDNotContains            *string                           `json:"id_not_contains,omitempty"`
+	IDStartsWith             *string                           `json:"id_starts_with,omitempty"`
+	IDNotStartsWith          *string                           `json:"id_not_starts_with,omitempty"`
+	IDEndsWith               *string                           `json:"id_ends_with,omitempty"`
+	IDNotEndsWith            *string                           `json:"id_not_ends_with,omitempty"`
+	Name                     *string                           `json:"name,omitempty"`
+	NameNot                  *string                           `json:"name_not,omitempty"`
+	NameIn                   []string                          `json:"name_in,omitempty"`
+	NameNotIn                []string                          `json:"name_not_in,omitempty"`
+	NameLt                   *string                           `json:"name_lt,omitempty"`
+	NameLte                  *string                           `json:"name_lte,omitempty"`
+	NameGt                   *string                           `json:"name_gt,omitempty"`
+	NameGte                  *string                           `json:"name_gte,omitempty"`
+	NameContains             *string                           `json:"name_contains,omitempty"`
+	NameNotContains          *string                           `json:"name_not_contains,omitempty"`
+	NameStartsWith           *string                           `json:"name_starts_with,omitempty"`
+	NameNotStartsWith        *string                           `json:"name_not_starts_with,omitempty"`
+	NameEndsWith             *string                           `json:"name_ends_with,omitempty"`
+	NameNotEndsWith          *string                           `json:"name_not_ends_with,omitempty"`
+	Description              *string                           `json:"description,omitempty"`
+	DescriptionNot           *string                           `json:"description_not,omitempty"`
+	DescriptionIn            []string                          `json:"description_in,omitempty"`
+	DescriptionNotIn         []string                          `json:"description_not_in,omitempty"`
+	DescriptionLt            *string                           `json:"description_lt,omitempty"`
+	DescriptionLte           *string                           `json:"description_lte,omitempty"`
+	DescriptionGt            *string                           `json:"description_gt,omitempty"`
+	DescriptionGte           *string                           `json:"description_gte,omitempty"`
+	DescriptionContains      *string                           `json:"description_contains,omitempty"`
+	DescriptionNotContains   *string                           `json:"description_not_contains,omitempty"`
+	DescriptionStartsWith    *string                           `json:"description_starts_with,omitempty"`
+	DescriptionNotStartsWith *string                           `json:"description_not_starts_with,omitempty"`
+	DescriptionEndsWith      *string                           `json:"description_ends_with,omitempty"`
+	DescriptionNotEndsWith   *string                           `json:"description_not_ends_with,omitempty"`
+	ImageUrl                 *string                           `json:"imageUrl,omitempty"`
+	ImageUrlNot              *string                           `json:"imageUrl_not,omitempty"`
+	ImageUrlIn               []string                          `json:"imageUrl_in,omitempty"`
+	ImageUrlNotIn            []string                          `json:"imageUrl_not_in,omitempty"`
+	ImageUrlLt               *string                           `json:"imageUrl_lt,omitempty"`
+	ImageUrlLte              *string                           `json:"imageUrl_lte,omitempty"`
+	ImageUrlGt               *string                           `json:"imageUrl_gt,omitempty"`
+	ImageUrlGte              *string                           `json:"imageUrl_gte,omitempty"`
+	ImageUrlContains         *string                           `json:"imageUrl_contains,omitempty"`
+	ImageUrlNotContains      *string                           `json:"imageUrl_not_contains,omitempty"`
+	ImageUrlStartsWith       *string                           `json:"imageUrl_starts_with,omitempty"`
+	ImageUrlNotStartsWith    *string                           `json:"imageUrl_not_starts_with,omitempty"`
+	ImageUrlEndsWith         *string                           `json:"imageUrl_ends_with,omitempty"`
+	ImageUrlNotEndsWith      *string                           `json:"imageUrl_not_ends_with,omitempty"`
+	StartDate                *string                           `json:"startDate,omitempty"`
+	StartDateNot             *string                           `json:"startDate_not,omitempty"`
+	StartDateIn              []string                          `json:"startDate_in,omitempty"`
+	StartDateNotIn           []string                          `json:"startDate_not_in,omitempty"`
+	StartDateLt              *string                           `json:"startDate_lt,omitempty"`
+	StartDateLte             *string                           `json:"startDate_lte,omitempty"`
+	StartDateGt              *string                           `json:"startDate_gt,omitempty"`
+	StartDateGte             *string                           `json:"startDate_gte,omitempty"`
+	EndDate                  *string                           `json:"endDate,omitempty"`
+	EndDateNot               *string                           `json:"endDate_not,omitempty"`
+	EndDateIn                []string                          `json:"endDate_in,omitempty"`
+	EndDateNotIn             []string                          `json:"endDate_not_in,omitempty"`
+	EndDateLt                *string                           `json:"endDate_lt,omitempty"`
+	EndDateLte               *string                           `json:"endDate_lte,omitempty"`
+	EndDateGt                *string                           `json:"endDate_gt,omitempty"`
+	EndDateGte               *string                           `json:"endDate_gte,omitempty"`
+	Lat                      *float64                          `json:"lat,omitempty"`
+	LatNot                   *float64                          `json:"lat_not,omitempty"`
+	LatIn                    []float64                         `json:"lat_in,omitempty"`
+	LatNotIn                 []float64                         `json:"lat_not_in,omitempty"`
+	LatLt                    *float64                          `json:"lat_lt,omitempty"`
+	LatLte                   *float64                          `json:"lat_lte,omitempty"`
+	LatGt                    *float64                          `json:"lat_gt,omitempty"`
+	LatGte                   *float64                          `json:"lat_gte,omitempty"`
+	Long                     *float64                          `json:"long,omitempty"`
+	LongNot                  *float64                          `json:"long_not,omitempty"`
+	LongIn                   []float64                         `json:"long_in,omitempty"`
+	LongNotIn                []float64                         `json:"long_not_in,omitempty"`
+	LongLt                   *float64                          `json:"long_lt,omitempty"`
+	LongLte                  *float64                          `json:"long_lte,omitempty"`
+	LongGt                   *float64                          `json:"long_gt,omitempty"`
+	LongGte                  *float64                          `json:"long_gte,omitempty"`
+	Price                    *int32                            `json:"price,omitempty"`
+	PriceNot                 *int32                            `json:"price_not,omitempty"`
+	PriceIn                  []int32                           `json:"price_in,omitempty"`
+	PriceNotIn               []int32                           `json:"price_not_in,omitempty"`
+	PriceLt                  *int32                            `json:"price_lt,omitempty"`
+	PriceLte                 *int32                            `json:"price_lte,omitempty"`
+	PriceGt                  *int32                            `json:"price_gt,omitempty"`
+	PriceGte                 *int32                            `json:"price_gte,omitempty"`
+	City                     *City                             `json:"city,omitempty"`
+	CityNot                  *City                             `json:"city_not,omitempty"`
+	CityIn                   []City                            `json:"city_in,omitempty"`
+	CityNotIn                []City                            `json:"city_not_in,omitempty"`
+	TicketUrl                *string                           `json:"ticketUrl,omitempty"`
+	TicketUrlNot             *string                           `json:"ticketUrl_not,omitempty"`
+	TicketUrlIn              []string                          `json:"ticketUrl_in,omitempty"`
+	TicketUrlNotIn           []string                          `json:"ticketUrl_not_in,omitempty"`
+	TicketUrlLt              *string                           `json:"ticketUrl_lt,omitempty"`
+	TicketUrlLte             *string                           `json:"ticketUrl_lte,omitempty"`
+	TicketUrlGt              *string                           `json:"ticketUrl_gt,omitempty"`
+	TicketUrlGte             *string                           `json:"ticketUrl_gte,omitempty"`
+	TicketUrlContains        *string                           `json:"ticketUrl_contains,omitempty"`
+	TicketUrlNotContains     *string                           `json:"ticketUrl_not_contains,omitempty"`
+	TicketUrlStartsWith      *string                           `json:"ticketUrl_starts_with,omitempty"`
+	TicketUrlNotStartsWith   *string                           `json:"ticketUrl_not_starts_with,omitempty"`
+	TicketUrlEndsWith        *string                           `json:"ticketUrl_ends_with,omitempty"`
+	TicketUrlNotEndsWith     *string                           `json:"ticketUrl_not_ends_with,omitempty"`
+	CreatedAt                *string                           `json:"createdAt,omitempty"`
+	CreatedAtNot             *string                           `json:"createdAt_not,omitempty"`
+	CreatedAtIn              []string                          `json:"createdAt_in,omitempty"`
+	CreatedAtNotIn           []string                          `json:"createdAt_not_in,omitempty"`
+	CreatedAtLt              *string                           `json:"createdAt_lt,omitempty"`
+	CreatedAtLte             *string                           `json:"createdAt_lte,omitempty"`
+	CreatedAtGt              *string                           `json:"createdAt_gt,omitempty"`
+	CreatedAtGte             *string                           `json:"createdAt_gte,omitempty"`
+	And                      []EventOccurrenceScalarWhereInput `json:"AND,omitempty"`
+	Or                       []EventOccurrenceScalarWhereInput `json:"OR,omitempty"`
+	Not                      []EventOccurrenceScalarWhereInput `json:"NOT,omitempty"`
 }
 
 type EventWhereUniqueInput struct {
@@ -1263,7 +1402,7 @@ type EventCreateWithoutOccurrencesInput struct {
 	NextOccurrenceDate   *string                           `json:"nextOccurrenceDate,omitempty"`
 	Price                *int32                            `json:"price,omitempty"`
 	Venue                *VenueCreateOneWithoutEventsInput `json:"venue,omitempty"`
-	Type                 *string                           `json:"type,omitempty"`
+	Category             *EventCategory                    `json:"category,omitempty"`
 	Tags                 *string                           `json:"tags,omitempty"`
 	TicketUrl            *string                           `json:"ticketUrl,omitempty"`
 	Source               *string                           `json:"source,omitempty"`
@@ -1415,7 +1554,7 @@ type EventCreateInput struct {
 	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
 	Price                *int32                                      `json:"price,omitempty"`
 	Venue                *VenueCreateOneWithoutEventsInput           `json:"venue,omitempty"`
-	Type                 *string                                     `json:"type,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
 	Tags                 *string                                     `json:"tags,omitempty"`
 	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
 	Source               *string                                     `json:"source,omitempty"`
@@ -1438,7 +1577,7 @@ type EventUpdateDataInput struct {
 	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
 	Price                *int32                                      `json:"price,omitempty"`
 	Venue                *VenueUpdateOneWithoutEventsInput           `json:"venue,omitempty"`
-	Type                 *string                                     `json:"type,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
 	Tags                 *string                                     `json:"tags,omitempty"`
 	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
 	Source               *string                                     `json:"source,omitempty"`
@@ -1548,7 +1687,7 @@ type EventUpdateInput struct {
 	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
 	Price                *int32                                      `json:"price,omitempty"`
 	Venue                *VenueUpdateOneWithoutEventsInput           `json:"venue,omitempty"`
-	Type                 *string                                     `json:"type,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
 	Tags                 *string                                     `json:"tags,omitempty"`
 	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
 	Source               *string                                     `json:"source,omitempty"`
@@ -1705,20 +1844,10 @@ type EventWhereInput struct {
 	PriceGt                        *int32                     `json:"price_gt,omitempty"`
 	PriceGte                       *int32                     `json:"price_gte,omitempty"`
 	Venue                          *VenueWhereInput           `json:"venue,omitempty"`
-	Type                           *string                    `json:"type,omitempty"`
-	TypeNot                        *string                    `json:"type_not,omitempty"`
-	TypeIn                         []string                   `json:"type_in,omitempty"`
-	TypeNotIn                      []string                   `json:"type_not_in,omitempty"`
-	TypeLt                         *string                    `json:"type_lt,omitempty"`
-	TypeLte                        *string                    `json:"type_lte,omitempty"`
-	TypeGt                         *string                    `json:"type_gt,omitempty"`
-	TypeGte                        *string                    `json:"type_gte,omitempty"`
-	TypeContains                   *string                    `json:"type_contains,omitempty"`
-	TypeNotContains                *string                    `json:"type_not_contains,omitempty"`
-	TypeStartsWith                 *string                    `json:"type_starts_with,omitempty"`
-	TypeNotStartsWith              *string                    `json:"type_not_starts_with,omitempty"`
-	TypeEndsWith                   *string                    `json:"type_ends_with,omitempty"`
-	TypeNotEndsWith                *string                    `json:"type_not_ends_with,omitempty"`
+	Category                       *EventCategory             `json:"category,omitempty"`
+	CategoryNot                    *EventCategory             `json:"category_not,omitempty"`
+	CategoryIn                     []EventCategory            `json:"category_in,omitempty"`
+	CategoryNotIn                  []EventCategory            `json:"category_not_in,omitempty"`
 	Tags                           *string                    `json:"tags,omitempty"`
 	TagsNot                        *string                    `json:"tags_not,omitempty"`
 	TagsIn                         []string                   `json:"tags_in,omitempty"`
@@ -2015,132 +2144,9 @@ type SearchWhereInput struct {
 	Not                   []SearchWhereInput         `json:"NOT,omitempty"`
 }
 
-type EventOccurrenceScalarWhereInput struct {
-	ID                       *string                           `json:"id,omitempty"`
-	IDNot                    *string                           `json:"id_not,omitempty"`
-	IDIn                     []string                          `json:"id_in,omitempty"`
-	IDNotIn                  []string                          `json:"id_not_in,omitempty"`
-	IDLt                     *string                           `json:"id_lt,omitempty"`
-	IDLte                    *string                           `json:"id_lte,omitempty"`
-	IDGt                     *string                           `json:"id_gt,omitempty"`
-	IDGte                    *string                           `json:"id_gte,omitempty"`
-	IDContains               *string                           `json:"id_contains,omitempty"`
-	IDNotContains            *string                           `json:"id_not_contains,omitempty"`
-	IDStartsWith             *string                           `json:"id_starts_with,omitempty"`
-	IDNotStartsWith          *string                           `json:"id_not_starts_with,omitempty"`
-	IDEndsWith               *string                           `json:"id_ends_with,omitempty"`
-	IDNotEndsWith            *string                           `json:"id_not_ends_with,omitempty"`
-	Name                     *string                           `json:"name,omitempty"`
-	NameNot                  *string                           `json:"name_not,omitempty"`
-	NameIn                   []string                          `json:"name_in,omitempty"`
-	NameNotIn                []string                          `json:"name_not_in,omitempty"`
-	NameLt                   *string                           `json:"name_lt,omitempty"`
-	NameLte                  *string                           `json:"name_lte,omitempty"`
-	NameGt                   *string                           `json:"name_gt,omitempty"`
-	NameGte                  *string                           `json:"name_gte,omitempty"`
-	NameContains             *string                           `json:"name_contains,omitempty"`
-	NameNotContains          *string                           `json:"name_not_contains,omitempty"`
-	NameStartsWith           *string                           `json:"name_starts_with,omitempty"`
-	NameNotStartsWith        *string                           `json:"name_not_starts_with,omitempty"`
-	NameEndsWith             *string                           `json:"name_ends_with,omitempty"`
-	NameNotEndsWith          *string                           `json:"name_not_ends_with,omitempty"`
-	Description              *string                           `json:"description,omitempty"`
-	DescriptionNot           *string                           `json:"description_not,omitempty"`
-	DescriptionIn            []string                          `json:"description_in,omitempty"`
-	DescriptionNotIn         []string                          `json:"description_not_in,omitempty"`
-	DescriptionLt            *string                           `json:"description_lt,omitempty"`
-	DescriptionLte           *string                           `json:"description_lte,omitempty"`
-	DescriptionGt            *string                           `json:"description_gt,omitempty"`
-	DescriptionGte           *string                           `json:"description_gte,omitempty"`
-	DescriptionContains      *string                           `json:"description_contains,omitempty"`
-	DescriptionNotContains   *string                           `json:"description_not_contains,omitempty"`
-	DescriptionStartsWith    *string                           `json:"description_starts_with,omitempty"`
-	DescriptionNotStartsWith *string                           `json:"description_not_starts_with,omitempty"`
-	DescriptionEndsWith      *string                           `json:"description_ends_with,omitempty"`
-	DescriptionNotEndsWith   *string                           `json:"description_not_ends_with,omitempty"`
-	ImageUrl                 *string                           `json:"imageUrl,omitempty"`
-	ImageUrlNot              *string                           `json:"imageUrl_not,omitempty"`
-	ImageUrlIn               []string                          `json:"imageUrl_in,omitempty"`
-	ImageUrlNotIn            []string                          `json:"imageUrl_not_in,omitempty"`
-	ImageUrlLt               *string                           `json:"imageUrl_lt,omitempty"`
-	ImageUrlLte              *string                           `json:"imageUrl_lte,omitempty"`
-	ImageUrlGt               *string                           `json:"imageUrl_gt,omitempty"`
-	ImageUrlGte              *string                           `json:"imageUrl_gte,omitempty"`
-	ImageUrlContains         *string                           `json:"imageUrl_contains,omitempty"`
-	ImageUrlNotContains      *string                           `json:"imageUrl_not_contains,omitempty"`
-	ImageUrlStartsWith       *string                           `json:"imageUrl_starts_with,omitempty"`
-	ImageUrlNotStartsWith    *string                           `json:"imageUrl_not_starts_with,omitempty"`
-	ImageUrlEndsWith         *string                           `json:"imageUrl_ends_with,omitempty"`
-	ImageUrlNotEndsWith      *string                           `json:"imageUrl_not_ends_with,omitempty"`
-	StartDate                *string                           `json:"startDate,omitempty"`
-	StartDateNot             *string                           `json:"startDate_not,omitempty"`
-	StartDateIn              []string                          `json:"startDate_in,omitempty"`
-	StartDateNotIn           []string                          `json:"startDate_not_in,omitempty"`
-	StartDateLt              *string                           `json:"startDate_lt,omitempty"`
-	StartDateLte             *string                           `json:"startDate_lte,omitempty"`
-	StartDateGt              *string                           `json:"startDate_gt,omitempty"`
-	StartDateGte             *string                           `json:"startDate_gte,omitempty"`
-	EndDate                  *string                           `json:"endDate,omitempty"`
-	EndDateNot               *string                           `json:"endDate_not,omitempty"`
-	EndDateIn                []string                          `json:"endDate_in,omitempty"`
-	EndDateNotIn             []string                          `json:"endDate_not_in,omitempty"`
-	EndDateLt                *string                           `json:"endDate_lt,omitempty"`
-	EndDateLte               *string                           `json:"endDate_lte,omitempty"`
-	EndDateGt                *string                           `json:"endDate_gt,omitempty"`
-	EndDateGte               *string                           `json:"endDate_gte,omitempty"`
-	Lat                      *float64                          `json:"lat,omitempty"`
-	LatNot                   *float64                          `json:"lat_not,omitempty"`
-	LatIn                    []float64                         `json:"lat_in,omitempty"`
-	LatNotIn                 []float64                         `json:"lat_not_in,omitempty"`
-	LatLt                    *float64                          `json:"lat_lt,omitempty"`
-	LatLte                   *float64                          `json:"lat_lte,omitempty"`
-	LatGt                    *float64                          `json:"lat_gt,omitempty"`
-	LatGte                   *float64                          `json:"lat_gte,omitempty"`
-	Long                     *float64                          `json:"long,omitempty"`
-	LongNot                  *float64                          `json:"long_not,omitempty"`
-	LongIn                   []float64                         `json:"long_in,omitempty"`
-	LongNotIn                []float64                         `json:"long_not_in,omitempty"`
-	LongLt                   *float64                          `json:"long_lt,omitempty"`
-	LongLte                  *float64                          `json:"long_lte,omitempty"`
-	LongGt                   *float64                          `json:"long_gt,omitempty"`
-	LongGte                  *float64                          `json:"long_gte,omitempty"`
-	Price                    *int32                            `json:"price,omitempty"`
-	PriceNot                 *int32                            `json:"price_not,omitempty"`
-	PriceIn                  []int32                           `json:"price_in,omitempty"`
-	PriceNotIn               []int32                           `json:"price_not_in,omitempty"`
-	PriceLt                  *int32                            `json:"price_lt,omitempty"`
-	PriceLte                 *int32                            `json:"price_lte,omitempty"`
-	PriceGt                  *int32                            `json:"price_gt,omitempty"`
-	PriceGte                 *int32                            `json:"price_gte,omitempty"`
-	City                     *City                             `json:"city,omitempty"`
-	CityNot                  *City                             `json:"city_not,omitempty"`
-	CityIn                   []City                            `json:"city_in,omitempty"`
-	CityNotIn                []City                            `json:"city_not_in,omitempty"`
-	TicketUrl                *string                           `json:"ticketUrl,omitempty"`
-	TicketUrlNot             *string                           `json:"ticketUrl_not,omitempty"`
-	TicketUrlIn              []string                          `json:"ticketUrl_in,omitempty"`
-	TicketUrlNotIn           []string                          `json:"ticketUrl_not_in,omitempty"`
-	TicketUrlLt              *string                           `json:"ticketUrl_lt,omitempty"`
-	TicketUrlLte             *string                           `json:"ticketUrl_lte,omitempty"`
-	TicketUrlGt              *string                           `json:"ticketUrl_gt,omitempty"`
-	TicketUrlGte             *string                           `json:"ticketUrl_gte,omitempty"`
-	TicketUrlContains        *string                           `json:"ticketUrl_contains,omitempty"`
-	TicketUrlNotContains     *string                           `json:"ticketUrl_not_contains,omitempty"`
-	TicketUrlStartsWith      *string                           `json:"ticketUrl_starts_with,omitempty"`
-	TicketUrlNotStartsWith   *string                           `json:"ticketUrl_not_starts_with,omitempty"`
-	TicketUrlEndsWith        *string                           `json:"ticketUrl_ends_with,omitempty"`
-	TicketUrlNotEndsWith     *string                           `json:"ticketUrl_not_ends_with,omitempty"`
-	CreatedAt                *string                           `json:"createdAt,omitempty"`
-	CreatedAtNot             *string                           `json:"createdAt_not,omitempty"`
-	CreatedAtIn              []string                          `json:"createdAt_in,omitempty"`
-	CreatedAtNotIn           []string                          `json:"createdAt_not_in,omitempty"`
-	CreatedAtLt              *string                           `json:"createdAt_lt,omitempty"`
-	CreatedAtLte             *string                           `json:"createdAt_lte,omitempty"`
-	CreatedAtGt              *string                           `json:"createdAt_gt,omitempty"`
-	CreatedAtGte             *string                           `json:"createdAt_gte,omitempty"`
-	And                      []EventOccurrenceScalarWhereInput `json:"AND,omitempty"`
-	Or                       []EventOccurrenceScalarWhereInput `json:"OR,omitempty"`
-	Not                      []EventOccurrenceScalarWhereInput `json:"NOT,omitempty"`
+type UserUpsertNestedInput struct {
+	Update UserUpdateDataInput `json:"update"`
+	Create UserCreateInput     `json:"create"`
 }
 
 type UserUpdateManyMutationInput struct {
@@ -2159,9 +2165,9 @@ type UserUpdateManyMutationInput struct {
 	MessengerNotifications *Notification               `json:"messengerNotifications,omitempty"`
 }
 
-type UserUpsertNestedInput struct {
-	Update UserUpdateDataInput `json:"update"`
-	Create UserCreateInput     `json:"create"`
+type EventOccurrenceUpdateManyWithWhereNestedInput struct {
+	Where EventOccurrenceScalarWhereInput    `json:"where"`
+	Data  EventOccurrenceUpdateManyDataInput `json:"data"`
 }
 
 type SearchUpdateManyMutationInput struct {
@@ -2192,24 +2198,24 @@ type EventOccurrenceUpsertWithWhereUniqueNestedInput struct {
 }
 
 type EventUpdateManyMutationInput struct {
-	Name                 *string `json:"name,omitempty"`
-	Description          *string `json:"description,omitempty"`
-	ShortDescription     *string `json:"shortDescription,omitempty"`
-	Link                 *string `json:"link,omitempty"`
-	ImageUrl             *string `json:"imageUrl,omitempty"`
-	NextOccurrenceDate   *string `json:"nextOccurrenceDate,omitempty"`
-	Price                *int32  `json:"price,omitempty"`
-	Type                 *string `json:"type,omitempty"`
-	Tags                 *string `json:"tags,omitempty"`
-	TicketUrl            *string `json:"ticketUrl,omitempty"`
-	Source               *string `json:"source,omitempty"`
-	WpFrId               *int32  `json:"wpFrId,omitempty"`
-	WpEnId               *int32  `json:"wpEnId,omitempty"`
-	PossibleDuplicate    *bool   `json:"possibleDuplicate,omitempty"`
-	ImportNotes          *string `json:"importNotes,omitempty"`
-	IsRecurring          *bool   `json:"isRecurring,omitempty"`
-	RecurrencePattern    *string `json:"recurrencePattern,omitempty"`
-	OccurrencesAreUnique *bool   `json:"occurrencesAreUnique,omitempty"`
+	Name                 *string        `json:"name,omitempty"`
+	Description          *string        `json:"description,omitempty"`
+	ShortDescription     *string        `json:"shortDescription,omitempty"`
+	Link                 *string        `json:"link,omitempty"`
+	ImageUrl             *string        `json:"imageUrl,omitempty"`
+	NextOccurrenceDate   *string        `json:"nextOccurrenceDate,omitempty"`
+	Price                *int32         `json:"price,omitempty"`
+	Category             *EventCategory `json:"category,omitempty"`
+	Tags                 *string        `json:"tags,omitempty"`
+	TicketUrl            *string        `json:"ticketUrl,omitempty"`
+	Source               *string        `json:"source,omitempty"`
+	WpFrId               *int32         `json:"wpFrId,omitempty"`
+	WpEnId               *int32         `json:"wpEnId,omitempty"`
+	PossibleDuplicate    *bool          `json:"possibleDuplicate,omitempty"`
+	ImportNotes          *string        `json:"importNotes,omitempty"`
+	IsRecurring          *bool          `json:"isRecurring,omitempty"`
+	RecurrencePattern    *string        `json:"recurrencePattern,omitempty"`
+	OccurrencesAreUnique *bool          `json:"occurrencesAreUnique,omitempty"`
 }
 
 type EventOccurrenceUpdateWithWhereUniqueNestedInput struct {
@@ -2218,24 +2224,24 @@ type EventOccurrenceUpdateWithWhereUniqueNestedInput struct {
 }
 
 type EventUpdateManyDataInput struct {
-	Name                 *string `json:"name,omitempty"`
-	Description          *string `json:"description,omitempty"`
-	ShortDescription     *string `json:"shortDescription,omitempty"`
-	Link                 *string `json:"link,omitempty"`
-	ImageUrl             *string `json:"imageUrl,omitempty"`
-	NextOccurrenceDate   *string `json:"nextOccurrenceDate,omitempty"`
-	Price                *int32  `json:"price,omitempty"`
-	Type                 *string `json:"type,omitempty"`
-	Tags                 *string `json:"tags,omitempty"`
-	TicketUrl            *string `json:"ticketUrl,omitempty"`
-	Source               *string `json:"source,omitempty"`
-	WpFrId               *int32  `json:"wpFrId,omitempty"`
-	WpEnId               *int32  `json:"wpEnId,omitempty"`
-	PossibleDuplicate    *bool   `json:"possibleDuplicate,omitempty"`
-	ImportNotes          *string `json:"importNotes,omitempty"`
-	IsRecurring          *bool   `json:"isRecurring,omitempty"`
-	RecurrencePattern    *string `json:"recurrencePattern,omitempty"`
-	OccurrencesAreUnique *bool   `json:"occurrencesAreUnique,omitempty"`
+	Name                 *string        `json:"name,omitempty"`
+	Description          *string        `json:"description,omitempty"`
+	ShortDescription     *string        `json:"shortDescription,omitempty"`
+	Link                 *string        `json:"link,omitempty"`
+	ImageUrl             *string        `json:"imageUrl,omitempty"`
+	NextOccurrenceDate   *string        `json:"nextOccurrenceDate,omitempty"`
+	Price                *int32         `json:"price,omitempty"`
+	Category             *EventCategory `json:"category,omitempty"`
+	Tags                 *string        `json:"tags,omitempty"`
+	TicketUrl            *string        `json:"ticketUrl,omitempty"`
+	Source               *string        `json:"source,omitempty"`
+	WpFrId               *int32         `json:"wpFrId,omitempty"`
+	WpEnId               *int32         `json:"wpEnId,omitempty"`
+	PossibleDuplicate    *bool          `json:"possibleDuplicate,omitempty"`
+	ImportNotes          *string        `json:"importNotes,omitempty"`
+	IsRecurring          *bool          `json:"isRecurring,omitempty"`
+	RecurrencePattern    *string        `json:"recurrencePattern,omitempty"`
+	OccurrencesAreUnique *bool          `json:"occurrencesAreUnique,omitempty"`
 }
 
 type VenueWhereUniqueInput struct {
@@ -2391,20 +2397,10 @@ type EventScalarWhereInput struct {
 	PriceLte                       *int32                  `json:"price_lte,omitempty"`
 	PriceGt                        *int32                  `json:"price_gt,omitempty"`
 	PriceGte                       *int32                  `json:"price_gte,omitempty"`
-	Type                           *string                 `json:"type,omitempty"`
-	TypeNot                        *string                 `json:"type_not,omitempty"`
-	TypeIn                         []string                `json:"type_in,omitempty"`
-	TypeNotIn                      []string                `json:"type_not_in,omitempty"`
-	TypeLt                         *string                 `json:"type_lt,omitempty"`
-	TypeLte                        *string                 `json:"type_lte,omitempty"`
-	TypeGt                         *string                 `json:"type_gt,omitempty"`
-	TypeGte                        *string                 `json:"type_gte,omitempty"`
-	TypeContains                   *string                 `json:"type_contains,omitempty"`
-	TypeNotContains                *string                 `json:"type_not_contains,omitempty"`
-	TypeStartsWith                 *string                 `json:"type_starts_with,omitempty"`
-	TypeNotStartsWith              *string                 `json:"type_not_starts_with,omitempty"`
-	TypeEndsWith                   *string                 `json:"type_ends_with,omitempty"`
-	TypeNotEndsWith                *string                 `json:"type_not_ends_with,omitempty"`
+	Category                       *EventCategory          `json:"category,omitempty"`
+	CategoryNot                    *EventCategory          `json:"category_not,omitempty"`
+	CategoryIn                     []EventCategory         `json:"category_in,omitempty"`
+	CategoryNotIn                  []EventCategory         `json:"category_not_in,omitempty"`
 	Tags                           *string                 `json:"tags,omitempty"`
 	TagsNot                        *string                 `json:"tags_not,omitempty"`
 	TagsIn                         []string                `json:"tags_in,omitempty"`
@@ -2565,7 +2561,7 @@ type EventUpdateWithoutVenueDataInput struct {
 	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
 	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
 	Price                *int32                                      `json:"price,omitempty"`
-	Type                 *string                                     `json:"type,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
 	Tags                 *string                                     `json:"tags,omitempty"`
 	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
 	Source               *string                                     `json:"source,omitempty"`
@@ -2588,7 +2584,7 @@ type EventUpdateWithoutOccurrencesDataInput struct {
 	NextOccurrenceDate   *string                           `json:"nextOccurrenceDate,omitempty"`
 	Price                *int32                            `json:"price,omitempty"`
 	Venue                *VenueUpdateOneWithoutEventsInput `json:"venue,omitempty"`
-	Type                 *string                           `json:"type,omitempty"`
+	Category             *EventCategory                    `json:"category,omitempty"`
 	Tags                 *string                           `json:"tags,omitempty"`
 	TicketUrl            *string                           `json:"ticketUrl,omitempty"`
 	Source               *string                           `json:"source,omitempty"`
@@ -3146,7 +3142,7 @@ type EventCreateWithoutVenueInput struct {
 	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
 	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
 	Price                *int32                                      `json:"price,omitempty"`
-	Type                 *string                                     `json:"type,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
 	Tags                 *string                                     `json:"tags,omitempty"`
 	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
 	Source               *string                                     `json:"source,omitempty"`
@@ -3201,8 +3197,8 @@ type VenuePreviousValues struct {
 	Zip               *string `json:"zip,omitempty"`
 	Country           string  `json:"country"`
 	Url               *string `json:"url,omitempty"`
-	WpFrId            *int32  `json:"wpFrId,omitempty"`
-	WpEnId            *int32  `json:"wpEnId,omitempty"`
+	WpFrId            int32   `json:"wpFrId"`
+	WpEnId            int32   `json:"wpEnId"`
 	PossibleDuplicate bool    `json:"possibleDuplicate"`
 }
 
@@ -3353,7 +3349,7 @@ func (instance *VenueExec) Events(params *EventsParamsExec) *EventExecArray {
 		wparams,
 		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
 		"events",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExecArray{ret}
 }
@@ -3395,8 +3391,8 @@ type Venue struct {
 	Zip               *string `json:"zip,omitempty"`
 	Country           string  `json:"country"`
 	Url               *string `json:"url,omitempty"`
-	WpFrId            *int32  `json:"wpFrId,omitempty"`
-	WpEnId            *int32  `json:"wpEnId,omitempty"`
+	WpFrId            int32   `json:"wpFrId"`
+	WpEnId            int32   `json:"wpEnId"`
 	PossibleDuplicate bool    `json:"possibleDuplicate"`
 }
 
@@ -3410,7 +3406,7 @@ func (instance *EventOccurrenceExec) Event() *EventExec {
 		nil,
 		[2]string{"", "Event"},
 		"event",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
@@ -3566,7 +3562,7 @@ func (instance *UserExec) SuggestedEvents(params *SuggestedEventsParamsExec) *Ev
 		wparams,
 		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
 		"suggestedEvents",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExecArray{ret}
 }
@@ -3600,7 +3596,7 @@ func (instance *UserExec) InterestedEvents(params *InterestedEventsParamsExec) *
 		wparams,
 		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
 		"interestedEvents",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExecArray{ret}
 }
@@ -3634,7 +3630,7 @@ func (instance *UserExec) BoringEvents(params *BoringEventsParamsExec) *EventExe
 		wparams,
 		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
 		"boringEvents",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExecArray{ret}
 }
@@ -3884,27 +3880,27 @@ func (instance EventExecArray) Exec(ctx context.Context) ([]Event, error) {
 }
 
 type Event struct {
-	ID                   string  `json:"id"`
-	Name                 string  `json:"name"`
-	Description          *string `json:"description,omitempty"`
-	ShortDescription     *string `json:"shortDescription,omitempty"`
-	Link                 string  `json:"link"`
-	ImageUrl             string  `json:"imageUrl"`
-	NextOccurrenceDate   *string `json:"nextOccurrenceDate,omitempty"`
-	Price                *int32  `json:"price,omitempty"`
-	Type                 *string `json:"type,omitempty"`
-	Tags                 *string `json:"tags,omitempty"`
-	TicketUrl            *string `json:"ticketUrl,omitempty"`
-	Source               *string `json:"source,omitempty"`
-	WpFrId               *int32  `json:"wpFrId,omitempty"`
-	WpEnId               *int32  `json:"wpEnId,omitempty"`
-	PossibleDuplicate    bool    `json:"possibleDuplicate"`
-	ImportNotes          *string `json:"importNotes,omitempty"`
-	IsRecurring          bool    `json:"isRecurring"`
-	RecurrencePattern    *string `json:"recurrencePattern,omitempty"`
-	OccurrencesAreUnique bool    `json:"occurrencesAreUnique"`
-	CreatedAt            *string `json:"createdAt,omitempty"`
-	UpdatedAt            *string `json:"updatedAt,omitempty"`
+	ID                   string        `json:"id"`
+	Name                 string        `json:"name"`
+	Description          *string       `json:"description,omitempty"`
+	ShortDescription     *string       `json:"shortDescription,omitempty"`
+	Link                 string        `json:"link"`
+	ImageUrl             string        `json:"imageUrl"`
+	NextOccurrenceDate   *string       `json:"nextOccurrenceDate,omitempty"`
+	Price                *int32        `json:"price,omitempty"`
+	Category             EventCategory `json:"category"`
+	Tags                 *string       `json:"tags,omitempty"`
+	TicketUrl            *string       `json:"ticketUrl,omitempty"`
+	Source               *string       `json:"source,omitempty"`
+	WpFrId               *int32        `json:"wpFrId,omitempty"`
+	WpEnId               *int32        `json:"wpEnId,omitempty"`
+	PossibleDuplicate    bool          `json:"possibleDuplicate"`
+	ImportNotes          *string       `json:"importNotes,omitempty"`
+	IsRecurring          bool          `json:"isRecurring"`
+	RecurrencePattern    *string       `json:"recurrencePattern,omitempty"`
+	OccurrencesAreUnique bool          `json:"occurrencesAreUnique"`
+	CreatedAt            *string       `json:"createdAt,omitempty"`
+	UpdatedAt            *string       `json:"updatedAt,omitempty"`
 }
 
 type EventSubscriptionPayloadExec struct {
@@ -3917,7 +3913,7 @@ func (instance *EventSubscriptionPayloadExec) Node() *EventExec {
 		nil,
 		[2]string{"", "Event"},
 		"node",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
@@ -3928,7 +3924,7 @@ func (instance *EventSubscriptionPayloadExec) PreviousValues() *EventPreviousVal
 		nil,
 		[2]string{"", "EventPreviousValues"},
 		"previousValues",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventPreviousValuesExec{ret}
 }
@@ -4073,27 +4069,27 @@ func (instance EventPreviousValuesExecArray) Exec(ctx context.Context) ([]EventP
 }
 
 type EventPreviousValues struct {
-	ID                   string  `json:"id"`
-	Name                 string  `json:"name"`
-	Description          *string `json:"description,omitempty"`
-	ShortDescription     *string `json:"shortDescription,omitempty"`
-	Link                 string  `json:"link"`
-	ImageUrl             string  `json:"imageUrl"`
-	NextOccurrenceDate   *string `json:"nextOccurrenceDate,omitempty"`
-	Price                *int32  `json:"price,omitempty"`
-	Type                 *string `json:"type,omitempty"`
-	Tags                 *string `json:"tags,omitempty"`
-	TicketUrl            *string `json:"ticketUrl,omitempty"`
-	Source               *string `json:"source,omitempty"`
-	WpFrId               *int32  `json:"wpFrId,omitempty"`
-	WpEnId               *int32  `json:"wpEnId,omitempty"`
-	PossibleDuplicate    bool    `json:"possibleDuplicate"`
-	ImportNotes          *string `json:"importNotes,omitempty"`
-	IsRecurring          bool    `json:"isRecurring"`
-	RecurrencePattern    *string `json:"recurrencePattern,omitempty"`
-	OccurrencesAreUnique bool    `json:"occurrencesAreUnique"`
-	CreatedAt            *string `json:"createdAt,omitempty"`
-	UpdatedAt            *string `json:"updatedAt,omitempty"`
+	ID                   string        `json:"id"`
+	Name                 string        `json:"name"`
+	Description          *string       `json:"description,omitempty"`
+	ShortDescription     *string       `json:"shortDescription,omitempty"`
+	Link                 string        `json:"link"`
+	ImageUrl             string        `json:"imageUrl"`
+	NextOccurrenceDate   *string       `json:"nextOccurrenceDate,omitempty"`
+	Price                *int32        `json:"price,omitempty"`
+	Category             EventCategory `json:"category"`
+	Tags                 *string       `json:"tags,omitempty"`
+	TicketUrl            *string       `json:"ticketUrl,omitempty"`
+	Source               *string       `json:"source,omitempty"`
+	WpFrId               *int32        `json:"wpFrId,omitempty"`
+	WpEnId               *int32        `json:"wpEnId,omitempty"`
+	PossibleDuplicate    bool          `json:"possibleDuplicate"`
+	ImportNotes          *string       `json:"importNotes,omitempty"`
+	IsRecurring          bool          `json:"isRecurring"`
+	RecurrencePattern    *string       `json:"recurrencePattern,omitempty"`
+	OccurrencesAreUnique bool          `json:"occurrencesAreUnique"`
+	CreatedAt            *string       `json:"createdAt,omitempty"`
+	UpdatedAt            *string       `json:"updatedAt,omitempty"`
 }
 
 type SearchExec struct {
@@ -4130,7 +4126,7 @@ func (instance *SearchExec) Events(params *EventsParamsExec) *EventExecArray {
 		wparams,
 		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
 		"events",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExecArray{ret}
 }
@@ -4422,7 +4418,7 @@ func (instance *EventEdgeExec) Node() *EventExec {
 		nil,
 		[2]string{"", "Event"},
 		"node",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "type", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
 	return &EventExec{ret}
 }
