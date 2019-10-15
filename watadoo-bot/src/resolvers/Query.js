@@ -9,6 +9,10 @@ const Query = {
         link
         imageUrl
         price
+        category
+        tags
+        ticketUrl
+        source
         venue {
           id
           nameFr
@@ -23,10 +27,6 @@ const Query = {
           description
           startDate
         }
-        type
-        tags
-        ticketUrl
-        source
       }
     `;
     return await context.prisma.event({ id: args.id}).$fragment(fragment);
