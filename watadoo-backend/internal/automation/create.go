@@ -97,7 +97,14 @@ func CreateEvent(event models.Event, client *prisma.Client, googleClient *maps.C
 		}
 		nextOccurrenceDate := event.StartDate.Format(time.RFC3339)
 
-		// This needs to be adusted for the concept of occurrences. Including the city and the startDate.
+		category := prisma.EventCategoryOther
+		// What is the best way to determine an event's category?
+		// 1) Check for specific word in event description + name
+		// 2) Check the venue of the event:
+		//   - You can set a category for a venue
+		//   - You can compare with other events for this venue.
+
+		// This needs to be adusted for the concept of occurrences.
 		newEvent, err := client.CreateEvent(prisma.EventCreateInput{
 			Name:               event.Name,
 			Description:        &event.Description,
@@ -111,6 +118,7 @@ func CreateEvent(event models.Event, client *prisma.Client, googleClient *maps.C
 			Source:             &event.Source,
 			PossibleDuplicate:  &possibleDuplicate,
 			ImportNotes:        &event.Notes,
+			Category:           &category,
 			Occurrences: &prisma.EventOccurrenceCreateManyWithoutEventInput{
 				Create: []prisma.EventOccurrenceCreateWithoutEventInput{
 					{Name: event.Name, Description: &event.Description, ImageUrl: eventImage, StartDate: nextOccurrenceDate, Lat: lat, Long: long, Price: &event.Price, City: city, TicketUrl: &event.TicketURL},

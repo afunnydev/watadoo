@@ -3892,8 +3892,8 @@ type Event struct {
 	Tags                 *string       `json:"tags,omitempty"`
 	TicketUrl            *string       `json:"ticketUrl,omitempty"`
 	Source               *string       `json:"source,omitempty"`
-	WpFrId               *int32        `json:"wpFrId,omitempty"`
-	WpEnId               *int32        `json:"wpEnId,omitempty"`
+	WpFrId               int32         `json:"wpFrId"`
+	WpEnId               int32         `json:"wpEnId"`
 	PossibleDuplicate    bool          `json:"possibleDuplicate"`
 	ImportNotes          *string       `json:"importNotes,omitempty"`
 	IsRecurring          bool          `json:"isRecurring"`
@@ -4081,8 +4081,8 @@ type EventPreviousValues struct {
 	Tags                 *string       `json:"tags,omitempty"`
 	TicketUrl            *string       `json:"ticketUrl,omitempty"`
 	Source               *string       `json:"source,omitempty"`
-	WpFrId               *int32        `json:"wpFrId,omitempty"`
-	WpEnId               *int32        `json:"wpEnId,omitempty"`
+	WpFrId               int32         `json:"wpFrId"`
+	WpEnId               int32         `json:"wpEnId"`
 	PossibleDuplicate    bool          `json:"possibleDuplicate"`
 	ImportNotes          *string       `json:"importNotes,omitempty"`
 	IsRecurring          bool          `json:"isRecurring"`

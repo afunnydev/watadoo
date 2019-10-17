@@ -3052,8 +3052,8 @@ export interface Event {
   tags?: String;
   ticketUrl?: String;
   source?: String;
-  wpFrId?: Int;
-  wpEnId?: Int;
+  wpFrId: Int;
+  wpEnId: Int;
   possibleDuplicate: Boolean;
   importNotes?: String;
   isRecurring: Boolean;
@@ -3246,8 +3246,8 @@ export interface EventPreviousValues {
   tags?: String;
   ticketUrl?: String;
   source?: String;
-  wpFrId?: Int;
-  wpEnId?: Int;
+  wpFrId: Int;
+  wpEnId: Int;
   possibleDuplicate: Boolean;
   importNotes?: String;
   isRecurring: Boolean;

@@ -84,8 +84,8 @@ type Event {
   tags: String
   ticketUrl: String
   source: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int! @default(value: 0)
+  wpEnId: Int! @default(value: 0)
   possibleDuplicate: Boolean! @default(value: false)
   importNotes: String
   isRecurring: Boolean! @default(value: false)

@@ -55,8 +55,8 @@ type Event {
   tags: String
   ticketUrl: String
   source: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   possibleDuplicate: Boolean!
   importNotes: String
   isRecurring: Boolean!
@@ -740,8 +740,8 @@ type EventPreviousValues {
   tags: String
   ticketUrl: String
   source: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   possibleDuplicate: Boolean!
   importNotes: String
   isRecurring: Boolean!
