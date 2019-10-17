@@ -111,6 +111,401 @@ input VenueWhereInput {
   NOT: [VenueWhereInput!]
 }
 
+input EventWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  shortDescription: String
+  shortDescription_not: String
+  shortDescription_in: [String!]
+  shortDescription_not_in: [String!]
+  shortDescription_lt: String
+  shortDescription_lte: String
+  shortDescription_gt: String
+  shortDescription_gte: String
+  shortDescription_contains: String
+  shortDescription_not_contains: String
+  shortDescription_starts_with: String
+  shortDescription_not_starts_with: String
+  shortDescription_ends_with: String
+  shortDescription_not_ends_with: String
+  link: String
+  link_not: String
+  link_in: [String!]
+  link_not_in: [String!]
+  link_lt: String
+  link_lte: String
+  link_gt: String
+  link_gte: String
+  link_contains: String
+  link_not_contains: String
+  link_starts_with: String
+  link_not_starts_with: String
+  link_ends_with: String
+  link_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  nextOccurrenceDate: DateTime
+  nextOccurrenceDate_not: DateTime
+  nextOccurrenceDate_in: [DateTime!]
+  nextOccurrenceDate_not_in: [DateTime!]
+  nextOccurrenceDate_lt: DateTime
+  nextOccurrenceDate_lte: DateTime
+  nextOccurrenceDate_gt: DateTime
+  nextOccurrenceDate_gte: DateTime
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  category: EventCategory
+  category_not: EventCategory
+  category_in: [EventCategory!]
+  category_not_in: [EventCategory!]
+  tags: String
+  tags_not: String
+  tags_in: [String!]
+  tags_not_in: [String!]
+  tags_lt: String
+  tags_lte: String
+  tags_gt: String
+  tags_gte: String
+  tags_contains: String
+  tags_not_contains: String
+  tags_starts_with: String
+  tags_not_starts_with: String
+  tags_ends_with: String
+  tags_not_ends_with: String
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  source: String
+  source_not: String
+  source_in: [String!]
+  source_not_in: [String!]
+  source_lt: String
+  source_lte: String
+  source_gt: String
+  source_gte: String
+  source_contains: String
+  source_not_contains: String
+  source_starts_with: String
+  source_not_starts_with: String
+  source_ends_with: String
+  source_not_ends_with: String
+  wpFrId: Int
+  wpFrId_not: Int
+  wpFrId_in: [Int!]
+  wpFrId_not_in: [Int!]
+  wpFrId_lt: Int
+  wpFrId_lte: Int
+  wpFrId_gt: Int
+  wpFrId_gte: Int
+  wpEnId: Int
+  wpEnId_not: Int
+  wpEnId_in: [Int!]
+  wpEnId_not_in: [Int!]
+  wpEnId_lt: Int
+  wpEnId_lte: Int
+  wpEnId_gt: Int
+  wpEnId_gte: Int
+  possibleDuplicate: Boolean
+  possibleDuplicate_not: Boolean
+  importNotes: String
+  importNotes_not: String
+  importNotes_in: [String!]
+  importNotes_not_in: [String!]
+  importNotes_lt: String
+  importNotes_lte: String
+  importNotes_gt: String
+  importNotes_gte: String
+  importNotes_contains: String
+  importNotes_not_contains: String
+  importNotes_starts_with: String
+  importNotes_not_starts_with: String
+  importNotes_ends_with: String
+  importNotes_not_ends_with: String
+  isRecurring: Boolean
+  isRecurring_not: Boolean
+  recurrencePattern: String
+  recurrencePattern_not: String
+  recurrencePattern_in: [String!]
+  recurrencePattern_not_in: [String!]
+  recurrencePattern_lt: String
+  recurrencePattern_lte: String
+  recurrencePattern_gt: String
+  recurrencePattern_gte: String
+  recurrencePattern_contains: String
+  recurrencePattern_not_contains: String
+  recurrencePattern_starts_with: String
+  recurrencePattern_not_starts_with: String
+  recurrencePattern_ends_with: String
+  recurrencePattern_not_ends_with: String
+  occurrencesAreUnique: Boolean
+  occurrencesAreUnique_not: Boolean
+  occurrences_every: EventOccurrenceWhereInput
+  occurrences_some: EventOccurrenceWhereInput
+  occurrences_none: EventOccurrenceWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [EventWhereInput!]
+  OR: [EventWhereInput!]
+  NOT: [EventWhereInput!]
+}
+
+enum EventOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  shortDescription_ASC
+  shortDescription_DESC
+  link_ASC
+  link_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  nextOccurrenceDate_ASC
+  nextOccurrenceDate_DESC
+  price_ASC
+  price_DESC
+  category_ASC
+  category_DESC
+  tags_ASC
+  tags_DESC
+  ticketUrl_ASC
+  ticketUrl_DESC
+  source_ASC
+  source_DESC
+  wpFrId_ASC
+  wpFrId_DESC
+  wpEnId_ASC
+  wpEnId_DESC
+  possibleDuplicate_ASC
+  possibleDuplicate_DESC
+  importNotes_ASC
+  importNotes_DESC
+  isRecurring_ASC
+  isRecurring_DESC
+  recurrencePattern_ASC
+  recurrencePattern_DESC
+  occurrencesAreUnique_ASC
+  occurrencesAreUnique_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input EventOccurrenceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  startDate: DateTime
+  startDate_not: DateTime
+  startDate_in: [DateTime!]
+  startDate_not_in: [DateTime!]
+  startDate_lt: DateTime
+  startDate_lte: DateTime
+  startDate_gt: DateTime
+  startDate_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
+  lat: Float
+  lat_not: Float
+  lat_in: [Float!]
+  lat_not_in: [Float!]
+  lat_lt: Float
+  lat_lte: Float
+  lat_gt: Float
+  lat_gte: Float
+  long: Float
+  long_not: Float
+  long_in: [Float!]
+  long_not_in: [Float!]
+  long_lt: Float
+  long_lte: Float
+  long_gt: Float
+  long_gte: Float
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  event: EventWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [EventOccurrenceWhereInput!]
+  OR: [EventOccurrenceWhereInput!]
+  NOT: [EventOccurrenceWhereInput!]
+}
+
 input VenueWhereUniqueInput {
   id: ID
   nameFr: String
@@ -283,6 +678,6 @@ type Mutation {
 type Query {
   event(id: ID!): Event
   venue(id: ID!): Venue
-  events(withoutOccurrence: Boolean!): [Event]
-  venues(where: VenueWhereInput): [Venue]
+  events(where: EventWhereInput, orderBy: EventOrderByInput): [Event!]
+  venues(where: VenueWhereInput): [Venue!]
 }

@@ -12,7 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
+	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
 	"github.com/vektah/gqlparser"
 	"github.com/vektah/gqlparser/ast"
 )
@@ -95,7 +95,7 @@ type ComplexityRoot struct {
 
 	Query struct {
 		Event  func(childComplexity int, id string) int
-		Events func(childComplexity int, withoutOccurrence bool) int
+		Events func(childComplexity int, where *prisma.EventWhereInput, orderBy *prisma.EventOrderByInput) int
 		Venue  func(childComplexity int, id string) int
 		Venues func(childComplexity int, where *prisma.VenueWhereInput) int
 	}
@@ -142,8 +142,8 @@ type MutationResolver interface {
 type QueryResolver interface {
 	Event(ctx context.Context, id string) (*prisma.Event, error)
 	Venue(ctx context.Context, id string) (*prisma.Venue, error)
-	Events(ctx context.Context, withoutOccurrence bool) ([]*prisma.Event, error)
-	Venues(ctx context.Context, where *prisma.VenueWhereInput) ([]*prisma.Venue, error)
+	Events(ctx context.Context, where *prisma.EventWhereInput, orderBy *prisma.EventOrderByInput) ([]prisma.Event, error)
+	Venues(ctx context.Context, where *prisma.VenueWhereInput) ([]prisma.Venue, error)
 }
 type VenueResolver interface {
 	Events(ctx context.Context, obj *prisma.Venue) ([]*prisma.Event, error)
@@ -484,7 +484,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Events(childComplexity, args["withoutOccurrence"].(bool)), true
+		return e.complexity.Query.Events(childComplexity, args["where"].(*prisma.EventWhereInput), args["orderBy"].(*prisma.EventOrderByInput)), true
 
 	case "Query.venue":
 		if e.complexity.Query.Venue == nil {
@@ -825,6 +825,401 @@ input VenueWhereInput {
   NOT: [VenueWhereInput!]
 }
 
+input EventWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  shortDescription: String
+  shortDescription_not: String
+  shortDescription_in: [String!]
+  shortDescription_not_in: [String!]
+  shortDescription_lt: String
+  shortDescription_lte: String
+  shortDescription_gt: String
+  shortDescription_gte: String
+  shortDescription_contains: String
+  shortDescription_not_contains: String
+  shortDescription_starts_with: String
+  shortDescription_not_starts_with: String
+  shortDescription_ends_with: String
+  shortDescription_not_ends_with: String
+  link: String
+  link_not: String
+  link_in: [String!]
+  link_not_in: [String!]
+  link_lt: String
+  link_lte: String
+  link_gt: String
+  link_gte: String
+  link_contains: String
+  link_not_contains: String
+  link_starts_with: String
+  link_not_starts_with: String
+  link_ends_with: String
+  link_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  nextOccurrenceDate: DateTime
+  nextOccurrenceDate_not: DateTime
+  nextOccurrenceDate_in: [DateTime!]
+  nextOccurrenceDate_not_in: [DateTime!]
+  nextOccurrenceDate_lt: DateTime
+  nextOccurrenceDate_lte: DateTime
+  nextOccurrenceDate_gt: DateTime
+  nextOccurrenceDate_gte: DateTime
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  category: EventCategory
+  category_not: EventCategory
+  category_in: [EventCategory!]
+  category_not_in: [EventCategory!]
+  tags: String
+  tags_not: String
+  tags_in: [String!]
+  tags_not_in: [String!]
+  tags_lt: String
+  tags_lte: String
+  tags_gt: String
+  tags_gte: String
+  tags_contains: String
+  tags_not_contains: String
+  tags_starts_with: String
+  tags_not_starts_with: String
+  tags_ends_with: String
+  tags_not_ends_with: String
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  source: String
+  source_not: String
+  source_in: [String!]
+  source_not_in: [String!]
+  source_lt: String
+  source_lte: String
+  source_gt: String
+  source_gte: String
+  source_contains: String
+  source_not_contains: String
+  source_starts_with: String
+  source_not_starts_with: String
+  source_ends_with: String
+  source_not_ends_with: String
+  wpFrId: Int
+  wpFrId_not: Int
+  wpFrId_in: [Int!]
+  wpFrId_not_in: [Int!]
+  wpFrId_lt: Int
+  wpFrId_lte: Int
+  wpFrId_gt: Int
+  wpFrId_gte: Int
+  wpEnId: Int
+  wpEnId_not: Int
+  wpEnId_in: [Int!]
+  wpEnId_not_in: [Int!]
+  wpEnId_lt: Int
+  wpEnId_lte: Int
+  wpEnId_gt: Int
+  wpEnId_gte: Int
+  possibleDuplicate: Boolean
+  possibleDuplicate_not: Boolean
+  importNotes: String
+  importNotes_not: String
+  importNotes_in: [String!]
+  importNotes_not_in: [String!]
+  importNotes_lt: String
+  importNotes_lte: String
+  importNotes_gt: String
+  importNotes_gte: String
+  importNotes_contains: String
+  importNotes_not_contains: String
+  importNotes_starts_with: String
+  importNotes_not_starts_with: String
+  importNotes_ends_with: String
+  importNotes_not_ends_with: String
+  isRecurring: Boolean
+  isRecurring_not: Boolean
+  recurrencePattern: String
+  recurrencePattern_not: String
+  recurrencePattern_in: [String!]
+  recurrencePattern_not_in: [String!]
+  recurrencePattern_lt: String
+  recurrencePattern_lte: String
+  recurrencePattern_gt: String
+  recurrencePattern_gte: String
+  recurrencePattern_contains: String
+  recurrencePattern_not_contains: String
+  recurrencePattern_starts_with: String
+  recurrencePattern_not_starts_with: String
+  recurrencePattern_ends_with: String
+  recurrencePattern_not_ends_with: String
+  occurrencesAreUnique: Boolean
+  occurrencesAreUnique_not: Boolean
+  occurrences_every: EventOccurrenceWhereInput
+  occurrences_some: EventOccurrenceWhereInput
+  occurrences_none: EventOccurrenceWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [EventWhereInput!]
+  OR: [EventWhereInput!]
+  NOT: [EventWhereInput!]
+}
+
+enum EventOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  shortDescription_ASC
+  shortDescription_DESC
+  link_ASC
+  link_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  nextOccurrenceDate_ASC
+  nextOccurrenceDate_DESC
+  price_ASC
+  price_DESC
+  category_ASC
+  category_DESC
+  tags_ASC
+  tags_DESC
+  ticketUrl_ASC
+  ticketUrl_DESC
+  source_ASC
+  source_DESC
+  wpFrId_ASC
+  wpFrId_DESC
+  wpEnId_ASC
+  wpEnId_DESC
+  possibleDuplicate_ASC
+  possibleDuplicate_DESC
+  importNotes_ASC
+  importNotes_DESC
+  isRecurring_ASC
+  isRecurring_DESC
+  recurrencePattern_ASC
+  recurrencePattern_DESC
+  occurrencesAreUnique_ASC
+  occurrencesAreUnique_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input EventOccurrenceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  startDate: DateTime
+  startDate_not: DateTime
+  startDate_in: [DateTime!]
+  startDate_not_in: [DateTime!]
+  startDate_lt: DateTime
+  startDate_lte: DateTime
+  startDate_gt: DateTime
+  startDate_gte: DateTime
+  endDate: DateTime
+  endDate_not: DateTime
+  endDate_in: [DateTime!]
+  endDate_not_in: [DateTime!]
+  endDate_lt: DateTime
+  endDate_lte: DateTime
+  endDate_gt: DateTime
+  endDate_gte: DateTime
+  lat: Float
+  lat_not: Float
+  lat_in: [Float!]
+  lat_not_in: [Float!]
+  lat_lt: Float
+  lat_lte: Float
+  lat_gt: Float
+  lat_gte: Float
+  long: Float
+  long_not: Float
+  long_in: [Float!]
+  long_not_in: [Float!]
+  long_lt: Float
+  long_lte: Float
+  long_gt: Float
+  long_gte: Float
+  price: Int
+  price_not: Int
+  price_in: [Int!]
+  price_not_in: [Int!]
+  price_lt: Int
+  price_lte: Int
+  price_gt: Int
+  price_gte: Int
+  city: City
+  city_not: City
+  city_in: [City!]
+  city_not_in: [City!]
+  ticketUrl: String
+  ticketUrl_not: String
+  ticketUrl_in: [String!]
+  ticketUrl_not_in: [String!]
+  ticketUrl_lt: String
+  ticketUrl_lte: String
+  ticketUrl_gt: String
+  ticketUrl_gte: String
+  ticketUrl_contains: String
+  ticketUrl_not_contains: String
+  ticketUrl_starts_with: String
+  ticketUrl_not_starts_with: String
+  ticketUrl_ends_with: String
+  ticketUrl_not_ends_with: String
+  event: EventWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [EventOccurrenceWhereInput!]
+  OR: [EventOccurrenceWhereInput!]
+  NOT: [EventOccurrenceWhereInput!]
+}
+
 input VenueWhereUniqueInput {
   id: ID
   nameFr: String
@@ -997,8 +1392,8 @@ type Mutation {
 type Query {
   event(id: ID!): Event
   venue(id: ID!): Venue
-  events(withoutOccurrence: Boolean!): [Event]
-  venues(where: VenueWhereInput): [Venue]
+  events(where: EventWhereInput, orderBy: EventOrderByInput): [Event!]
+  venues(where: VenueWhereInput): [Venue!]
 }`},
 )
 
@@ -1131,14 +1526,22 @@ func (ec *executionContext) field_Query_event_args(ctx context.Context, rawArgs 
 func (ec *executionContext) field_Query_events_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 bool
-	if tmp, ok := rawArgs["withoutOccurrence"]; ok {
-		arg0, err = ec.unmarshalNBoolean2bool(ctx, tmp)
+	var arg0 *prisma.EventWhereInput
+	if tmp, ok := rawArgs["where"]; ok {
+		arg0, err = ec.unmarshalOEventWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["withoutOccurrence"] = arg0
+	args["where"] = arg0
+	var arg1 *prisma.EventOrderByInput
+	if tmp, ok := rawArgs["orderBy"]; ok {
+		arg1, err = ec.unmarshalOEventOrderByInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOrderByInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["orderBy"] = arg1
 	return args, nil
 }
 
@@ -2717,7 +3120,7 @@ func (ec *executionContext) _Query_events(ctx context.Context, field graphql.Col
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Events(rctx, args["withoutOccurrence"].(bool))
+		return ec.resolvers.Query().Events(rctx, args["where"].(*prisma.EventWhereInput), args["orderBy"].(*prisma.EventOrderByInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2726,10 +3129,10 @@ func (ec *executionContext) _Query_events(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*prisma.Event)
+	res := resTmp.([]prisma.Event)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
+	return ec.marshalOEvent2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_venues(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2767,10 +3170,10 @@ func (ec *executionContext) _Query_venues(ctx context.Context, field graphql.Col
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*prisma.Venue)
+	res := resTmp.([]prisma.Venue)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
+	return ec.marshalOVenue2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4940,6 +5343,774 @@ func (ec *executionContext) unmarshalInputEventOccurrenceUpdateWithoutEventDataI
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputEventOccurrenceWhereInput(ctx context.Context, obj interface{}) (prisma.EventOccurrenceWhereInput, error) {
+	var it prisma.EventOccurrenceWhereInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "id":
+			var err error
+			it.ID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not":
+			var err error
+			it.IDNot, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_in":
+			var err error
+			it.IDIn, err = ec.unmarshalOID2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_in":
+			var err error
+			it.IDNotIn, err = ec.unmarshalOID2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_lt":
+			var err error
+			it.IDLt, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_lte":
+			var err error
+			it.IDLte, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_gt":
+			var err error
+			it.IDGt, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_gte":
+			var err error
+			it.IDGte, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_contains":
+			var err error
+			it.IDContains, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_contains":
+			var err error
+			it.IDNotContains, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_starts_with":
+			var err error
+			it.IDStartsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_starts_with":
+			var err error
+			it.IDNotStartsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_ends_with":
+			var err error
+			it.IDEndsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_ends_with":
+			var err error
+			it.IDNotEndsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name":
+			var err error
+			it.Name, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not":
+			var err error
+			it.NameNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_in":
+			var err error
+			it.NameIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_in":
+			var err error
+			it.NameNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_lt":
+			var err error
+			it.NameLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_lte":
+			var err error
+			it.NameLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_gt":
+			var err error
+			it.NameGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_gte":
+			var err error
+			it.NameGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_contains":
+			var err error
+			it.NameContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_contains":
+			var err error
+			it.NameNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_starts_with":
+			var err error
+			it.NameStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_starts_with":
+			var err error
+			it.NameNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_ends_with":
+			var err error
+			it.NameEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_ends_with":
+			var err error
+			it.NameNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description":
+			var err error
+			it.Description, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not":
+			var err error
+			it.DescriptionNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_in":
+			var err error
+			it.DescriptionIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_in":
+			var err error
+			it.DescriptionNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_lt":
+			var err error
+			it.DescriptionLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_lte":
+			var err error
+			it.DescriptionLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_gt":
+			var err error
+			it.DescriptionGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_gte":
+			var err error
+			it.DescriptionGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_contains":
+			var err error
+			it.DescriptionContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_contains":
+			var err error
+			it.DescriptionNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_starts_with":
+			var err error
+			it.DescriptionStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_starts_with":
+			var err error
+			it.DescriptionNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_ends_with":
+			var err error
+			it.DescriptionEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_ends_with":
+			var err error
+			it.DescriptionNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl":
+			var err error
+			it.ImageUrl, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not":
+			var err error
+			it.ImageUrlNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_in":
+			var err error
+			it.ImageUrlIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_in":
+			var err error
+			it.ImageUrlNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_lt":
+			var err error
+			it.ImageUrlLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_lte":
+			var err error
+			it.ImageUrlLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_gt":
+			var err error
+			it.ImageUrlGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_gte":
+			var err error
+			it.ImageUrlGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_contains":
+			var err error
+			it.ImageUrlContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_contains":
+			var err error
+			it.ImageUrlNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_starts_with":
+			var err error
+			it.ImageUrlStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_starts_with":
+			var err error
+			it.ImageUrlNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_ends_with":
+			var err error
+			it.ImageUrlEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_ends_with":
+			var err error
+			it.ImageUrlNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate":
+			var err error
+			it.StartDate, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate_not":
+			var err error
+			it.StartDateNot, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate_in":
+			var err error
+			it.StartDateIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate_not_in":
+			var err error
+			it.StartDateNotIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate_lt":
+			var err error
+			it.StartDateLt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate_lte":
+			var err error
+			it.StartDateLte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate_gt":
+			var err error
+			it.StartDateGt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "startDate_gte":
+			var err error
+			it.StartDateGte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate":
+			var err error
+			it.EndDate, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate_not":
+			var err error
+			it.EndDateNot, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate_in":
+			var err error
+			it.EndDateIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate_not_in":
+			var err error
+			it.EndDateNotIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate_lt":
+			var err error
+			it.EndDateLt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate_lte":
+			var err error
+			it.EndDateLte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate_gt":
+			var err error
+			it.EndDateGt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "endDate_gte":
+			var err error
+			it.EndDateGte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat":
+			var err error
+			it.Lat, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat_not":
+			var err error
+			it.LatNot, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat_in":
+			var err error
+			it.LatIn, err = ec.unmarshalOFloat2ᚕfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat_not_in":
+			var err error
+			it.LatNotIn, err = ec.unmarshalOFloat2ᚕfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat_lt":
+			var err error
+			it.LatLt, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat_lte":
+			var err error
+			it.LatLte, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat_gt":
+			var err error
+			it.LatGt, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lat_gte":
+			var err error
+			it.LatGte, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long":
+			var err error
+			it.Long, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long_not":
+			var err error
+			it.LongNot, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long_in":
+			var err error
+			it.LongIn, err = ec.unmarshalOFloat2ᚕfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long_not_in":
+			var err error
+			it.LongNotIn, err = ec.unmarshalOFloat2ᚕfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long_lt":
+			var err error
+			it.LongLt, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long_lte":
+			var err error
+			it.LongLte, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long_gt":
+			var err error
+			it.LongGt, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "long_gte":
+			var err error
+			it.LongGte, err = ec.unmarshalOFloat2ᚖfloat64(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price":
+			var err error
+			it.Price, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_not":
+			var err error
+			it.PriceNot, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_in":
+			var err error
+			it.PriceIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_not_in":
+			var err error
+			it.PriceNotIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_lt":
+			var err error
+			it.PriceLt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_lte":
+			var err error
+			it.PriceLte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_gt":
+			var err error
+			it.PriceGt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_gte":
+			var err error
+			it.PriceGte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "city":
+			var err error
+			it.City, err = ec.unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "city_not":
+			var err error
+			it.CityNot, err = ec.unmarshalOCity2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "city_in":
+			var err error
+			it.CityIn, err = ec.unmarshalOCity2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "city_not_in":
+			var err error
+			it.CityNotIn, err = ec.unmarshalOCity2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐCity(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl":
+			var err error
+			it.TicketUrl, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not":
+			var err error
+			it.TicketUrlNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_in":
+			var err error
+			it.TicketUrlIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_in":
+			var err error
+			it.TicketUrlNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_lt":
+			var err error
+			it.TicketUrlLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_lte":
+			var err error
+			it.TicketUrlLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_gt":
+			var err error
+			it.TicketUrlGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_gte":
+			var err error
+			it.TicketUrlGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_contains":
+			var err error
+			it.TicketUrlContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_contains":
+			var err error
+			it.TicketUrlNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_starts_with":
+			var err error
+			it.TicketUrlStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_starts_with":
+			var err error
+			it.TicketUrlNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_ends_with":
+			var err error
+			it.TicketUrlEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_ends_with":
+			var err error
+			it.TicketUrlNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "event":
+			var err error
+			it.Event, err = ec.unmarshalOEventWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt":
+			var err error
+			it.CreatedAt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_not":
+			var err error
+			it.CreatedAtNot, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_in":
+			var err error
+			it.CreatedAtIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_not_in":
+			var err error
+			it.CreatedAtNotIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_lt":
+			var err error
+			it.CreatedAtLt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_lte":
+			var err error
+			it.CreatedAtLte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_gt":
+			var err error
+			it.CreatedAtGt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_gte":
+			var err error
+			it.CreatedAtGte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "AND":
+			var err error
+			it.And, err = ec.unmarshalOEventOccurrenceWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "OR":
+			var err error
+			it.Or, err = ec.unmarshalOEventOccurrenceWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "NOT":
+			var err error
+			it.Not, err = ec.unmarshalOEventOccurrenceWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputEventOccurrenceWhereUniqueInput(ctx context.Context, obj interface{}) (prisma.EventOccurrenceWhereUniqueInput, error) {
 	var it prisma.EventOccurrenceWhereUniqueInput
 	var asMap = obj.(map[string]interface{})
@@ -5081,6 +6252,1326 @@ func (ec *executionContext) unmarshalInputEventUpdateInput(ctx context.Context, 
 		case "occurrences":
 			var err error
 			it.Occurrences, err = ec.unmarshalOEventOccurrenceUpdateManyWithoutEventInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceUpdateManyWithoutEventInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputEventWhereInput(ctx context.Context, obj interface{}) (prisma.EventWhereInput, error) {
+	var it prisma.EventWhereInput
+	var asMap = obj.(map[string]interface{})
+
+	for k, v := range asMap {
+		switch k {
+		case "id":
+			var err error
+			it.ID, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not":
+			var err error
+			it.IDNot, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_in":
+			var err error
+			it.IDIn, err = ec.unmarshalOID2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_in":
+			var err error
+			it.IDNotIn, err = ec.unmarshalOID2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_lt":
+			var err error
+			it.IDLt, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_lte":
+			var err error
+			it.IDLte, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_gt":
+			var err error
+			it.IDGt, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_gte":
+			var err error
+			it.IDGte, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_contains":
+			var err error
+			it.IDContains, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_contains":
+			var err error
+			it.IDNotContains, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_starts_with":
+			var err error
+			it.IDStartsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_starts_with":
+			var err error
+			it.IDNotStartsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_ends_with":
+			var err error
+			it.IDEndsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "id_not_ends_with":
+			var err error
+			it.IDNotEndsWith, err = ec.unmarshalOID2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name":
+			var err error
+			it.Name, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not":
+			var err error
+			it.NameNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_in":
+			var err error
+			it.NameIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_in":
+			var err error
+			it.NameNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_lt":
+			var err error
+			it.NameLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_lte":
+			var err error
+			it.NameLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_gt":
+			var err error
+			it.NameGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_gte":
+			var err error
+			it.NameGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_contains":
+			var err error
+			it.NameContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_contains":
+			var err error
+			it.NameNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_starts_with":
+			var err error
+			it.NameStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_starts_with":
+			var err error
+			it.NameNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_ends_with":
+			var err error
+			it.NameEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "name_not_ends_with":
+			var err error
+			it.NameNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description":
+			var err error
+			it.Description, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not":
+			var err error
+			it.DescriptionNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_in":
+			var err error
+			it.DescriptionIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_in":
+			var err error
+			it.DescriptionNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_lt":
+			var err error
+			it.DescriptionLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_lte":
+			var err error
+			it.DescriptionLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_gt":
+			var err error
+			it.DescriptionGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_gte":
+			var err error
+			it.DescriptionGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_contains":
+			var err error
+			it.DescriptionContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_contains":
+			var err error
+			it.DescriptionNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_starts_with":
+			var err error
+			it.DescriptionStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_starts_with":
+			var err error
+			it.DescriptionNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_ends_with":
+			var err error
+			it.DescriptionEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "description_not_ends_with":
+			var err error
+			it.DescriptionNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription":
+			var err error
+			it.ShortDescription, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_not":
+			var err error
+			it.ShortDescriptionNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_in":
+			var err error
+			it.ShortDescriptionIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_not_in":
+			var err error
+			it.ShortDescriptionNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_lt":
+			var err error
+			it.ShortDescriptionLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_lte":
+			var err error
+			it.ShortDescriptionLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_gt":
+			var err error
+			it.ShortDescriptionGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_gte":
+			var err error
+			it.ShortDescriptionGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_contains":
+			var err error
+			it.ShortDescriptionContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_not_contains":
+			var err error
+			it.ShortDescriptionNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_starts_with":
+			var err error
+			it.ShortDescriptionStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_not_starts_with":
+			var err error
+			it.ShortDescriptionNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_ends_with":
+			var err error
+			it.ShortDescriptionEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "shortDescription_not_ends_with":
+			var err error
+			it.ShortDescriptionNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link":
+			var err error
+			it.Link, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_not":
+			var err error
+			it.LinkNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_in":
+			var err error
+			it.LinkIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_not_in":
+			var err error
+			it.LinkNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_lt":
+			var err error
+			it.LinkLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_lte":
+			var err error
+			it.LinkLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_gt":
+			var err error
+			it.LinkGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_gte":
+			var err error
+			it.LinkGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_contains":
+			var err error
+			it.LinkContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_not_contains":
+			var err error
+			it.LinkNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_starts_with":
+			var err error
+			it.LinkStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_not_starts_with":
+			var err error
+			it.LinkNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_ends_with":
+			var err error
+			it.LinkEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "link_not_ends_with":
+			var err error
+			it.LinkNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl":
+			var err error
+			it.ImageUrl, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not":
+			var err error
+			it.ImageUrlNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_in":
+			var err error
+			it.ImageUrlIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_in":
+			var err error
+			it.ImageUrlNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_lt":
+			var err error
+			it.ImageUrlLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_lte":
+			var err error
+			it.ImageUrlLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_gt":
+			var err error
+			it.ImageUrlGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_gte":
+			var err error
+			it.ImageUrlGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_contains":
+			var err error
+			it.ImageUrlContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_contains":
+			var err error
+			it.ImageUrlNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_starts_with":
+			var err error
+			it.ImageUrlStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_starts_with":
+			var err error
+			it.ImageUrlNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_ends_with":
+			var err error
+			it.ImageUrlEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "imageUrl_not_ends_with":
+			var err error
+			it.ImageUrlNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate":
+			var err error
+			it.NextOccurrenceDate, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate_not":
+			var err error
+			it.NextOccurrenceDateNot, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate_in":
+			var err error
+			it.NextOccurrenceDateIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate_not_in":
+			var err error
+			it.NextOccurrenceDateNotIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate_lt":
+			var err error
+			it.NextOccurrenceDateLt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate_lte":
+			var err error
+			it.NextOccurrenceDateLte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate_gt":
+			var err error
+			it.NextOccurrenceDateGt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "nextOccurrenceDate_gte":
+			var err error
+			it.NextOccurrenceDateGte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price":
+			var err error
+			it.Price, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_not":
+			var err error
+			it.PriceNot, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_in":
+			var err error
+			it.PriceIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_not_in":
+			var err error
+			it.PriceNotIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_lt":
+			var err error
+			it.PriceLt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_lte":
+			var err error
+			it.PriceLte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_gt":
+			var err error
+			it.PriceGt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "price_gte":
+			var err error
+			it.PriceGte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "category":
+			var err error
+			it.Category, err = ec.unmarshalOEventCategory2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "category_not":
+			var err error
+			it.CategoryNot, err = ec.unmarshalOEventCategory2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "category_in":
+			var err error
+			it.CategoryIn, err = ec.unmarshalOEventCategory2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "category_not_in":
+			var err error
+			it.CategoryNotIn, err = ec.unmarshalOEventCategory2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags":
+			var err error
+			it.Tags, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_not":
+			var err error
+			it.TagsNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_in":
+			var err error
+			it.TagsIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_not_in":
+			var err error
+			it.TagsNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_lt":
+			var err error
+			it.TagsLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_lte":
+			var err error
+			it.TagsLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_gt":
+			var err error
+			it.TagsGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_gte":
+			var err error
+			it.TagsGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_contains":
+			var err error
+			it.TagsContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_not_contains":
+			var err error
+			it.TagsNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_starts_with":
+			var err error
+			it.TagsStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_not_starts_with":
+			var err error
+			it.TagsNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_ends_with":
+			var err error
+			it.TagsEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "tags_not_ends_with":
+			var err error
+			it.TagsNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl":
+			var err error
+			it.TicketUrl, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not":
+			var err error
+			it.TicketUrlNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_in":
+			var err error
+			it.TicketUrlIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_in":
+			var err error
+			it.TicketUrlNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_lt":
+			var err error
+			it.TicketUrlLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_lte":
+			var err error
+			it.TicketUrlLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_gt":
+			var err error
+			it.TicketUrlGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_gte":
+			var err error
+			it.TicketUrlGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_contains":
+			var err error
+			it.TicketUrlContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_contains":
+			var err error
+			it.TicketUrlNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_starts_with":
+			var err error
+			it.TicketUrlStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_starts_with":
+			var err error
+			it.TicketUrlNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_ends_with":
+			var err error
+			it.TicketUrlEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ticketUrl_not_ends_with":
+			var err error
+			it.TicketUrlNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source":
+			var err error
+			it.Source, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_not":
+			var err error
+			it.SourceNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_in":
+			var err error
+			it.SourceIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_not_in":
+			var err error
+			it.SourceNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_lt":
+			var err error
+			it.SourceLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_lte":
+			var err error
+			it.SourceLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_gt":
+			var err error
+			it.SourceGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_gte":
+			var err error
+			it.SourceGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_contains":
+			var err error
+			it.SourceContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_not_contains":
+			var err error
+			it.SourceNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_starts_with":
+			var err error
+			it.SourceStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_not_starts_with":
+			var err error
+			it.SourceNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_ends_with":
+			var err error
+			it.SourceEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "source_not_ends_with":
+			var err error
+			it.SourceNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId":
+			var err error
+			it.WpFrId, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId_not":
+			var err error
+			it.WpFrIdNot, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId_in":
+			var err error
+			it.WpFrIdIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId_not_in":
+			var err error
+			it.WpFrIdNotIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId_lt":
+			var err error
+			it.WpFrIdLt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId_lte":
+			var err error
+			it.WpFrIdLte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId_gt":
+			var err error
+			it.WpFrIdGt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpFrId_gte":
+			var err error
+			it.WpFrIdGte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId":
+			var err error
+			it.WpEnId, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId_not":
+			var err error
+			it.WpEnIdNot, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId_in":
+			var err error
+			it.WpEnIdIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId_not_in":
+			var err error
+			it.WpEnIdNotIn, err = ec.unmarshalOInt2ᚕint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId_lt":
+			var err error
+			it.WpEnIdLt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId_lte":
+			var err error
+			it.WpEnIdLte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId_gt":
+			var err error
+			it.WpEnIdGt, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "wpEnId_gte":
+			var err error
+			it.WpEnIdGte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "possibleDuplicate":
+			var err error
+			it.PossibleDuplicate, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "possibleDuplicate_not":
+			var err error
+			it.PossibleDuplicateNot, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes":
+			var err error
+			it.ImportNotes, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_not":
+			var err error
+			it.ImportNotesNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_in":
+			var err error
+			it.ImportNotesIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_not_in":
+			var err error
+			it.ImportNotesNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_lt":
+			var err error
+			it.ImportNotesLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_lte":
+			var err error
+			it.ImportNotesLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_gt":
+			var err error
+			it.ImportNotesGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_gte":
+			var err error
+			it.ImportNotesGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_contains":
+			var err error
+			it.ImportNotesContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_not_contains":
+			var err error
+			it.ImportNotesNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_starts_with":
+			var err error
+			it.ImportNotesStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_not_starts_with":
+			var err error
+			it.ImportNotesNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_ends_with":
+			var err error
+			it.ImportNotesEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "importNotes_not_ends_with":
+			var err error
+			it.ImportNotesNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "isRecurring":
+			var err error
+			it.IsRecurring, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "isRecurring_not":
+			var err error
+			it.IsRecurringNot, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern":
+			var err error
+			it.RecurrencePattern, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_not":
+			var err error
+			it.RecurrencePatternNot, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_in":
+			var err error
+			it.RecurrencePatternIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_not_in":
+			var err error
+			it.RecurrencePatternNotIn, err = ec.unmarshalOString2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_lt":
+			var err error
+			it.RecurrencePatternLt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_lte":
+			var err error
+			it.RecurrencePatternLte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_gt":
+			var err error
+			it.RecurrencePatternGt, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_gte":
+			var err error
+			it.RecurrencePatternGte, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_contains":
+			var err error
+			it.RecurrencePatternContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_not_contains":
+			var err error
+			it.RecurrencePatternNotContains, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_starts_with":
+			var err error
+			it.RecurrencePatternStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_not_starts_with":
+			var err error
+			it.RecurrencePatternNotStartsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_ends_with":
+			var err error
+			it.RecurrencePatternEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "recurrencePattern_not_ends_with":
+			var err error
+			it.RecurrencePatternNotEndsWith, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "occurrencesAreUnique":
+			var err error
+			it.OccurrencesAreUnique, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "occurrencesAreUnique_not":
+			var err error
+			it.OccurrencesAreUniqueNot, err = ec.unmarshalOBoolean2ᚖbool(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "occurrences_every":
+			var err error
+			it.OccurrencesEvery, err = ec.unmarshalOEventOccurrenceWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "occurrences_some":
+			var err error
+			it.OccurrencesSome, err = ec.unmarshalOEventOccurrenceWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "occurrences_none":
+			var err error
+			it.OccurrencesNone, err = ec.unmarshalOEventOccurrenceWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt":
+			var err error
+			it.CreatedAt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_not":
+			var err error
+			it.CreatedAtNot, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_in":
+			var err error
+			it.CreatedAtIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_not_in":
+			var err error
+			it.CreatedAtNotIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_lt":
+			var err error
+			it.CreatedAtLt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_lte":
+			var err error
+			it.CreatedAtLte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_gt":
+			var err error
+			it.CreatedAtGt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "createdAt_gte":
+			var err error
+			it.CreatedAtGte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt":
+			var err error
+			it.UpdatedAt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt_not":
+			var err error
+			it.UpdatedAtNot, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt_in":
+			var err error
+			it.UpdatedAtIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt_not_in":
+			var err error
+			it.UpdatedAtNotIn, err = ec.unmarshalODateTime2ᚕstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt_lt":
+			var err error
+			it.UpdatedAtLt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt_lte":
+			var err error
+			it.UpdatedAtLte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt_gt":
+			var err error
+			it.UpdatedAtGt, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "updatedAt_gte":
+			var err error
+			it.UpdatedAtGte, err = ec.unmarshalODateTime2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "AND":
+			var err error
+			it.And, err = ec.unmarshalOEventWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "OR":
+			var err error
+			it.Or, err = ec.unmarshalOEventWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "NOT":
+			var err error
+			it.Not, err = ec.unmarshalOEventWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -6412,6 +8903,25 @@ func (ec *executionContext) marshalNDateTime2string(ctx context.Context, sel ast
 	return res
 }
 
+func (ec *executionContext) marshalNEvent2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v prisma.Event) graphql.Marshaler {
+	return ec._Event(ctx, sel, &v)
+}
+
+func (ec *executionContext) unmarshalNEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, v interface{}) (prisma.EventCategory, error) {
+	tmp, err := graphql.UnmarshalString(v)
+	return prisma.EventCategory(tmp), err
+}
+
+func (ec *executionContext) marshalNEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, sel ast.SelectionSet, v prisma.EventCategory) graphql.Marshaler {
+	res := graphql.MarshalString(string(v))
+	if res == graphql.Null {
+		if !ec.HasError(graphql.GetResolverContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+	}
+	return res
+}
+
 func (ec *executionContext) unmarshalNEventOccurrenceCreateWithoutEventInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceCreateWithoutEventInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceCreateWithoutEventInput, error) {
 	return ec.unmarshalInputEventOccurrenceCreateWithoutEventInput(ctx, v)
 }
@@ -6428,12 +8938,20 @@ func (ec *executionContext) unmarshalNEventOccurrenceUpdateWithoutEventDataInput
 	return ec.unmarshalInputEventOccurrenceUpdateWithoutEventDataInput(ctx, v)
 }
 
+func (ec *executionContext) unmarshalNEventOccurrenceWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceWhereInput, error) {
+	return ec.unmarshalInputEventOccurrenceWhereInput(ctx, v)
+}
+
 func (ec *executionContext) unmarshalNEventOccurrenceWhereUniqueInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceWhereUniqueInput, error) {
 	return ec.unmarshalInputEventOccurrenceWhereUniqueInput(ctx, v)
 }
 
 func (ec *executionContext) unmarshalNEventUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventUpdateInput(ctx context.Context, v interface{}) (prisma.EventUpdateInput, error) {
 	return ec.unmarshalInputEventUpdateInput(ctx, v)
+}
+
+func (ec *executionContext) unmarshalNEventWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx context.Context, v interface{}) (prisma.EventWhereInput, error) {
+	return ec.unmarshalInputEventWhereInput(ctx, v)
 }
 
 func (ec *executionContext) unmarshalNFloat2float64(ctx context.Context, v interface{}) (float64, error) {
@@ -6464,6 +8982,20 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
+func (ec *executionContext) unmarshalNInt2int32(ctx context.Context, v interface{}) (int32, error) {
+	return graphql.UnmarshalInt32(v)
+}
+
+func (ec *executionContext) marshalNInt2int32(ctx context.Context, sel ast.SelectionSet, v int32) graphql.Marshaler {
+	res := graphql.MarshalInt32(v)
+	if res == graphql.Null {
+		if !ec.HasError(graphql.GetResolverContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+	}
+	return res
+}
+
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v interface{}) (string, error) {
 	return graphql.UnmarshalString(v)
 }
@@ -6476,6 +9008,10 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) marshalNVenue2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v prisma.Venue) graphql.Marshaler {
+	return ec._Venue(ctx, sel, &v)
 }
 
 func (ec *executionContext) unmarshalNVenueUpdateInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueUpdateInput(ctx context.Context, v interface{}) (prisma.VenueUpdateInput, error) {
@@ -6827,6 +9363,38 @@ func (ec *executionContext) marshalODateTime2string(ctx context.Context, sel ast
 	return graphql.MarshalString(v)
 }
 
+func (ec *executionContext) unmarshalODateTime2ᚕstring(ctx context.Context, v interface{}) ([]string, error) {
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]string, len(vSlice))
+	for i := range vSlice {
+		res[i], err = ec.unmarshalNDateTime2string(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) marshalODateTime2ᚕstring(ctx context.Context, sel ast.SelectionSet, v []string) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	for i := range v {
+		ret[i] = ec.marshalNDateTime2string(ctx, sel, v[i])
+	}
+
+	return ret
+}
+
 func (ec *executionContext) unmarshalODateTime2ᚖstring(ctx context.Context, v interface{}) (*string, error) {
 	if v == nil {
 		return nil, nil
@@ -6844,6 +9412,46 @@ func (ec *executionContext) marshalODateTime2ᚖstring(ctx context.Context, sel 
 
 func (ec *executionContext) marshalOEvent2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v prisma.Event) graphql.Marshaler {
 	return ec._Event(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalOEvent2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v []prisma.Event) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		rctx := &graphql.ResolverContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithResolverContext(ctx, rctx)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNEvent2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+	return ret
 }
 
 func (ec *executionContext) marshalOEvent2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEvent(ctx context.Context, sel ast.SelectionSet, v []*prisma.Event) graphql.Marshaler {
@@ -6900,6 +9508,66 @@ func (ec *executionContext) unmarshalOEventCategory2githubᚗcomᚋafunnydevᚋw
 
 func (ec *executionContext) marshalOEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, sel ast.SelectionSet, v prisma.EventCategory) graphql.Marshaler {
 	return graphql.MarshalString(string(v))
+}
+
+func (ec *executionContext) unmarshalOEventCategory2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, v interface{}) ([]prisma.EventCategory, error) {
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]prisma.EventCategory, len(vSlice))
+	for i := range vSlice {
+		res[i], err = ec.unmarshalNEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) marshalOEventCategory2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, sel ast.SelectionSet, v []prisma.EventCategory) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		rctx := &graphql.ResolverContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithResolverContext(ctx, rctx)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNEventCategory2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+	return ret
 }
 
 func (ec *executionContext) unmarshalOEventCategory2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventCategory(ctx context.Context, v interface{}) (*prisma.EventCategory, error) {
@@ -7040,6 +9708,38 @@ func (ec *executionContext) unmarshalOEventOccurrenceUpdateWithWhereUniqueWithou
 	return res, nil
 }
 
+func (ec *executionContext) unmarshalOEventOccurrenceWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx context.Context, v interface{}) (prisma.EventOccurrenceWhereInput, error) {
+	return ec.unmarshalInputEventOccurrenceWhereInput(ctx, v)
+}
+
+func (ec *executionContext) unmarshalOEventOccurrenceWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceWhereInput, error) {
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]prisma.EventOccurrenceWhereInput, len(vSlice))
+	for i := range vSlice {
+		res[i], err = ec.unmarshalNEventOccurrenceWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) unmarshalOEventOccurrenceWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx context.Context, v interface{}) (*prisma.EventOccurrenceWhereInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalOEventOccurrenceWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereInput(ctx, v)
+	return &res, err
+}
+
 func (ec *executionContext) unmarshalOEventOccurrenceWhereUniqueInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOccurrenceWhereUniqueInput(ctx context.Context, v interface{}) ([]prisma.EventOccurrenceWhereUniqueInput, error) {
 	var vSlice []interface{}
 	if v != nil {
@@ -7058,6 +9758,62 @@ func (ec *executionContext) unmarshalOEventOccurrenceWhereUniqueInput2ᚕgithub�
 		}
 	}
 	return res, nil
+}
+
+func (ec *executionContext) unmarshalOEventOrderByInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOrderByInput(ctx context.Context, v interface{}) (prisma.EventOrderByInput, error) {
+	tmp, err := graphql.UnmarshalString(v)
+	return prisma.EventOrderByInput(tmp), err
+}
+
+func (ec *executionContext) marshalOEventOrderByInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOrderByInput(ctx context.Context, sel ast.SelectionSet, v prisma.EventOrderByInput) graphql.Marshaler {
+	return graphql.MarshalString(string(v))
+}
+
+func (ec *executionContext) unmarshalOEventOrderByInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOrderByInput(ctx context.Context, v interface{}) (*prisma.EventOrderByInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalOEventOrderByInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOrderByInput(ctx, v)
+	return &res, err
+}
+
+func (ec *executionContext) marshalOEventOrderByInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOrderByInput(ctx context.Context, sel ast.SelectionSet, v *prisma.EventOrderByInput) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec.marshalOEventOrderByInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventOrderByInput(ctx, sel, *v)
+}
+
+func (ec *executionContext) unmarshalOEventWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx context.Context, v interface{}) (prisma.EventWhereInput, error) {
+	return ec.unmarshalInputEventWhereInput(ctx, v)
+}
+
+func (ec *executionContext) unmarshalOEventWhereInput2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx context.Context, v interface{}) ([]prisma.EventWhereInput, error) {
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]prisma.EventWhereInput, len(vSlice))
+	for i := range vSlice {
+		res[i], err = ec.unmarshalNEventWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) unmarshalOEventWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx context.Context, v interface{}) (*prisma.EventWhereInput, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalOEventWhereInput2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐEventWhereInput(ctx, v)
+	return &res, err
 }
 
 func (ec *executionContext) unmarshalOFloat2float64(ctx context.Context, v interface{}) (float64, error) {
@@ -7176,6 +9932,38 @@ func (ec *executionContext) unmarshalOInt2int32(ctx context.Context, v interface
 
 func (ec *executionContext) marshalOInt2int32(ctx context.Context, sel ast.SelectionSet, v int32) graphql.Marshaler {
 	return graphql.MarshalInt32(v)
+}
+
+func (ec *executionContext) unmarshalOInt2ᚕint32(ctx context.Context, v interface{}) ([]int32, error) {
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]int32, len(vSlice))
+	for i := range vSlice {
+		res[i], err = ec.unmarshalNInt2int32(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) marshalOInt2ᚕint32(ctx context.Context, sel ast.SelectionSet, v []int32) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	for i := range v {
+		ret[i] = ec.marshalNInt2int32(ctx, sel, v[i])
+	}
+
+	return ret
 }
 
 func (ec *executionContext) unmarshalOInt2ᚖint32(ctx context.Context, v interface{}) (*int32, error) {
@@ -7332,7 +10120,7 @@ func (ec *executionContext) marshalOVenue2githubᚗcomᚋafunnydevᚋwatadooᚋw
 	return ec._Venue(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v []*prisma.Venue) graphql.Marshaler {
+func (ec *executionContext) marshalOVenue2ᚕgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx context.Context, sel ast.SelectionSet, v []prisma.Venue) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -7359,7 +10147,7 @@ func (ec *executionContext) marshalOVenue2ᚕᚖgithubᚗcomᚋafunnydevᚋwatad
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOVenue2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, sel, v[i])
+			ret[i] = ec.marshalNVenue2githubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenue(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)

@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Link from "next/link"
-import { Container, Columns, Column, Field, Label, Control, Input, TextArea, Help } from "bloomer"
+import { Container, Columns, Column, Field, Label, Control, Input, TextArea, Help, Checkbox } from "bloomer"
 import { withApollo, Query } from "react-apollo"
 import gql from "graphql-tag"
 import { Widget } from "@uploadcare/react-widget"
@@ -10,6 +10,7 @@ import { eventInfoFragment } from "../lib/fragments"
 
 import MessengerCard from "./MessengerCard"
 import VenueAutocompleteSelect from "./VenueAutocompleteSelect"
+import CategorySelect from "./CategorySelect"
 import OverrideTabStyleA from "./styles/OverrideTabStyleA"
 
 const EVENT_GENERAL_INFO_QUERY = gql`
@@ -27,6 +28,9 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
   )
   const updateImageUrl = (imageUrl) => client.writeData(
     { id: `Event:${eventId}`, data: { imageUrl } }
+  )
+  const changeCheckedValue = (e) => client.writeData(
+    { id: `Event:${eventId}`, data: { [e.target.name]: e.target.checked } }
   )
 
   return (
@@ -48,7 +52,10 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
           source,
           wpFrId,
           wpEnId,
-          link
+          link,
+          importNotes,
+          possibleDuplicate,
+          category
         } = data.event
         return (
           <Container>
@@ -64,6 +71,10 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
                   <Label>Venue*</Label>
                   <VenueAutocompleteSelect defaultValue={venue && venue.nameFr} onChange={setNewVenueId} />
                   <Help isColor="black">More info on this venue <Link href={{ pathname: "/venue", query: { id: newVenueId || venue && venue.id || "" } }}><OverrideTabStyleA target="_blank">here</OverrideTabStyleA></Link>.</Help>
+                </Field>
+                <Field>
+                  <Label>Category*</Label>
+                  <CategorySelect value={category} onChange={updateStore} />
                 </Field>
                 <Field>
                   <Label>Short Description</Label>
@@ -95,6 +106,13 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
                       onChange={info => updateImageUrl(info.cdnUrl)}
                     />
                     <Help isColor="info">Don&#39;t forget to save after changing the image.</Help>
+                  </Control>
+                </Field>
+                <Field>
+                  <Label>Import Notes</Label>
+                  <Control>
+                    <Input name="importNotes" type="text" defaultValue={importNotes} onBlur={updateStore} />
+                    <Checkbox name="possibleDuplicate" checked={possibleDuplicate} onChange={changeCheckedValue}> This is event is a possible duplicate.</Checkbox>
                   </Control>
                 </Field>
                 <Field>

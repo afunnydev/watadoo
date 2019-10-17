@@ -3,7 +3,6 @@ package resolvers
 import (
 	"context"
 	"fmt"
-	"time"
 
 	prisma "github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client"
 	"github.com/afunnydev/watadoo/watadoo-backend/pkg/auth"
@@ -17,58 +16,33 @@ func (r *queryResolver) Event(ctx context.Context, id string) (*prisma.Event, er
 func (r *queryResolver) Venue(ctx context.Context, id string) (*prisma.Venue, error) {
 	return r.Prisma.Venue(prisma.VenueWhereUniqueInput{ID: &id}).Exec(ctx)
 }
-func (r *queryResolver) Events(ctx context.Context, withoutOccurrence bool) ([]*prisma.Event, error) {
-	var pointerToEvents []*prisma.Event
+func (r *queryResolver) Events(ctx context.Context, where *prisma.EventWhereInput, orderBy *prisma.EventOrderByInput) ([]prisma.Event, error) {
 
 	if user := auth.UserFromContext(ctx); user == nil || !auth.IsAdmin(user.Permissions) {
-		return pointerToEvents, fmt.Errorf("Access denied")
+		return nil, fmt.Errorf("Access denied")
 	}
 
-	orderBy := prisma.EventOrderByInputNextOccurrenceDateAsc
-	now := time.Now().Format(time.RFC3339)
-	eventWhereInput := prisma.EventWhereInput{
-		OccurrencesSome: &prisma.EventOccurrenceWhereInput{
-			StartDateGte: &now,
-		},
-	}
+	// orderBy := prisma.EventOrderByInputNextOccurrenceDateAsc
+	// now := time.Now().Format(time.RFC3339)
+	// eventWhereInput := prisma.EventWhereInput{
+	// 	OccurrencesSome: &prisma.EventOccurrenceWhereInput{
+	// 		StartDateGte: &now,
+	// 	},
+	// }
 
-	if withoutOccurrence == true {
-		// I prefer Dsc because I want to see the most recent event first, but for now there's some event with null in the createdAt field so they appear first.
-		orderBy = prisma.EventOrderByInputCreatedAtAsc
-		eventWhereInput = prisma.EventWhereInput{
-			OccurrencesNone: &prisma.EventOccurrenceWhereInput{
-				IDNot: nil,
-			},
-		}
-	}
+	// if where != nil {
+	// 	// I prefer Dsc because I want to see the most recent event first, but for now there's some event with null in the createdAt field so they appear first.
+	// 	orderBy = prisma.EventOrderByInputCreatedAtAsc
+	// 	eventWhereInput = *where
+	// }
 
-	events, err := r.Prisma.Events(&prisma.EventsParams{
-		Where:   &eventWhereInput,
-		OrderBy: &orderBy,
+	return r.Prisma.Events(&prisma.EventsParams{
+		Where:   where,
+		OrderBy: orderBy,
 	}).Exec(ctx)
-	if err != nil {
-		return pointerToEvents, err
-	}
-
-	for i := 0; i < len(events); i++ {
-		pointerToEvents = append(pointerToEvents, &events[i])
-	}
-
-	return pointerToEvents, err
 }
-func (r *queryResolver) Venues(ctx context.Context, where *prisma.VenueWhereInput) ([]*prisma.Venue, error) {
-	venues, err := r.Prisma.Venues(&prisma.VenuesParams{
+func (r *queryResolver) Venues(ctx context.Context, where *prisma.VenueWhereInput) ([]prisma.Venue, error) {
+	return r.Prisma.Venues(&prisma.VenuesParams{
 		Where: where,
 	}).Exec(ctx)
-	var pointerToVenues []*prisma.Venue
-
-	if err != nil {
-		return pointerToVenues, err
-	}
-
-	for i := 0; i < len(venues); i++ {
-		pointerToVenues = append(pointerToVenues, &venues[i])
-	}
-
-	return pointerToVenues, err
 }

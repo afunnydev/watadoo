@@ -7,8 +7,8 @@ import gql from "graphql-tag"
 import { Columns, Column } from "bloomer"
 
 const EVENTS_QUERY = gql`
-  query EVENTS_QUERY($withoutOccurrence: Boolean!) {
-    events(withoutOccurrence: $withoutOccurrence) {
+  query EVENTS_QUERY($where: EventWhereInput, $orderBy: EventOrderByInput) {
+    events(where: $where, orderBy: $orderBy) {
       id
       name
       source
@@ -17,11 +17,17 @@ const EVENTS_QUERY = gql`
   }
 `
 
-const ListEvents = ({ withoutOccurrence }) => {
+const ListEvents = ({ category, where, orderBy }) => {
+  let whereInput = {}
+  if (where) { whereInput = { ...where } }
+  if (category !== "") { whereInput.category = category }
   return (
     <Query
       query={EVENTS_QUERY}
-      variables={{ withoutOccurrence }}
+      variables={{
+        where: Object.entries(whereInput).length !== 0 ? whereInput : null,
+        orderBy
+      }}
       fetchPolicy="network-only"
     >
       {({ data, loading, error }) => {
@@ -51,11 +57,15 @@ const ListEvents = ({ withoutOccurrence }) => {
   )
 }
 ListEvents.defaultProps = {
-  withoutOccurrence: false
+  category: "",
+  where: null,
+  orderBy: "nextOccurrenceDate_ASC"
 }
 
 ListEvents.propTypes = {
-  withoutOccurrence: PropTypes.bool
+  category: PropTypes.string,
+  where: PropTypes.object,
+  orderBy: PropTypes.string
 }
 
 export default ListEvents

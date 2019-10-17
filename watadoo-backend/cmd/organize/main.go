@@ -34,8 +34,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println(token)
 	// Import venues in WP
-	automation.ImportVenuesInWP(client, token)
+	// automation.ImportVenuesInWP(client, token)
 	// Import events in WP
 	// Spot possible duplicated venues
 	// Spot possible duplicated events

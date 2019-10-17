@@ -32,6 +32,9 @@ const eventInfoFragment = gql`
     wpFrId
     wpEnId
     link
+    importNotes
+    category
+    possibleDuplicate
     recurrencePatternChanged @client
   }
 `

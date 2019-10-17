@@ -5,17 +5,37 @@ import { Section, Columns, Column, Level, LevelLeft, LevelRight } from "bloomer"
 import Tabs from "../components/Tabs"
 import SaveButton from "../components/styles/SaveButton"
 import ListEvents from "../components/ListEvents"
+import ListEventsFilters from "../components/ListEventsFilters"
 
 const EventsPage = () => {
   const [activeTab, setActiveTab,] = useState(0)
+  const [category, setCategory,] = useState("")
+  const now = new Date()
+  const coming = {
+    occurrences_some: {
+      startDate_gte: now.toISOString()
+    }
+  }
+  const withoutOccurrence = {
+    occurrences_none: {
+      id_not: null
+    }
+  }
+  const withNotes = {
+    OR: [
+      {possibleDuplicate: true},
+      {importNotes_gt: ""},
+    ]
+  }
   return (
     <Section>
       <Level>
         <LevelLeft><h1>Events</h1></LevelLeft>
         <LevelRight><SaveButton><Link href={{ pathname: "/event/new" }}><a>Create new event</a></Link></SaveButton></LevelRight>
       </Level>
+      <ListEventsFilters setCategory={setCategory} />
       <Tabs
-        tabs={["Events", "Without occurrence",]}
+        tabs={["Events", "To check", "Without occurrence",]}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
@@ -25,10 +45,15 @@ const EventsPage = () => {
         <Column isSize={{ mobile: 6, tablet: 4, desktop: 3 }}>Next Occurrence</Column>
         <Column isSize={{ mobile: 6, tablet: 4, desktop: 3 }}>Source</Column>
       </Columns>
-      {activeTab === 0
-        ? <ListEvents />
-        : <ListEvents withoutOccurrence />
-      }
+      {activeTab === 0 && <ListEvents category={category} where={coming} />}
+      {activeTab === 1 && <ListEvents
+        category={category}
+        where={withNotes}
+        orderBy="createdAt_ASC"/>}
+      {activeTab === 2 && <ListEvents
+        category={category}
+        where={withoutOccurrence}
+        orderBy="createdAt_ASC"/>}
     </Section>
   )
 }

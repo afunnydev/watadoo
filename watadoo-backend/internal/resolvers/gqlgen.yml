@@ -8,6 +8,7 @@ schema:
 exec:
   filename: generated.go
   package: resolvers
+omit_slice_element_pointers: true
 models:
   User:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.User
@@ -45,6 +46,12 @@ models:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventOccurrenceScalarWhereInput
   VenueWhereInput:
     model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.VenueWhereInput
+  EventWhereInput:
+    model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventWhereInput
+  EventOccurrenceWhereInput:
+    model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventOccurrenceWhereInput
+  EventOrderByInput:
+    model: github.com/afunnydev/watadoo/watadoo-backend/internal/generated/prisma-client.EventOrderByInput
 resolver:
   # goal: You can copy past from the generated file if needed
   filename: tmp/resolver.go
