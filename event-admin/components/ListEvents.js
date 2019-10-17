@@ -31,7 +31,7 @@ const ListEvents = ({ category, where, orderBy }) => {
       fetchPolicy="network-only"
     >
       {({ data, loading, error }) => {
-        if (error) return <p>Error</p>
+        if (error) return <p>{ error }</p>
         if (loading) return <p>Loading...</p>
         if (!data || !data.events || !data.events.length) return <p>No events in here</p>
         return (data.events.map(event => (

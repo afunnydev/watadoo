@@ -7,10 +7,10 @@ import SaveButton from "../components/styles/SaveButton"
 import ListEvents from "../components/ListEvents"
 import ListEventsFilters from "../components/ListEventsFilters"
 
+const now = new Date()
 const EventsPage = () => {
   const [activeTab, setActiveTab,] = useState(0)
   const [category, setCategory,] = useState("")
-  const now = new Date()
   const coming = {
     occurrences_some: {
       startDate_gte: now.toISOString()

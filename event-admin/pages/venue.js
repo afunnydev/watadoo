@@ -34,7 +34,7 @@ const VenuePage = ({ router }) => (
       }}
     >
       {({ data, loading, error, client }) => {
-        if (error) return <p>Error</p>
+        if (error) return <p>{error}</p>
         if (loading) return <p>Loading...</p>
         if (!data || !data.venue) return <p>No venue in here</p>
         return (

@@ -46,7 +46,6 @@ func ImportEvent(event prisma.Event, token string, client *prisma.Client) error 
 	venue, _ := client.Event(prisma.EventWhereUniqueInput{
 		ID: &event.ID,
 	}).Venue().Exec(ctx)
-	// const startDate = `${jsDate.getFullYear()}-${pad(jsDate.getMonth()+1, 2)}-${pad(jsDate.getDate(), 2)} ${pad(jsDate.getHours(), 2)}:00:00`;
 
 	ctx = context.TODO()
 	nb := int32(1)

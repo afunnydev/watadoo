@@ -33,7 +33,7 @@ const ListVenues = ({ possibleDuplicate, city }) => {
       fetchPolicy="network-only"
     >
       {({ data, loading, error }) => {
-        if (error) return <p>Error</p>
+        if (error) return <p>{ error }</p>
         if (loading) return <p>Loading...</p>
         if (!data || !data.venues || !data.venues.length) return <p>No venues in here</p>
         return (data.venues.map(venue => (

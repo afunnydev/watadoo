@@ -8,18 +8,23 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gocolly/colly"
+	// "github.com/gocolly/colly/debug"
+	"github.com/araddon/dateparse"
 
 	"github.com/afunnydev/watadoo/watadoo-backend/pkg/scraper/models"
 )
 
 func newCollector(domain string) *colly.Collector {
 	subdomain := fmt.Sprintf("www.%s", domain)
+	mobileDomain := fmt.Sprintf("m.%s", domain)
 	cacheFolder := fmt.Sprintf("cache/%s", strings.Split(domain, ".")[0])
 	c := colly.NewCollector(
+		// colly.Debugger(&debug.LogDebugger{}),
 		// Visit only domains
-		colly.AllowedDomains(domain, subdomain),
+		colly.AllowedDomains(domain, subdomain, mobileDomain),
 
 		// Cache responses to prevent multiple download of pages
 		// even if the collector is restarted
@@ -156,4 +161,90 @@ func generatePostData(page string) map[string]string {
 		"type":   "event",
 		"isHome": "false",
 	}
+}
+
+// FetchFacebook gets the events from the Tourisme Outaouais site.
+func FetchFacebook(url, name string) ([]models.Event, error) {
+	c := newCollector("facebook.com")
+	var events []models.Event
+
+	c.OnRequest(func(r *colly.Request) {
+		fmt.Println("Visiting", r.URL.String())
+	})
+
+	c.OnHTML("a", func(e *colly.HTMLElement) {
+		label := e.Attr("aria-label")
+		if strings.Contains(label, "Afficher les") || strings.Contains(label, "View event details") {
+			event, err := fetchFacebookEvent(fmt.Sprintf("https://m.facebook.com%s", e.Attr("href")), name)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			events = append(events, *event)
+		}
+	})
+
+	c.OnError(func(r *colly.Response, err error) {
+		fmt.Println(r.StatusCode)
+		fmt.Println(err)
+	})
+
+	c.Visit(url)
+
+	return events, nil
+}
+
+type facebookEvent struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Image       string `json:"image"`
+	StartDate   string `json:"startDate"`
+	EndDate     string `json:"endDate"`
+	URL         string `json:"url"`
+}
+
+func fetchFacebookEvent(url, pageName string) (*models.Event, error) {
+	c := newCollector("facebook.com")
+	var event facebookEvent
+
+	c.OnHTML("script", func(e *colly.HTMLElement) {
+		if e.Attr("type") == "application/ld+json" {
+			json.Unmarshal([]byte(e.Text), &event)
+		}
+	})
+
+	c.OnError(func(r *colly.Response, err error) {
+		fmt.Println(r.StatusCode)
+		fmt.Println(err)
+	})
+
+	c.Visit(url)
+
+	t, err := dateparse.ParseLocal(event.StartDate)
+	var startDate time.Time
+	var notes string
+	if err == nil {
+		startDate = t
+		now := time.Now()
+		if startDate.Before(now) {
+			return nil, fmt.Errorf("old event for %s", event.Name)
+		}
+	} else {
+		notes = fmt.Sprintf("Couldn't find appropriate time with %s", event.StartDate)
+	}
+
+	if event.Name == "" || event.URL == "" {
+		return nil, fmt.Errorf("couldn't find the event informations for url: %s", url)
+	}
+
+	return &models.Event{
+		Name:        event.Name,
+		Description: event.Description,
+		Link:        event.URL,
+		Image:       event.Image,
+		StartDate:   startDate,
+		VenueName:   pageName,
+		Source:      "facebook",
+		Notes:       notes,
+	}, nil
 }

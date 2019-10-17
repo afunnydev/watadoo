@@ -45,6 +45,17 @@ func main() {
 	tourismeOutaouaisEvents, _ := scraper.FetchTourismeOutaouais()
 	events = append(events, tourismeOutaouaisEvents...)
 
+	facebookPages := []struct {
+		URL   string
+		Venue string
+	}{
+		{"https://m.facebook.com/BarMinotaure/events", "Minotaure"},
+	}
+	for _, facebookPage := range facebookPages {
+		facebookEvents, _ := scraper.FetchFacebook(facebookPage.URL, facebookPage.Venue)
+		events = append(events, facebookEvents...)
+	}
+
 	if save != true || toJSON == true {
 		utils.SaveToJSON(&events)
 	}
