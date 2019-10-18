@@ -164,7 +164,7 @@ func generatePostData(page string) map[string]string {
 }
 
 // FetchFacebook gets the events from the Tourisme Outaouais site.
-func FetchFacebook(url, name string) ([]models.Event, error) {
+func FetchFacebook(url string) ([]models.Event, error) {
 	c := newCollector("facebook.com")
 	var events []models.Event
 
@@ -175,7 +175,7 @@ func FetchFacebook(url, name string) ([]models.Event, error) {
 	c.OnHTML("a", func(e *colly.HTMLElement) {
 		label := e.Attr("aria-label")
 		if strings.Contains(label, "Afficher les") || strings.Contains(label, "View event details") {
-			event, err := fetchFacebookEvent(fmt.Sprintf("https://m.facebook.com%s", e.Attr("href")), name)
+			event, err := fetchFacebookEvent(fmt.Sprintf("https://m.facebook.com%s", e.Attr("href")))
 			if err != nil {
 				fmt.Println(err)
 				return
@@ -201,9 +201,18 @@ type facebookEvent struct {
 	StartDate   string `json:"startDate"`
 	EndDate     string `json:"endDate"`
 	URL         string `json:"url"`
+	Location    struct {
+		Name    string `json:"name"`
+		Address struct {
+			Country       string `json:"addressCountry"`
+			Locality      string `json:"addressLocality"`
+			PostalCode    string `json:"postalCode"`
+			StreetAddress string `json:"streetAddress"`
+		} `json:"address"`
+	} `json:"location"`
 }
 
-func fetchFacebookEvent(url, pageName string) (*models.Event, error) {
+func fetchFacebookEvent(url string) (*models.Event, error) {
 	c := newCollector("facebook.com")
 	var event facebookEvent
 
@@ -220,6 +229,11 @@ func fetchFacebookEvent(url, pageName string) (*models.Event, error) {
 
 	c.Visit(url)
 
+	if event.Name == "" || event.URL == "" {
+		fmt.Println("Event", event)
+		return nil, fmt.Errorf("couldn't find the event informations for url: %s", url)
+	}
+
 	t, err := dateparse.ParseLocal(event.StartDate)
 	var startDate time.Time
 	var notes string
@@ -233,17 +247,14 @@ func fetchFacebookEvent(url, pageName string) (*models.Event, error) {
 		notes = fmt.Sprintf("Couldn't find appropriate time with %s", event.StartDate)
 	}
 
-	if event.Name == "" || event.URL == "" {
-		return nil, fmt.Errorf("couldn't find the event informations for url: %s", url)
-	}
-
 	return &models.Event{
 		Name:        event.Name,
 		Description: event.Description,
 		Link:        event.URL,
 		Image:       event.Image,
 		StartDate:   startDate,
-		VenueName:   pageName,
+		VenueName:   event.Location.Name,
+		Location:    fmt.Sprintf("%s, %s, %s, %s", event.Location.Address.StreetAddress, event.Location.Address.Locality, event.Location.Address.Country, event.Location.Address.PostalCode),
 		Source:      "facebook",
 		Notes:       notes,
 	}, nil

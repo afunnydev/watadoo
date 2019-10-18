@@ -45,14 +45,20 @@ func main() {
 	tourismeOutaouaisEvents, _ := scraper.FetchTourismeOutaouais()
 	events = append(events, tourismeOutaouaisEvents...)
 
-	facebookPages := []struct {
-		URL   string
-		Venue string
-	}{
-		{"https://m.facebook.com/BarMinotaure/events", "Minotaure"},
+	facebookPages := []string{
+		"https://m.facebook.com/BarMinotaure/events",
+		"https://m.facebook.com/cafebistroletroquet/events",
+		"https://m.facebook.com/barrymores.ottawa/events",
+		"https://m.facebook.com/bistroepicure.ca/events",
+		"https://m.facebook.com/OuQuoiLounge/events",
+		"https://m.facebook.com/diefenbunker/events",
+		"https://m.facebook.com/monkeyottawa/events",
+		"https://m.facebook.com/British.ca/pages/permalink/?view_type=tab_events",
+		"https://m.facebook.com/LaNouvelleScene/events",
+		"https://m.facebook.com/legainsbourg/events",
 	}
 	for _, facebookPage := range facebookPages {
-		facebookEvents, _ := scraper.FetchFacebook(facebookPage.URL, facebookPage.Venue)
+		facebookEvents, _ := scraper.FetchFacebook(facebookPage)
 		events = append(events, facebookEvents...)
 	}
 
