@@ -739,6 +739,7 @@ enum EventCategory {
   THEATER
   VARIETY
   OTHER
+  UNKNOWN
 }
 
 input VenueWhereInput {

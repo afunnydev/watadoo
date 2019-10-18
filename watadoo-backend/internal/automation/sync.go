@@ -15,7 +15,6 @@ func ImportVenuesInWP(client *prisma.Client, token string) {
 	ctx := context.TODO()
 	// The default value is 0. The GO Client can't query null values... bummer.
 	d := int32(0)
-	// venues, _ := client.Venues(nil).Exec(ctx)
 	venues, _ := client.Venues(&prisma.VenuesParams{
 		Where: &prisma.VenueWhereInput{
 			WpFrId: &d,
@@ -43,9 +42,11 @@ func ImportEventsInWP(client *prisma.Client, token string) {
 	nb := int32(1)
 
 	now := time.Now().Format(time.RFC3339)
+	unknown := prisma.EventCategoryUnknown
 	events, _ := client.Events(&prisma.EventsParams{
 		Where: &prisma.EventWhereInput{
-			WpFrId: &d,
+			WpFrId:      &d,
+			CategoryNot: &unknown,
 			OccurrencesSome: &prisma.EventOccurrenceWhereInput{
 				StartDateGte: &now,
 			},

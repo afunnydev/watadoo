@@ -423,7 +423,8 @@ export type EventCategory =
   | "SPORTS"
   | "THEATER"
   | "VARIETY"
-  | "OTHER";
+  | "OTHER"
+  | "UNKNOWN";
 
 export type Sex = "MALE" | "FEMALE" | "OTHER";
 

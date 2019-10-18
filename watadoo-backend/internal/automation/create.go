@@ -97,7 +97,7 @@ func CreateEvent(event models.Event, client *prisma.Client, googleClient *maps.C
 		}
 		nextOccurrenceDate := event.StartDate.Format(time.RFC3339)
 
-		category := prisma.EventCategoryOther
+		category := prisma.EventCategoryUnknown
 		// What is the best way to determine an event's category?
 		// 1) Check for specific word in event description + name
 		// 2) Check the venue of the event:

@@ -38,6 +38,7 @@ enum EventCategory {
   THEATER
   VARIETY
   OTHER
+  UNKNOWN
 }
 
 enum Notification {
@@ -80,7 +81,7 @@ type Event {
   nextOccurrenceDate: DateTime
   price: Int
   venue: Venue @relation(name: "EventVenue", link: TABLE)
-  category: EventCategory! @default(value: OTHER)
+  category: EventCategory! @default(value: UNKNOWN)
   tags: String
   ticketUrl: String
   source: String

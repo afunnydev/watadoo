@@ -1159,6 +1159,7 @@ const (
 	EventCategoryTheater   EventCategory = "THEATER"
 	EventCategoryVariety   EventCategory = "VARIETY"
 	EventCategoryOther     EventCategory = "OTHER"
+	EventCategoryUnknown   EventCategory = "UNKNOWN"
 )
 
 type Sex string

@@ -79,6 +79,7 @@ enum EventCategory {
   THEATER
   VARIETY
   OTHER
+  UNKNOWN
 }
 
 type EventConnection {

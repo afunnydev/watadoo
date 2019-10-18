@@ -5,29 +5,18 @@ import {
   Columns,
   Column,
   Field,
-  Control,
-  Select,
   Label
 } from "bloomer"
+import CategorySelect from "./CategorySelect"
 
-const ListEventsFilters = ({ setCategory }) => {
+const ListEventsFilters = ({ value, setCategory }) => {
   const changeCategory = (e) => setCategory(e.target.value)
-  const categories = ["ACTIVITES", "COMEDY", "FAMILY", "FESTIVALS", "FOOD", "MUSEUMS", "MUSIC", "SPORTS", "THEATER", "VARIETY", "OTHER",]
   return (
     <Columns style={{ borderBottom: "1px solid grey" }}>
       <Column isSize={{ mobile: 6, tablet: 3 }}>
         <Field isGrouped>
-          <Label>Category:</Label>
-          <Control>
-            <Select
-              style={{ marginLeft: "20px" }}
-              onChange={changeCategory}>
-              <option value="">All</option>
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
-              ))}
-            </Select>
-          </Control>
+          <Label style={{ marginRight: "20px" }}>Category:</Label>
+          <CategorySelect all value={value} onChange={changeCategory} />
         </Field>
       </Column>
     </Columns >
@@ -35,6 +24,7 @@ const ListEventsFilters = ({ setCategory }) => {
 }
 
 ListEventsFilters.propTypes = {
+  value: PropTypes.string.isRequired,
   setCategory: PropTypes.func.isRequired
 }
 

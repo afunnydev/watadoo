@@ -33,7 +33,7 @@ const EventsPage = () => {
         <LevelLeft><h1>Events</h1></LevelLeft>
         <LevelRight><SaveButton><Link href={{ pathname: "/event/new" }}><a>Create new event</a></Link></SaveButton></LevelRight>
       </Level>
-      <ListEventsFilters setCategory={setCategory} />
+      <ListEventsFilters value={category} setCategory={setCategory} />
       <Tabs
         tabs={["Events", "To check", "Without occurrence",]}
         activeTab={activeTab}

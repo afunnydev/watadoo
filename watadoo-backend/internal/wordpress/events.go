@@ -71,7 +71,7 @@ func ImportEvent(event prisma.Event, token string, client *prisma.Client) error 
 	next := strings.Join(n[:2], " ")
 
 	weirdDate := fmt.Sprintf("%s|%s", next, next)
-	category := getWPCategory(string(event.Category))
+	category := getWPCategory(event.Category)
 	region := getWPRegion(string(venue.City))
 
 	eventInfo := map[string]interface{}{
@@ -142,19 +142,19 @@ type wpTranslations struct {
 	Fr int
 }
 
-func getWPCategory(c string) wpTranslations {
-	categoryMap := map[string]wpTranslations{
-		"ACTIVITES": wpTranslations{En: 28658, Fr: 28656},
-		"COMEDY":    wpTranslations{En: 39, Fr: 37},
-		"FAMILY":    wpTranslations{En: 11, Fr: 19},
-		"FESTIVALS": wpTranslations{En: 35, Fr: 32},
-		"FOOD":      wpTranslations{En: 43, Fr: 41},
-		"MUSEUMS":   wpTranslations{En: 59, Fr: 57},
-		"MUSIC":     wpTranslations{En: 30, Fr: 28},
-		"SPORTS":    wpTranslations{En: 55, Fr: 53},
-		"THEATER":   wpTranslations{En: 47, Fr: 45},
-		"VARIETY":   wpTranslations{En: 51, Fr: 49},
-		"OTHER":     wpTranslations{En: 32230, Fr: 32228},
+func getWPCategory(c prisma.EventCategory) wpTranslations {
+	categoryMap := map[prisma.EventCategory]wpTranslations{
+		prisma.EventCategoryActivites: wpTranslations{En: 28658, Fr: 28656},
+		prisma.EventCategoryComedy:    wpTranslations{En: 39, Fr: 37},
+		prisma.EventCategoryFamily:    wpTranslations{En: 11, Fr: 19},
+		prisma.EventCategoryFestivals: wpTranslations{En: 35, Fr: 32},
+		prisma.EventCategoryFood:      wpTranslations{En: 43, Fr: 41},
+		prisma.EventCategoryMuseums:   wpTranslations{En: 59, Fr: 57},
+		prisma.EventCategoryMusic:     wpTranslations{En: 30, Fr: 28},
+		prisma.EventCategorySports:    wpTranslations{En: 55, Fr: 53},
+		prisma.EventCategoryTheater:   wpTranslations{En: 47, Fr: 45},
+		prisma.EventCategoryVariety:   wpTranslations{En: 51, Fr: 49},
+		prisma.EventCategoryOther:     wpTranslations{En: 32230, Fr: 32228},
 	}
 	return categoryMap[c]
 }
