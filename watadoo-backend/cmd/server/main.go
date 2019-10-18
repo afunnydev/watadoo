@@ -57,7 +57,6 @@ func main() {
 	router.Use(cors.New(cors.Options{
 		AllowedOrigins: []string{
 			"http://localhost:3000",
-			"https://epic-mirzakhani-6e1302.netlify.com",
 			"https://manager.watadoo.ca",
 		},
 		AllowCredentials: true,

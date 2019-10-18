@@ -1338,8 +1338,8 @@ type Event {
   tags: String
   ticketUrl: String
   source: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   possibleDuplicate: Boolean
   importNotes: String
   occurrencesAreUnique: Boolean!
@@ -1375,8 +1375,8 @@ type Venue {
   zip: String
   country: String!
   url: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   events: [Event]
   possibleDuplicate: Boolean!
 }
@@ -2089,12 +2089,15 @@ func (ec *executionContext) _Event_wpFrId(ctx context.Context, field graphql.Col
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*int32)
+	res := resTmp.(int32)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOInt2ᚖint32(ctx, field.Selections, res)
+	return ec.marshalNInt2int32(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Event_wpEnId(ctx context.Context, field graphql.CollectedField, obj *prisma.Event) (ret graphql.Marshaler) {
@@ -2123,12 +2126,15 @@ func (ec *executionContext) _Event_wpEnId(ctx context.Context, field graphql.Col
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*int32)
+	res := resTmp.(int32)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOInt2ᚖint32(ctx, field.Selections, res)
+	return ec.marshalNInt2int32(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Event_possibleDuplicate(ctx context.Context, field graphql.CollectedField, obj *prisma.Event) (ret graphql.Marshaler) {
@@ -3845,12 +3851,15 @@ func (ec *executionContext) _Venue_wpFrId(ctx context.Context, field graphql.Col
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(int32)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOInt2int32(ctx, field.Selections, res)
+	return ec.marshalNInt2int32(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_wpEnId(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -3879,12 +3888,15 @@ func (ec *executionContext) _Venue_wpEnId(ctx context.Context, field graphql.Col
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(int32)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
-	return ec.marshalOInt2int32(ctx, field.Selections, res)
+	return ec.marshalNInt2int32(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Venue_events(ctx context.Context, field graphql.CollectedField, obj *prisma.Venue) (ret graphql.Marshaler) {
@@ -8273,8 +8285,14 @@ func (ec *executionContext) _Event(ctx context.Context, sel ast.SelectionSet, ob
 			out.Values[i] = ec._Event_source(ctx, field, obj)
 		case "wpFrId":
 			out.Values[i] = ec._Event_wpFrId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "wpEnId":
 			out.Values[i] = ec._Event_wpEnId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "possibleDuplicate":
 			out.Values[i] = ec._Event_possibleDuplicate(ctx, field, obj)
 		case "importNotes":
@@ -8586,8 +8604,14 @@ func (ec *executionContext) _Venue(ctx context.Context, sel ast.SelectionSet, ob
 			out.Values[i] = ec._Venue_url(ctx, field, obj)
 		case "wpFrId":
 			out.Values[i] = ec._Venue_wpFrId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "wpEnId":
 			out.Values[i] = ec._Venue_wpEnId(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
 		case "events":
 			field := field
 			out.Concurrently(i, func() (res graphql.Marshaler) {

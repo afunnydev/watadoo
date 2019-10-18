@@ -624,8 +624,8 @@ type Event {
   tags: String
   ticketUrl: String
   source: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   possibleDuplicate: Boolean
   importNotes: String
   occurrencesAreUnique: Boolean!
@@ -661,8 +661,8 @@ type Venue {
   zip: String
   country: String!
   url: String
-  wpFrId: Int
-  wpEnId: Int
+  wpFrId: Int!
+  wpEnId: Int!
   events: [Event]
   possibleDuplicate: Boolean!
 }
