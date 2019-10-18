@@ -927,6 +927,7 @@ input EventWhereInput {
   price_lte: Int
   price_gt: Int
   price_gte: Int
+  venue: VenueWhereInput
   category: EventCategory
   category_not: EventCategory
   category_in: [EventCategory!]
@@ -6877,6 +6878,12 @@ func (ec *executionContext) unmarshalInputEventWhereInput(ctx context.Context, o
 		case "price_gte":
 			var err error
 			it.PriceGte, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "venue":
+			var err error
+			it.Venue, err = ec.unmarshalOVenueWhereInput2ᚖgithubᚗcomᚋafunnydevᚋwatadooᚋwatadooᚑbackendᚋinternalᚋgeneratedᚋprismaᚑclientᚐVenueWhereInput(ctx, v)
 			if err != nil {
 				return it, err
 			}

@@ -7,15 +7,15 @@ import { toast } from "react-toastify"
 
 import SaveButton from "./styles/SaveButton"
 import { EVENT_QUERY } from "../pages/event.js"
+import { basicEventInfoFragment } from "../lib/fragments.js"
 
 const UPDATE_EVENT_MUTATION = gql`
   mutation UPDATE_EVENT_MUTATION($eventId: ID!, $event: EventUpdateInput!) {
     updateEvent(eventId: $eventId, event: $event) {
-      id
-      name
-      source
+      ...BasicEventInfo
     }
   }
+  ${basicEventInfoFragment}
 `
 
 const UpdateEventButton = ({ eventId, newVenueId, client }) => {
@@ -155,8 +155,6 @@ const UpdateEventButton = ({ eventId, newVenueId, client }) => {
       event.venue = { connect: { id: newVenueId }}
     }
 
-    console.log("EVENT", event)
-
     try {
       await updateEvent({
         variables: {
@@ -203,3 +201,4 @@ UpdateEventButton.propTypes = {
 }
 
 export default withApollo(UpdateEventButton)
+export { UPDATE_EVENT_MUTATION }

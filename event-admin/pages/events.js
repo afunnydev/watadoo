@@ -23,8 +23,10 @@ const EventsPage = () => {
   }
   const withNotes = {
     OR: [
-      {possibleDuplicate: true},
-      {importNotes_gt: ""},
+      { possibleDuplicate: true },
+      { importNotes_gt: "" },
+      { category: "UNKNOWN" },
+      { venue: { id: "ck1v91n8a2wei0729alfoa5nc" } },
     ]
   }
   return (
@@ -35,15 +37,15 @@ const EventsPage = () => {
       </Level>
       <ListEventsFilters value={category} setCategory={setCategory} />
       <Tabs
-        tabs={["Events", "To check", "Without occurrence",]}
+        tabs={["Coming", "To check", "Without occurrence",]}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
       <Columns>
-        <Column isSize={{ mobile: 6, tablet: 4, desktop: 3 }}>ID</Column>
         <Column isSize={{ mobile: 6, tablet: 4, desktop: 3 }}>Name</Column>
         <Column isSize={{ mobile: 6, tablet: 4, desktop: 3 }}>Next Occurrence</Column>
         <Column isSize={{ mobile: 6, tablet: 4, desktop: 3 }}>Source</Column>
+        <Column isSize={{ mobile: 6, tablet: 4, desktop: 3 }}>Category</Column>
       </Columns>
       {activeTab === 0 && <ListEvents category={category} where={coming} />}
       {activeTab === 1 && <ListEvents

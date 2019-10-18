@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 import { Control, Select } from "bloomer"
 
-const CategorySelect = ({ value, onChange, all }) => {
+const CategorySelect = ({ value, onChange, all, loading }) => {
   const categories = [
     { label: "Activities", value:"ACTIVITES" },
     { label: "Comedy", value: "COMEDY" },
@@ -23,7 +23,7 @@ const CategorySelect = ({ value, onChange, all }) => {
   }
   return (
     <Control>
-      <Select value={value} onChange={onChange} name="category">
+      <Select value={value} onChange={onChange} name="category" isLoading={loading}>
         {categories.map(category => (
           <option value={category.value} key={category.value}>
             {category.label}
@@ -35,13 +35,15 @@ const CategorySelect = ({ value, onChange, all }) => {
 }
 
 CategorySelect.defaultValue = {
-  all: false
+  all: false,
+  loading: false
 }
 
 CategorySelect.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  all: PropTypes.bool
+  all: PropTypes.bool,
+  loading: PropTypes.bool
 }
 
 export default CategorySelect

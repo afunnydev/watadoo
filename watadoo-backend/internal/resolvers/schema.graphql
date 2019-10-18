@@ -213,6 +213,7 @@ input EventWhereInput {
   price_lte: Int
   price_gt: Int
   price_gte: Int
+  venue: VenueWhereInput
   category: EventCategory
   category_not: EventCategory
   category_in: [EventCategory!]

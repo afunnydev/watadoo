@@ -39,4 +39,14 @@ const eventInfoFragment = gql`
   }
 `
 
-export { occurrenceFragment, eventInfoFragment }
+const basicEventInfoFragment = gql`
+  fragment BasicEventInfo on Event {
+    id
+    name
+    source
+    nextOccurrenceDate
+    category
+  }
+`
+
+export { occurrenceFragment, eventInfoFragment, basicEventInfoFragment }
