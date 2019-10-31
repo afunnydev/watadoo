@@ -124,14 +124,14 @@ const EventGeneralInfo = ({ eventId, newVenueId, setNewVenueId, client }) => {
                 <Field>
                   <Label>Wordpress</Label>
                   <p>
-                    {wpFrId && wpEnId
+                    {wpFrId !== 0 && wpEnId !== 0
                       ? "This event has been imported in the Wordpress Site."
                       : "This event is not in the Wordpress Site."}
                   </p>
-                  {wpFrId
+                  {wpFrId !== 0
                     ? <p>You can find the french version <OverrideTabStyleA href={`https://watadoo.ca/wp-admin/post.php?post=${wpFrId}&action=edit`} target="_blank" rel="noopener noreferrer">here</OverrideTabStyleA>.</p>
                     : null}
-                  {wpEnId
+                  {wpEnId !== 0
                     ? <p>You can find the french version <OverrideTabStyleA href={`https://watadoo.ca/wp-admin/post.php?post=${wpEnId}&action=edit`} target="_blank" rel="noopener noreferrer">here</OverrideTabStyleA>.</p>
                     : null}
                 </Field>

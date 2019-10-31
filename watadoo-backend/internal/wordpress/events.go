@@ -20,24 +20,30 @@ var (
 	specialReplacer = strings.NewReplacer("é", "e", "É", "e", "è", "e", "È", "e", "ê", "e", "Ê", "e", "ô", "o", "Ô", "o", "ù", "u", "Ù", "u", "à", "a", "À", "a", "ï", "i", "Ï", "i")
 )
 
-// ImportEvent import a event from our database in the Wordpress database
-func ImportEvent(event prisma.Event, token string, client *prisma.Client) error {
-	// 1) Import the image
+// SyncEvent import a event from our database in the Wordpress database
+func SyncEvent(event prisma.Event, token string, client *prisma.Client) error {
+	if (event.WpFrId == 0 && event.WpEnId != 0) || (event.WpFrId != 0 && event.WpEnId == 0) {
+		return fmt.Errorf("only one language has been imported for %s. aborting", event.Name)
+	}
+	imported := event.WpFrId != 0 && event.WpEnId != 0
+	// 1) Import the image, only if it's a not imported event.
 	var imgID int32
-	if strings.Contains(event.ImageUrl, "watadoo.ca") {
-		imgID = int32(35416)
-	} else {
-		filename := strings.ToLower(event.Name)
-		if len(filename) > 30 {
-			filename = filename[:29]
-		}
-		filename = fmt.Sprintf("%s.jpg", strings.ReplaceAll(specialReplacer.Replace(filename), " ", "-"))
-		image, err := createImage(token, filename, event.ImageUrl)
-		if err != nil {
-			fmt.Printf("Can't create image in WP for %s", event.Name)
+	if !imported {
+		if strings.Contains(event.ImageUrl, "watadoo.ca") {
 			imgID = int32(35416)
 		} else {
-			imgID = image
+			filename := strings.ToLower(event.Name)
+			if len(filename) > 30 {
+				filename = filename[:29]
+			}
+			filename = fmt.Sprintf("%s.jpg", strings.ReplaceAll(specialReplacer.Replace(filename), " ", "-"))
+			image, err := createImage(token, filename, event.ImageUrl)
+			if err != nil {
+				fmt.Printf("Can't create image in WP for %s", event.Name)
+				imgID = int32(35416)
+			} else {
+				imgID = image
+			}
 		}
 	}
 
@@ -46,6 +52,10 @@ func ImportEvent(event prisma.Event, token string, client *prisma.Client) error 
 	venue, _ := client.Event(prisma.EventWhereUniqueInput{
 		ID: &event.ID,
 	}).Venue().Exec(ctx)
+
+	if venue.WpFrId == 0 || venue.WpEnId == 0 {
+		return fmt.Errorf("%s venue is not imported in WP. skipping %s", venue.NameFr, event.Name)
+	}
 
 	ctx = context.TODO()
 	nb := int32(1)
@@ -83,7 +93,6 @@ func ImportEvent(event prisma.Event, token string, client *prisma.Client) error 
 		"_event_occurrence_last_date": weirdDate,
 		"status":                      "publish",
 		"achat_de_billets_lien":       nilString(event.TicketUrl),
-		"featured_media":              imgID,
 		"eventId":                     event.ID,
 		"event_all_day":               0,
 		"source":                      nilString(event.Source),
@@ -92,7 +101,17 @@ func ImportEvent(event prisma.Event, token string, client *prisma.Client) error 
 		"event-location":              venue.WpFrId,
 		"region":                      region.Fr,
 	}
-	frID, err := createEvent(token, eventInfo)
+	if !imported {
+		eventInfo["featured_media"] = imgID
+	}
+	var frID int32
+	if !imported {
+		fmt.Printf("Creating %s\n", event.Name)
+		frID, err = createEvent(token, eventInfo)
+	} else {
+		fmt.Printf("Updating %s\n", event.Name)
+		err = updateEvent(token, eventInfo, event.WpFrId)
+	}
 	if err != nil {
 		return err
 	}
@@ -101,10 +120,20 @@ func ImportEvent(event prisma.Event, token string, client *prisma.Client) error 
 	eventInfo["event-category"] = category.En
 	eventInfo["event-location"] = venue.WpEnId
 	eventInfo["region"] = region.En
-	enID, err := createEvent(token, eventInfo)
+	var enID int32
+	if !imported {
+		enID, err = createEvent(token, eventInfo)
+	} else {
+		err = updateEvent(token, eventInfo, event.WpEnId)
+	}
 	if err != nil {
 		return err
 	}
+	// If it was only an update, we end here.
+	if imported {
+		return nil
+	}
+
 	// 3) Link the two translations
 	url := fmt.Sprintf("https://watadoo.ca/wp-json/wp/v2/event/%d?translations[en]=%d", frID, enID)
 	result, err := postRequest(url, token, nil)
@@ -232,4 +261,17 @@ func createEvent(token string, data map[string]interface{}) (int32, error) {
 		return ID, errors.New("can't find ID for FR")
 	}
 	return ID, nil
+}
+
+func updateEvent(token string, data map[string]interface{}, ID int32) error {
+	result, err := postRequest(fmt.Sprintf("https://watadoo.ca/wp-json/wp/v2/event/%d", ID), token, data)
+	if err != nil {
+		return err
+	}
+
+	// We just care if an id is returned. It means that it was a success.
+	if _, ok := result["id"]; !ok {
+		return err
+	}
+	return nil
 }
