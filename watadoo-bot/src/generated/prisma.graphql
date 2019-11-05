@@ -1404,6 +1404,11 @@ input EventWhereUniqueInput {
   id: ID
 }
 
+enum Language {
+  FR
+  EN
+}
+
 scalar Long
 
 type Mutation {
@@ -1820,6 +1825,7 @@ type User {
   picture: String
   email: String
   password: String
+  language: Language
   sex: Sex
   age: Int
   city: City
@@ -1848,6 +1854,7 @@ input UserCreateInput {
   picture: String
   email: String
   password: String
+  language: Language
   sex: Sex
   age: Int
   city: City
@@ -1889,6 +1896,8 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
+  language_ASC
+  language_DESC
   sex_ASC
   sex_DESC
   age_ASC
@@ -1915,6 +1924,7 @@ type UserPreviousValues {
   picture: String
   email: String
   password: String
+  language: Language
   sex: Sex
   age: Int
   city: City
@@ -1951,6 +1961,7 @@ input UserUpdateDataInput {
   picture: String
   email: String
   password: String
+  language: Language
   sex: Sex
   age: Int
   city: City
@@ -1970,6 +1981,7 @@ input UserUpdateInput {
   picture: String
   email: String
   password: String
+  language: Language
   sex: Sex
   age: Int
   city: City
@@ -1989,6 +2001,7 @@ input UserUpdateManyMutationInput {
   picture: String
   email: String
   password: String
+  language: Language
   sex: Sex
   age: Int
   city: City
@@ -2115,6 +2128,10 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  language: Language
+  language_not: Language
+  language_in: [Language!]
+  language_not_in: [Language!]
   sex: Sex
   sex_not: Sex
   sex_in: [Sex!]

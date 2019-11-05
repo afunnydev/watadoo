@@ -1,3 +1,5 @@
+const { sendTextMessage } = require("../utils/messenger");
+
 exports.searchDoneMessage = {
   text: "C'est tout pour ta recherche. Si tu as aimé l'expérience, n'hésite pas à t'inscrire pour recevoir des événements automatiquement.",
   "quick_replies":[
@@ -54,4 +56,16 @@ exports.momentMessage = {
       "payload":"en fin de semaine"
     },
   ]
+};
+
+const moments = ["Aujourd'hui", "Demain", "En fin de semaine",];
+exports.askWhenMessage = async (id, polyglot) => {
+  await sendTextMessage(id, {
+    "text": polyglot.t("Tu recherches quelque chose à faire à quel moment? Tu peux aussi écrire un autre moment que les choix ci-bas."),
+    "quick_replies": moments.map(m => ({
+      "content_type": "text",
+      "title": polyglot.t(m),
+      "payload": m
+    }))
+  });
 };

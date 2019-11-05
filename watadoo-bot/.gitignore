@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 *.csv
 src/migrations
+watadoo-13c84-b77e9be71c90.json

@@ -1,6 +1,6 @@
-const { prisma } = require("../generated/prisma-client");
+const { prisma } = require("./generated/prisma-client");
 
-exports.uptime = async () => {
+module.exports = async () => {
   try {
     let date = new Date();
     const events = await prisma.events({
@@ -11,7 +11,7 @@ exports.uptime = async () => {
       }
     });
     if (!events || !events.length) return false;
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 

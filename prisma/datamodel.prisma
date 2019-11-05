@@ -49,6 +49,11 @@ enum Notification {
   NEVER
 }
 
+enum Language {
+  FR
+  EN
+}
+
 type User {
   id: ID! @id
   facebookid: String @unique 
@@ -57,6 +62,7 @@ type User {
   picture: String
   email: String @unique
   password: String
+  language: Language @default(value: FR)
   sex: Sex
   age: Int
   city: City

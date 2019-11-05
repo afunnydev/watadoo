@@ -119,6 +119,25 @@ type EventsConnectionParams struct {
 	Last    *int32             `json:"last,omitempty"`
 }
 
+// Nodes return just nodes without cursors. It uses the already fetched edges.
+func (s *EventConnection) Nodes() []Event {
+	var nodes []Event
+	for _, edge := range s.Edges {
+		nodes = append(nodes, edge.Node)
+	}
+	return nodes
+}
+
+// Nodes return just nodes without cursors, but as a slice of pointers. It uses the already fetched edges.
+func (s *EventConnection) NodesPtr() []*Event {
+	var nodes []*Event
+	for _, edge := range s.Edges {
+		item := edge
+		nodes = append(nodes, &item.Node)
+	}
+	return nodes
+}
+
 func (client *Client) EventsConnection(params *EventsConnectionParams) *EventConnectionExec {
 	var wparams *prisma.WhereParams
 	if params != nil {
@@ -196,6 +215,25 @@ type EventOccurrencesConnectionParams struct {
 	Before  *string                      `json:"before,omitempty"`
 	First   *int32                       `json:"first,omitempty"`
 	Last    *int32                       `json:"last,omitempty"`
+}
+
+// Nodes return just nodes without cursors. It uses the already fetched edges.
+func (s *EventOccurrenceConnection) Nodes() []EventOccurrence {
+	var nodes []EventOccurrence
+	for _, edge := range s.Edges {
+		nodes = append(nodes, edge.Node)
+	}
+	return nodes
+}
+
+// Nodes return just nodes without cursors, but as a slice of pointers. It uses the already fetched edges.
+func (s *EventOccurrenceConnection) NodesPtr() []*EventOccurrence {
+	var nodes []*EventOccurrence
+	for _, edge := range s.Edges {
+		item := edge
+		nodes = append(nodes, &item.Node)
+	}
+	return nodes
 }
 
 func (client *Client) EventOccurrencesConnection(params *EventOccurrencesConnectionParams) *EventOccurrenceConnectionExec {
@@ -277,6 +315,25 @@ type RequestedCitiesConnectionParams struct {
 	Last    *int32                     `json:"last,omitempty"`
 }
 
+// Nodes return just nodes without cursors. It uses the already fetched edges.
+func (s *RequestedCityConnection) Nodes() []RequestedCity {
+	var nodes []RequestedCity
+	for _, edge := range s.Edges {
+		nodes = append(nodes, edge.Node)
+	}
+	return nodes
+}
+
+// Nodes return just nodes without cursors, but as a slice of pointers. It uses the already fetched edges.
+func (s *RequestedCityConnection) NodesPtr() []*RequestedCity {
+	var nodes []*RequestedCity
+	for _, edge := range s.Edges {
+		item := edge
+		nodes = append(nodes, &item.Node)
+	}
+	return nodes
+}
+
 func (client *Client) RequestedCitiesConnection(params *RequestedCitiesConnectionParams) *RequestedCityConnectionExec {
 	var wparams *prisma.WhereParams
 	if params != nil {
@@ -294,7 +351,7 @@ func (client *Client) RequestedCitiesConnection(params *RequestedCitiesConnectio
 	ret := client.Client.GetMany(
 		nil,
 		wparams,
-		[3]string{"RequestedCitieWhereInput", "RequestedCitieOrderByInput", "RequestedCitie"},
+		[3]string{"RequestedCityWhereInput", "RequestedCityOrderByInput", "RequestedCity"},
 		"requestedCitiesConnection",
 		[]string{"edges", "pageInfo"})
 
@@ -356,6 +413,25 @@ type SearchesConnectionParams struct {
 	Last    *int32              `json:"last,omitempty"`
 }
 
+// Nodes return just nodes without cursors. It uses the already fetched edges.
+func (s *SearchConnection) Nodes() []Search {
+	var nodes []Search
+	for _, edge := range s.Edges {
+		nodes = append(nodes, edge.Node)
+	}
+	return nodes
+}
+
+// Nodes return just nodes without cursors, but as a slice of pointers. It uses the already fetched edges.
+func (s *SearchConnection) NodesPtr() []*Search {
+	var nodes []*Search
+	for _, edge := range s.Edges {
+		item := edge
+		nodes = append(nodes, &item.Node)
+	}
+	return nodes
+}
+
 func (client *Client) SearchesConnection(params *SearchesConnectionParams) *SearchConnectionExec {
 	var wparams *prisma.WhereParams
 	if params != nil {
@@ -373,7 +449,7 @@ func (client *Client) SearchesConnection(params *SearchesConnectionParams) *Sear
 	ret := client.Client.GetMany(
 		nil,
 		wparams,
-		[3]string{"SearcheWhereInput", "SearcheOrderByInput", "Searche"},
+		[3]string{"SearchWhereInput", "SearchOrderByInput", "Search"},
 		"searchesConnection",
 		[]string{"edges", "pageInfo"})
 
@@ -386,7 +462,7 @@ func (client *Client) User(params UserWhereUniqueInput) *UserExec {
 		params,
 		[2]string{"UserWhereUniqueInput!", "User"},
 		"user",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -420,7 +496,7 @@ func (client *Client) Users(params *UsersParams) *UserExecArray {
 		wparams,
 		[3]string{"UserWhereInput", "UserOrderByInput", "User"},
 		"users",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExecArray{ret}
 }
@@ -433,6 +509,25 @@ type UsersConnectionParams struct {
 	Before  *string           `json:"before,omitempty"`
 	First   *int32            `json:"first,omitempty"`
 	Last    *int32            `json:"last,omitempty"`
+}
+
+// Nodes return just nodes without cursors. It uses the already fetched edges.
+func (s *UserConnection) Nodes() []User {
+	var nodes []User
+	for _, edge := range s.Edges {
+		nodes = append(nodes, edge.Node)
+	}
+	return nodes
+}
+
+// Nodes return just nodes without cursors, but as a slice of pointers. It uses the already fetched edges.
+func (s *UserConnection) NodesPtr() []*User {
+	var nodes []*User
+	for _, edge := range s.Edges {
+		item := edge
+		nodes = append(nodes, &item.Node)
+	}
+	return nodes
 }
 
 func (client *Client) UsersConnection(params *UsersConnectionParams) *UserConnectionExec {
@@ -512,6 +607,25 @@ type VenuesConnectionParams struct {
 	Before  *string            `json:"before,omitempty"`
 	First   *int32             `json:"first,omitempty"`
 	Last    *int32             `json:"last,omitempty"`
+}
+
+// Nodes return just nodes without cursors. It uses the already fetched edges.
+func (s *VenueConnection) Nodes() []Venue {
+	var nodes []Venue
+	for _, edge := range s.Edges {
+		nodes = append(nodes, edge.Node)
+	}
+	return nodes
+}
+
+// Nodes return just nodes without cursors, but as a slice of pointers. It uses the already fetched edges.
+func (s *VenueConnection) NodesPtr() []*Venue {
+	var nodes []*Venue
+	for _, edge := range s.Edges {
+		item := edge
+		nodes = append(nodes, &item.Node)
+	}
+	return nodes
 }
 
 func (client *Client) VenuesConnection(params *VenuesConnectionParams) *VenueConnectionExec {
@@ -863,7 +977,7 @@ func (client *Client) CreateUser(params UserCreateInput) *UserExec {
 		params,
 		[2]string{"UserCreateInput!", "User"},
 		"createUser",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -881,7 +995,7 @@ func (client *Client) UpdateUser(params UserUpdateParams) *UserExec {
 		},
 		[3]string{"UserUpdateInput!", "UserWhereUniqueInput!", "User"},
 		"updateUser",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -918,7 +1032,7 @@ func (client *Client) UpsertUser(params UserUpsertParams) *UserExec {
 		uparams,
 		[4]string{"UserWhereUniqueInput!", "UserCreateInput!", "UserUpdateInput!", "User"},
 		"upsertUser",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -928,7 +1042,7 @@ func (client *Client) DeleteUser(params UserWhereUniqueInput) *UserExec {
 		params,
 		[2]string{"UserWhereUniqueInput!", "User"},
 		"deleteUser",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -1028,6 +1142,103 @@ const (
 	CityToronto  City = "TORONTO"
 )
 
+type EventOccurrenceOrderByInput string
+
+const (
+	EventOccurrenceOrderByInputIDAsc           EventOccurrenceOrderByInput = "id_ASC"
+	EventOccurrenceOrderByInputIDDesc          EventOccurrenceOrderByInput = "id_DESC"
+	EventOccurrenceOrderByInputNameAsc         EventOccurrenceOrderByInput = "name_ASC"
+	EventOccurrenceOrderByInputNameDesc        EventOccurrenceOrderByInput = "name_DESC"
+	EventOccurrenceOrderByInputDescriptionAsc  EventOccurrenceOrderByInput = "description_ASC"
+	EventOccurrenceOrderByInputDescriptionDesc EventOccurrenceOrderByInput = "description_DESC"
+	EventOccurrenceOrderByInputImageUrlAsc     EventOccurrenceOrderByInput = "imageUrl_ASC"
+	EventOccurrenceOrderByInputImageUrlDesc    EventOccurrenceOrderByInput = "imageUrl_DESC"
+	EventOccurrenceOrderByInputStartDateAsc    EventOccurrenceOrderByInput = "startDate_ASC"
+	EventOccurrenceOrderByInputStartDateDesc   EventOccurrenceOrderByInput = "startDate_DESC"
+	EventOccurrenceOrderByInputEndDateAsc      EventOccurrenceOrderByInput = "endDate_ASC"
+	EventOccurrenceOrderByInputEndDateDesc     EventOccurrenceOrderByInput = "endDate_DESC"
+	EventOccurrenceOrderByInputLatAsc          EventOccurrenceOrderByInput = "lat_ASC"
+	EventOccurrenceOrderByInputLatDesc         EventOccurrenceOrderByInput = "lat_DESC"
+	EventOccurrenceOrderByInputLongAsc         EventOccurrenceOrderByInput = "long_ASC"
+	EventOccurrenceOrderByInputLongDesc        EventOccurrenceOrderByInput = "long_DESC"
+	EventOccurrenceOrderByInputPriceAsc        EventOccurrenceOrderByInput = "price_ASC"
+	EventOccurrenceOrderByInputPriceDesc       EventOccurrenceOrderByInput = "price_DESC"
+	EventOccurrenceOrderByInputCityAsc         EventOccurrenceOrderByInput = "city_ASC"
+	EventOccurrenceOrderByInputCityDesc        EventOccurrenceOrderByInput = "city_DESC"
+	EventOccurrenceOrderByInputTicketUrlAsc    EventOccurrenceOrderByInput = "ticketUrl_ASC"
+	EventOccurrenceOrderByInputTicketUrlDesc   EventOccurrenceOrderByInput = "ticketUrl_DESC"
+	EventOccurrenceOrderByInputCreatedAtAsc    EventOccurrenceOrderByInput = "createdAt_ASC"
+	EventOccurrenceOrderByInputCreatedAtDesc   EventOccurrenceOrderByInput = "createdAt_DESC"
+)
+
+type Relationship string
+
+const (
+	RelationshipCouple  Relationship = "COUPLE"
+	RelationshipSingle  Relationship = "SINGLE"
+	RelationshipMarried Relationship = "MARRIED"
+	RelationshipOther   Relationship = "OTHER"
+	RelationshipNone    Relationship = "NONE"
+)
+
+type VenueOrderByInput string
+
+const (
+	VenueOrderByInputIDAsc                 VenueOrderByInput = "id_ASC"
+	VenueOrderByInputIDDesc                VenueOrderByInput = "id_DESC"
+	VenueOrderByInputNameFrAsc             VenueOrderByInput = "nameFr_ASC"
+	VenueOrderByInputNameFrDesc            VenueOrderByInput = "nameFr_DESC"
+	VenueOrderByInputNameEnAsc             VenueOrderByInput = "nameEn_ASC"
+	VenueOrderByInputNameEnDesc            VenueOrderByInput = "nameEn_DESC"
+	VenueOrderByInputLatAsc                VenueOrderByInput = "lat_ASC"
+	VenueOrderByInputLatDesc               VenueOrderByInput = "lat_DESC"
+	VenueOrderByInputLongAsc               VenueOrderByInput = "long_ASC"
+	VenueOrderByInputLongDesc              VenueOrderByInput = "long_DESC"
+	VenueOrderByInputCityAsc               VenueOrderByInput = "city_ASC"
+	VenueOrderByInputCityDesc              VenueOrderByInput = "city_DESC"
+	VenueOrderByInputAddressAsc            VenueOrderByInput = "address_ASC"
+	VenueOrderByInputAddressDesc           VenueOrderByInput = "address_DESC"
+	VenueOrderByInputZipAsc                VenueOrderByInput = "zip_ASC"
+	VenueOrderByInputZipDesc               VenueOrderByInput = "zip_DESC"
+	VenueOrderByInputCountryAsc            VenueOrderByInput = "country_ASC"
+	VenueOrderByInputCountryDesc           VenueOrderByInput = "country_DESC"
+	VenueOrderByInputUrlAsc                VenueOrderByInput = "url_ASC"
+	VenueOrderByInputUrlDesc               VenueOrderByInput = "url_DESC"
+	VenueOrderByInputWpFrIdAsc             VenueOrderByInput = "wpFrId_ASC"
+	VenueOrderByInputWpFrIdDesc            VenueOrderByInput = "wpFrId_DESC"
+	VenueOrderByInputWpEnIdAsc             VenueOrderByInput = "wpEnId_ASC"
+	VenueOrderByInputWpEnIdDesc            VenueOrderByInput = "wpEnId_DESC"
+	VenueOrderByInputPossibleDuplicateAsc  VenueOrderByInput = "possibleDuplicate_ASC"
+	VenueOrderByInputPossibleDuplicateDesc VenueOrderByInput = "possibleDuplicate_DESC"
+)
+
+type Permission string
+
+const (
+	PermissionUser        Permission = "USER"
+	PermissionManageevent Permission = "MANAGEEVENT"
+	PermissionAdmin       Permission = "ADMIN"
+)
+
+type SearchOrderByInput string
+
+const (
+	SearchOrderByInputIDAsc         SearchOrderByInput = "id_ASC"
+	SearchOrderByInputIDDesc        SearchOrderByInput = "id_DESC"
+	SearchOrderByInputCreatedAtAsc  SearchOrderByInput = "createdAt_ASC"
+	SearchOrderByInputCreatedAtDesc SearchOrderByInput = "createdAt_DESC"
+	SearchOrderByInputCityAsc       SearchOrderByInput = "city_ASC"
+	SearchOrderByInputCityDesc      SearchOrderByInput = "city_DESC"
+	SearchOrderByInputStartDateAsc  SearchOrderByInput = "startDate_ASC"
+	SearchOrderByInputStartDateDesc SearchOrderByInput = "startDate_DESC"
+	SearchOrderByInputEndDateAsc    SearchOrderByInput = "endDate_ASC"
+	SearchOrderByInputEndDateDesc   SearchOrderByInput = "endDate_DESC"
+	SearchOrderByInputInfoAsc       SearchOrderByInput = "info_ASC"
+	SearchOrderByInputInfoDesc      SearchOrderByInput = "info_DESC"
+	SearchOrderByInputSuggestedAsc  SearchOrderByInput = "suggested_ASC"
+	SearchOrderByInputSuggestedDesc SearchOrderByInput = "suggested_DESC"
+)
+
 type EventOrderByInput string
 
 const (
@@ -1075,74 +1286,11 @@ const (
 	EventOrderByInputUpdatedAtDesc            EventOrderByInput = "updatedAt_DESC"
 )
 
-type Relationship string
+type Language string
 
 const (
-	RelationshipCouple  Relationship = "COUPLE"
-	RelationshipSingle  Relationship = "SINGLE"
-	RelationshipMarried Relationship = "MARRIED"
-	RelationshipOther   Relationship = "OTHER"
-	RelationshipNone    Relationship = "NONE"
-)
-
-type VenueOrderByInput string
-
-const (
-	VenueOrderByInputIDAsc                 VenueOrderByInput = "id_ASC"
-	VenueOrderByInputIDDesc                VenueOrderByInput = "id_DESC"
-	VenueOrderByInputNameFrAsc             VenueOrderByInput = "nameFr_ASC"
-	VenueOrderByInputNameFrDesc            VenueOrderByInput = "nameFr_DESC"
-	VenueOrderByInputNameEnAsc             VenueOrderByInput = "nameEn_ASC"
-	VenueOrderByInputNameEnDesc            VenueOrderByInput = "nameEn_DESC"
-	VenueOrderByInputLatAsc                VenueOrderByInput = "lat_ASC"
-	VenueOrderByInputLatDesc               VenueOrderByInput = "lat_DESC"
-	VenueOrderByInputLongAsc               VenueOrderByInput = "long_ASC"
-	VenueOrderByInputLongDesc              VenueOrderByInput = "long_DESC"
-	VenueOrderByInputCityAsc               VenueOrderByInput = "city_ASC"
-	VenueOrderByInputCityDesc              VenueOrderByInput = "city_DESC"
-	VenueOrderByInputAddressAsc            VenueOrderByInput = "address_ASC"
-	VenueOrderByInputAddressDesc           VenueOrderByInput = "address_DESC"
-	VenueOrderByInputZipAsc                VenueOrderByInput = "zip_ASC"
-	VenueOrderByInputZipDesc               VenueOrderByInput = "zip_DESC"
-	VenueOrderByInputCountryAsc            VenueOrderByInput = "country_ASC"
-	VenueOrderByInputCountryDesc           VenueOrderByInput = "country_DESC"
-	VenueOrderByInputUrlAsc                VenueOrderByInput = "url_ASC"
-	VenueOrderByInputUrlDesc               VenueOrderByInput = "url_DESC"
-	VenueOrderByInputWpFrIdAsc             VenueOrderByInput = "wpFrId_ASC"
-	VenueOrderByInputWpFrIdDesc            VenueOrderByInput = "wpFrId_DESC"
-	VenueOrderByInputWpEnIdAsc             VenueOrderByInput = "wpEnId_ASC"
-	VenueOrderByInputWpEnIdDesc            VenueOrderByInput = "wpEnId_DESC"
-	VenueOrderByInputPossibleDuplicateAsc  VenueOrderByInput = "possibleDuplicate_ASC"
-	VenueOrderByInputPossibleDuplicateDesc VenueOrderByInput = "possibleDuplicate_DESC"
-)
-
-type EventOccurrenceOrderByInput string
-
-const (
-	EventOccurrenceOrderByInputIDAsc           EventOccurrenceOrderByInput = "id_ASC"
-	EventOccurrenceOrderByInputIDDesc          EventOccurrenceOrderByInput = "id_DESC"
-	EventOccurrenceOrderByInputNameAsc         EventOccurrenceOrderByInput = "name_ASC"
-	EventOccurrenceOrderByInputNameDesc        EventOccurrenceOrderByInput = "name_DESC"
-	EventOccurrenceOrderByInputDescriptionAsc  EventOccurrenceOrderByInput = "description_ASC"
-	EventOccurrenceOrderByInputDescriptionDesc EventOccurrenceOrderByInput = "description_DESC"
-	EventOccurrenceOrderByInputImageUrlAsc     EventOccurrenceOrderByInput = "imageUrl_ASC"
-	EventOccurrenceOrderByInputImageUrlDesc    EventOccurrenceOrderByInput = "imageUrl_DESC"
-	EventOccurrenceOrderByInputStartDateAsc    EventOccurrenceOrderByInput = "startDate_ASC"
-	EventOccurrenceOrderByInputStartDateDesc   EventOccurrenceOrderByInput = "startDate_DESC"
-	EventOccurrenceOrderByInputEndDateAsc      EventOccurrenceOrderByInput = "endDate_ASC"
-	EventOccurrenceOrderByInputEndDateDesc     EventOccurrenceOrderByInput = "endDate_DESC"
-	EventOccurrenceOrderByInputLatAsc          EventOccurrenceOrderByInput = "lat_ASC"
-	EventOccurrenceOrderByInputLatDesc         EventOccurrenceOrderByInput = "lat_DESC"
-	EventOccurrenceOrderByInputLongAsc         EventOccurrenceOrderByInput = "long_ASC"
-	EventOccurrenceOrderByInputLongDesc        EventOccurrenceOrderByInput = "long_DESC"
-	EventOccurrenceOrderByInputPriceAsc        EventOccurrenceOrderByInput = "price_ASC"
-	EventOccurrenceOrderByInputPriceDesc       EventOccurrenceOrderByInput = "price_DESC"
-	EventOccurrenceOrderByInputCityAsc         EventOccurrenceOrderByInput = "city_ASC"
-	EventOccurrenceOrderByInputCityDesc        EventOccurrenceOrderByInput = "city_DESC"
-	EventOccurrenceOrderByInputTicketUrlAsc    EventOccurrenceOrderByInput = "ticketUrl_ASC"
-	EventOccurrenceOrderByInputTicketUrlDesc   EventOccurrenceOrderByInput = "ticketUrl_DESC"
-	EventOccurrenceOrderByInputCreatedAtAsc    EventOccurrenceOrderByInput = "createdAt_ASC"
-	EventOccurrenceOrderByInputCreatedAtDesc   EventOccurrenceOrderByInput = "createdAt_DESC"
+	LanguageFr Language = "FR"
+	LanguageEn Language = "EN"
 )
 
 type EventCategory string
@@ -1170,12 +1318,15 @@ const (
 	SexOther  Sex = "OTHER"
 )
 
-type Permission string
+type RequestedCityOrderByInput string
 
 const (
-	PermissionUser        Permission = "USER"
-	PermissionManageevent Permission = "MANAGEEVENT"
-	PermissionAdmin       Permission = "ADMIN"
+	RequestedCityOrderByInputIDAsc         RequestedCityOrderByInput = "id_ASC"
+	RequestedCityOrderByInputIDDesc        RequestedCityOrderByInput = "id_DESC"
+	RequestedCityOrderByInputCityAsc       RequestedCityOrderByInput = "city_ASC"
+	RequestedCityOrderByInputCityDesc      RequestedCityOrderByInput = "city_DESC"
+	RequestedCityOrderByInputSendEmailAsc  RequestedCityOrderByInput = "sendEmail_ASC"
+	RequestedCityOrderByInputSendEmailDesc RequestedCityOrderByInput = "sendEmail_DESC"
 )
 
 type UserOrderByInput string
@@ -1195,6 +1346,8 @@ const (
 	UserOrderByInputEmailDesc                  UserOrderByInput = "email_DESC"
 	UserOrderByInputPasswordAsc                UserOrderByInput = "password_ASC"
 	UserOrderByInputPasswordDesc               UserOrderByInput = "password_DESC"
+	UserOrderByInputLanguageAsc                UserOrderByInput = "language_ASC"
+	UserOrderByInputLanguageDesc               UserOrderByInput = "language_DESC"
 	UserOrderByInputSexAsc                     UserOrderByInput = "sex_ASC"
 	UserOrderByInputSexDesc                    UserOrderByInput = "sex_DESC"
 	UserOrderByInputAgeAsc                     UserOrderByInput = "age_ASC"
@@ -1229,36 +1382,6 @@ const (
 	NotificationBiweekly Notification = "BIWEEKLY"
 	NotificationMonthly  Notification = "MONTHLY"
 	NotificationNever    Notification = "NEVER"
-)
-
-type RequestedCityOrderByInput string
-
-const (
-	RequestedCityOrderByInputIDAsc         RequestedCityOrderByInput = "id_ASC"
-	RequestedCityOrderByInputIDDesc        RequestedCityOrderByInput = "id_DESC"
-	RequestedCityOrderByInputCityAsc       RequestedCityOrderByInput = "city_ASC"
-	RequestedCityOrderByInputCityDesc      RequestedCityOrderByInput = "city_DESC"
-	RequestedCityOrderByInputSendEmailAsc  RequestedCityOrderByInput = "sendEmail_ASC"
-	RequestedCityOrderByInputSendEmailDesc RequestedCityOrderByInput = "sendEmail_DESC"
-)
-
-type SearchOrderByInput string
-
-const (
-	SearchOrderByInputIDAsc         SearchOrderByInput = "id_ASC"
-	SearchOrderByInputIDDesc        SearchOrderByInput = "id_DESC"
-	SearchOrderByInputCreatedAtAsc  SearchOrderByInput = "createdAt_ASC"
-	SearchOrderByInputCreatedAtDesc SearchOrderByInput = "createdAt_DESC"
-	SearchOrderByInputCityAsc       SearchOrderByInput = "city_ASC"
-	SearchOrderByInputCityDesc      SearchOrderByInput = "city_DESC"
-	SearchOrderByInputStartDateAsc  SearchOrderByInput = "startDate_ASC"
-	SearchOrderByInputStartDateDesc SearchOrderByInput = "startDate_DESC"
-	SearchOrderByInputEndDateAsc    SearchOrderByInput = "endDate_ASC"
-	SearchOrderByInputEndDateDesc   SearchOrderByInput = "endDate_DESC"
-	SearchOrderByInputInfoAsc       SearchOrderByInput = "info_ASC"
-	SearchOrderByInputInfoDesc      SearchOrderByInput = "info_DESC"
-	SearchOrderByInputSuggestedAsc  SearchOrderByInput = "suggested_ASC"
-	SearchOrderByInputSuggestedDesc SearchOrderByInput = "suggested_DESC"
 )
 
 type EventOccurrenceScalarWhereInput struct {
@@ -1393,6 +1516,29 @@ type EventWhereUniqueInput struct {
 	ID *string `json:"id,omitempty"`
 }
 
+type EventUpdateDataInput struct {
+	Name                 *string                                     `json:"name,omitempty"`
+	Description          *string                                     `json:"description,omitempty"`
+	ShortDescription     *string                                     `json:"shortDescription,omitempty"`
+	Link                 *string                                     `json:"link,omitempty"`
+	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
+	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
+	Price                *int32                                      `json:"price,omitempty"`
+	Venue                *VenueUpdateOneWithoutEventsInput           `json:"venue,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
+	Tags                 *string                                     `json:"tags,omitempty"`
+	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
+	Source               *string                                     `json:"source,omitempty"`
+	WpFrId               *int32                                      `json:"wpFrId,omitempty"`
+	WpEnId               *int32                                      `json:"wpEnId,omitempty"`
+	PossibleDuplicate    *bool                                       `json:"possibleDuplicate,omitempty"`
+	ImportNotes          *string                                     `json:"importNotes,omitempty"`
+	IsRecurring          *bool                                       `json:"isRecurring,omitempty"`
+	RecurrencePattern    *string                                     `json:"recurrencePattern,omitempty"`
+	OccurrencesAreUnique *bool                                       `json:"occurrencesAreUnique,omitempty"`
+	Occurrences          *EventOccurrenceUpdateManyWithoutEventInput `json:"occurrences,omitempty"`
+}
+
 type EventCreateWithoutOccurrencesInput struct {
 	ID                   *string                           `json:"id,omitempty"`
 	Name                 string                            `json:"name"`
@@ -1414,135 +1560,6 @@ type EventCreateWithoutOccurrencesInput struct {
 	IsRecurring          *bool                             `json:"isRecurring,omitempty"`
 	RecurrencePattern    *string                           `json:"recurrencePattern,omitempty"`
 	OccurrencesAreUnique *bool                             `json:"occurrencesAreUnique,omitempty"`
-}
-
-type EventOccurrenceWhereInput struct {
-	ID                       *string                     `json:"id,omitempty"`
-	IDNot                    *string                     `json:"id_not,omitempty"`
-	IDIn                     []string                    `json:"id_in,omitempty"`
-	IDNotIn                  []string                    `json:"id_not_in,omitempty"`
-	IDLt                     *string                     `json:"id_lt,omitempty"`
-	IDLte                    *string                     `json:"id_lte,omitempty"`
-	IDGt                     *string                     `json:"id_gt,omitempty"`
-	IDGte                    *string                     `json:"id_gte,omitempty"`
-	IDContains               *string                     `json:"id_contains,omitempty"`
-	IDNotContains            *string                     `json:"id_not_contains,omitempty"`
-	IDStartsWith             *string                     `json:"id_starts_with,omitempty"`
-	IDNotStartsWith          *string                     `json:"id_not_starts_with,omitempty"`
-	IDEndsWith               *string                     `json:"id_ends_with,omitempty"`
-	IDNotEndsWith            *string                     `json:"id_not_ends_with,omitempty"`
-	Name                     *string                     `json:"name,omitempty"`
-	NameNot                  *string                     `json:"name_not,omitempty"`
-	NameIn                   []string                    `json:"name_in,omitempty"`
-	NameNotIn                []string                    `json:"name_not_in,omitempty"`
-	NameLt                   *string                     `json:"name_lt,omitempty"`
-	NameLte                  *string                     `json:"name_lte,omitempty"`
-	NameGt                   *string                     `json:"name_gt,omitempty"`
-	NameGte                  *string                     `json:"name_gte,omitempty"`
-	NameContains             *string                     `json:"name_contains,omitempty"`
-	NameNotContains          *string                     `json:"name_not_contains,omitempty"`
-	NameStartsWith           *string                     `json:"name_starts_with,omitempty"`
-	NameNotStartsWith        *string                     `json:"name_not_starts_with,omitempty"`
-	NameEndsWith             *string                     `json:"name_ends_with,omitempty"`
-	NameNotEndsWith          *string                     `json:"name_not_ends_with,omitempty"`
-	Description              *string                     `json:"description,omitempty"`
-	DescriptionNot           *string                     `json:"description_not,omitempty"`
-	DescriptionIn            []string                    `json:"description_in,omitempty"`
-	DescriptionNotIn         []string                    `json:"description_not_in,omitempty"`
-	DescriptionLt            *string                     `json:"description_lt,omitempty"`
-	DescriptionLte           *string                     `json:"description_lte,omitempty"`
-	DescriptionGt            *string                     `json:"description_gt,omitempty"`
-	DescriptionGte           *string                     `json:"description_gte,omitempty"`
-	DescriptionContains      *string                     `json:"description_contains,omitempty"`
-	DescriptionNotContains   *string                     `json:"description_not_contains,omitempty"`
-	DescriptionStartsWith    *string                     `json:"description_starts_with,omitempty"`
-	DescriptionNotStartsWith *string                     `json:"description_not_starts_with,omitempty"`
-	DescriptionEndsWith      *string                     `json:"description_ends_with,omitempty"`
-	DescriptionNotEndsWith   *string                     `json:"description_not_ends_with,omitempty"`
-	ImageUrl                 *string                     `json:"imageUrl,omitempty"`
-	ImageUrlNot              *string                     `json:"imageUrl_not,omitempty"`
-	ImageUrlIn               []string                    `json:"imageUrl_in,omitempty"`
-	ImageUrlNotIn            []string                    `json:"imageUrl_not_in,omitempty"`
-	ImageUrlLt               *string                     `json:"imageUrl_lt,omitempty"`
-	ImageUrlLte              *string                     `json:"imageUrl_lte,omitempty"`
-	ImageUrlGt               *string                     `json:"imageUrl_gt,omitempty"`
-	ImageUrlGte              *string                     `json:"imageUrl_gte,omitempty"`
-	ImageUrlContains         *string                     `json:"imageUrl_contains,omitempty"`
-	ImageUrlNotContains      *string                     `json:"imageUrl_not_contains,omitempty"`
-	ImageUrlStartsWith       *string                     `json:"imageUrl_starts_with,omitempty"`
-	ImageUrlNotStartsWith    *string                     `json:"imageUrl_not_starts_with,omitempty"`
-	ImageUrlEndsWith         *string                     `json:"imageUrl_ends_with,omitempty"`
-	ImageUrlNotEndsWith      *string                     `json:"imageUrl_not_ends_with,omitempty"`
-	StartDate                *string                     `json:"startDate,omitempty"`
-	StartDateNot             *string                     `json:"startDate_not,omitempty"`
-	StartDateIn              []string                    `json:"startDate_in,omitempty"`
-	StartDateNotIn           []string                    `json:"startDate_not_in,omitempty"`
-	StartDateLt              *string                     `json:"startDate_lt,omitempty"`
-	StartDateLte             *string                     `json:"startDate_lte,omitempty"`
-	StartDateGt              *string                     `json:"startDate_gt,omitempty"`
-	StartDateGte             *string                     `json:"startDate_gte,omitempty"`
-	EndDate                  *string                     `json:"endDate,omitempty"`
-	EndDateNot               *string                     `json:"endDate_not,omitempty"`
-	EndDateIn                []string                    `json:"endDate_in,omitempty"`
-	EndDateNotIn             []string                    `json:"endDate_not_in,omitempty"`
-	EndDateLt                *string                     `json:"endDate_lt,omitempty"`
-	EndDateLte               *string                     `json:"endDate_lte,omitempty"`
-	EndDateGt                *string                     `json:"endDate_gt,omitempty"`
-	EndDateGte               *string                     `json:"endDate_gte,omitempty"`
-	Lat                      *float64                    `json:"lat,omitempty"`
-	LatNot                   *float64                    `json:"lat_not,omitempty"`
-	LatIn                    []float64                   `json:"lat_in,omitempty"`
-	LatNotIn                 []float64                   `json:"lat_not_in,omitempty"`
-	LatLt                    *float64                    `json:"lat_lt,omitempty"`
-	LatLte                   *float64                    `json:"lat_lte,omitempty"`
-	LatGt                    *float64                    `json:"lat_gt,omitempty"`
-	LatGte                   *float64                    `json:"lat_gte,omitempty"`
-	Long                     *float64                    `json:"long,omitempty"`
-	LongNot                  *float64                    `json:"long_not,omitempty"`
-	LongIn                   []float64                   `json:"long_in,omitempty"`
-	LongNotIn                []float64                   `json:"long_not_in,omitempty"`
-	LongLt                   *float64                    `json:"long_lt,omitempty"`
-	LongLte                  *float64                    `json:"long_lte,omitempty"`
-	LongGt                   *float64                    `json:"long_gt,omitempty"`
-	LongGte                  *float64                    `json:"long_gte,omitempty"`
-	Price                    *int32                      `json:"price,omitempty"`
-	PriceNot                 *int32                      `json:"price_not,omitempty"`
-	PriceIn                  []int32                     `json:"price_in,omitempty"`
-	PriceNotIn               []int32                     `json:"price_not_in,omitempty"`
-	PriceLt                  *int32                      `json:"price_lt,omitempty"`
-	PriceLte                 *int32                      `json:"price_lte,omitempty"`
-	PriceGt                  *int32                      `json:"price_gt,omitempty"`
-	PriceGte                 *int32                      `json:"price_gte,omitempty"`
-	City                     *City                       `json:"city,omitempty"`
-	CityNot                  *City                       `json:"city_not,omitempty"`
-	CityIn                   []City                      `json:"city_in,omitempty"`
-	CityNotIn                []City                      `json:"city_not_in,omitempty"`
-	TicketUrl                *string                     `json:"ticketUrl,omitempty"`
-	TicketUrlNot             *string                     `json:"ticketUrl_not,omitempty"`
-	TicketUrlIn              []string                    `json:"ticketUrl_in,omitempty"`
-	TicketUrlNotIn           []string                    `json:"ticketUrl_not_in,omitempty"`
-	TicketUrlLt              *string                     `json:"ticketUrl_lt,omitempty"`
-	TicketUrlLte             *string                     `json:"ticketUrl_lte,omitempty"`
-	TicketUrlGt              *string                     `json:"ticketUrl_gt,omitempty"`
-	TicketUrlGte             *string                     `json:"ticketUrl_gte,omitempty"`
-	TicketUrlContains        *string                     `json:"ticketUrl_contains,omitempty"`
-	TicketUrlNotContains     *string                     `json:"ticketUrl_not_contains,omitempty"`
-	TicketUrlStartsWith      *string                     `json:"ticketUrl_starts_with,omitempty"`
-	TicketUrlNotStartsWith   *string                     `json:"ticketUrl_not_starts_with,omitempty"`
-	TicketUrlEndsWith        *string                     `json:"ticketUrl_ends_with,omitempty"`
-	TicketUrlNotEndsWith     *string                     `json:"ticketUrl_not_ends_with,omitempty"`
-	Event                    *EventWhereInput            `json:"event,omitempty"`
-	CreatedAt                *string                     `json:"createdAt,omitempty"`
-	CreatedAtNot             *string                     `json:"createdAt_not,omitempty"`
-	CreatedAtIn              []string                    `json:"createdAt_in,omitempty"`
-	CreatedAtNotIn           []string                    `json:"createdAt_not_in,omitempty"`
-	CreatedAtLt              *string                     `json:"createdAt_lt,omitempty"`
-	CreatedAtLte             *string                     `json:"createdAt_lte,omitempty"`
-	CreatedAtGt              *string                     `json:"createdAt_gt,omitempty"`
-	CreatedAtGte             *string                     `json:"createdAt_gte,omitempty"`
-	And                      []EventOccurrenceWhereInput `json:"AND,omitempty"`
-	Or                       []EventOccurrenceWhereInput `json:"OR,omitempty"`
-	Not                      []EventOccurrenceWhereInput `json:"NOT,omitempty"`
 }
 
 type EventCreateInput struct {
@@ -1569,27 +1586,15 @@ type EventCreateInput struct {
 	Occurrences          *EventOccurrenceCreateManyWithoutEventInput `json:"occurrences,omitempty"`
 }
 
-type EventUpdateDataInput struct {
-	Name                 *string                                     `json:"name,omitempty"`
-	Description          *string                                     `json:"description,omitempty"`
-	ShortDescription     *string                                     `json:"shortDescription,omitempty"`
-	Link                 *string                                     `json:"link,omitempty"`
-	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
-	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
-	Price                *int32                                      `json:"price,omitempty"`
-	Venue                *VenueUpdateOneWithoutEventsInput           `json:"venue,omitempty"`
-	Category             *EventCategory                              `json:"category,omitempty"`
-	Tags                 *string                                     `json:"tags,omitempty"`
-	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
-	Source               *string                                     `json:"source,omitempty"`
-	WpFrId               *int32                                      `json:"wpFrId,omitempty"`
-	WpEnId               *int32                                      `json:"wpEnId,omitempty"`
-	PossibleDuplicate    *bool                                       `json:"possibleDuplicate,omitempty"`
-	ImportNotes          *string                                     `json:"importNotes,omitempty"`
-	IsRecurring          *bool                                       `json:"isRecurring,omitempty"`
-	RecurrencePattern    *string                                     `json:"recurrencePattern,omitempty"`
-	OccurrencesAreUnique *bool                                       `json:"occurrencesAreUnique,omitempty"`
-	Occurrences          *EventOccurrenceUpdateManyWithoutEventInput `json:"occurrences,omitempty"`
+type UserSubscriptionWhereInput struct {
+	MutationIn                 []MutationType               `json:"mutation_in,omitempty"`
+	UpdatedFieldsContains      *string                      `json:"updatedFields_contains,omitempty"`
+	UpdatedFieldsContainsEvery []string                     `json:"updatedFields_contains_every,omitempty"`
+	UpdatedFieldsContainsSome  []string                     `json:"updatedFields_contains_some,omitempty"`
+	Node                       *UserWhereInput              `json:"node,omitempty"`
+	And                        []UserSubscriptionWhereInput `json:"AND,omitempty"`
+	Or                         []UserSubscriptionWhereInput `json:"OR,omitempty"`
+	Not                        []UserSubscriptionWhereInput `json:"NOT,omitempty"`
 }
 
 type VenueCreateOneWithoutEventsInput struct {
@@ -1597,18 +1602,8 @@ type VenueCreateOneWithoutEventsInput struct {
 	Connect *VenueWhereUniqueInput         `json:"connect,omitempty"`
 }
 
-type EventOccurrenceUpdateInput struct {
-	Name        *string                                        `json:"name,omitempty"`
-	Description *string                                        `json:"description,omitempty"`
-	ImageUrl    *string                                        `json:"imageUrl,omitempty"`
-	StartDate   *string                                        `json:"startDate,omitempty"`
-	EndDate     *string                                        `json:"endDate,omitempty"`
-	Lat         *float64                                       `json:"lat,omitempty"`
-	Long        *float64                                       `json:"long,omitempty"`
-	Price       *int32                                         `json:"price,omitempty"`
-	City        *City                                          `json:"city,omitempty"`
-	TicketUrl   *string                                        `json:"ticketUrl,omitempty"`
-	Event       *EventUpdateOneRequiredWithoutOccurrencesInput `json:"event,omitempty"`
+type EventOccurrenceWhereUniqueInput struct {
+	ID *string `json:"id,omitempty"`
 }
 
 type VenueCreateWithoutEventsInput struct {
@@ -1627,15 +1622,15 @@ type VenueCreateWithoutEventsInput struct {
 	PossibleDuplicate *bool   `json:"possibleDuplicate,omitempty"`
 }
 
-type UserSubscriptionWhereInput struct {
-	MutationIn                 []MutationType               `json:"mutation_in,omitempty"`
-	UpdatedFieldsContains      *string                      `json:"updatedFields_contains,omitempty"`
-	UpdatedFieldsContainsEvery []string                     `json:"updatedFields_contains_every,omitempty"`
-	UpdatedFieldsContainsSome  []string                     `json:"updatedFields_contains_some,omitempty"`
-	Node                       *UserWhereInput              `json:"node,omitempty"`
-	And                        []UserSubscriptionWhereInput `json:"AND,omitempty"`
-	Or                         []UserSubscriptionWhereInput `json:"OR,omitempty"`
-	Not                        []UserSubscriptionWhereInput `json:"NOT,omitempty"`
+type EventOccurrenceSubscriptionWhereInput struct {
+	MutationIn                 []MutationType                          `json:"mutation_in,omitempty"`
+	UpdatedFieldsContains      *string                                 `json:"updatedFields_contains,omitempty"`
+	UpdatedFieldsContainsEvery []string                                `json:"updatedFields_contains_every,omitempty"`
+	UpdatedFieldsContainsSome  []string                                `json:"updatedFields_contains_some,omitempty"`
+	Node                       *EventOccurrenceWhereInput              `json:"node,omitempty"`
+	And                        []EventOccurrenceSubscriptionWhereInput `json:"AND,omitempty"`
+	Or                         []EventOccurrenceSubscriptionWhereInput `json:"OR,omitempty"`
+	Not                        []EventOccurrenceSubscriptionWhereInput `json:"NOT,omitempty"`
 }
 
 type EventOccurrenceCreateManyWithoutEventInput struct {
@@ -1643,15 +1638,8 @@ type EventOccurrenceCreateManyWithoutEventInput struct {
 	Connect []EventOccurrenceWhereUniqueInput        `json:"connect,omitempty"`
 }
 
-type SearchSubscriptionWhereInput struct {
-	MutationIn                 []MutationType                 `json:"mutation_in,omitempty"`
-	UpdatedFieldsContains      *string                        `json:"updatedFields_contains,omitempty"`
-	UpdatedFieldsContainsEvery []string                       `json:"updatedFields_contains_every,omitempty"`
-	UpdatedFieldsContainsSome  []string                       `json:"updatedFields_contains_some,omitempty"`
-	Node                       *SearchWhereInput              `json:"node,omitempty"`
-	And                        []SearchSubscriptionWhereInput `json:"AND,omitempty"`
-	Or                         []SearchSubscriptionWhereInput `json:"OR,omitempty"`
-	Not                        []SearchSubscriptionWhereInput `json:"NOT,omitempty"`
+type RequestedCityWhereUniqueInput struct {
+	ID *string `json:"id,omitempty"`
 }
 
 type EventOccurrenceCreateWithoutEventInput struct {
@@ -1668,15 +1656,10 @@ type EventOccurrenceCreateWithoutEventInput struct {
 	TicketUrl   *string `json:"ticketUrl,omitempty"`
 }
 
-type EventOccurrenceSubscriptionWhereInput struct {
-	MutationIn                 []MutationType                          `json:"mutation_in,omitempty"`
-	UpdatedFieldsContains      *string                                 `json:"updatedFields_contains,omitempty"`
-	UpdatedFieldsContainsEvery []string                                `json:"updatedFields_contains_every,omitempty"`
-	UpdatedFieldsContainsSome  []string                                `json:"updatedFields_contains_some,omitempty"`
-	Node                       *EventOccurrenceWhereInput              `json:"node,omitempty"`
-	And                        []EventOccurrenceSubscriptionWhereInput `json:"AND,omitempty"`
-	Or                         []EventOccurrenceSubscriptionWhereInput `json:"OR,omitempty"`
-	Not                        []EventOccurrenceSubscriptionWhereInput `json:"NOT,omitempty"`
+type EventUpsertWithWhereUniqueWithoutVenueInput struct {
+	Where  EventWhereUniqueInput            `json:"where"`
+	Update EventUpdateWithoutVenueDataInput `json:"update"`
+	Create EventCreateWithoutVenueInput     `json:"create"`
 }
 
 type EventUpdateInput struct {
@@ -1702,15 +1685,26 @@ type EventUpdateInput struct {
 	Occurrences          *EventOccurrenceUpdateManyWithoutEventInput `json:"occurrences,omitempty"`
 }
 
-type EventSubscriptionWhereInput struct {
-	MutationIn                 []MutationType                `json:"mutation_in,omitempty"`
-	UpdatedFieldsContains      *string                       `json:"updatedFields_contains,omitempty"`
-	UpdatedFieldsContainsEvery []string                      `json:"updatedFields_contains_every,omitempty"`
-	UpdatedFieldsContainsSome  []string                      `json:"updatedFields_contains_some,omitempty"`
-	Node                       *EventWhereInput              `json:"node,omitempty"`
-	And                        []EventSubscriptionWhereInput `json:"AND,omitempty"`
-	Or                         []EventSubscriptionWhereInput `json:"OR,omitempty"`
-	Not                        []EventSubscriptionWhereInput `json:"NOT,omitempty"`
+type EventUpdateWithoutVenueDataInput struct {
+	Name                 *string                                     `json:"name,omitempty"`
+	Description          *string                                     `json:"description,omitempty"`
+	ShortDescription     *string                                     `json:"shortDescription,omitempty"`
+	Link                 *string                                     `json:"link,omitempty"`
+	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
+	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
+	Price                *int32                                      `json:"price,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
+	Tags                 *string                                     `json:"tags,omitempty"`
+	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
+	Source               *string                                     `json:"source,omitempty"`
+	WpFrId               *int32                                      `json:"wpFrId,omitempty"`
+	WpEnId               *int32                                      `json:"wpEnId,omitempty"`
+	PossibleDuplicate    *bool                                       `json:"possibleDuplicate,omitempty"`
+	ImportNotes          *string                                     `json:"importNotes,omitempty"`
+	IsRecurring          *bool                                       `json:"isRecurring,omitempty"`
+	RecurrencePattern    *string                                     `json:"recurrencePattern,omitempty"`
+	OccurrencesAreUnique *bool                                       `json:"occurrencesAreUnique,omitempty"`
+	Occurrences          *EventOccurrenceUpdateManyWithoutEventInput `json:"occurrences,omitempty"`
 }
 
 type VenueUpdateOneWithoutEventsInput struct {
@@ -1720,27 +1714,6 @@ type VenueUpdateOneWithoutEventsInput struct {
 	Delete     *bool                              `json:"delete,omitempty"`
 	Disconnect *bool                              `json:"disconnect,omitempty"`
 	Connect    *VenueWhereUniqueInput             `json:"connect,omitempty"`
-}
-
-type EventUpsertWithWhereUniqueWithoutVenueInput struct {
-	Where  EventWhereUniqueInput            `json:"where"`
-	Update EventUpdateWithoutVenueDataInput `json:"update"`
-	Create EventCreateWithoutVenueInput     `json:"create"`
-}
-
-type VenueUpdateWithoutEventsDataInput struct {
-	NameFr            *string  `json:"nameFr,omitempty"`
-	NameEn            *string  `json:"nameEn,omitempty"`
-	Lat               *float64 `json:"lat,omitempty"`
-	Long              *float64 `json:"long,omitempty"`
-	City              *City    `json:"city,omitempty"`
-	Address           *string  `json:"address,omitempty"`
-	Zip               *string  `json:"zip,omitempty"`
-	Country           *string  `json:"country,omitempty"`
-	Url               *string  `json:"url,omitempty"`
-	WpFrId            *int32   `json:"wpFrId,omitempty"`
-	WpEnId            *int32   `json:"wpEnId,omitempty"`
-	PossibleDuplicate *bool    `json:"possibleDuplicate,omitempty"`
 }
 
 type EventWhereInput struct {
@@ -1965,9 +1938,19 @@ type EventWhereInput struct {
 	Not                            []EventWhereInput          `json:"NOT,omitempty"`
 }
 
-type VenueUpsertWithoutEventsInput struct {
-	Update VenueUpdateWithoutEventsDataInput `json:"update"`
-	Create VenueCreateWithoutEventsInput     `json:"create"`
+type VenueUpdateWithoutEventsDataInput struct {
+	NameFr            *string  `json:"nameFr,omitempty"`
+	NameEn            *string  `json:"nameEn,omitempty"`
+	Lat               *float64 `json:"lat,omitempty"`
+	Long              *float64 `json:"long,omitempty"`
+	City              *City    `json:"city,omitempty"`
+	Address           *string  `json:"address,omitempty"`
+	Zip               *string  `json:"zip,omitempty"`
+	Country           *string  `json:"country,omitempty"`
+	Url               *string  `json:"url,omitempty"`
+	WpFrId            *int32   `json:"wpFrId,omitempty"`
+	WpEnId            *int32   `json:"wpEnId,omitempty"`
+	PossibleDuplicate *bool    `json:"possibleDuplicate,omitempty"`
 }
 
 type RequestedCityWhereInput struct {
@@ -2007,6 +1990,23 @@ type RequestedCityWhereInput struct {
 	Not               []RequestedCityWhereInput `json:"NOT,omitempty"`
 }
 
+type VenueUpsertWithoutEventsInput struct {
+	Update VenueUpdateWithoutEventsDataInput `json:"update"`
+	Create VenueCreateWithoutEventsInput     `json:"create"`
+}
+
+type EventUpdateManyWithoutVenueInput struct {
+	Create     []EventCreateWithoutVenueInput                `json:"create,omitempty"`
+	Delete     []EventWhereUniqueInput                       `json:"delete,omitempty"`
+	Connect    []EventWhereUniqueInput                       `json:"connect,omitempty"`
+	Set        []EventWhereUniqueInput                       `json:"set,omitempty"`
+	Disconnect []EventWhereUniqueInput                       `json:"disconnect,omitempty"`
+	Update     []EventUpdateWithWhereUniqueWithoutVenueInput `json:"update,omitempty"`
+	Upsert     []EventUpsertWithWhereUniqueWithoutVenueInput `json:"upsert,omitempty"`
+	DeleteMany []EventScalarWhereInput                       `json:"deleteMany,omitempty"`
+	UpdateMany []EventUpdateManyWithWhereNestedInput         `json:"updateMany,omitempty"`
+}
+
 type EventOccurrenceUpdateManyWithoutEventInput struct {
 	Create     []EventOccurrenceCreateWithoutEventInput                `json:"create,omitempty"`
 	Delete     []EventOccurrenceWhereUniqueInput                       `json:"delete,omitempty"`
@@ -2019,9 +2019,27 @@ type EventOccurrenceUpdateManyWithoutEventInput struct {
 	UpdateMany []EventOccurrenceUpdateManyWithWhereNestedInput         `json:"updateMany,omitempty"`
 }
 
-type EventUpdateWithWhereUniqueWithoutVenueInput struct {
-	Where EventWhereUniqueInput            `json:"where"`
-	Data  EventUpdateWithoutVenueDataInput `json:"data"`
+type EventCreateWithoutVenueInput struct {
+	ID                   *string                                     `json:"id,omitempty"`
+	Name                 string                                      `json:"name"`
+	Description          *string                                     `json:"description,omitempty"`
+	ShortDescription     *string                                     `json:"shortDescription,omitempty"`
+	Link                 string                                      `json:"link"`
+	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
+	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
+	Price                *int32                                      `json:"price,omitempty"`
+	Category             *EventCategory                              `json:"category,omitempty"`
+	Tags                 *string                                     `json:"tags,omitempty"`
+	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
+	Source               *string                                     `json:"source,omitempty"`
+	WpFrId               *int32                                      `json:"wpFrId,omitempty"`
+	WpEnId               *int32                                      `json:"wpEnId,omitempty"`
+	PossibleDuplicate    *bool                                       `json:"possibleDuplicate,omitempty"`
+	ImportNotes          *string                                     `json:"importNotes,omitempty"`
+	IsRecurring          *bool                                       `json:"isRecurring,omitempty"`
+	RecurrencePattern    *string                                     `json:"recurrencePattern,omitempty"`
+	OccurrencesAreUnique *bool                                       `json:"occurrencesAreUnique,omitempty"`
+	Occurrences          *EventOccurrenceCreateManyWithoutEventInput `json:"occurrences,omitempty"`
 }
 
 type EventOccurrenceUpdateWithWhereUniqueWithoutEventInput struct {
@@ -2029,20 +2047,8 @@ type EventOccurrenceUpdateWithWhereUniqueWithoutEventInput struct {
 	Data  EventOccurrenceUpdateWithoutEventDataInput `json:"data"`
 }
 
-type VenueUpdateInput struct {
-	NameFr            *string                           `json:"nameFr,omitempty"`
-	NameEn            *string                           `json:"nameEn,omitempty"`
-	Lat               *float64                          `json:"lat,omitempty"`
-	Long              *float64                          `json:"long,omitempty"`
-	City              *City                             `json:"city,omitempty"`
-	Address           *string                           `json:"address,omitempty"`
-	Zip               *string                           `json:"zip,omitempty"`
-	Country           *string                           `json:"country,omitempty"`
-	Url               *string                           `json:"url,omitempty"`
-	WpFrId            *int32                            `json:"wpFrId,omitempty"`
-	WpEnId            *int32                            `json:"wpEnId,omitempty"`
-	Events            *EventUpdateManyWithoutVenueInput `json:"events,omitempty"`
-	PossibleDuplicate *bool                             `json:"possibleDuplicate,omitempty"`
+type SearchWhereUniqueInput struct {
+	ID *string `json:"id,omitempty"`
 }
 
 type EventOccurrenceUpdateWithoutEventDataInput struct {
@@ -2056,16 +2062,6 @@ type EventOccurrenceUpdateWithoutEventDataInput struct {
 	Price       *int32   `json:"price,omitempty"`
 	City        *City    `json:"city,omitempty"`
 	TicketUrl   *string  `json:"ticketUrl,omitempty"`
-}
-
-type SearchWhereUniqueInput struct {
-	ID *string `json:"id,omitempty"`
-}
-
-type EventOccurrenceUpsertWithWhereUniqueWithoutEventInput struct {
-	Where  EventOccurrenceWhereUniqueInput            `json:"where"`
-	Update EventOccurrenceUpdateWithoutEventDataInput `json:"update"`
-	Create EventOccurrenceCreateWithoutEventInput     `json:"create"`
 }
 
 type SearchWhereInput struct {
@@ -2145,60 +2141,33 @@ type SearchWhereInput struct {
 	Not                   []SearchWhereInput         `json:"NOT,omitempty"`
 }
 
-type UserUpsertNestedInput struct {
-	Update UserUpdateDataInput `json:"update"`
-	Create UserCreateInput     `json:"create"`
+type EventOccurrenceUpsertWithWhereUniqueWithoutEventInput struct {
+	Where  EventOccurrenceWhereUniqueInput            `json:"where"`
+	Update EventOccurrenceUpdateWithoutEventDataInput `json:"update"`
+	Create EventOccurrenceCreateWithoutEventInput     `json:"create"`
 }
 
-type UserUpdateManyMutationInput struct {
+type UserUpdateInput struct {
 	Facebookid             *string                     `json:"facebookid,omitempty"`
 	Fname                  *string                     `json:"fname,omitempty"`
 	Lname                  *string                     `json:"lname,omitempty"`
 	Picture                *string                     `json:"picture,omitempty"`
 	Email                  *string                     `json:"email,omitempty"`
 	Password               *string                     `json:"password,omitempty"`
+	Language               *Language                   `json:"language,omitempty"`
 	Sex                    *Sex                        `json:"sex,omitempty"`
 	Age                    *int32                      `json:"age,omitempty"`
 	City                   *City                       `json:"city,omitempty"`
 	Permissions            *UserUpdatepermissionsInput `json:"permissions,omitempty"`
 	Relationship           *Relationship               `json:"relationship,omitempty"`
+	SuggestedEvents        *EventUpdateManyInput       `json:"suggestedEvents,omitempty"`
+	InterestedEvents       *EventUpdateManyInput       `json:"interestedEvents,omitempty"`
+	BoringEvents           *EventUpdateManyInput       `json:"boringEvents,omitempty"`
 	LastInteraction        *string                     `json:"lastInteraction,omitempty"`
 	MessengerNotifications *Notification               `json:"messengerNotifications,omitempty"`
 }
 
-type EventOccurrenceUpdateManyWithWhereNestedInput struct {
-	Where EventOccurrenceScalarWhereInput    `json:"where"`
-	Data  EventOccurrenceUpdateManyDataInput `json:"data"`
-}
-
-type SearchUpdateManyMutationInput struct {
-	City      *City   `json:"city,omitempty"`
-	StartDate *string `json:"startDate,omitempty"`
-	EndDate   *string `json:"endDate,omitempty"`
-	Info      *string `json:"info,omitempty"`
-	Suggested *int32  `json:"suggested,omitempty"`
-}
-
-type EventOccurrenceUpdateManyDataInput struct {
-	Name        *string  `json:"name,omitempty"`
-	Description *string  `json:"description,omitempty"`
-	ImageUrl    *string  `json:"imageUrl,omitempty"`
-	StartDate   *string  `json:"startDate,omitempty"`
-	EndDate     *string  `json:"endDate,omitempty"`
-	Lat         *float64 `json:"lat,omitempty"`
-	Long        *float64 `json:"long,omitempty"`
-	Price       *int32   `json:"price,omitempty"`
-	City        *City    `json:"city,omitempty"`
-	TicketUrl   *string  `json:"ticketUrl,omitempty"`
-}
-
-type EventOccurrenceUpsertWithWhereUniqueNestedInput struct {
-	Where  EventOccurrenceWhereUniqueInput `json:"where"`
-	Update EventOccurrenceUpdateDataInput  `json:"update"`
-	Create EventOccurrenceCreateInput      `json:"create"`
-}
-
-type EventUpdateManyMutationInput struct {
+type EventUpdateManyDataInput struct {
 	Name                 *string        `json:"name,omitempty"`
 	Description          *string        `json:"description,omitempty"`
 	ShortDescription     *string        `json:"shortDescription,omitempty"`
@@ -2219,12 +2188,57 @@ type EventUpdateManyMutationInput struct {
 	OccurrencesAreUnique *bool          `json:"occurrencesAreUnique,omitempty"`
 }
 
-type EventOccurrenceUpdateWithWhereUniqueNestedInput struct {
-	Where EventOccurrenceWhereUniqueInput `json:"where"`
-	Data  EventOccurrenceUpdateDataInput  `json:"data"`
+type EventOccurrenceUpsertWithWhereUniqueNestedInput struct {
+	Where  EventOccurrenceWhereUniqueInput `json:"where"`
+	Update EventOccurrenceUpdateDataInput  `json:"update"`
+	Create EventOccurrenceCreateInput      `json:"create"`
 }
 
-type EventUpdateManyDataInput struct {
+type EventOccurrenceUpdateManyWithWhereNestedInput struct {
+	Where EventOccurrenceScalarWhereInput    `json:"where"`
+	Data  EventOccurrenceUpdateManyDataInput `json:"data"`
+}
+
+type EventOccurrenceUpdateDataInput struct {
+	Name        *string                                        `json:"name,omitempty"`
+	Description *string                                        `json:"description,omitempty"`
+	ImageUrl    *string                                        `json:"imageUrl,omitempty"`
+	StartDate   *string                                        `json:"startDate,omitempty"`
+	EndDate     *string                                        `json:"endDate,omitempty"`
+	Lat         *float64                                       `json:"lat,omitempty"`
+	Long        *float64                                       `json:"long,omitempty"`
+	Price       *int32                                         `json:"price,omitempty"`
+	City        *City                                          `json:"city,omitempty"`
+	TicketUrl   *string                                        `json:"ticketUrl,omitempty"`
+	Event       *EventUpdateOneRequiredWithoutOccurrencesInput `json:"event,omitempty"`
+}
+
+type EventOccurrenceUpdateManyDataInput struct {
+	Name        *string  `json:"name,omitempty"`
+	Description *string  `json:"description,omitempty"`
+	ImageUrl    *string  `json:"imageUrl,omitempty"`
+	StartDate   *string  `json:"startDate,omitempty"`
+	EndDate     *string  `json:"endDate,omitempty"`
+	Lat         *float64 `json:"lat,omitempty"`
+	Long        *float64 `json:"long,omitempty"`
+	Price       *int32   `json:"price,omitempty"`
+	City        *City    `json:"city,omitempty"`
+	TicketUrl   *string  `json:"ticketUrl,omitempty"`
+}
+
+type EventOccurrenceUpdateManyInput struct {
+	Create     []EventOccurrenceCreateInput                      `json:"create,omitempty"`
+	Update     []EventOccurrenceUpdateWithWhereUniqueNestedInput `json:"update,omitempty"`
+	Upsert     []EventOccurrenceUpsertWithWhereUniqueNestedInput `json:"upsert,omitempty"`
+	Delete     []EventOccurrenceWhereUniqueInput                 `json:"delete,omitempty"`
+	Connect    []EventOccurrenceWhereUniqueInput                 `json:"connect,omitempty"`
+	Set        []EventOccurrenceWhereUniqueInput                 `json:"set,omitempty"`
+	Disconnect []EventOccurrenceWhereUniqueInput                 `json:"disconnect,omitempty"`
+	DeleteMany []EventOccurrenceScalarWhereInput                 `json:"deleteMany,omitempty"`
+	UpdateMany []EventOccurrenceUpdateManyWithWhereNestedInput   `json:"updateMany,omitempty"`
+}
+
+type EventUpdateManyMutationInput struct {
 	Name                 *string        `json:"name,omitempty"`
 	Description          *string        `json:"description,omitempty"`
 	ShortDescription     *string        `json:"shortDescription,omitempty"`
@@ -2256,45 +2270,16 @@ type EventUpdateManyWithWhereNestedInput struct {
 	Data  EventUpdateManyDataInput `json:"data"`
 }
 
-type EventOccurrenceCreateManyInput struct {
-	Create  []EventOccurrenceCreateInput      `json:"create,omitempty"`
-	Connect []EventOccurrenceWhereUniqueInput `json:"connect,omitempty"`
-}
-
-type EventOccurrenceCreateInput struct {
-	ID          *string                               `json:"id,omitempty"`
-	Name        string                                `json:"name"`
-	Description *string                               `json:"description,omitempty"`
-	ImageUrl    *string                               `json:"imageUrl,omitempty"`
-	StartDate   string                                `json:"startDate"`
-	EndDate     *string                               `json:"endDate,omitempty"`
-	Lat         float64                               `json:"lat"`
-	Long        float64                               `json:"long"`
-	Price       *int32                                `json:"price,omitempty"`
-	City        City                                  `json:"city"`
-	TicketUrl   *string                               `json:"ticketUrl,omitempty"`
-	Event       EventCreateOneWithoutOccurrencesInput `json:"event"`
-}
-
-type RequestedCityUpdateManyMutationInput struct {
-	City      *string `json:"city,omitempty"`
-	SendEmail *bool   `json:"sendEmail,omitempty"`
-}
-
-type EventCreateOneWithoutOccurrencesInput struct {
-	Create  *EventCreateWithoutOccurrencesInput `json:"create,omitempty"`
-	Connect *EventWhereUniqueInput              `json:"connect,omitempty"`
-}
-
-type VenueSubscriptionWhereInput struct {
-	MutationIn                 []MutationType                `json:"mutation_in,omitempty"`
-	UpdatedFieldsContains      *string                       `json:"updatedFields_contains,omitempty"`
-	UpdatedFieldsContainsEvery []string                      `json:"updatedFields_contains_every,omitempty"`
-	UpdatedFieldsContainsSome  []string                      `json:"updatedFields_contains_some,omitempty"`
-	Node                       *VenueWhereInput              `json:"node,omitempty"`
-	And                        []VenueSubscriptionWhereInput `json:"AND,omitempty"`
-	Or                         []VenueSubscriptionWhereInput `json:"OR,omitempty"`
-	Not                        []VenueSubscriptionWhereInput `json:"NOT,omitempty"`
+type SearchCreateInput struct {
+	ID               *string                         `json:"id,omitempty"`
+	City             City                            `json:"city"`
+	StartDate        string                          `json:"startDate"`
+	EndDate          string                          `json:"endDate"`
+	Info             *string                         `json:"info,omitempty"`
+	Suggested        *int32                          `json:"suggested,omitempty"`
+	User             *UserCreateOneInput             `json:"user,omitempty"`
+	Events           *EventCreateManyInput           `json:"events,omitempty"`
+	EventOccurrences *EventOccurrenceCreateManyInput `json:"eventOccurrences,omitempty"`
 }
 
 type EventScalarWhereInput struct {
@@ -2515,15 +2500,51 @@ type EventScalarWhereInput struct {
 	Not                            []EventScalarWhereInput `json:"NOT,omitempty"`
 }
 
-type RequestedCitySubscriptionWhereInput struct {
-	MutationIn                 []MutationType                        `json:"mutation_in,omitempty"`
-	UpdatedFieldsContains      *string                               `json:"updatedFields_contains,omitempty"`
-	UpdatedFieldsContainsEvery []string                              `json:"updatedFields_contains_every,omitempty"`
-	UpdatedFieldsContainsSome  []string                              `json:"updatedFields_contains_some,omitempty"`
-	Node                       *RequestedCityWhereInput              `json:"node,omitempty"`
-	And                        []RequestedCitySubscriptionWhereInput `json:"AND,omitempty"`
-	Or                         []RequestedCitySubscriptionWhereInput `json:"OR,omitempty"`
-	Not                        []RequestedCitySubscriptionWhereInput `json:"NOT,omitempty"`
+type UserUpsertNestedInput struct {
+	Update UserUpdateDataInput `json:"update"`
+	Create UserCreateInput     `json:"create"`
+}
+
+type EventOccurrenceCreateInput struct {
+	ID          *string                               `json:"id,omitempty"`
+	Name        string                                `json:"name"`
+	Description *string                               `json:"description,omitempty"`
+	ImageUrl    *string                               `json:"imageUrl,omitempty"`
+	StartDate   string                                `json:"startDate"`
+	EndDate     *string                               `json:"endDate,omitempty"`
+	Lat         float64                               `json:"lat"`
+	Long        float64                               `json:"long"`
+	Price       *int32                                `json:"price,omitempty"`
+	City        City                                  `json:"city"`
+	TicketUrl   *string                               `json:"ticketUrl,omitempty"`
+	Event       EventCreateOneWithoutOccurrencesInput `json:"event"`
+}
+
+type SearchSubscriptionWhereInput struct {
+	MutationIn                 []MutationType                 `json:"mutation_in,omitempty"`
+	UpdatedFieldsContains      *string                        `json:"updatedFields_contains,omitempty"`
+	UpdatedFieldsContainsEvery []string                       `json:"updatedFields_contains_every,omitempty"`
+	UpdatedFieldsContainsSome  []string                       `json:"updatedFields_contains_some,omitempty"`
+	Node                       *SearchWhereInput              `json:"node,omitempty"`
+	And                        []SearchSubscriptionWhereInput `json:"AND,omitempty"`
+	Or                         []SearchSubscriptionWhereInput `json:"OR,omitempty"`
+	Not                        []SearchSubscriptionWhereInput `json:"NOT,omitempty"`
+}
+
+type EventCreateOneWithoutOccurrencesInput struct {
+	Create  *EventCreateWithoutOccurrencesInput `json:"create,omitempty"`
+	Connect *EventWhereUniqueInput              `json:"connect,omitempty"`
+}
+
+type EventSubscriptionWhereInput struct {
+	MutationIn                 []MutationType                `json:"mutation_in,omitempty"`
+	UpdatedFieldsContains      *string                       `json:"updatedFields_contains,omitempty"`
+	UpdatedFieldsContainsEvery []string                      `json:"updatedFields_contains_every,omitempty"`
+	UpdatedFieldsContainsSome  []string                      `json:"updatedFields_contains_some,omitempty"`
+	Node                       *EventWhereInput              `json:"node,omitempty"`
+	And                        []EventSubscriptionWhereInput `json:"AND,omitempty"`
+	Or                         []EventSubscriptionWhereInput `json:"OR,omitempty"`
+	Not                        []EventSubscriptionWhereInput `json:"NOT,omitempty"`
 }
 
 type EventUpsertWithWhereUniqueNestedInput struct {
@@ -2532,19 +2553,152 @@ type EventUpsertWithWhereUniqueNestedInput struct {
 	Create EventCreateInput      `json:"create"`
 }
 
-type VenueUpdateManyMutationInput struct {
-	NameFr            *string  `json:"nameFr,omitempty"`
-	NameEn            *string  `json:"nameEn,omitempty"`
-	Lat               *float64 `json:"lat,omitempty"`
-	Long              *float64 `json:"long,omitempty"`
-	City              *City    `json:"city,omitempty"`
-	Address           *string  `json:"address,omitempty"`
-	Zip               *string  `json:"zip,omitempty"`
-	Country           *string  `json:"country,omitempty"`
-	Url               *string  `json:"url,omitempty"`
-	WpFrId            *int32   `json:"wpFrId,omitempty"`
-	WpEnId            *int32   `json:"wpEnId,omitempty"`
-	PossibleDuplicate *bool    `json:"possibleDuplicate,omitempty"`
+type EventOccurrenceWhereInput struct {
+	ID                       *string                     `json:"id,omitempty"`
+	IDNot                    *string                     `json:"id_not,omitempty"`
+	IDIn                     []string                    `json:"id_in,omitempty"`
+	IDNotIn                  []string                    `json:"id_not_in,omitempty"`
+	IDLt                     *string                     `json:"id_lt,omitempty"`
+	IDLte                    *string                     `json:"id_lte,omitempty"`
+	IDGt                     *string                     `json:"id_gt,omitempty"`
+	IDGte                    *string                     `json:"id_gte,omitempty"`
+	IDContains               *string                     `json:"id_contains,omitempty"`
+	IDNotContains            *string                     `json:"id_not_contains,omitempty"`
+	IDStartsWith             *string                     `json:"id_starts_with,omitempty"`
+	IDNotStartsWith          *string                     `json:"id_not_starts_with,omitempty"`
+	IDEndsWith               *string                     `json:"id_ends_with,omitempty"`
+	IDNotEndsWith            *string                     `json:"id_not_ends_with,omitempty"`
+	Name                     *string                     `json:"name,omitempty"`
+	NameNot                  *string                     `json:"name_not,omitempty"`
+	NameIn                   []string                    `json:"name_in,omitempty"`
+	NameNotIn                []string                    `json:"name_not_in,omitempty"`
+	NameLt                   *string                     `json:"name_lt,omitempty"`
+	NameLte                  *string                     `json:"name_lte,omitempty"`
+	NameGt                   *string                     `json:"name_gt,omitempty"`
+	NameGte                  *string                     `json:"name_gte,omitempty"`
+	NameContains             *string                     `json:"name_contains,omitempty"`
+	NameNotContains          *string                     `json:"name_not_contains,omitempty"`
+	NameStartsWith           *string                     `json:"name_starts_with,omitempty"`
+	NameNotStartsWith        *string                     `json:"name_not_starts_with,omitempty"`
+	NameEndsWith             *string                     `json:"name_ends_with,omitempty"`
+	NameNotEndsWith          *string                     `json:"name_not_ends_with,omitempty"`
+	Description              *string                     `json:"description,omitempty"`
+	DescriptionNot           *string                     `json:"description_not,omitempty"`
+	DescriptionIn            []string                    `json:"description_in,omitempty"`
+	DescriptionNotIn         []string                    `json:"description_not_in,omitempty"`
+	DescriptionLt            *string                     `json:"description_lt,omitempty"`
+	DescriptionLte           *string                     `json:"description_lte,omitempty"`
+	DescriptionGt            *string                     `json:"description_gt,omitempty"`
+	DescriptionGte           *string                     `json:"description_gte,omitempty"`
+	DescriptionContains      *string                     `json:"description_contains,omitempty"`
+	DescriptionNotContains   *string                     `json:"description_not_contains,omitempty"`
+	DescriptionStartsWith    *string                     `json:"description_starts_with,omitempty"`
+	DescriptionNotStartsWith *string                     `json:"description_not_starts_with,omitempty"`
+	DescriptionEndsWith      *string                     `json:"description_ends_with,omitempty"`
+	DescriptionNotEndsWith   *string                     `json:"description_not_ends_with,omitempty"`
+	ImageUrl                 *string                     `json:"imageUrl,omitempty"`
+	ImageUrlNot              *string                     `json:"imageUrl_not,omitempty"`
+	ImageUrlIn               []string                    `json:"imageUrl_in,omitempty"`
+	ImageUrlNotIn            []string                    `json:"imageUrl_not_in,omitempty"`
+	ImageUrlLt               *string                     `json:"imageUrl_lt,omitempty"`
+	ImageUrlLte              *string                     `json:"imageUrl_lte,omitempty"`
+	ImageUrlGt               *string                     `json:"imageUrl_gt,omitempty"`
+	ImageUrlGte              *string                     `json:"imageUrl_gte,omitempty"`
+	ImageUrlContains         *string                     `json:"imageUrl_contains,omitempty"`
+	ImageUrlNotContains      *string                     `json:"imageUrl_not_contains,omitempty"`
+	ImageUrlStartsWith       *string                     `json:"imageUrl_starts_with,omitempty"`
+	ImageUrlNotStartsWith    *string                     `json:"imageUrl_not_starts_with,omitempty"`
+	ImageUrlEndsWith         *string                     `json:"imageUrl_ends_with,omitempty"`
+	ImageUrlNotEndsWith      *string                     `json:"imageUrl_not_ends_with,omitempty"`
+	StartDate                *string                     `json:"startDate,omitempty"`
+	StartDateNot             *string                     `json:"startDate_not,omitempty"`
+	StartDateIn              []string                    `json:"startDate_in,omitempty"`
+	StartDateNotIn           []string                    `json:"startDate_not_in,omitempty"`
+	StartDateLt              *string                     `json:"startDate_lt,omitempty"`
+	StartDateLte             *string                     `json:"startDate_lte,omitempty"`
+	StartDateGt              *string                     `json:"startDate_gt,omitempty"`
+	StartDateGte             *string                     `json:"startDate_gte,omitempty"`
+	EndDate                  *string                     `json:"endDate,omitempty"`
+	EndDateNot               *string                     `json:"endDate_not,omitempty"`
+	EndDateIn                []string                    `json:"endDate_in,omitempty"`
+	EndDateNotIn             []string                    `json:"endDate_not_in,omitempty"`
+	EndDateLt                *string                     `json:"endDate_lt,omitempty"`
+	EndDateLte               *string                     `json:"endDate_lte,omitempty"`
+	EndDateGt                *string                     `json:"endDate_gt,omitempty"`
+	EndDateGte               *string                     `json:"endDate_gte,omitempty"`
+	Lat                      *float64                    `json:"lat,omitempty"`
+	LatNot                   *float64                    `json:"lat_not,omitempty"`
+	LatIn                    []float64                   `json:"lat_in,omitempty"`
+	LatNotIn                 []float64                   `json:"lat_not_in,omitempty"`
+	LatLt                    *float64                    `json:"lat_lt,omitempty"`
+	LatLte                   *float64                    `json:"lat_lte,omitempty"`
+	LatGt                    *float64                    `json:"lat_gt,omitempty"`
+	LatGte                   *float64                    `json:"lat_gte,omitempty"`
+	Long                     *float64                    `json:"long,omitempty"`
+	LongNot                  *float64                    `json:"long_not,omitempty"`
+	LongIn                   []float64                   `json:"long_in,omitempty"`
+	LongNotIn                []float64                   `json:"long_not_in,omitempty"`
+	LongLt                   *float64                    `json:"long_lt,omitempty"`
+	LongLte                  *float64                    `json:"long_lte,omitempty"`
+	LongGt                   *float64                    `json:"long_gt,omitempty"`
+	LongGte                  *float64                    `json:"long_gte,omitempty"`
+	Price                    *int32                      `json:"price,omitempty"`
+	PriceNot                 *int32                      `json:"price_not,omitempty"`
+	PriceIn                  []int32                     `json:"price_in,omitempty"`
+	PriceNotIn               []int32                     `json:"price_not_in,omitempty"`
+	PriceLt                  *int32                      `json:"price_lt,omitempty"`
+	PriceLte                 *int32                      `json:"price_lte,omitempty"`
+	PriceGt                  *int32                      `json:"price_gt,omitempty"`
+	PriceGte                 *int32                      `json:"price_gte,omitempty"`
+	City                     *City                       `json:"city,omitempty"`
+	CityNot                  *City                       `json:"city_not,omitempty"`
+	CityIn                   []City                      `json:"city_in,omitempty"`
+	CityNotIn                []City                      `json:"city_not_in,omitempty"`
+	TicketUrl                *string                     `json:"ticketUrl,omitempty"`
+	TicketUrlNot             *string                     `json:"ticketUrl_not,omitempty"`
+	TicketUrlIn              []string                    `json:"ticketUrl_in,omitempty"`
+	TicketUrlNotIn           []string                    `json:"ticketUrl_not_in,omitempty"`
+	TicketUrlLt              *string                     `json:"ticketUrl_lt,omitempty"`
+	TicketUrlLte             *string                     `json:"ticketUrl_lte,omitempty"`
+	TicketUrlGt              *string                     `json:"ticketUrl_gt,omitempty"`
+	TicketUrlGte             *string                     `json:"ticketUrl_gte,omitempty"`
+	TicketUrlContains        *string                     `json:"ticketUrl_contains,omitempty"`
+	TicketUrlNotContains     *string                     `json:"ticketUrl_not_contains,omitempty"`
+	TicketUrlStartsWith      *string                     `json:"ticketUrl_starts_with,omitempty"`
+	TicketUrlNotStartsWith   *string                     `json:"ticketUrl_not_starts_with,omitempty"`
+	TicketUrlEndsWith        *string                     `json:"ticketUrl_ends_with,omitempty"`
+	TicketUrlNotEndsWith     *string                     `json:"ticketUrl_not_ends_with,omitempty"`
+	Event                    *EventWhereInput            `json:"event,omitempty"`
+	CreatedAt                *string                     `json:"createdAt,omitempty"`
+	CreatedAtNot             *string                     `json:"createdAt_not,omitempty"`
+	CreatedAtIn              []string                    `json:"createdAt_in,omitempty"`
+	CreatedAtNotIn           []string                    `json:"createdAt_not_in,omitempty"`
+	CreatedAtLt              *string                     `json:"createdAt_lt,omitempty"`
+	CreatedAtLte             *string                     `json:"createdAt_lte,omitempty"`
+	CreatedAtGt              *string                     `json:"createdAt_gt,omitempty"`
+	CreatedAtGte             *string                     `json:"createdAt_gte,omitempty"`
+	And                      []EventOccurrenceWhereInput `json:"AND,omitempty"`
+	Or                       []EventOccurrenceWhereInput `json:"OR,omitempty"`
+	Not                      []EventOccurrenceWhereInput `json:"NOT,omitempty"`
+}
+
+type EventOccurrenceUpdateInput struct {
+	Name        *string                                        `json:"name,omitempty"`
+	Description *string                                        `json:"description,omitempty"`
+	ImageUrl    *string                                        `json:"imageUrl,omitempty"`
+	StartDate   *string                                        `json:"startDate,omitempty"`
+	EndDate     *string                                        `json:"endDate,omitempty"`
+	Lat         *float64                                       `json:"lat,omitempty"`
+	Long        *float64                                       `json:"long,omitempty"`
+	Price       *int32                                         `json:"price,omitempty"`
+	City        *City                                          `json:"city,omitempty"`
+	TicketUrl   *string                                        `json:"ticketUrl,omitempty"`
+	Event       *EventUpdateOneRequiredWithoutOccurrencesInput `json:"event,omitempty"`
+}
+
+type EventUpdateWithWhereUniqueWithoutVenueInput struct {
+	Where EventWhereUniqueInput            `json:"where"`
+	Data  EventUpdateWithoutVenueDataInput `json:"data"`
 }
 
 type EventUpdateOneRequiredWithoutOccurrencesInput struct {
@@ -2554,26 +2708,20 @@ type EventUpdateOneRequiredWithoutOccurrencesInput struct {
 	Connect *EventWhereUniqueInput                  `json:"connect,omitempty"`
 }
 
-type EventUpdateWithoutVenueDataInput struct {
-	Name                 *string                                     `json:"name,omitempty"`
-	Description          *string                                     `json:"description,omitempty"`
-	ShortDescription     *string                                     `json:"shortDescription,omitempty"`
-	Link                 *string                                     `json:"link,omitempty"`
-	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
-	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
-	Price                *int32                                      `json:"price,omitempty"`
-	Category             *EventCategory                              `json:"category,omitempty"`
-	Tags                 *string                                     `json:"tags,omitempty"`
-	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
-	Source               *string                                     `json:"source,omitempty"`
-	WpFrId               *int32                                      `json:"wpFrId,omitempty"`
-	WpEnId               *int32                                      `json:"wpEnId,omitempty"`
-	PossibleDuplicate    *bool                                       `json:"possibleDuplicate,omitempty"`
-	ImportNotes          *string                                     `json:"importNotes,omitempty"`
-	IsRecurring          *bool                                       `json:"isRecurring,omitempty"`
-	RecurrencePattern    *string                                     `json:"recurrencePattern,omitempty"`
-	OccurrencesAreUnique *bool                                       `json:"occurrencesAreUnique,omitempty"`
-	Occurrences          *EventOccurrenceUpdateManyWithoutEventInput `json:"occurrences,omitempty"`
+type VenueUpdateInput struct {
+	NameFr            *string                           `json:"nameFr,omitempty"`
+	NameEn            *string                           `json:"nameEn,omitempty"`
+	Lat               *float64                          `json:"lat,omitempty"`
+	Long              *float64                          `json:"long,omitempty"`
+	City              *City                             `json:"city,omitempty"`
+	Address           *string                           `json:"address,omitempty"`
+	Zip               *string                           `json:"zip,omitempty"`
+	Country           *string                           `json:"country,omitempty"`
+	Url               *string                           `json:"url,omitempty"`
+	WpFrId            *int32                            `json:"wpFrId,omitempty"`
+	WpEnId            *int32                            `json:"wpEnId,omitempty"`
+	Events            *EventUpdateManyWithoutVenueInput `json:"events,omitempty"`
+	PossibleDuplicate *bool                             `json:"possibleDuplicate,omitempty"`
 }
 
 type EventUpdateWithoutOccurrencesDataInput struct {
@@ -2598,16 +2746,21 @@ type EventUpdateWithoutOccurrencesDataInput struct {
 	OccurrencesAreUnique *bool                             `json:"occurrencesAreUnique,omitempty"`
 }
 
-type EventUpdateManyWithoutVenueInput struct {
-	Create     []EventCreateWithoutVenueInput                `json:"create,omitempty"`
-	Delete     []EventWhereUniqueInput                       `json:"delete,omitempty"`
-	Connect    []EventWhereUniqueInput                       `json:"connect,omitempty"`
-	Set        []EventWhereUniqueInput                       `json:"set,omitempty"`
-	Disconnect []EventWhereUniqueInput                       `json:"disconnect,omitempty"`
-	Update     []EventUpdateWithWhereUniqueWithoutVenueInput `json:"update,omitempty"`
-	Upsert     []EventUpsertWithWhereUniqueWithoutVenueInput `json:"upsert,omitempty"`
-	DeleteMany []EventScalarWhereInput                       `json:"deleteMany,omitempty"`
-	UpdateMany []EventUpdateManyWithWhereNestedInput         `json:"updateMany,omitempty"`
+type VenueCreateInput struct {
+	ID                *string                           `json:"id,omitempty"`
+	NameFr            string                            `json:"nameFr"`
+	NameEn            string                            `json:"nameEn"`
+	Lat               float64                           `json:"lat"`
+	Long              float64                           `json:"long"`
+	City              City                              `json:"city"`
+	Address           *string                           `json:"address,omitempty"`
+	Zip               *string                           `json:"zip,omitempty"`
+	Country           *string                           `json:"country,omitempty"`
+	Url               *string                           `json:"url,omitempty"`
+	WpFrId            *int32                            `json:"wpFrId,omitempty"`
+	WpEnId            *int32                            `json:"wpEnId,omitempty"`
+	Events            *EventCreateManyWithoutVenueInput `json:"events,omitempty"`
+	PossibleDuplicate *bool                             `json:"possibleDuplicate,omitempty"`
 }
 
 type EventUpsertWithoutOccurrencesInput struct {
@@ -2615,9 +2768,12 @@ type EventUpsertWithoutOccurrencesInput struct {
 	Create EventCreateWithoutOccurrencesInput     `json:"create"`
 }
 
-type EventCreateManyWithoutVenueInput struct {
-	Create  []EventCreateWithoutVenueInput `json:"create,omitempty"`
-	Connect []EventWhereUniqueInput        `json:"connect,omitempty"`
+type SearchUpdateManyMutationInput struct {
+	City      *City   `json:"city,omitempty"`
+	StartDate *string `json:"startDate,omitempty"`
+	EndDate   *string `json:"endDate,omitempty"`
+	Info      *string `json:"info,omitempty"`
+	Suggested *int32  `json:"suggested,omitempty"`
 }
 
 type EventOccurrenceUpdateManyMutationInput struct {
@@ -2633,23 +2789,9 @@ type EventOccurrenceUpdateManyMutationInput struct {
 	TicketUrl   *string  `json:"ticketUrl,omitempty"`
 }
 
-type UserUpdateInput struct {
-	Facebookid             *string                     `json:"facebookid,omitempty"`
-	Fname                  *string                     `json:"fname,omitempty"`
-	Lname                  *string                     `json:"lname,omitempty"`
-	Picture                *string                     `json:"picture,omitempty"`
-	Email                  *string                     `json:"email,omitempty"`
-	Password               *string                     `json:"password,omitempty"`
-	Sex                    *Sex                        `json:"sex,omitempty"`
-	Age                    *int32                      `json:"age,omitempty"`
-	City                   *City                       `json:"city,omitempty"`
-	Permissions            *UserUpdatepermissionsInput `json:"permissions,omitempty"`
-	Relationship           *Relationship               `json:"relationship,omitempty"`
-	SuggestedEvents        *EventUpdateManyInput       `json:"suggestedEvents,omitempty"`
-	InterestedEvents       *EventUpdateManyInput       `json:"interestedEvents,omitempty"`
-	BoringEvents           *EventUpdateManyInput       `json:"boringEvents,omitempty"`
-	LastInteraction        *string                     `json:"lastInteraction,omitempty"`
-	MessengerNotifications *Notification               `json:"messengerNotifications,omitempty"`
+type EventOccurrenceUpdateWithWhereUniqueNestedInput struct {
+	Where EventOccurrenceWhereUniqueInput `json:"where"`
+	Data  EventOccurrenceUpdateDataInput  `json:"data"`
 }
 
 type RequestedCityCreateInput struct {
@@ -2659,18 +2801,9 @@ type RequestedCityCreateInput struct {
 	SendEmail *bool               `json:"sendEmail,omitempty"`
 }
 
-type EventOccurrenceUpdateDataInput struct {
-	Name        *string                                        `json:"name,omitempty"`
-	Description *string                                        `json:"description,omitempty"`
-	ImageUrl    *string                                        `json:"imageUrl,omitempty"`
-	StartDate   *string                                        `json:"startDate,omitempty"`
-	EndDate     *string                                        `json:"endDate,omitempty"`
-	Lat         *float64                                       `json:"lat,omitempty"`
-	Long        *float64                                       `json:"long,omitempty"`
-	Price       *int32                                         `json:"price,omitempty"`
-	City        *City                                          `json:"city,omitempty"`
-	TicketUrl   *string                                        `json:"ticketUrl,omitempty"`
-	Event       *EventUpdateOneRequiredWithoutOccurrencesInput `json:"event,omitempty"`
+type EventOccurrenceCreateManyInput struct {
+	Create  []EventOccurrenceCreateInput      `json:"create,omitempty"`
+	Connect []EventOccurrenceWhereUniqueInput `json:"connect,omitempty"`
 }
 
 type UserCreateOneInput struct {
@@ -2678,15 +2811,15 @@ type UserCreateOneInput struct {
 	Connect *UserWhereUniqueInput `json:"connect,omitempty"`
 }
 
-type SearchUpdateInput struct {
-	City             *City                           `json:"city,omitempty"`
-	StartDate        *string                         `json:"startDate,omitempty"`
-	EndDate          *string                         `json:"endDate,omitempty"`
-	Info             *string                         `json:"info,omitempty"`
-	Suggested        *int32                          `json:"suggested,omitempty"`
-	User             *UserUpdateOneInput             `json:"user,omitempty"`
-	Events           *EventUpdateManyInput           `json:"events,omitempty"`
-	EventOccurrences *EventOccurrenceUpdateManyInput `json:"eventOccurrences,omitempty"`
+type VenueSubscriptionWhereInput struct {
+	MutationIn                 []MutationType                `json:"mutation_in,omitempty"`
+	UpdatedFieldsContains      *string                       `json:"updatedFields_contains,omitempty"`
+	UpdatedFieldsContainsEvery []string                      `json:"updatedFields_contains_every,omitempty"`
+	UpdatedFieldsContainsSome  []string                      `json:"updatedFields_contains_some,omitempty"`
+	Node                       *VenueWhereInput              `json:"node,omitempty"`
+	And                        []VenueSubscriptionWhereInput `json:"AND,omitempty"`
+	Or                         []VenueSubscriptionWhereInput `json:"OR,omitempty"`
+	Not                        []VenueSubscriptionWhereInput `json:"NOT,omitempty"`
 }
 
 type UserCreateInput struct {
@@ -2697,6 +2830,7 @@ type UserCreateInput struct {
 	Picture                *string                     `json:"picture,omitempty"`
 	Email                  *string                     `json:"email,omitempty"`
 	Password               *string                     `json:"password,omitempty"`
+	Language               *Language                   `json:"language,omitempty"`
 	Sex                    *Sex                        `json:"sex,omitempty"`
 	Age                    *int32                      `json:"age,omitempty"`
 	City                   *City                       `json:"city,omitempty"`
@@ -2709,8 +2843,19 @@ type UserCreateInput struct {
 	MessengerNotifications *Notification               `json:"messengerNotifications,omitempty"`
 }
 
-type RequestedCityWhereUniqueInput struct {
-	ID *string `json:"id,omitempty"`
+type VenueUpdateManyMutationInput struct {
+	NameFr            *string  `json:"nameFr,omitempty"`
+	NameEn            *string  `json:"nameEn,omitempty"`
+	Lat               *float64 `json:"lat,omitempty"`
+	Long              *float64 `json:"long,omitempty"`
+	City              *City    `json:"city,omitempty"`
+	Address           *string  `json:"address,omitempty"`
+	Zip               *string  `json:"zip,omitempty"`
+	Country           *string  `json:"country,omitempty"`
+	Url               *string  `json:"url,omitempty"`
+	WpFrId            *int32   `json:"wpFrId,omitempty"`
+	WpEnId            *int32   `json:"wpEnId,omitempty"`
+	PossibleDuplicate *bool    `json:"possibleDuplicate,omitempty"`
 }
 
 type UserCreatepermissionsInput struct {
@@ -2816,6 +2961,10 @@ type UserWhereInput struct {
 	PasswordNotStartsWith       *string          `json:"password_not_starts_with,omitempty"`
 	PasswordEndsWith            *string          `json:"password_ends_with,omitempty"`
 	PasswordNotEndsWith         *string          `json:"password_not_ends_with,omitempty"`
+	Language                    *Language        `json:"language,omitempty"`
+	LanguageNot                 *Language        `json:"language_not,omitempty"`
+	LanguageIn                  []Language       `json:"language_in,omitempty"`
+	LanguageNotIn               []Language       `json:"language_not_in,omitempty"`
 	Sex                         *Sex             `json:"sex,omitempty"`
 	SexNot                      *Sex             `json:"sex_not,omitempty"`
 	SexIn                       []Sex            `json:"sex_in,omitempty"`
@@ -2883,21 +3032,21 @@ type EventCreateManyInput struct {
 	Connect []EventWhereUniqueInput `json:"connect,omitempty"`
 }
 
-type VenueCreateInput struct {
-	ID                *string                           `json:"id,omitempty"`
-	NameFr            string                            `json:"nameFr"`
-	NameEn            string                            `json:"nameEn"`
-	Lat               float64                           `json:"lat"`
-	Long              float64                           `json:"long"`
-	City              City                              `json:"city"`
-	Address           *string                           `json:"address,omitempty"`
-	Zip               *string                           `json:"zip,omitempty"`
-	Country           *string                           `json:"country,omitempty"`
-	Url               *string                           `json:"url,omitempty"`
-	WpFrId            *int32                            `json:"wpFrId,omitempty"`
-	WpEnId            *int32                            `json:"wpEnId,omitempty"`
-	Events            *EventCreateManyWithoutVenueInput `json:"events,omitempty"`
-	PossibleDuplicate *bool                             `json:"possibleDuplicate,omitempty"`
+type UserUpdateManyMutationInput struct {
+	Facebookid             *string                     `json:"facebookid,omitempty"`
+	Fname                  *string                     `json:"fname,omitempty"`
+	Lname                  *string                     `json:"lname,omitempty"`
+	Picture                *string                     `json:"picture,omitempty"`
+	Email                  *string                     `json:"email,omitempty"`
+	Password               *string                     `json:"password,omitempty"`
+	Language               *Language                   `json:"language,omitempty"`
+	Sex                    *Sex                        `json:"sex,omitempty"`
+	Age                    *int32                      `json:"age,omitempty"`
+	City                   *City                       `json:"city,omitempty"`
+	Permissions            *UserUpdatepermissionsInput `json:"permissions,omitempty"`
+	Relationship           *Relationship               `json:"relationship,omitempty"`
+	LastInteraction        *string                     `json:"lastInteraction,omitempty"`
+	MessengerNotifications *Notification               `json:"messengerNotifications,omitempty"`
 }
 
 type RequestedCityUpdateInput struct {
@@ -2906,16 +3055,15 @@ type RequestedCityUpdateInput struct {
 	SendEmail *bool               `json:"sendEmail,omitempty"`
 }
 
-type EventOccurrenceUpdateManyInput struct {
-	Create     []EventOccurrenceCreateInput                      `json:"create,omitempty"`
-	Update     []EventOccurrenceUpdateWithWhereUniqueNestedInput `json:"update,omitempty"`
-	Upsert     []EventOccurrenceUpsertWithWhereUniqueNestedInput `json:"upsert,omitempty"`
-	Delete     []EventOccurrenceWhereUniqueInput                 `json:"delete,omitempty"`
-	Connect    []EventOccurrenceWhereUniqueInput                 `json:"connect,omitempty"`
-	Set        []EventOccurrenceWhereUniqueInput                 `json:"set,omitempty"`
-	Disconnect []EventOccurrenceWhereUniqueInput                 `json:"disconnect,omitempty"`
-	DeleteMany []EventOccurrenceScalarWhereInput                 `json:"deleteMany,omitempty"`
-	UpdateMany []EventOccurrenceUpdateManyWithWhereNestedInput   `json:"updateMany,omitempty"`
+type SearchUpdateInput struct {
+	City             *City                           `json:"city,omitempty"`
+	StartDate        *string                         `json:"startDate,omitempty"`
+	EndDate          *string                         `json:"endDate,omitempty"`
+	Info             *string                         `json:"info,omitempty"`
+	Suggested        *int32                          `json:"suggested,omitempty"`
+	User             *UserUpdateOneInput             `json:"user,omitempty"`
+	Events           *EventUpdateManyInput           `json:"events,omitempty"`
+	EventOccurrences *EventOccurrenceUpdateManyInput `json:"eventOccurrences,omitempty"`
 }
 
 type UserUpdateOneInput struct {
@@ -2927,8 +3075,15 @@ type UserUpdateOneInput struct {
 	Connect    *UserWhereUniqueInput  `json:"connect,omitempty"`
 }
 
-type EventOccurrenceWhereUniqueInput struct {
-	ID *string `json:"id,omitempty"`
+type RequestedCitySubscriptionWhereInput struct {
+	MutationIn                 []MutationType                        `json:"mutation_in,omitempty"`
+	UpdatedFieldsContains      *string                               `json:"updatedFields_contains,omitempty"`
+	UpdatedFieldsContainsEvery []string                              `json:"updatedFields_contains_every,omitempty"`
+	UpdatedFieldsContainsSome  []string                              `json:"updatedFields_contains_some,omitempty"`
+	Node                       *RequestedCityWhereInput              `json:"node,omitempty"`
+	And                        []RequestedCitySubscriptionWhereInput `json:"AND,omitempty"`
+	Or                         []RequestedCitySubscriptionWhereInput `json:"OR,omitempty"`
+	Not                        []RequestedCitySubscriptionWhereInput `json:"NOT,omitempty"`
 }
 
 type EventUpdateWithWhereUniqueNestedInput struct {
@@ -2959,6 +3114,7 @@ type UserUpdateDataInput struct {
 	Picture                *string                     `json:"picture,omitempty"`
 	Email                  *string                     `json:"email,omitempty"`
 	Password               *string                     `json:"password,omitempty"`
+	Language               *Language                   `json:"language,omitempty"`
 	Sex                    *Sex                        `json:"sex,omitempty"`
 	Age                    *int32                      `json:"age,omitempty"`
 	City                   *City                       `json:"city,omitempty"`
@@ -3116,16 +3272,9 @@ type VenueWhereInput struct {
 	Not                  []VenueWhereInput `json:"NOT,omitempty"`
 }
 
-type SearchCreateInput struct {
-	ID               *string                         `json:"id,omitempty"`
-	City             City                            `json:"city"`
-	StartDate        string                          `json:"startDate"`
-	EndDate          string                          `json:"endDate"`
-	Info             *string                         `json:"info,omitempty"`
-	Suggested        *int32                          `json:"suggested,omitempty"`
-	User             *UserCreateOneInput             `json:"user,omitempty"`
-	Events           *EventCreateManyInput           `json:"events,omitempty"`
-	EventOccurrences *EventOccurrenceCreateManyInput `json:"eventOccurrences,omitempty"`
+type RequestedCityUpdateManyMutationInput struct {
+	City      *string `json:"city,omitempty"`
+	SendEmail *bool   `json:"sendEmail,omitempty"`
 }
 
 type UserWhereUniqueInput struct {
@@ -3134,27 +3283,9 @@ type UserWhereUniqueInput struct {
 	Email      *string `json:"email,omitempty"`
 }
 
-type EventCreateWithoutVenueInput struct {
-	ID                   *string                                     `json:"id,omitempty"`
-	Name                 string                                      `json:"name"`
-	Description          *string                                     `json:"description,omitempty"`
-	ShortDescription     *string                                     `json:"shortDescription,omitempty"`
-	Link                 string                                      `json:"link"`
-	ImageUrl             *string                                     `json:"imageUrl,omitempty"`
-	NextOccurrenceDate   *string                                     `json:"nextOccurrenceDate,omitempty"`
-	Price                *int32                                      `json:"price,omitempty"`
-	Category             *EventCategory                              `json:"category,omitempty"`
-	Tags                 *string                                     `json:"tags,omitempty"`
-	TicketUrl            *string                                     `json:"ticketUrl,omitempty"`
-	Source               *string                                     `json:"source,omitempty"`
-	WpFrId               *int32                                      `json:"wpFrId,omitempty"`
-	WpEnId               *int32                                      `json:"wpEnId,omitempty"`
-	PossibleDuplicate    *bool                                       `json:"possibleDuplicate,omitempty"`
-	ImportNotes          *string                                     `json:"importNotes,omitempty"`
-	IsRecurring          *bool                                       `json:"isRecurring,omitempty"`
-	RecurrencePattern    *string                                     `json:"recurrencePattern,omitempty"`
-	OccurrencesAreUnique *bool                                       `json:"occurrencesAreUnique,omitempty"`
-	Occurrences          *EventOccurrenceCreateManyWithoutEventInput `json:"occurrences,omitempty"`
+type EventCreateManyWithoutVenueInput struct {
+	Create  []EventCreateWithoutVenueInput `json:"create,omitempty"`
+	Connect []EventWhereUniqueInput        `json:"connect,omitempty"`
 }
 
 type VenuePreviousValuesExec struct {
@@ -3187,201 +3318,9 @@ func (instance VenuePreviousValuesExecArray) Exec(ctx context.Context) ([]VenueP
 	return v, err
 }
 
+var VenuePreviousValuesFields = []string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"}
+
 type VenuePreviousValues struct {
-	ID                string  `json:"id"`
-	NameFr            string  `json:"nameFr"`
-	NameEn            string  `json:"nameEn"`
-	Lat               float64 `json:"lat"`
-	Long              float64 `json:"long"`
-	City              City    `json:"city"`
-	Address           *string `json:"address,omitempty"`
-	Zip               *string `json:"zip,omitempty"`
-	Country           string  `json:"country"`
-	Url               *string `json:"url,omitempty"`
-	WpFrId            int32   `json:"wpFrId"`
-	WpEnId            int32   `json:"wpEnId"`
-	PossibleDuplicate bool    `json:"possibleDuplicate"`
-}
-
-type EventConnectionExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *EventConnectionExec) PageInfo() *PageInfoExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "PageInfo"},
-		"pageInfo",
-		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
-
-	return &PageInfoExec{ret}
-}
-
-func (instance *EventConnectionExec) Edges() *EventEdgeExecArray {
-	edges := instance.exec.Client.GetMany(
-		instance.exec,
-		nil,
-		[3]string{"EventWhereInput", "EventOrderByInput", "EventEdge"},
-		"edges",
-		[]string{"cursor"})
-
-	nodes := edges.Client.GetMany(
-		edges,
-		nil,
-		[3]string{"", "", "Event"},
-		"node",
-		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
-
-	return &EventEdgeExecArray{nodes}
-}
-
-func (instance *EventConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "AggregateEvent"},
-		"aggregate",
-		[]string{"count"})
-
-	var v Aggregate
-	_, err := ret.Exec(ctx, &v)
-	return &v, err
-}
-
-func (instance EventConnectionExec) Exec(ctx context.Context) (*EventConnection, error) {
-	var v EventConnection
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance EventConnectionExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type EventConnectionExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance EventConnectionExecArray) Exec(ctx context.Context) ([]EventConnection, error) {
-	var v []EventConnection
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type EventConnection struct {
-	PageInfo PageInfo    `json:"pageInfo"`
-	Edges    []EventEdge `json:"edges"`
-}
-
-type PageInfoExec struct {
-	exec *prisma.Exec
-}
-
-func (instance PageInfoExec) Exec(ctx context.Context) (*PageInfo, error) {
-	var v PageInfo
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance PageInfoExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type PageInfoExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance PageInfoExecArray) Exec(ctx context.Context) ([]PageInfo, error) {
-	var v []PageInfo
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type PageInfo struct {
-	HasNextPage     bool    `json:"hasNextPage"`
-	HasPreviousPage bool    `json:"hasPreviousPage"`
-	StartCursor     *string `json:"startCursor,omitempty"`
-	EndCursor       *string `json:"endCursor,omitempty"`
-}
-
-type VenueExec struct {
-	exec *prisma.Exec
-}
-
-type EventsParamsExec struct {
-	Where   *EventWhereInput
-	OrderBy *EventOrderByInput
-	Skip    *int32
-	After   *string
-	Before  *string
-	First   *int32
-	Last    *int32
-}
-
-func (instance *VenueExec) Events(params *EventsParamsExec) *EventExecArray {
-	var wparams *prisma.WhereParams
-	if params != nil {
-		wparams = &prisma.WhereParams{
-			Where:   params.Where,
-			OrderBy: (*string)(params.OrderBy),
-			Skip:    params.Skip,
-			After:   params.After,
-			Before:  params.Before,
-			First:   params.First,
-			Last:    params.Last,
-		}
-	}
-
-	ret := instance.exec.Client.GetMany(
-		instance.exec,
-		wparams,
-		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
-		"events",
-		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
-
-	return &EventExecArray{ret}
-}
-
-func (instance VenueExec) Exec(ctx context.Context) (*Venue, error) {
-	var v Venue
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance VenueExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type VenueExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance VenueExecArray) Exec(ctx context.Context) ([]Venue, error) {
-	var v []Venue
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type Venue struct {
 	ID                string  `json:"id"`
 	NameFr            string  `json:"nameFr"`
 	NameEn            string  `json:"nameEn"`
@@ -3438,6 +3377,8 @@ func (instance EventOccurrenceExecArray) Exec(ctx context.Context) ([]EventOccur
 	return v, err
 }
 
+var EventOccurrenceFields = []string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"}
+
 type EventOccurrence struct {
 	ID          string  `json:"id"`
 	Name        string  `json:"name"`
@@ -3453,11 +3394,11 @@ type EventOccurrence struct {
 	CreatedAt   string  `json:"createdAt"`
 }
 
-type VenueConnectionExec struct {
+type EventConnectionExec struct {
 	exec *prisma.Exec
 }
 
-func (instance *VenueConnectionExec) PageInfo() *PageInfoExec {
+func (instance *EventConnectionExec) PageInfo() *PageInfoExec {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -3468,29 +3409,29 @@ func (instance *VenueConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *VenueConnectionExec) Edges() *VenueEdgeExecArray {
+func (instance *EventConnectionExec) Edges() *EventEdgeExecArray {
 	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[3]string{"VenueWhereInput", "VenueOrderByInput", "VenueEdge"},
+		[3]string{"EventWhereInput", "EventOrderByInput", "EventEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	nodes := edges.Client.GetMany(
+	nodes := edges.Client.GetOne(
 		edges,
 		nil,
-		[3]string{"", "", "Venue"},
+		[2]string{"", "Event"},
 		"node",
-		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+		EventFields)
 
-	return &VenueEdgeExecArray{nodes}
+	return &EventEdgeExecArray{nodes}
 }
 
-func (instance *VenueConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
+func (instance *EventConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
-		[2]string{"", "AggregateVenue"},
+		[2]string{"", "AggregateEvent"},
 		"aggregate",
 		[]string{"count"})
 
@@ -3499,35 +3440,42 @@ func (instance *VenueConnectionExec) Aggregate(ctx context.Context) (*Aggregate,
 	return &v, err
 }
 
-func (instance VenueConnectionExec) Exec(ctx context.Context) (*VenueConnection, error) {
-	var v VenueConnection
-	ok, err := instance.exec.Exec(ctx, &v)
+func (instance EventConnectionExec) Exec(ctx context.Context) (*EventConnection, error) {
+	edges, err := instance.Edges().Exec(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if !ok {
-		return nil, ErrNoResult
+
+	pageInfo, err := instance.PageInfo().Exec(ctx)
+	if err != nil {
+		return nil, err
 	}
-	return &v, nil
+
+	return &EventConnection{
+		Edges:    edges,
+		PageInfo: *pageInfo,
+	}, nil
 }
 
-func (instance VenueConnectionExec) Exists(ctx context.Context) (bool, error) {
+func (instance EventConnectionExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type VenueConnectionExecArray struct {
+type EventConnectionExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance VenueConnectionExecArray) Exec(ctx context.Context) ([]VenueConnection, error) {
-	var v []VenueConnection
+func (instance EventConnectionExecArray) Exec(ctx context.Context) ([]EventConnection, error) {
+	var v []EventConnection
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type VenueConnection struct {
+var EventConnectionFields = []string{}
+
+type EventConnection struct {
 	PageInfo PageInfo    `json:"pageInfo"`
-	Edges    []VenueEdge `json:"edges"`
+	Edges    []EventEdge `json:"edges"`
 }
 
 type UserExec struct {
@@ -3662,6 +3610,8 @@ func (instance UserExecArray) Exec(ctx context.Context) ([]User, error) {
 	return v, err
 }
 
+var UserFields = []string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"}
+
 type User struct {
 	ID                     string        `json:"id"`
 	Facebookid             *string       `json:"facebookid,omitempty"`
@@ -3670,6 +3620,7 @@ type User struct {
 	Picture                *string       `json:"picture,omitempty"`
 	Email                  *string       `json:"email,omitempty"`
 	Password               *string       `json:"password,omitempty"`
+	Language               *Language     `json:"language,omitempty"`
 	Sex                    *Sex          `json:"sex,omitempty"`
 	Age                    *int32        `json:"age,omitempty"`
 	City                   *City         `json:"city,omitempty"`
@@ -3691,7 +3642,7 @@ func (instance *RequestedCityExec) User() *UserExec {
 		nil,
 		[2]string{"", "User"},
 		"user",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -3722,17 +3673,19 @@ func (instance RequestedCityExecArray) Exec(ctx context.Context) ([]RequestedCit
 	return v, err
 }
 
+var RequestedCityFields = []string{"id", "city", "sendEmail"}
+
 type RequestedCity struct {
 	ID        string `json:"id"`
 	City      string `json:"city"`
 	SendEmail bool   `json:"sendEmail"`
 }
 
-type UserConnectionExec struct {
+type VenueConnectionExec struct {
 	exec *prisma.Exec
 }
 
-func (instance *UserConnectionExec) PageInfo() *PageInfoExec {
+func (instance *VenueConnectionExec) PageInfo() *PageInfoExec {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -3743,29 +3696,29 @@ func (instance *UserConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *UserConnectionExec) Edges() *UserEdgeExecArray {
+func (instance *VenueConnectionExec) Edges() *VenueEdgeExecArray {
 	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[3]string{"UserWhereInput", "UserOrderByInput", "UserEdge"},
+		[3]string{"VenueWhereInput", "VenueOrderByInput", "VenueEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	nodes := edges.Client.GetMany(
+	nodes := edges.Client.GetOne(
 		edges,
 		nil,
-		[3]string{"", "", "User"},
+		[2]string{"", "Venue"},
 		"node",
-		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+		VenueFields)
 
-	return &UserEdgeExecArray{nodes}
+	return &VenueEdgeExecArray{nodes}
 }
 
-func (instance *UserConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
+func (instance *VenueConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
-		[2]string{"", "AggregateUser"},
+		[2]string{"", "AggregateVenue"},
 		"aggregate",
 		[]string{"count"})
 
@@ -3774,35 +3727,42 @@ func (instance *UserConnectionExec) Aggregate(ctx context.Context) (*Aggregate, 
 	return &v, err
 }
 
-func (instance UserConnectionExec) Exec(ctx context.Context) (*UserConnection, error) {
-	var v UserConnection
-	ok, err := instance.exec.Exec(ctx, &v)
+func (instance VenueConnectionExec) Exec(ctx context.Context) (*VenueConnection, error) {
+	edges, err := instance.Edges().Exec(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if !ok {
-		return nil, ErrNoResult
+
+	pageInfo, err := instance.PageInfo().Exec(ctx)
+	if err != nil {
+		return nil, err
 	}
-	return &v, nil
+
+	return &VenueConnection{
+		Edges:    edges,
+		PageInfo: *pageInfo,
+	}, nil
 }
 
-func (instance UserConnectionExec) Exists(ctx context.Context) (bool, error) {
+func (instance VenueConnectionExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type UserConnectionExecArray struct {
+type VenueConnectionExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance UserConnectionExecArray) Exec(ctx context.Context) ([]UserConnection, error) {
-	var v []UserConnection
+func (instance VenueConnectionExecArray) Exec(ctx context.Context) ([]VenueConnection, error) {
+	var v []VenueConnection
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type UserConnection struct {
-	PageInfo PageInfo   `json:"pageInfo"`
-	Edges    []UserEdge `json:"edges"`
+var VenueConnectionFields = []string{}
+
+type VenueConnection struct {
+	PageInfo PageInfo    `json:"pageInfo"`
+	Edges    []VenueEdge `json:"edges"`
 }
 
 type EventExec struct {
@@ -3880,6 +3840,8 @@ func (instance EventExecArray) Exec(ctx context.Context) ([]Event, error) {
 	return v, err
 }
 
+var EventFields = []string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"}
+
 type Event struct {
 	ID                   string        `json:"id"`
 	Name                 string        `json:"name"`
@@ -3956,17 +3918,19 @@ func (instance EventSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]E
 	return v, err
 }
 
+var EventSubscriptionPayloadFields = []string{"mutation", "updatedFields"}
+
 type EventSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
 	Node          *Event       `json:"node,omitempty"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
 }
 
-type SearchConnectionExec struct {
+type UserConnectionExec struct {
 	exec *prisma.Exec
 }
 
-func (instance *SearchConnectionExec) PageInfo() *PageInfoExec {
+func (instance *UserConnectionExec) PageInfo() *PageInfoExec {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
@@ -3977,29 +3941,29 @@ func (instance *SearchConnectionExec) PageInfo() *PageInfoExec {
 	return &PageInfoExec{ret}
 }
 
-func (instance *SearchConnectionExec) Edges() *SearchEdgeExecArray {
+func (instance *UserConnectionExec) Edges() *UserEdgeExecArray {
 	edges := instance.exec.Client.GetMany(
 		instance.exec,
 		nil,
-		[3]string{"SearchWhereInput", "SearchOrderByInput", "SearchEdge"},
+		[3]string{"UserWhereInput", "UserOrderByInput", "UserEdge"},
 		"edges",
 		[]string{"cursor"})
 
-	nodes := edges.Client.GetMany(
+	nodes := edges.Client.GetOne(
 		edges,
 		nil,
-		[3]string{"", "", "Search"},
+		[2]string{"", "User"},
 		"node",
-		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
+		UserFields)
 
-	return &SearchEdgeExecArray{nodes}
+	return &UserEdgeExecArray{nodes}
 }
 
-func (instance *SearchConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
+func (instance *UserConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
-		[2]string{"", "AggregateSearch"},
+		[2]string{"", "AggregateUser"},
 		"aggregate",
 		[]string{"count"})
 
@@ -4008,35 +3972,42 @@ func (instance *SearchConnectionExec) Aggregate(ctx context.Context) (*Aggregate
 	return &v, err
 }
 
-func (instance SearchConnectionExec) Exec(ctx context.Context) (*SearchConnection, error) {
-	var v SearchConnection
-	ok, err := instance.exec.Exec(ctx, &v)
+func (instance UserConnectionExec) Exec(ctx context.Context) (*UserConnection, error) {
+	edges, err := instance.Edges().Exec(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if !ok {
-		return nil, ErrNoResult
+
+	pageInfo, err := instance.PageInfo().Exec(ctx)
+	if err != nil {
+		return nil, err
 	}
-	return &v, nil
+
+	return &UserConnection{
+		Edges:    edges,
+		PageInfo: *pageInfo,
+	}, nil
 }
 
-func (instance SearchConnectionExec) Exists(ctx context.Context) (bool, error) {
+func (instance UserConnectionExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type SearchConnectionExecArray struct {
+type UserConnectionExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance SearchConnectionExecArray) Exec(ctx context.Context) ([]SearchConnection, error) {
-	var v []SearchConnection
+func (instance UserConnectionExecArray) Exec(ctx context.Context) ([]UserConnection, error) {
+	var v []UserConnection
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type SearchConnection struct {
-	PageInfo PageInfo     `json:"pageInfo"`
-	Edges    []SearchEdge `json:"edges"`
+var UserConnectionFields = []string{}
+
+type UserConnection struct {
+	PageInfo PageInfo   `json:"pageInfo"`
+	Edges    []UserEdge `json:"edges"`
 }
 
 type EventPreviousValuesExec struct {
@@ -4069,6 +4040,8 @@ func (instance EventPreviousValuesExecArray) Exec(ctx context.Context) ([]EventP
 	return v, err
 }
 
+var EventPreviousValuesFields = []string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"}
+
 type EventPreviousValues struct {
 	ID                   string        `json:"id"`
 	Name                 string        `json:"name"`
@@ -4093,6 +4066,198 @@ type EventPreviousValues struct {
 	UpdatedAt            *string       `json:"updatedAt,omitempty"`
 }
 
+type EventOccurrenceEdgeExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *EventOccurrenceEdgeExec) Node() *EventOccurrenceExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "EventOccurrence"},
+		"node",
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+
+	return &EventOccurrenceExec{ret}
+}
+
+func (instance EventOccurrenceEdgeExec) Exec(ctx context.Context) (*EventOccurrenceEdge, error) {
+	var v EventOccurrenceEdge
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance EventOccurrenceEdgeExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type EventOccurrenceEdgeExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance EventOccurrenceEdgeExecArray) Exec(ctx context.Context) ([]EventOccurrenceEdge, error) {
+	var v []EventOccurrenceEdge
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+var EventOccurrenceEdgeFields = []string{"cursor"}
+
+type EventOccurrenceEdge struct {
+	Node   EventOccurrence `json:"node"`
+	Cursor string          `json:"cursor"`
+}
+
+type SearchConnectionExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *SearchConnectionExec) PageInfo() *PageInfoExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "PageInfo"},
+		"pageInfo",
+		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
+
+	return &PageInfoExec{ret}
+}
+
+func (instance *SearchConnectionExec) Edges() *SearchEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
+		instance.exec,
+		nil,
+		[3]string{"SearchWhereInput", "SearchOrderByInput", "SearchEdge"},
+		"edges",
+		[]string{"cursor"})
+
+	nodes := edges.Client.GetOne(
+		edges,
+		nil,
+		[2]string{"", "Search"},
+		"node",
+		SearchFields)
+
+	return &SearchEdgeExecArray{nodes}
+}
+
+func (instance *SearchConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "AggregateSearch"},
+		"aggregate",
+		[]string{"count"})
+
+	var v Aggregate
+	_, err := ret.Exec(ctx, &v)
+	return &v, err
+}
+
+func (instance SearchConnectionExec) Exec(ctx context.Context) (*SearchConnection, error) {
+	edges, err := instance.Edges().Exec(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	pageInfo, err := instance.PageInfo().Exec(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return &SearchConnection{
+		Edges:    edges,
+		PageInfo: *pageInfo,
+	}, nil
+}
+
+func (instance SearchConnectionExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type SearchConnectionExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance SearchConnectionExecArray) Exec(ctx context.Context) ([]SearchConnection, error) {
+	var v []SearchConnection
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+var SearchConnectionFields = []string{}
+
+type SearchConnection struct {
+	PageInfo PageInfo     `json:"pageInfo"`
+	Edges    []SearchEdge `json:"edges"`
+}
+
+type EventOccurrenceSubscriptionPayloadExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *EventOccurrenceSubscriptionPayloadExec) Node() *EventOccurrenceExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "EventOccurrence"},
+		"node",
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+
+	return &EventOccurrenceExec{ret}
+}
+
+func (instance *EventOccurrenceSubscriptionPayloadExec) PreviousValues() *EventOccurrencePreviousValuesExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "EventOccurrencePreviousValues"},
+		"previousValues",
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+
+	return &EventOccurrencePreviousValuesExec{ret}
+}
+
+func (instance EventOccurrenceSubscriptionPayloadExec) Exec(ctx context.Context) (*EventOccurrenceSubscriptionPayload, error) {
+	var v EventOccurrenceSubscriptionPayload
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance EventOccurrenceSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type EventOccurrenceSubscriptionPayloadExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance EventOccurrenceSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]EventOccurrenceSubscriptionPayload, error) {
+	var v []EventOccurrenceSubscriptionPayload
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+var EventOccurrenceSubscriptionPayloadFields = []string{"mutation", "updatedFields"}
+
+type EventOccurrenceSubscriptionPayload struct {
+	Mutation      MutationType     `json:"mutation"`
+	Node          *EventOccurrence `json:"node,omitempty"`
+	UpdatedFields []string         `json:"updatedFields,omitempty"`
+}
+
 type SearchExec struct {
 	exec *prisma.Exec
 }
@@ -4103,9 +4268,19 @@ func (instance *SearchExec) User() *UserExec {
 		nil,
 		[2]string{"", "User"},
 		"user",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
+}
+
+type EventsParamsExec struct {
+	Where   *EventWhereInput
+	OrderBy *EventOrderByInput
+	Skip    *int32
+	After   *string
+	Before  *string
+	First   *int32
+	Last    *int32
 }
 
 func (instance *SearchExec) Events(params *EventsParamsExec) *EventExecArray {
@@ -4192,6 +4367,8 @@ func (instance SearchExecArray) Exec(ctx context.Context) ([]Search, error) {
 	return v, err
 }
 
+var SearchFields = []string{"id", "createdAt", "city", "startDate", "endDate", "info", "suggested"}
+
 type Search struct {
 	ID        string  `json:"id"`
 	CreatedAt string  `json:"createdAt"`
@@ -4200,6 +4377,53 @@ type Search struct {
 	EndDate   string  `json:"endDate"`
 	Info      *string `json:"info,omitempty"`
 	Suggested int32   `json:"suggested"`
+}
+
+type EventOccurrencePreviousValuesExec struct {
+	exec *prisma.Exec
+}
+
+func (instance EventOccurrencePreviousValuesExec) Exec(ctx context.Context) (*EventOccurrencePreviousValues, error) {
+	var v EventOccurrencePreviousValues
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance EventOccurrencePreviousValuesExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type EventOccurrencePreviousValuesExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance EventOccurrencePreviousValuesExecArray) Exec(ctx context.Context) ([]EventOccurrencePreviousValues, error) {
+	var v []EventOccurrencePreviousValues
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+var EventOccurrencePreviousValuesFields = []string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"}
+
+type EventOccurrencePreviousValues struct {
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	ImageUrl    string  `json:"imageUrl"`
+	StartDate   string  `json:"startDate"`
+	EndDate     *string `json:"endDate,omitempty"`
+	Lat         float64 `json:"lat"`
+	Long        float64 `json:"long"`
+	Price       *int32  `json:"price,omitempty"`
+	City        City    `json:"city"`
+	TicketUrl   *string `json:"ticketUrl,omitempty"`
+	CreatedAt   string  `json:"createdAt"`
 }
 
 type RequestedCityEdgeExec struct {
@@ -4243,189 +4467,127 @@ func (instance RequestedCityEdgeExecArray) Exec(ctx context.Context) ([]Requeste
 	return v, err
 }
 
+var RequestedCityEdgeFields = []string{"cursor"}
+
 type RequestedCityEdge struct {
 	Node   RequestedCity `json:"node"`
 	Cursor string        `json:"cursor"`
 }
 
-type EventOccurrenceSubscriptionPayloadExec struct {
+type EventOccurrenceConnectionExec struct {
 	exec *prisma.Exec
 }
 
-func (instance *EventOccurrenceSubscriptionPayloadExec) Node() *EventOccurrenceExec {
+func (instance *EventOccurrenceConnectionExec) PageInfo() *PageInfoExec {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
+		nil,
+		[2]string{"", "PageInfo"},
+		"pageInfo",
+		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
+
+	return &PageInfoExec{ret}
+}
+
+func (instance *EventOccurrenceConnectionExec) Edges() *EventOccurrenceEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
+		instance.exec,
+		nil,
+		[3]string{"EventOccurrenceWhereInput", "EventOccurrenceOrderByInput", "EventOccurrenceEdge"},
+		"edges",
+		[]string{"cursor"})
+
+	nodes := edges.Client.GetOne(
+		edges,
 		nil,
 		[2]string{"", "EventOccurrence"},
 		"node",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		EventOccurrenceFields)
 
-	return &EventOccurrenceExec{ret}
+	return &EventOccurrenceEdgeExecArray{nodes}
 }
 
-func (instance *EventOccurrenceSubscriptionPayloadExec) PreviousValues() *EventOccurrencePreviousValuesExec {
+func (instance *EventOccurrenceConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
-		[2]string{"", "EventOccurrencePreviousValues"},
-		"previousValues",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[2]string{"", "AggregateEventOccurrence"},
+		"aggregate",
+		[]string{"count"})
 
-	return &EventOccurrencePreviousValuesExec{ret}
+	var v Aggregate
+	_, err := ret.Exec(ctx, &v)
+	return &v, err
 }
 
-func (instance EventOccurrenceSubscriptionPayloadExec) Exec(ctx context.Context) (*EventOccurrenceSubscriptionPayload, error) {
-	var v EventOccurrenceSubscriptionPayload
-	ok, err := instance.exec.Exec(ctx, &v)
+func (instance EventOccurrenceConnectionExec) Exec(ctx context.Context) (*EventOccurrenceConnection, error) {
+	edges, err := instance.Edges().Exec(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if !ok {
-		return nil, ErrNoResult
+
+	pageInfo, err := instance.PageInfo().Exec(ctx)
+	if err != nil {
+		return nil, err
 	}
-	return &v, nil
+
+	return &EventOccurrenceConnection{
+		Edges:    edges,
+		PageInfo: *pageInfo,
+	}, nil
 }
 
-func (instance EventOccurrenceSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
+func (instance EventOccurrenceConnectionExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type EventOccurrenceSubscriptionPayloadExecArray struct {
+type EventOccurrenceConnectionExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance EventOccurrenceSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]EventOccurrenceSubscriptionPayload, error) {
-	var v []EventOccurrenceSubscriptionPayload
+func (instance EventOccurrenceConnectionExecArray) Exec(ctx context.Context) ([]EventOccurrenceConnection, error) {
+	var v []EventOccurrenceConnection
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type EventOccurrenceSubscriptionPayload struct {
-	Mutation      MutationType     `json:"mutation"`
-	Node          *EventOccurrence `json:"node,omitempty"`
-	UpdatedFields []string         `json:"updatedFields,omitempty"`
+var EventOccurrenceConnectionFields = []string{}
+
+type EventOccurrenceConnection struct {
+	PageInfo PageInfo              `json:"pageInfo"`
+	Edges    []EventOccurrenceEdge `json:"edges"`
 }
 
-type VenueSubscriptionPayloadExec struct {
+type VenueExec struct {
 	exec *prisma.Exec
 }
 
-func (instance *VenueSubscriptionPayloadExec) Node() *VenueExec {
-	ret := instance.exec.Client.GetOne(
+func (instance *VenueExec) Events(params *EventsParamsExec) *EventExecArray {
+	var wparams *prisma.WhereParams
+	if params != nil {
+		wparams = &prisma.WhereParams{
+			Where:   params.Where,
+			OrderBy: (*string)(params.OrderBy),
+			Skip:    params.Skip,
+			After:   params.After,
+			Before:  params.Before,
+			First:   params.First,
+			Last:    params.Last,
+		}
+	}
+
+	ret := instance.exec.Client.GetMany(
 		instance.exec,
-		nil,
-		[2]string{"", "Venue"},
-		"node",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
-
-	return &VenueExec{ret}
-}
-
-func (instance *VenueSubscriptionPayloadExec) PreviousValues() *VenuePreviousValuesExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "VenuePreviousValues"},
-		"previousValues",
-		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
-
-	return &VenuePreviousValuesExec{ret}
-}
-
-func (instance VenueSubscriptionPayloadExec) Exec(ctx context.Context) (*VenueSubscriptionPayload, error) {
-	var v VenueSubscriptionPayload
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance VenueSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type VenueSubscriptionPayloadExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance VenueSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]VenueSubscriptionPayload, error) {
-	var v []VenueSubscriptionPayload
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type VenueSubscriptionPayload struct {
-	Mutation      MutationType `json:"mutation"`
-	Node          *Venue       `json:"node,omitempty"`
-	UpdatedFields []string     `json:"updatedFields,omitempty"`
-}
-
-type EventOccurrencePreviousValuesExec struct {
-	exec *prisma.Exec
-}
-
-func (instance EventOccurrencePreviousValuesExec) Exec(ctx context.Context) (*EventOccurrencePreviousValues, error) {
-	var v EventOccurrencePreviousValues
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance EventOccurrencePreviousValuesExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type EventOccurrencePreviousValuesExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance EventOccurrencePreviousValuesExecArray) Exec(ctx context.Context) ([]EventOccurrencePreviousValues, error) {
-	var v []EventOccurrencePreviousValues
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type EventOccurrencePreviousValues struct {
-	ID          string  `json:"id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	ImageUrl    string  `json:"imageUrl"`
-	StartDate   string  `json:"startDate"`
-	EndDate     *string `json:"endDate,omitempty"`
-	Lat         float64 `json:"lat"`
-	Long        float64 `json:"long"`
-	Price       *int32  `json:"price,omitempty"`
-	City        City    `json:"city"`
-	TicketUrl   *string `json:"ticketUrl,omitempty"`
-	CreatedAt   string  `json:"createdAt"`
-}
-
-type EventEdgeExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *EventEdgeExec) Node() *EventExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "Event"},
-		"node",
+		wparams,
+		[3]string{"EventWhereInput", "EventOrderByInput", "Event"},
+		"events",
 		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
 
-	return &EventExec{ret}
+	return &EventExecArray{ret}
 }
 
-func (instance EventEdgeExec) Exec(ctx context.Context) (*EventEdge, error) {
-	var v EventEdge
+func (instance VenueExec) Exec(ctx context.Context) (*Venue, error) {
+	var v Venue
 	ok, err := instance.exec.Exec(ctx, &v)
 	if err != nil {
 		return nil, err
@@ -4436,118 +4598,162 @@ func (instance EventEdgeExec) Exec(ctx context.Context) (*EventEdge, error) {
 	return &v, nil
 }
 
-func (instance EventEdgeExec) Exists(ctx context.Context) (bool, error) {
+func (instance VenueExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type EventEdgeExecArray struct {
+type VenueExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance EventEdgeExecArray) Exec(ctx context.Context) ([]EventEdge, error) {
-	var v []EventEdge
+func (instance VenueExecArray) Exec(ctx context.Context) ([]Venue, error) {
+	var v []Venue
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type EventEdge struct {
-	Node   Event  `json:"node"`
-	Cursor string `json:"cursor"`
+var VenueFields = []string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"}
+
+type Venue struct {
+	ID                string  `json:"id"`
+	NameFr            string  `json:"nameFr"`
+	NameEn            string  `json:"nameEn"`
+	Lat               float64 `json:"lat"`
+	Long              float64 `json:"long"`
+	City              City    `json:"city"`
+	Address           *string `json:"address,omitempty"`
+	Zip               *string `json:"zip,omitempty"`
+	Country           string  `json:"country"`
+	Url               *string `json:"url,omitempty"`
+	WpFrId            int32   `json:"wpFrId"`
+	WpEnId            int32   `json:"wpEnId"`
+	PossibleDuplicate bool    `json:"possibleDuplicate"`
 }
 
-type EventOccurrenceEdgeExec struct {
+type SearchPreviousValuesExec struct {
 	exec *prisma.Exec
 }
 
-func (instance *EventOccurrenceEdgeExec) Node() *EventOccurrenceExec {
+func (instance SearchPreviousValuesExec) Exec(ctx context.Context) (*SearchPreviousValues, error) {
+	var v SearchPreviousValues
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance SearchPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type SearchPreviousValuesExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance SearchPreviousValuesExecArray) Exec(ctx context.Context) ([]SearchPreviousValues, error) {
+	var v []SearchPreviousValues
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+var SearchPreviousValuesFields = []string{"id", "createdAt", "city", "startDate", "endDate", "info", "suggested"}
+
+type SearchPreviousValues struct {
+	ID        string  `json:"id"`
+	CreatedAt string  `json:"createdAt"`
+	City      City    `json:"city"`
+	StartDate string  `json:"startDate"`
+	EndDate   string  `json:"endDate"`
+	Info      *string `json:"info,omitempty"`
+	Suggested int32   `json:"suggested"`
+}
+
+type RequestedCityConnectionExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *RequestedCityConnectionExec) PageInfo() *PageInfoExec {
 	ret := instance.exec.Client.GetOne(
 		instance.exec,
 		nil,
-		[2]string{"", "EventOccurrence"},
+		[2]string{"", "PageInfo"},
+		"pageInfo",
+		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
+
+	return &PageInfoExec{ret}
+}
+
+func (instance *RequestedCityConnectionExec) Edges() *RequestedCityEdgeExecArray {
+	edges := instance.exec.Client.GetMany(
+		instance.exec,
+		nil,
+		[3]string{"RequestedCityWhereInput", "RequestedCityOrderByInput", "RequestedCityEdge"},
+		"edges",
+		[]string{"cursor"})
+
+	nodes := edges.Client.GetOne(
+		edges,
+		nil,
+		[2]string{"", "RequestedCity"},
 		"node",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		RequestedCityFields)
 
-	return &EventOccurrenceExec{ret}
+	return &RequestedCityEdgeExecArray{nodes}
 }
 
-func (instance EventOccurrenceEdgeExec) Exec(ctx context.Context) (*EventOccurrenceEdge, error) {
-	var v EventOccurrenceEdge
-	ok, err := instance.exec.Exec(ctx, &v)
+func (instance *RequestedCityConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "AggregateRequestedCity"},
+		"aggregate",
+		[]string{"count"})
+
+	var v Aggregate
+	_, err := ret.Exec(ctx, &v)
+	return &v, err
+}
+
+func (instance RequestedCityConnectionExec) Exec(ctx context.Context) (*RequestedCityConnection, error) {
+	edges, err := instance.Edges().Exec(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if !ok {
-		return nil, ErrNoResult
+
+	pageInfo, err := instance.PageInfo().Exec(ctx)
+	if err != nil {
+		return nil, err
 	}
-	return &v, nil
+
+	return &RequestedCityConnection{
+		Edges:    edges,
+		PageInfo: *pageInfo,
+	}, nil
 }
 
-func (instance EventOccurrenceEdgeExec) Exists(ctx context.Context) (bool, error) {
+func (instance RequestedCityConnectionExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type EventOccurrenceEdgeExecArray struct {
+type RequestedCityConnectionExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance EventOccurrenceEdgeExecArray) Exec(ctx context.Context) ([]EventOccurrenceEdge, error) {
-	var v []EventOccurrenceEdge
+func (instance RequestedCityConnectionExecArray) Exec(ctx context.Context) ([]RequestedCityConnection, error) {
+	var v []RequestedCityConnection
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type EventOccurrenceEdge struct {
-	Node   EventOccurrence `json:"node"`
-	Cursor string          `json:"cursor"`
-}
+var RequestedCityConnectionFields = []string{}
 
-type UserPreviousValuesExec struct {
-	exec *prisma.Exec
-}
-
-func (instance UserPreviousValuesExec) Exec(ctx context.Context) (*UserPreviousValues, error) {
-	var v UserPreviousValues
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance UserPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type UserPreviousValuesExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance UserPreviousValuesExecArray) Exec(ctx context.Context) ([]UserPreviousValues, error) {
-	var v []UserPreviousValues
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type UserPreviousValues struct {
-	ID                     string        `json:"id"`
-	Facebookid             *string       `json:"facebookid,omitempty"`
-	Fname                  *string       `json:"fname,omitempty"`
-	Lname                  *string       `json:"lname,omitempty"`
-	Picture                *string       `json:"picture,omitempty"`
-	Email                  *string       `json:"email,omitempty"`
-	Password               *string       `json:"password,omitempty"`
-	Sex                    *Sex          `json:"sex,omitempty"`
-	Age                    *int32        `json:"age,omitempty"`
-	City                   *City         `json:"city,omitempty"`
-	Permissions            []Permission  `json:"permissions,omitempty"`
-	Relationship           *Relationship `json:"relationship,omitempty"`
-	CreatedAt              string        `json:"createdAt"`
-	UpdatedAt              string        `json:"updatedAt"`
-	LastInteraction        string        `json:"lastInteraction"`
-	MessengerNotifications Notification  `json:"messengerNotifications"`
+type RequestedCityConnection struct {
+	PageInfo PageInfo            `json:"pageInfo"`
+	Edges    []RequestedCityEdge `json:"edges"`
 }
 
 type RequestedCitySubscriptionPayloadExec struct {
@@ -4602,6 +4808,8 @@ func (instance RequestedCitySubscriptionPayloadExecArray) Exec(ctx context.Conte
 	return v, err
 }
 
+var RequestedCitySubscriptionPayloadFields = []string{"mutation", "updatedFields"}
+
 type RequestedCitySubscriptionPayload struct {
 	Mutation      MutationType   `json:"mutation"`
 	Node          *RequestedCity `json:"node,omitempty"`
@@ -4618,7 +4826,7 @@ func (instance *UserSubscriptionPayloadExec) Node() *UserExec {
 		nil,
 		[2]string{"", "User"},
 		"node",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -4629,7 +4837,7 @@ func (instance *UserSubscriptionPayloadExec) PreviousValues() *UserPreviousValue
 		nil,
 		[2]string{"", "UserPreviousValues"},
 		"previousValues",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserPreviousValuesExec{ret}
 }
@@ -4660,18 +4868,42 @@ func (instance UserSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]Us
 	return v, err
 }
 
+var UserSubscriptionPayloadFields = []string{"mutation", "updatedFields"}
+
 type UserSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
 	Node          *User        `json:"node,omitempty"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
 }
 
-type SearchPreviousValuesExec struct {
+type VenueSubscriptionPayloadExec struct {
 	exec *prisma.Exec
 }
 
-func (instance SearchPreviousValuesExec) Exec(ctx context.Context) (*SearchPreviousValues, error) {
-	var v SearchPreviousValues
+func (instance *VenueSubscriptionPayloadExec) Node() *VenueExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "Venue"},
+		"node",
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+
+	return &VenueExec{ret}
+}
+
+func (instance *VenueSubscriptionPayloadExec) PreviousValues() *VenuePreviousValuesExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "VenuePreviousValues"},
+		"previousValues",
+		[]string{"id", "nameFr", "nameEn", "lat", "long", "city", "address", "zip", "country", "url", "wpFrId", "wpEnId", "possibleDuplicate"})
+
+	return &VenuePreviousValuesExec{ret}
+}
+
+func (instance VenueSubscriptionPayloadExec) Exec(ctx context.Context) (*VenueSubscriptionPayload, error) {
+	var v VenueSubscriptionPayload
 	ok, err := instance.exec.Exec(ctx, &v)
 	if err != nil {
 		return nil, err
@@ -4682,28 +4914,65 @@ func (instance SearchPreviousValuesExec) Exec(ctx context.Context) (*SearchPrevi
 	return &v, nil
 }
 
-func (instance SearchPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
+func (instance VenueSubscriptionPayloadExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type SearchPreviousValuesExecArray struct {
+type VenueSubscriptionPayloadExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance SearchPreviousValuesExecArray) Exec(ctx context.Context) ([]SearchPreviousValues, error) {
-	var v []SearchPreviousValues
+func (instance VenueSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]VenueSubscriptionPayload, error) {
+	var v []VenueSubscriptionPayload
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type SearchPreviousValues struct {
-	ID        string  `json:"id"`
-	CreatedAt string  `json:"createdAt"`
-	City      City    `json:"city"`
-	StartDate string  `json:"startDate"`
-	EndDate   string  `json:"endDate"`
-	Info      *string `json:"info,omitempty"`
-	Suggested int32   `json:"suggested"`
+var VenueSubscriptionPayloadFields = []string{"mutation", "updatedFields"}
+
+type VenueSubscriptionPayload struct {
+	Mutation      MutationType `json:"mutation"`
+	Node          *Venue       `json:"node,omitempty"`
+	UpdatedFields []string     `json:"updatedFields,omitempty"`
+}
+
+type PageInfoExec struct {
+	exec *prisma.Exec
+}
+
+func (instance PageInfoExec) Exec(ctx context.Context) (*PageInfo, error) {
+	var v PageInfo
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance PageInfoExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type PageInfoExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance PageInfoExecArray) Exec(ctx context.Context) ([]PageInfo, error) {
+	var v []PageInfo
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+var PageInfoFields = []string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"}
+
+type PageInfo struct {
+	HasNextPage     bool    `json:"hasNextPage"`
+	HasPreviousPage bool    `json:"hasPreviousPage"`
+	StartCursor     *string `json:"startCursor,omitempty"`
+	EndCursor       *string `json:"endCursor,omitempty"`
 }
 
 type SearchSubscriptionPayloadExec struct {
@@ -4758,87 +5027,12 @@ func (instance SearchSubscriptionPayloadExecArray) Exec(ctx context.Context) ([]
 	return v, err
 }
 
+var SearchSubscriptionPayloadFields = []string{"mutation", "updatedFields"}
+
 type SearchSubscriptionPayload struct {
 	Mutation      MutationType `json:"mutation"`
 	Node          *Search      `json:"node,omitempty"`
 	UpdatedFields []string     `json:"updatedFields,omitempty"`
-}
-
-type EventOccurrenceConnectionExec struct {
-	exec *prisma.Exec
-}
-
-func (instance *EventOccurrenceConnectionExec) PageInfo() *PageInfoExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "PageInfo"},
-		"pageInfo",
-		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
-
-	return &PageInfoExec{ret}
-}
-
-func (instance *EventOccurrenceConnectionExec) Edges() *EventOccurrenceEdgeExecArray {
-	edges := instance.exec.Client.GetMany(
-		instance.exec,
-		nil,
-		[3]string{"EventOccurrenceWhereInput", "EventOccurrenceOrderByInput", "EventOccurrenceEdge"},
-		"edges",
-		[]string{"cursor"})
-
-	nodes := edges.Client.GetMany(
-		edges,
-		nil,
-		[3]string{"", "", "EventOccurrence"},
-		"node",
-		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
-
-	return &EventOccurrenceEdgeExecArray{nodes}
-}
-
-func (instance *EventOccurrenceConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "AggregateEventOccurrence"},
-		"aggregate",
-		[]string{"count"})
-
-	var v Aggregate
-	_, err := ret.Exec(ctx, &v)
-	return &v, err
-}
-
-func (instance EventOccurrenceConnectionExec) Exec(ctx context.Context) (*EventOccurrenceConnection, error) {
-	var v EventOccurrenceConnection
-	ok, err := instance.exec.Exec(ctx, &v)
-	if err != nil {
-		return nil, err
-	}
-	if !ok {
-		return nil, ErrNoResult
-	}
-	return &v, nil
-}
-
-func (instance EventOccurrenceConnectionExec) Exists(ctx context.Context) (bool, error) {
-	return instance.exec.Exists(ctx)
-}
-
-type EventOccurrenceConnectionExecArray struct {
-	exec *prisma.Exec
-}
-
-func (instance EventOccurrenceConnectionExecArray) Exec(ctx context.Context) ([]EventOccurrenceConnection, error) {
-	var v []EventOccurrenceConnection
-	err := instance.exec.ExecArray(ctx, &v)
-	return v, err
-}
-
-type EventOccurrenceConnection struct {
-	PageInfo PageInfo              `json:"pageInfo"`
-	Edges    []EventOccurrenceEdge `json:"edges"`
 }
 
 type RequestedCityPreviousValuesExec struct {
@@ -4871,10 +5065,60 @@ func (instance RequestedCityPreviousValuesExecArray) Exec(ctx context.Context) (
 	return v, err
 }
 
+var RequestedCityPreviousValuesFields = []string{"id", "city", "sendEmail"}
+
 type RequestedCityPreviousValues struct {
 	ID        string `json:"id"`
 	City      string `json:"city"`
 	SendEmail bool   `json:"sendEmail"`
+}
+
+type EventEdgeExec struct {
+	exec *prisma.Exec
+}
+
+func (instance *EventEdgeExec) Node() *EventExec {
+	ret := instance.exec.Client.GetOne(
+		instance.exec,
+		nil,
+		[2]string{"", "Event"},
+		"node",
+		[]string{"id", "name", "description", "shortDescription", "link", "imageUrl", "nextOccurrenceDate", "price", "category", "tags", "ticketUrl", "source", "wpFrId", "wpEnId", "possibleDuplicate", "importNotes", "isRecurring", "recurrencePattern", "occurrencesAreUnique", "createdAt", "updatedAt"})
+
+	return &EventExec{ret}
+}
+
+func (instance EventEdgeExec) Exec(ctx context.Context) (*EventEdge, error) {
+	var v EventEdge
+	ok, err := instance.exec.Exec(ctx, &v)
+	if err != nil {
+		return nil, err
+	}
+	if !ok {
+		return nil, ErrNoResult
+	}
+	return &v, nil
+}
+
+func (instance EventEdgeExec) Exists(ctx context.Context) (bool, error) {
+	return instance.exec.Exists(ctx)
+}
+
+type EventEdgeExecArray struct {
+	exec *prisma.Exec
+}
+
+func (instance EventEdgeExecArray) Exec(ctx context.Context) ([]EventEdge, error) {
+	var v []EventEdge
+	err := instance.exec.ExecArray(ctx, &v)
+	return v, err
+}
+
+var EventEdgeFields = []string{"cursor"}
+
+type EventEdge struct {
+	Node   Event  `json:"node"`
+	Cursor string `json:"cursor"`
 }
 
 type SearchEdgeExec struct {
@@ -4918,6 +5162,8 @@ func (instance SearchEdgeExecArray) Exec(ctx context.Context) ([]SearchEdge, err
 	return v, err
 }
 
+var SearchEdgeFields = []string{"cursor"}
+
 type SearchEdge struct {
 	Node   Search `json:"node"`
 	Cursor string `json:"cursor"`
@@ -4933,7 +5179,7 @@ func (instance *UserEdgeExec) Node() *UserExec {
 		nil,
 		[2]string{"", "User"},
 		"node",
-		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
+		[]string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"})
 
 	return &UserExec{ret}
 }
@@ -4963,6 +5209,8 @@ func (instance UserEdgeExecArray) Exec(ctx context.Context) ([]UserEdge, error) 
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
+
+var UserEdgeFields = []string{"cursor"}
 
 type UserEdge struct {
 	Node   User   `json:"node"`
@@ -5010,59 +5258,19 @@ func (instance VenueEdgeExecArray) Exec(ctx context.Context) ([]VenueEdge, error
 	return v, err
 }
 
+var VenueEdgeFields = []string{"cursor"}
+
 type VenueEdge struct {
 	Node   Venue  `json:"node"`
 	Cursor string `json:"cursor"`
 }
 
-type RequestedCityConnectionExec struct {
+type UserPreviousValuesExec struct {
 	exec *prisma.Exec
 }
 
-func (instance *RequestedCityConnectionExec) PageInfo() *PageInfoExec {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "PageInfo"},
-		"pageInfo",
-		[]string{"hasNextPage", "hasPreviousPage", "startCursor", "endCursor"})
-
-	return &PageInfoExec{ret}
-}
-
-func (instance *RequestedCityConnectionExec) Edges() *RequestedCityEdgeExecArray {
-	edges := instance.exec.Client.GetMany(
-		instance.exec,
-		nil,
-		[3]string{"RequestedCityWhereInput", "RequestedCityOrderByInput", "RequestedCityEdge"},
-		"edges",
-		[]string{"cursor"})
-
-	nodes := edges.Client.GetMany(
-		edges,
-		nil,
-		[3]string{"", "", "RequestedCity"},
-		"node",
-		[]string{"id", "createdAt", "updatedAt", "name", "desc"})
-
-	return &RequestedCityEdgeExecArray{nodes}
-}
-
-func (instance *RequestedCityConnectionExec) Aggregate(ctx context.Context) (*Aggregate, error) {
-	ret := instance.exec.Client.GetOne(
-		instance.exec,
-		nil,
-		[2]string{"", "AggregateRequestedCity"},
-		"aggregate",
-		[]string{"count"})
-
-	var v Aggregate
-	_, err := ret.Exec(ctx, &v)
-	return &v, err
-}
-
-func (instance RequestedCityConnectionExec) Exec(ctx context.Context) (*RequestedCityConnection, error) {
-	var v RequestedCityConnection
+func (instance UserPreviousValuesExec) Exec(ctx context.Context) (*UserPreviousValues, error) {
+	var v UserPreviousValues
 	ok, err := instance.exec.Exec(ctx, &v)
 	if err != nil {
 		return nil, err
@@ -5073,21 +5281,38 @@ func (instance RequestedCityConnectionExec) Exec(ctx context.Context) (*Requeste
 	return &v, nil
 }
 
-func (instance RequestedCityConnectionExec) Exists(ctx context.Context) (bool, error) {
+func (instance UserPreviousValuesExec) Exists(ctx context.Context) (bool, error) {
 	return instance.exec.Exists(ctx)
 }
 
-type RequestedCityConnectionExecArray struct {
+type UserPreviousValuesExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance RequestedCityConnectionExecArray) Exec(ctx context.Context) ([]RequestedCityConnection, error) {
-	var v []RequestedCityConnection
+func (instance UserPreviousValuesExecArray) Exec(ctx context.Context) ([]UserPreviousValues, error) {
+	var v []UserPreviousValues
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }
 
-type RequestedCityConnection struct {
-	PageInfo PageInfo            `json:"pageInfo"`
-	Edges    []RequestedCityEdge `json:"edges"`
+var UserPreviousValuesFields = []string{"id", "facebookid", "fname", "lname", "picture", "email", "password", "language", "sex", "age", "city", "permissions", "relationship", "createdAt", "updatedAt", "lastInteraction", "messengerNotifications"}
+
+type UserPreviousValues struct {
+	ID                     string        `json:"id"`
+	Facebookid             *string       `json:"facebookid,omitempty"`
+	Fname                  *string       `json:"fname,omitempty"`
+	Lname                  *string       `json:"lname,omitempty"`
+	Picture                *string       `json:"picture,omitempty"`
+	Email                  *string       `json:"email,omitempty"`
+	Password               *string       `json:"password,omitempty"`
+	Language               *Language     `json:"language,omitempty"`
+	Sex                    *Sex          `json:"sex,omitempty"`
+	Age                    *int32        `json:"age,omitempty"`
+	City                   *City         `json:"city,omitempty"`
+	Permissions            []Permission  `json:"permissions,omitempty"`
+	Relationship           *Relationship `json:"relationship,omitempty"`
+	CreatedAt              string        `json:"createdAt"`
+	UpdatedAt              string        `json:"updatedAt"`
+	LastInteraction        string        `json:"lastInteraction"`
+	MessengerNotifications Notification  `json:"messengerNotifications"`
 }
