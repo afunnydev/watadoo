@@ -2,7 +2,7 @@
 const dialogflow = require("dialogflow");
 
 const { prisma } = require("./generated/prisma-client");
-const { welcome, localisation, relationship, age, search, searchYes, searchInterest } = require("./intents");
+const { welcome, localisation, relationship, age, search, searchYes, searchInterest, searchNext, searchCancel, searchNo, searchNoDate, searchNoCity, searchLarger } = require("./intents");
 const newUser = require("./utils/newUser");
 
 // Instantiates a session client
@@ -65,17 +65,30 @@ const handleIntent = async (intent, user, parameters = {}, context = []) => {
     await search(user, parameters);
     break;
   case "Search - yes":
-    console.log(parameters);
-    console.log(parameters.queryId);
     await searchYes(user, context.length ? context[0].parameters : null);
     break;
   case "Search - interest":
     await searchInterest(user);
     break;
+  case "Search - next":
+    await searchNext(user, context.length ? context[0].parameters : null);
+    break;
+  case "Search - cancel":
+    await searchCancel(user, context.length ? context[0].parameters : null);
+    break;
+  case "Search - no":
+    await searchNo(user);
+    break;
+  case "Search - no - date":
+    await searchNoDate(user, context.length ? context[1].parameters : null, parameters);
+    break;
+  case "Search - no - city":
+    await searchNoCity(user, context.length ? context[0].parameters : null, parameters.city ? parameters.city.stringValue : "");
+    break;
+  case "Search - larger":
+    await searchLarger(user, context.length ? context[0].parameters : null);
+    break;
   default:
     break;
   }
-
-  // intentMap.set("Relationship", await relationship);
-//   intentMap.set("Age", await age);
 };

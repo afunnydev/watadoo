@@ -59,7 +59,7 @@ exports.messages = {
     "Montréal": "Montréal",
     "Québec": "Québec",
     "Pour commencer, dans quelle ville es-tu? Tu peux l'écrire si elle n'est pas dans les choix.": "Pour commencer, dans quelle ville es-tu? Tu peux l'écrire si elle n'est pas dans les choix.",
-    "C'est tout pour ta recherche. Si tu as aimé l'expérience, n'hésite pas à t'inscrire pour recevoir des événements automatiquement.": "C'est tout pour ta recherche. Si tu as aimé l'expérience, n'hésite pas à t'inscrire pour recevoir des événements automatiquement.",
+    "search-completed": "C'est tout pour ta recherche. Si tu as aimé l'expérience, n'hésite pas à t'inscrire pour recevoir des événements automatiquement.",
     "Je veux m'inscrire": "Je veux m'inscrire",
     "Nouvelle recherche": "Nouvelle recherche",
     "Partager Watadoo": "Partager Watadoo",
@@ -91,7 +91,7 @@ exports.messages = {
     "user-deleted": "Ton compte a été supprimé avec succès. Même si je suis triste qu'on en finisse là, je suis certain que tu as des bonnes raisons. Sans rancune.",
     "farewell": "Je serai toujours là si tu as besoin d'aide pour trouver un événement. Tu n'as qu'à me saluer. Bonne continuité. 👋",
     "found-events": "J'ai trouvé %{smart_count} événement pour toi. Tu peux cliquer sur l'événement pour en savoir plus. ⬇️ |||| J'ai trouvé %{smart_count} événements pour toi. Tu peux cliquer sur l'événement pour en savoir plus. ⬇️",
-    "Il me reste %s autres événements à te montrer.": "Il me reste %s autres événements à te montrer.",
+    "more-events-in-search": "Il me reste %{smart_count} autre événement à te montrer. |||| Il me reste %{smart_count} autres événements à te montrer.",
     "Voir les suivants": "Voir les suivants",
     "Je n'ai pas compris ces dates.": "Je n'ai pas compris ces dates.",
     "search-error": "Une erreur s'est produite. Je suis vraiment désolé ...😅 Peux-tu recommencer ta recherche SVP?",
@@ -100,11 +100,13 @@ exports.messages = {
     "Tu as déjà vu tous les événements pour cette recherche. Veux-tu faire une autre recherche?": "Tu as déjà vu tous les événements pour cette recherche. Veux-tu faire une autre recherche?",
     "Recevoir des alertes": "Recevoir des alertes",
     "search-no-query": "Une erreur s'est produite. Je suis vraiment désolé ...😅 Tu peux dire 'Nouvelle recherche' pour recommencer.",
-    "J'ai annulé cette recherche. Tu peux faire une nouvelle recherche en me disant 'Nouvelle recherche'.": "J'ai annulé cette recherche. Tu peux faire une nouvelle recherche en me disant 'Nouvelle recherche'.",
+    "search-cancel": "J'ai annulé cette recherche. Tu peux faire une nouvelle recherche en me disant 'Nouvelle recherche'.",
     "Voici les événements que j'ai durant les 2 prochaines semaines.": "Voici les événements que j'ai durant les 2 prochaines semaines.",
-    "Parfait, j'ai ajusté la ville de ta recherche pour %s.": "Parfait, j'ai ajusté la ville de ta recherche pour %s.",
+    "city-adjusted": "Parfait, j'ai ajusté la ville de ta recherche pour %{city}.",
     "Malheureusement, je n'offre pas d'événement à %s encore.": "Malheureusement, je n'offre pas d'événement à %s encore.",
-    "location_confirmation": "Justement, je connais plusieurs événements qui se passent à %{city}"
+    "location_confirmation": "Justement, je connais plusieurs événements qui se passent à %{city}",
+    "Pas de problème. Tu peux me donner une autre ville ou une autre date pour ta recherche.": "Pas de problème. Tu peux me donner une autre ville ou une autre date pour ta recherche.",
+    "date-adjusted": "Parfait, j'ai ajusté le moment de ta recherche pour %{date}."
   },
   en: {
     "monday": "monday",
@@ -165,7 +167,7 @@ exports.messages = {
     "Montréal": "Montreal",
     "Québec": "Quebec",
     "Pour commencer, dans quelle ville es-tu? Tu peux l'écrire si elle n'est pas dans les choix.": "First, in which city are you? You can write it down if it's not down there. 👇",
-    "C'est tout pour ta recherche. Si tu as aimé l'expérience, n'hésite pas à t'inscrire pour recevoir des événements automatiquement.": "That's all for now! If you enjoyed the experience, you can subscribe to receive more events automatically in your inbox.",
+    "search-completed": "That's all for now! If you enjoyed the experience, you can subscribe to receive more events automatically in your inbox.",
     "Je veux m'inscrire": "I want to subscribe",
     "Nouvelle recherche": "New search",
     "Partager Watadoo": "Share Watadoo",
@@ -197,7 +199,7 @@ exports.messages = {
     "user-deleted": "Your account has been deletd with success. Even if I'm sad to see you go, I'm sure you have good reasons to de so. No hard feelings.",
     "farewell": "I will always be there if you need help to find an event. You only need to say 'hi'. Have a nice day. 👋",
     "found-events": "I found %{smart_count} event for you. You can click on the event to see more information. ⬇️ |||| I found %{smart_count} events for you. You can click on the event to see more information. ⬇️",
-    "Il me reste %s autres événements à te montrer.": "I still have %s more events to show you.",
+    "more-events-in-search": "I still have %{smart_count} more event to show you. |||| I still have %{smart_count} more events to show you.",
     "Voir les suivants": "See more",
     "Je n'ai pas compris ces dates.": "I didn't understand those dates.",
     "search-error": "An error occured. I'm really sorry ...😅 Can you start over your search please?",
@@ -206,10 +208,12 @@ exports.messages = {
     "Tu as déjà vu tous les événements pour cette recherche. Veux-tu faire une autre recherche?": "You already saw all the events for this search. Would you like to do a different search?",
     "Recevoir des alertes": "Receive notifications",
     "search-no-query": "An error occured. I'm really sorry ...😅 You can write 'New search' start over.",
-    "J'ai annulé cette recherche. Tu peux faire une nouvelle recherche en me disant 'Nouvelle recherche'.": "I cancelled this search. You can do a new one by telling me'New search'.",
+    "search-cancel": "I cancelled this search. You can make a new one by saying 'New search'.",
     "Voici les événements que j'ai durant les 2 prochaines semaines.": "Here are the events I found for the next 2 weeks.",
-    "Parfait, j'ai ajusté la ville de ta recherche pour %s.": "Good, I changed the city for your search to %s.",
+    "city-adjusted": "Good, I changed the city for your search to %{city}.",
     "Malheureusement, je n'offre pas d'événement à %s encore.": "Unfortunately, I don't have any events to suggest for %s yet.",
-    "location_confirmation": "Awesome, I know a lot of events happening in %{city}"
+    "location_confirmation": "Awesome, I know a lot of events happening in %{city}",
+    "Pas de problème. Tu peux me donner une autre ville ou une autre date pour ta recherche.": "No worries. You can change the city or the date.",
+    "date-adjusted": "Good, I adjusted your search for %{date}."
   }
 };

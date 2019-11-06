@@ -1,4 +1,5 @@
-const { sendTextMessage } = require("../utils/messenger");
+const { sendTextMessage, sendTemplate } = require("../utils/messenger");
+const { generateCard } = require("../utils/search");
 const { prisma } = require("../generated/prisma-client");
 
 exports.searchDoneMessage = {
@@ -38,6 +39,48 @@ exports.nothingFoundMessage = {
   ]
 };
 
+const sendAllEventsSeenMessage = async (id, polyglot) => {
+  await sendTextMessage(id, {
+    text: polyglot.t("Tu as déjà vu tous les événements pour cette recherche. Veux-tu faire une autre recherche?"),
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": polyglot.t("Oui"),
+        "payload": "oui"
+      },
+      {
+        "content_type": "text",
+        "title": polyglot.t("Non"),
+        "payload": "non"
+      },
+    ]
+  });
+};
+exports.sendAllEventsSeenMessage = sendAllEventsSeenMessage;
+
+const sendSearchDoneMessage = async (id, polyglot) => {
+  await sendTextMessage(id, {
+    text: polyglot.t("search-completed"),
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": polyglot.t("Je veux m'inscrire"),
+        "payload": "Je veux m'inscrire"
+      },
+      {
+        "content_type": "text",
+        "title": polyglot.t("Nouvelle recherche"),
+        "payload": "Nouvelle recherche"
+      },
+      {
+        "content_type": "text",
+        "title": polyglot.t("Partager Watadoo"),
+        "payload": "Partager Watadoo"
+      },
+    ]
+  });
+};
+
 const sendNothingFoundMessage = async (id, polyglot) => {
   await sendTextMessage(id, {
     text: polyglot.t("no-event-found"),
@@ -56,7 +99,41 @@ const sendNothingFoundMessage = async (id, polyglot) => {
   });
 };
 
-exports.makeNewSearch = async (userId, polyglot, searchQuery) => {
+const sendNextOccurrences = async (user, polyglot, occurrences, extended = false) => {
+  await sendTemplate(user.facebookid, {
+    template_type: "generic",
+    elements: occurrences.slice(0, 5).map(occ => generateCard(occ, user.id))
+  });
+  if (occurrences.length > 5) {
+    const quickReplies = [
+      {
+        "content_type": "text",
+        "title": polyglot.t("Voir les suivants"),
+        "payload": "suivant"
+      },
+    ];
+    if (extended) {
+      quickReplies.push({
+        "content_type": "text",
+        "title": polyglot.t("Nouvelle recherche"),
+        "payload": "Nouvelle recherche"
+      });
+      quickReplies.push({
+        "content_type": "text",
+        "title": polyglot.t("Recevoir des alertes"),
+        "payload": "Recevoir des alertes"
+      });
+    }
+    return await sendTextMessage(user.facebookid, {
+      text: polyglot.t("more-events-in-search", occurrences.length - 5),
+      "quick_replies": quickReplies
+    });
+  }
+  return await sendSearchDoneMessage(user.facebookid, polyglot);
+};
+exports.sendNextOccurrences = sendNextOccurrences;
+
+exports.makeNewSearch = async (user, polyglot, searchQuery) => {
   const occurrenceWithEventFragment = `
     fragment EventOccurenceWithEvent on EventOccurrence {
       id
@@ -78,7 +155,7 @@ exports.makeNewSearch = async (userId, polyglot, searchQuery) => {
   }).$fragment(occurrenceWithEventFragment);
 
   if (!eventOccurrences.length) {
-    return await sendNothingFoundMessage(userId, polyglot);
+    return await sendNothingFoundMessage(user.facebookid, polyglot);
   }
   const searchWithUserFragment = `
     fragment SearchWithUser on Search {
@@ -89,7 +166,7 @@ exports.makeNewSearch = async (userId, polyglot, searchQuery) => {
       }
     }
   `;
-  const updatedSearchQuery = await prisma.updateSearch({
+  await prisma.updateSearch({
     data: {
       eventOccurrences: {
         connect: eventOccurrences.map(eventOccurrence => ({ id: eventOccurrence.id }))
@@ -101,33 +178,11 @@ exports.makeNewSearch = async (userId, polyglot, searchQuery) => {
     }
   }).$fragment(searchWithUserFragment);
 
-  await sendTextMessage(userId, {
+  await sendTextMessage(user.facebookid, {
     text: polyglot.t("found-events", eventOccurrences.length)
   });
 
-  // messages.push({
-  //   "attachment": {
-  //     "type": "template",
-  //     "payload": {
-  //       "template_type": "generic",
-  //       "elements": eventOccurrences.slice(0, 5).map(eventOccurrence => generateCard(eventOccurrence, updatedSearchQuery.user.id))
-  //     }
-  //   }
-  // });
-  // if (eventOccurrences.length > 5) {
-  //   messages.push({
-  //     text: `Il me reste ${eventOccurrences.length - 5} autres événements à te montrer.`,
-  //     "quick_replies": [
-  //       {
-  //         "content_type": "text",
-  //         "title": "Voir les suivants",
-  //         "payload": "suivant"
-  //       },
-  //     ]
-  //   });
-  // } else {
-  //   messages.push(searchDoneMessage);
-  // }
+  return await sendNextOccurrences(user, polyglot, eventOccurrences);
 };
 
 exports.momentMessage = {

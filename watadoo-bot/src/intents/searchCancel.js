@@ -2,7 +2,6 @@ const Polyglot = require("node-polyglot");
 const { messages } = require("../locales");
 const { prisma } = require("../generated/prisma-client");
 const { sendTextMessage } = require("../utils/messenger");
-const { makeNewSearch } = require("../messages/search");
 
 module.exports = async (user, parameters) => {
   const polyglot = new Polyglot();
@@ -15,7 +14,18 @@ module.exports = async (user, parameters) => {
   }
 
   const queryId = parameters.fields.queryId.stringValue;
-  const searchQuery = await prisma.search({ id: queryId });
 
-  return await makeNewSearch(user, polyglot, searchQuery);
+  try {
+    await prisma.deleteSearch({ id: queryId });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log(e);
+    return await sendTextMessage(user.facebookid, {
+      text: polyglot.t("search-no-query")
+    });
+  }
+
+  return await sendTextMessage(user.facebookid, {
+    text: polyglot.t("search-cancel")
+  });
 };

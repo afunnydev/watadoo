@@ -36,12 +36,6 @@ app.get("/monitor", async (req, res) => {
 
 //   intentMap.set("Share", await share);
 
-//   intentMap.set("Search - next", await searchNext);
-//   intentMap.set("Search - cancel", await searchCancel);
-//   intentMap.set("Search - larger", await searchLarge);
-//   intentMap.set("Search - no - city", await searchNoCity);
-//   intentMap.set("Search - no - date", await searchNoDate);
-
 //   intentMap.set("Notification", await notification);
 //   intentMap.set("Notification - Frequency", await notificationFrequency);
 

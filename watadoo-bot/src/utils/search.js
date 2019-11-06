@@ -104,36 +104,5 @@ exports.generateCard = (eventOccurrence, userId = "") => ({
       "title": "En savoir plus",
       "webview_height_ratio": "compact"
     },
-    {
-      "type": "element_share",
-      "share_contents": {
-        "attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "generic",
-            "elements": [
-              {
-                "title": eventOccurrence.name,
-                "subtitle": eventOccurrence.description,
-                "image_url": eventOccurrence.imageUrl,
-                "default_action": {
-                  "type": "web_url",
-                  "url": `https://evenements.watadoo.ca?id=${eventOccurrence.event.id}`,
-                  "webview_height_ratio": "compact"
-                },
-                "buttons": [
-                  {
-                    "type": "web_url",
-                    "url": `https://evenements.watadoo.ca?id=${eventOccurrence.event.id}`,
-                    "title": "En savoir plus",
-                    "webview_height_ratio": "compact"
-                  },
-                ]
-              },
-            ]
-          }
-        }
-      }
-    },
   ]
 });
