@@ -1,4 +1,5 @@
 const { sendTextMessage } = require("../utils/messenger");
+const { prisma } = require("../generated/prisma-client");
 
 exports.searchDoneMessage = {
   text: "C'est tout pour ta recherche. Si tu as aimé l'expérience, n'hésite pas à t'inscrire pour recevoir des événements automatiquement.",
@@ -35,6 +36,98 @@ exports.nothingFoundMessage = {
       "payload":"Annuler"
     },
   ]
+};
+
+const sendNothingFoundMessage = async (id, polyglot) => {
+  await sendTextMessage(id, {
+    text: polyglot.t("no-event-found"),
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": polyglot.t("Oui"),
+        "payload": "Recherche plus large"
+      },
+      {
+        "content_type": "text",
+        "title": polyglot.t("Non"),
+        "payload": "Annuler"
+      },
+    ]
+  });
+};
+
+exports.makeNewSearch = async (userId, polyglot, searchQuery) => {
+  const occurrenceWithEventFragment = `
+    fragment EventOccurenceWithEvent on EventOccurrence {
+      id
+      name
+      description
+      imageUrl
+      event {
+        id
+      }
+    }
+  `;
+  const eventOccurrences = await prisma.eventOccurrences({
+    where: {
+      city: searchQuery.city,
+      startDate_gte: searchQuery.startDate,
+      startDate_lte: searchQuery.endDate
+    },
+    first: 20
+  }).$fragment(occurrenceWithEventFragment);
+
+  if (!eventOccurrences.length) {
+    return await sendNothingFoundMessage(userId, polyglot);
+  }
+  const searchWithUserFragment = `
+    fragment SearchWithUser on Search {
+      id
+      suggested
+      user {
+        id
+      }
+    }
+  `;
+  const updatedSearchQuery = await prisma.updateSearch({
+    data: {
+      eventOccurrences: {
+        connect: eventOccurrences.map(eventOccurrence => ({ id: eventOccurrence.id }))
+      },
+      suggested: 5
+    },
+    where: {
+      id: searchQuery.id
+    }
+  }).$fragment(searchWithUserFragment);
+
+  await sendTextMessage(userId, {
+    text: polyglot.t("found-events", eventOccurrences.length)
+  });
+
+  // messages.push({
+  //   "attachment": {
+  //     "type": "template",
+  //     "payload": {
+  //       "template_type": "generic",
+  //       "elements": eventOccurrences.slice(0, 5).map(eventOccurrence => generateCard(eventOccurrence, updatedSearchQuery.user.id))
+  //     }
+  //   }
+  // });
+  // if (eventOccurrences.length > 5) {
+  //   messages.push({
+  //     text: `Il me reste ${eventOccurrences.length - 5} autres événements à te montrer.`,
+  //     "quick_replies": [
+  //       {
+  //         "content_type": "text",
+  //         "title": "Voir les suivants",
+  //         "payload": "suivant"
+  //       },
+  //     ]
+  //   });
+  // } else {
+  //   messages.push(searchDoneMessage);
+  // }
 };
 
 exports.momentMessage = {

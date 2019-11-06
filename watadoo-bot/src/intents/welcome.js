@@ -3,6 +3,7 @@ const { messages } = require("../locales");
 const { sendTextMessage } = require("../utils/messenger");
 const { askForLocation, askForRelationship, askForAge } = require("../messages/profile");
 const { askWhenMessage } = require("../messages/search");
+const { createContext } = require("../utils/context");
 
 module.exports = async (user) => {
   const polyglot = new Polyglot();
@@ -20,12 +21,12 @@ module.exports = async (user) => {
     await sendTextMessage(user.facebookid, {
       text: polyglot.t("more-info-needed")
     });
-    // agent.context.set({ "name": "relationship", "lifespan": 2 });
+    createContext(user.id, "relationship");
     return await askForRelationship(user.facebookid, polyglot);
   }
 
   if (typeof user.age !== "number") {
-    // agent.context.set({ "name": "age", "lifespan": 2 });
+    createContext(user.id, "age");
     return await askForAge(user.facebookid, polyglot);
   }
 

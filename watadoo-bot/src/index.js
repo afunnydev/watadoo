@@ -34,27 +34,8 @@ app.get("/monitor", async (req, res) => {
 //     throw new Error("Not Authorized");
 //   }
 
-//   const agent = new WebhookClient({ request: req, response: res });
-//   if (process.env.NODE_ENV === "development") {
-//     // eslint-disable-next-line no-console
-//     console.log(JSON.stringify(req.body));
-//   }
-
-//   res.setLocale("fr");
-
-//   let intentMap = new Map(); // Map functions to Dialogflow intent names
-
-//   intentMap.set("Welcome", await welcome);
-//   intentMap.set("New Search", await welcome);
-//   intentMap.set("Localisation", await localisation);
 //   intentMap.set("Share", await share);
 
-//   intentMap.set("Relationship", await relationship);
-//   intentMap.set("Age", await age);
-
-//   intentMap.set("Search", await search);
-//   intentMap.set("Search - yes", await searchYes);
-//   intentMap.set("Search - interest", await searchInterest);
 //   intentMap.set("Search - next", await searchNext);
 //   intentMap.set("Search - cancel", await searchCancel);
 //   intentMap.set("Search - larger", await searchLarge);

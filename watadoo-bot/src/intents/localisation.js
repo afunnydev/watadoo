@@ -4,6 +4,7 @@ const { sendTextMessage } = require("../utils/messenger");
 const { prisma } = require("../generated/prisma-client");
 const { askForRelationship, askForAge } = require("../messages/profile");
 const { askWhenMessage } = require("../messages/search");
+const { createContext } = require("../utils/context");
 
 module.exports = async (user, city) => {
   const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
@@ -20,12 +21,12 @@ module.exports = async (user, city) => {
       await sendTextMessage(user.facebookid, {
         text: polyglot.t("more-info-needed")
       });
-      // agent.context.set({ "name": "relationship", "lifespan": 2 });
+      createContext(user.id, "relationship");
       return askForRelationship(user.facebookid, polyglot);
     }
 
     if (typeof user.age !== "number") {
-      // agent.context.set({ "name": "age", "lifespan": 2 });
+      createContext(user.id, "age");
       return await askForAge(user.facebookid, polyglot);
     }
 
