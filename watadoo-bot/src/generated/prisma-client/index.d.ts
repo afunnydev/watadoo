@@ -335,6 +335,8 @@ export type EventOccurrenceOrderByInput =
   | "city_DESC"
   | "ticketUrl_ASC"
   | "ticketUrl_DESC"
+  | "priority_ASC"
+  | "priority_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC";
 
@@ -614,6 +616,14 @@ export interface EventOccurrenceScalarWhereInput {
   ticketUrl_not_starts_with?: Maybe<String>;
   ticketUrl_ends_with?: Maybe<String>;
   ticketUrl_not_ends_with?: Maybe<String>;
+  priority?: Maybe<Int>;
+  priority_not?: Maybe<Int>;
+  priority_in?: Maybe<Int[] | Int>;
+  priority_not_in?: Maybe<Int[] | Int>;
+  priority_lt?: Maybe<Int>;
+  priority_lte?: Maybe<Int>;
+  priority_gt?: Maybe<Int>;
+  priority_gte?: Maybe<Int>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -789,6 +799,7 @@ export interface EventOccurrenceCreateWithoutEventInput {
   price?: Maybe<Int>;
   city: City;
   ticketUrl?: Maybe<String>;
+  priority?: Maybe<Int>;
 }
 
 export interface EventUpsertWithWhereUniqueWithoutVenueInput {
@@ -1227,6 +1238,7 @@ export interface EventOccurrenceUpdateWithoutEventDataInput {
   price?: Maybe<Int>;
   city?: Maybe<City>;
   ticketUrl?: Maybe<String>;
+  priority?: Maybe<Int>;
 }
 
 export interface SearchWhereInput {
@@ -1375,6 +1387,7 @@ export interface EventOccurrenceUpdateDataInput {
   price?: Maybe<Int>;
   city?: Maybe<City>;
   ticketUrl?: Maybe<String>;
+  priority?: Maybe<Int>;
   event?: Maybe<EventUpdateOneRequiredWithoutOccurrencesInput>;
 }
 
@@ -1389,6 +1402,7 @@ export interface EventOccurrenceUpdateManyDataInput {
   price?: Maybe<Int>;
   city?: Maybe<City>;
   ticketUrl?: Maybe<String>;
+  priority?: Maybe<Int>;
 }
 
 export interface EventOccurrenceUpdateManyInput {
@@ -1701,6 +1715,7 @@ export interface EventOccurrenceCreateInput {
   price?: Maybe<Int>;
   city: City;
   ticketUrl?: Maybe<String>;
+  priority?: Maybe<Int>;
   event: EventCreateOneWithoutOccurrencesInput;
 }
 
@@ -1852,6 +1867,14 @@ export interface EventOccurrenceWhereInput {
   ticketUrl_not_starts_with?: Maybe<String>;
   ticketUrl_ends_with?: Maybe<String>;
   ticketUrl_not_ends_with?: Maybe<String>;
+  priority?: Maybe<Int>;
+  priority_not?: Maybe<Int>;
+  priority_in?: Maybe<Int[] | Int>;
+  priority_not_in?: Maybe<Int[] | Int>;
+  priority_lt?: Maybe<Int>;
+  priority_lte?: Maybe<Int>;
+  priority_gt?: Maybe<Int>;
+  priority_gte?: Maybe<Int>;
   event?: Maybe<EventWhereInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
@@ -1877,6 +1900,7 @@ export interface EventOccurrenceUpdateInput {
   price?: Maybe<Int>;
   city?: Maybe<City>;
   ticketUrl?: Maybe<String>;
+  priority?: Maybe<Int>;
   event?: Maybe<EventUpdateOneRequiredWithoutOccurrencesInput>;
 }
 
@@ -1971,6 +1995,7 @@ export interface EventOccurrenceUpdateManyMutationInput {
   price?: Maybe<Int>;
   city?: Maybe<City>;
   ticketUrl?: Maybe<String>;
+  priority?: Maybe<Int>;
 }
 
 export interface EventOccurrenceUpdateWithWhereUniqueNestedInput {
@@ -2556,6 +2581,7 @@ export interface EventOccurrence {
   price?: Int;
   city: City;
   ticketUrl?: String;
+  priority: Int;
   createdAt: DateTimeOutput;
 }
 
@@ -2573,6 +2599,7 @@ export interface EventOccurrencePromise
   price: () => Promise<Int>;
   city: () => Promise<City>;
   ticketUrl: () => Promise<String>;
+  priority: () => Promise<Int>;
   event: <T = EventPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -2591,6 +2618,7 @@ export interface EventOccurrenceSubscription
   price: () => Promise<AsyncIterator<Int>>;
   city: () => Promise<AsyncIterator<City>>;
   ticketUrl: () => Promise<AsyncIterator<String>>;
+  priority: () => Promise<AsyncIterator<Int>>;
   event: <T = EventSubscription>() => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -2609,6 +2637,7 @@ export interface EventOccurrenceNullablePromise
   price: () => Promise<Int>;
   city: () => Promise<City>;
   ticketUrl: () => Promise<String>;
+  priority: () => Promise<Int>;
   event: <T = EventPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -3367,6 +3396,7 @@ export interface EventOccurrencePreviousValues {
   price?: Int;
   city: City;
   ticketUrl?: String;
+  priority: Int;
   createdAt: DateTimeOutput;
 }
 
@@ -3384,6 +3414,7 @@ export interface EventOccurrencePreviousValuesPromise
   price: () => Promise<Int>;
   city: () => Promise<City>;
   ticketUrl: () => Promise<String>;
+  priority: () => Promise<Int>;
   createdAt: () => Promise<DateTimeOutput>;
 }
 
@@ -3401,6 +3432,7 @@ export interface EventOccurrencePreviousValuesSubscription
   price: () => Promise<AsyncIterator<Int>>;
   city: () => Promise<AsyncIterator<City>>;
   ticketUrl: () => Promise<AsyncIterator<String>>;
+  priority: () => Promise<AsyncIterator<Int>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 

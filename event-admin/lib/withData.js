@@ -2,13 +2,12 @@ import withApollo from "next-with-apollo"
 import ApolloClient from "apollo-boost"
 import gql from "graphql-tag"
 
-import { endpoint, prodEndpoint } from "../config"
 import { occurrenceFragment } from "./fragments"
 import generateID from "./generateID"
 
 function createClient({ headers }) {
   return new ApolloClient({
-    uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
+    uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
     request: operation => {
       operation.setContext({
         fetchOptions: {

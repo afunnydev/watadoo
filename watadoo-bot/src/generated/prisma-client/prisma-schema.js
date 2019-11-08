@@ -190,6 +190,7 @@ type EventOccurrence {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int!
   event: Event!
   createdAt: DateTime!
 }
@@ -212,6 +213,7 @@ input EventOccurrenceCreateInput {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int
   event: EventCreateOneWithoutOccurrencesInput!
 }
 
@@ -237,6 +239,7 @@ input EventOccurrenceCreateWithoutEventInput {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int
 }
 
 type EventOccurrenceEdge {
@@ -267,6 +270,8 @@ enum EventOccurrenceOrderByInput {
   city_DESC
   ticketUrl_ASC
   ticketUrl_DESC
+  priority_ASC
+  priority_DESC
   createdAt_ASC
   createdAt_DESC
 }
@@ -283,6 +288,7 @@ type EventOccurrencePreviousValues {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int!
   createdAt: DateTime!
 }
 
@@ -401,6 +407,14 @@ input EventOccurrenceScalarWhereInput {
   ticketUrl_not_starts_with: String
   ticketUrl_ends_with: String
   ticketUrl_not_ends_with: String
+  priority: Int
+  priority_not: Int
+  priority_in: [Int!]
+  priority_not_in: [Int!]
+  priority_lt: Int
+  priority_lte: Int
+  priority_gt: Int
+  priority_gte: Int
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -443,6 +457,7 @@ input EventOccurrenceUpdateDataInput {
   price: Int
   city: City
   ticketUrl: String
+  priority: Int
   event: EventUpdateOneRequiredWithoutOccurrencesInput
 }
 
@@ -457,6 +472,7 @@ input EventOccurrenceUpdateInput {
   price: Int
   city: City
   ticketUrl: String
+  priority: Int
   event: EventUpdateOneRequiredWithoutOccurrencesInput
 }
 
@@ -471,6 +487,7 @@ input EventOccurrenceUpdateManyDataInput {
   price: Int
   city: City
   ticketUrl: String
+  priority: Int
 }
 
 input EventOccurrenceUpdateManyInput {
@@ -496,6 +513,7 @@ input EventOccurrenceUpdateManyMutationInput {
   price: Int
   city: City
   ticketUrl: String
+  priority: Int
 }
 
 input EventOccurrenceUpdateManyWithoutEventInput {
@@ -526,6 +544,7 @@ input EventOccurrenceUpdateWithoutEventDataInput {
   price: Int
   city: City
   ticketUrl: String
+  priority: Int
 }
 
 input EventOccurrenceUpdateWithWhereUniqueNestedInput {
@@ -665,6 +684,14 @@ input EventOccurrenceWhereInput {
   ticketUrl_not_starts_with: String
   ticketUrl_ends_with: String
   ticketUrl_not_ends_with: String
+  priority: Int
+  priority_not: Int
+  priority_in: [Int!]
+  priority_not_in: [Int!]
+  priority_lt: Int
+  priority_lte: Int
+  priority_gt: Int
+  priority_gte: Int
   event: EventWhereInput
   createdAt: DateTime
   createdAt_not: DateTime

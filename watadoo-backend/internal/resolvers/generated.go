@@ -81,6 +81,7 @@ type ComplexityRoot struct {
 		Long        func(childComplexity int) int
 		Name        func(childComplexity int) int
 		Price       func(childComplexity int) int
+		Priority    func(childComplexity int) int
 		StartDate   func(childComplexity int) int
 		TicketUrl   func(childComplexity int) int
 	}
@@ -387,6 +388,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.EventOccurrence.Price(childComplexity), true
+
+	case "EventOccurrence.priority":
+		if e.complexity.EventOccurrence.Priority == nil {
+			break
+		}
+
+		return e.complexity.EventOccurrence.Priority(childComplexity), true
 
 	case "EventOccurrence.startDate":
 		if e.complexity.EventOccurrence.StartDate == nil {
@@ -1244,6 +1252,7 @@ input EventOccurrenceCreateWithoutEventInput {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int
 }
 
 input EventOccurrenceWhereUniqueInput {
@@ -1261,6 +1270,7 @@ input EventOccurrenceUpdateWithoutEventDataInput {
   price: Int
   city: City
   ticketUrl: String
+  priority: Int
 }
 
 input EventOccurrenceScalarWhereInput {
@@ -1364,6 +1374,7 @@ type EventOccurrence {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int!
 }
 
 type Venue {
@@ -2813,6 +2824,43 @@ func (ec *executionContext) _EventOccurrence_ticketUrl(ctx context.Context, fiel
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
 	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _EventOccurrence_priority(ctx context.Context, field graphql.CollectedField, obj *prisma.EventOccurrence) (ret graphql.Marshaler) {
+	ctx = ec.Tracer.StartFieldExecution(ctx, field)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+		ec.Tracer.EndFieldExecution(ctx)
+	}()
+	rctx := &graphql.ResolverContext{
+		Object:   "EventOccurrence",
+		Field:    field,
+		Args:     nil,
+		IsMethod: false,
+	}
+	ctx = graphql.WithResolverContext(ctx, rctx)
+	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Priority, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int32)
+	rctx.Result = res
+	ctx = ec.Tracer.StartFieldChildExecution(ctx)
+	return ec.marshalNInt2int32(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_signIn(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5195,6 +5243,12 @@ func (ec *executionContext) unmarshalInputEventOccurrenceCreateWithoutEventInput
 			if err != nil {
 				return it, err
 			}
+		case "priority":
+			var err error
+			it.Priority, err = ec.unmarshalOInt2ᚖint32(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		}
 	}
 
@@ -5348,6 +5402,12 @@ func (ec *executionContext) unmarshalInputEventOccurrenceUpdateWithoutEventDataI
 		case "ticketUrl":
 			var err error
 			it.TicketUrl, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "priority":
+			var err error
+			it.Priority, err = ec.unmarshalOInt2ᚖint32(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -8400,6 +8460,11 @@ func (ec *executionContext) _EventOccurrence(ctx context.Context, sel ast.Select
 			}
 		case "ticketUrl":
 			out.Values[i] = ec._EventOccurrence_ticketUrl(ctx, field, obj)
+		case "priority":
+			out.Values[i] = ec._EventOccurrence_priority(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

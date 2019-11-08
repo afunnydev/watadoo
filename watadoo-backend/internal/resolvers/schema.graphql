@@ -530,6 +530,7 @@ input EventOccurrenceCreateWithoutEventInput {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int
 }
 
 input EventOccurrenceWhereUniqueInput {
@@ -547,6 +548,7 @@ input EventOccurrenceUpdateWithoutEventDataInput {
   price: Int
   city: City
   ticketUrl: String
+  priority: Int
 }
 
 input EventOccurrenceScalarWhereInput {
@@ -650,6 +652,7 @@ type EventOccurrence {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int!
 }
 
 type Venue {

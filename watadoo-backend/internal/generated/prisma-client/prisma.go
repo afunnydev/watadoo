@@ -168,7 +168,7 @@ func (client *Client) EventOccurrence(params EventOccurrenceWhereUniqueInput) *E
 		params,
 		[2]string{"EventOccurrenceWhereUniqueInput!", "EventOccurrence"},
 		"eventOccurrence",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExec{ret}
 }
@@ -202,7 +202,7 @@ func (client *Client) EventOccurrences(params *EventOccurrencesParams) *EventOcc
 		wparams,
 		[3]string{"EventOccurrenceWhereInput", "EventOccurrenceOrderByInput", "EventOccurrence"},
 		"eventOccurrences",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExecArray{ret}
 }
@@ -737,7 +737,7 @@ func (client *Client) CreateEventOccurrence(params EventOccurrenceCreateInput) *
 		params,
 		[2]string{"EventOccurrenceCreateInput!", "EventOccurrence"},
 		"createEventOccurrence",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExec{ret}
 }
@@ -755,7 +755,7 @@ func (client *Client) UpdateEventOccurrence(params EventOccurrenceUpdateParams) 
 		},
 		[3]string{"EventOccurrenceUpdateInput!", "EventOccurrenceWhereUniqueInput!", "EventOccurrence"},
 		"updateEventOccurrence",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExec{ret}
 }
@@ -792,7 +792,7 @@ func (client *Client) UpsertEventOccurrence(params EventOccurrenceUpsertParams) 
 		uparams,
 		[4]string{"EventOccurrenceWhereUniqueInput!", "EventOccurrenceCreateInput!", "EventOccurrenceUpdateInput!", "EventOccurrence"},
 		"upsertEventOccurrence",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExec{ret}
 }
@@ -802,7 +802,7 @@ func (client *Client) DeleteEventOccurrence(params EventOccurrenceWhereUniqueInp
 		params,
 		[2]string{"EventOccurrenceWhereUniqueInput!", "EventOccurrence"},
 		"deleteEventOccurrence",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExec{ret}
 }
@@ -1167,6 +1167,8 @@ const (
 	EventOccurrenceOrderByInputCityDesc        EventOccurrenceOrderByInput = "city_DESC"
 	EventOccurrenceOrderByInputTicketUrlAsc    EventOccurrenceOrderByInput = "ticketUrl_ASC"
 	EventOccurrenceOrderByInputTicketUrlDesc   EventOccurrenceOrderByInput = "ticketUrl_DESC"
+	EventOccurrenceOrderByInputPriorityAsc     EventOccurrenceOrderByInput = "priority_ASC"
+	EventOccurrenceOrderByInputPriorityDesc    EventOccurrenceOrderByInput = "priority_DESC"
 	EventOccurrenceOrderByInputCreatedAtAsc    EventOccurrenceOrderByInput = "createdAt_ASC"
 	EventOccurrenceOrderByInputCreatedAtDesc   EventOccurrenceOrderByInput = "createdAt_DESC"
 )
@@ -1499,6 +1501,14 @@ type EventOccurrenceScalarWhereInput struct {
 	TicketUrlNotStartsWith   *string                           `json:"ticketUrl_not_starts_with,omitempty"`
 	TicketUrlEndsWith        *string                           `json:"ticketUrl_ends_with,omitempty"`
 	TicketUrlNotEndsWith     *string                           `json:"ticketUrl_not_ends_with,omitempty"`
+	Priority                 *int32                            `json:"priority,omitempty"`
+	PriorityNot              *int32                            `json:"priority_not,omitempty"`
+	PriorityIn               []int32                           `json:"priority_in,omitempty"`
+	PriorityNotIn            []int32                           `json:"priority_not_in,omitempty"`
+	PriorityLt               *int32                            `json:"priority_lt,omitempty"`
+	PriorityLte              *int32                            `json:"priority_lte,omitempty"`
+	PriorityGt               *int32                            `json:"priority_gt,omitempty"`
+	PriorityGte              *int32                            `json:"priority_gte,omitempty"`
 	CreatedAt                *string                           `json:"createdAt,omitempty"`
 	CreatedAtNot             *string                           `json:"createdAt_not,omitempty"`
 	CreatedAtIn              []string                          `json:"createdAt_in,omitempty"`
@@ -1654,6 +1664,7 @@ type EventOccurrenceCreateWithoutEventInput struct {
 	Price       *int32  `json:"price,omitempty"`
 	City        City    `json:"city"`
 	TicketUrl   *string `json:"ticketUrl,omitempty"`
+	Priority    *int32  `json:"priority,omitempty"`
 }
 
 type EventUpsertWithWhereUniqueWithoutVenueInput struct {
@@ -2062,6 +2073,7 @@ type EventOccurrenceUpdateWithoutEventDataInput struct {
 	Price       *int32   `json:"price,omitempty"`
 	City        *City    `json:"city,omitempty"`
 	TicketUrl   *string  `json:"ticketUrl,omitempty"`
+	Priority    *int32   `json:"priority,omitempty"`
 }
 
 type SearchWhereInput struct {
@@ -2210,6 +2222,7 @@ type EventOccurrenceUpdateDataInput struct {
 	Price       *int32                                         `json:"price,omitempty"`
 	City        *City                                          `json:"city,omitempty"`
 	TicketUrl   *string                                        `json:"ticketUrl,omitempty"`
+	Priority    *int32                                         `json:"priority,omitempty"`
 	Event       *EventUpdateOneRequiredWithoutOccurrencesInput `json:"event,omitempty"`
 }
 
@@ -2224,6 +2237,7 @@ type EventOccurrenceUpdateManyDataInput struct {
 	Price       *int32   `json:"price,omitempty"`
 	City        *City    `json:"city,omitempty"`
 	TicketUrl   *string  `json:"ticketUrl,omitempty"`
+	Priority    *int32   `json:"priority,omitempty"`
 }
 
 type EventOccurrenceUpdateManyInput struct {
@@ -2517,6 +2531,7 @@ type EventOccurrenceCreateInput struct {
 	Price       *int32                                `json:"price,omitempty"`
 	City        City                                  `json:"city"`
 	TicketUrl   *string                               `json:"ticketUrl,omitempty"`
+	Priority    *int32                                `json:"priority,omitempty"`
 	Event       EventCreateOneWithoutOccurrencesInput `json:"event"`
 }
 
@@ -2668,6 +2683,14 @@ type EventOccurrenceWhereInput struct {
 	TicketUrlNotStartsWith   *string                     `json:"ticketUrl_not_starts_with,omitempty"`
 	TicketUrlEndsWith        *string                     `json:"ticketUrl_ends_with,omitempty"`
 	TicketUrlNotEndsWith     *string                     `json:"ticketUrl_not_ends_with,omitempty"`
+	Priority                 *int32                      `json:"priority,omitempty"`
+	PriorityNot              *int32                      `json:"priority_not,omitempty"`
+	PriorityIn               []int32                     `json:"priority_in,omitempty"`
+	PriorityNotIn            []int32                     `json:"priority_not_in,omitempty"`
+	PriorityLt               *int32                      `json:"priority_lt,omitempty"`
+	PriorityLte              *int32                      `json:"priority_lte,omitempty"`
+	PriorityGt               *int32                      `json:"priority_gt,omitempty"`
+	PriorityGte              *int32                      `json:"priority_gte,omitempty"`
 	Event                    *EventWhereInput            `json:"event,omitempty"`
 	CreatedAt                *string                     `json:"createdAt,omitempty"`
 	CreatedAtNot             *string                     `json:"createdAt_not,omitempty"`
@@ -2693,6 +2716,7 @@ type EventOccurrenceUpdateInput struct {
 	Price       *int32                                         `json:"price,omitempty"`
 	City        *City                                          `json:"city,omitempty"`
 	TicketUrl   *string                                        `json:"ticketUrl,omitempty"`
+	Priority    *int32                                         `json:"priority,omitempty"`
 	Event       *EventUpdateOneRequiredWithoutOccurrencesInput `json:"event,omitempty"`
 }
 
@@ -2787,6 +2811,7 @@ type EventOccurrenceUpdateManyMutationInput struct {
 	Price       *int32   `json:"price,omitempty"`
 	City        *City    `json:"city,omitempty"`
 	TicketUrl   *string  `json:"ticketUrl,omitempty"`
+	Priority    *int32   `json:"priority,omitempty"`
 }
 
 type EventOccurrenceUpdateWithWhereUniqueNestedInput struct {
@@ -3377,7 +3402,7 @@ func (instance EventOccurrenceExecArray) Exec(ctx context.Context) ([]EventOccur
 	return v, err
 }
 
-var EventOccurrenceFields = []string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"}
+var EventOccurrenceFields = []string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"}
 
 type EventOccurrence struct {
 	ID          string  `json:"id"`
@@ -3391,6 +3416,7 @@ type EventOccurrence struct {
 	Price       *int32  `json:"price,omitempty"`
 	City        City    `json:"city"`
 	TicketUrl   *string `json:"ticketUrl,omitempty"`
+	Priority    int32   `json:"priority"`
 	CreatedAt   string  `json:"createdAt"`
 }
 
@@ -3809,7 +3835,7 @@ func (instance *EventExec) Occurrences(params *OccurrencesParamsExec) *EventOccu
 		wparams,
 		[3]string{"EventOccurrenceWhereInput", "EventOccurrenceOrderByInput", "EventOccurrence"},
 		"occurrences",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExecArray{ret}
 }
@@ -4076,7 +4102,7 @@ func (instance *EventOccurrenceEdgeExec) Node() *EventOccurrenceExec {
 		nil,
 		[2]string{"", "EventOccurrence"},
 		"node",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExec{ret}
 }
@@ -4208,7 +4234,7 @@ func (instance *EventOccurrenceSubscriptionPayloadExec) Node() *EventOccurrenceE
 		nil,
 		[2]string{"", "EventOccurrence"},
 		"node",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExec{ret}
 }
@@ -4219,7 +4245,7 @@ func (instance *EventOccurrenceSubscriptionPayloadExec) PreviousValues() *EventO
 		nil,
 		[2]string{"", "EventOccurrencePreviousValues"},
 		"previousValues",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrencePreviousValuesExec{ret}
 }
@@ -4336,7 +4362,7 @@ func (instance *SearchExec) EventOccurrences(params *EventOccurrencesParamsExec)
 		wparams,
 		[3]string{"EventOccurrenceWhereInput", "EventOccurrenceOrderByInput", "EventOccurrence"},
 		"eventOccurrences",
-		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"})
+		[]string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"})
 
 	return &EventOccurrenceExecArray{ret}
 }
@@ -4409,7 +4435,7 @@ func (instance EventOccurrencePreviousValuesExecArray) Exec(ctx context.Context)
 	return v, err
 }
 
-var EventOccurrencePreviousValuesFields = []string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "createdAt"}
+var EventOccurrencePreviousValuesFields = []string{"id", "name", "description", "imageUrl", "startDate", "endDate", "lat", "long", "price", "city", "ticketUrl", "priority", "createdAt"}
 
 type EventOccurrencePreviousValues struct {
 	ID          string  `json:"id"`
@@ -4423,6 +4449,7 @@ type EventOccurrencePreviousValues struct {
 	Price       *int32  `json:"price,omitempty"`
 	City        City    `json:"city"`
 	TicketUrl   *string `json:"ticketUrl,omitempty"`
+	Priority    int32   `json:"priority"`
 	CreatedAt   string  `json:"createdAt"`
 }
 

@@ -115,6 +115,7 @@ type EventOccurrence {
   price: Int
   city: City!
   ticketUrl: String
+  priority: Int! @default(value: 1)
   event: Event! @relation(name: "EventOccurrences")
   createdAt: DateTime! @createdAt
 }
