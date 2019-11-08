@@ -37,9 +37,11 @@ module.exports = async (event) => {
 
   const result = responses[0].queryResult;
   if (result.intent) {
-    console.log(result);
-    console.log(result.intent.displayName);
-    console.log(result.outputContexts);
+    if (process.env.NODE_ENV === "development") {
+      console.log(result);
+      console.log(result.intent.displayName);
+      console.log(result.outputContexts);
+    }
     await handleIntent(result.intent.displayName, user, result.parameters.fields, result.outputContexts);
   } else {
     console.log("No intent matched.");
