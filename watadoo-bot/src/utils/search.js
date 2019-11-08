@@ -19,8 +19,8 @@ exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") 
   const now = new Date();
 
   if (datePeriod) {
-    const periodStart = new Date(datePeriod.startDate);
-    const periodEnd = new Date(datePeriod.endDate);
+    const periodStart = new Date(datePeriod.startDate.stringValue);
+    const periodEnd = new Date(datePeriod.endDate.stringValue);
     // If it's a weekend, we need to handle the query because Dialogflow doesn't get the correct date. TODO: Depending on the timezone of the user and/or of the machine on which the code runs, this does not always represent the weekend.
     if (periodStart.getDay() == 6 && (periodEnd.getDay() == 0 || periodEnd.getDay() == 1 )) {
       // We sometime get the previous weekend. Check if start date is before next sunday, if so he is speaking about this weekend.
@@ -32,13 +32,13 @@ exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") 
         moment.end = nextSunday;
         moment.string = "en fin de semaine";
       } else {
-        moment.start = datePeriod.startDate;
-        moment.end = datePeriod.endDate;
+        moment.start = datePeriod.startDate.stringValue;
+        moment.end = datePeriod.endDate.stringValue;
         moment.string = datePeriodString;
       }
     } else {
-      moment.start = datePeriod.startDate;
-      moment.end = datePeriod.endDate;
+      moment.start = datePeriod.startDate.stringValue;
+      moment.end = datePeriod.endDate.stringValue;
       moment.string = datePeriodString;
     }
   } else if (date) {
@@ -56,7 +56,7 @@ exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") 
     }
 
     if (timePeriod) {
-      const start = timePeriod.startTime;
+      const start = timePeriod.startTime.stringValue;
       if (start.includes("5:00:00")) {
         moment.start = comparedDate.setHours(5,0,0,0);
         moment.end = comparedDate.setHours(11,59,59,999);
@@ -103,37 +103,6 @@ exports.generateCard = (eventOccurrence, userId = "") => ({
       "url": `https://evenements.watadoo.ca?id=${eventOccurrence.event.id}&user=${userId}`,
       "title": "En savoir plus",
       "webview_height_ratio": "compact"
-    },
-    {
-      "type": "element_share",
-      "share_contents": {
-        "attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "generic",
-            "elements": [
-              {
-                "title": eventOccurrence.name,
-                "subtitle": eventOccurrence.description,
-                "image_url": eventOccurrence.imageUrl,
-                "default_action": {
-                  "type": "web_url",
-                  "url": `https://evenements.watadoo.ca?id=${eventOccurrence.event.id}`,
-                  "webview_height_ratio": "compact"
-                },
-                "buttons": [
-                  {
-                    "type": "web_url",
-                    "url": `https://evenements.watadoo.ca?id=${eventOccurrence.event.id}`,
-                    "title": "En savoir plus",
-                    "webview_height_ratio": "compact"
-                  },
-                ]
-              },
-            ]
-          }
-        }
-      }
     },
   ]
 });

@@ -1,13 +1,14 @@
 version: '3'
 services:
   prisma:
-    image: prismagraphql/prisma:1.28
+    image: prismagraphql/prisma:1.34
     restart: always
     ports:
-    - "4468:4468"
+    - "4467:4467"
     environment:
       PRISMA_CONFIG: |
-        port: 4468
+        port: 4467
+        managementApiSecret: mysecret42
         databases:
           default:
             connector: mysql
