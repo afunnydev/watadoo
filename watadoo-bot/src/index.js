@@ -33,16 +33,6 @@ app.get("/monitor", async (req, res) => {
 //   if (key !== process.env.DIALOGFLOW_HEADER_KEY) {
 //     throw new Error("Not Authorized");
 //   }
-
-//   intentMap.set("Share", await share);
-
-//   intentMap.set("Notification", await notification);
-//   intentMap.set("Notification - Frequency", await notificationFrequency);
-
-//   intentMap.set("Personnal information", await viewProfile);
-//   intentMap.set("Personnal information - delete - yes", await deleteProfile);
-
-//   agent.handleRequest(intentMap);
 // });
 
 app.post("/webhook/facebook", async (req, res) => {

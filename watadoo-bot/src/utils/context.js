@@ -26,3 +26,9 @@ exports.updateContext = async (id, name, lifespan = 2, parameters = {}) => {
     context: ctx
   });
 };
+
+exports.deleteAllContexts = async (id) => {
+  await sessionContext.deleteAllContexts({
+    parent: sessionContext.sessionPath(projectId, id)
+  });
+};

@@ -2,7 +2,7 @@
 const dialogflow = require("dialogflow");
 
 const { prisma } = require("./generated/prisma-client");
-const { welcome, localisation, relationship, age, search, searchYes, searchInterest, searchNext, searchCancel, searchNo, searchNoDate, searchNoCity, searchLarger } = require("./intents");
+const { welcome, localisation, relationship, age, search, searchYes, searchInterest, searchNext, searchCancel, searchNo, searchNoDate, searchNoCity, searchLarger, notification, notificationFrequency, personnalInformation, personnalInformationDelete, personnalInformationDeleteNo, personnalInformationDeleteYes, share } = require("./intents");
 const newUser = require("./utils/newUser");
 
 // Instantiates a session client
@@ -49,8 +49,8 @@ module.exports = async (event) => {
 
 const handleIntent = async (intent, user, parameters = {}, context = []) => {
   switch (intent) {
-  case "Welcome" || "New Search":
-    await welcome(user);
+  case "Welcome":
+    await welcome(user, false);
     break;
   case "Localisation":
     await localisation(user, parameters.city.stringValue);
@@ -87,6 +87,30 @@ const handleIntent = async (intent, user, parameters = {}, context = []) => {
     break;
   case "Search - larger":
     await searchLarger(user, context.length ? context[0].parameters : null);
+    break;
+  case "New Search":
+    await welcome(user);
+    break;
+  case "Notification":
+    await notification(user);
+    break;
+  case "Notification - Frequency":
+    await notificationFrequency(user, parameters.Frequency);
+    break;
+  case "Personnal information":
+    await personnalInformation(user);
+    break;
+  case "Personnal information - delete":
+    await personnalInformationDelete(user);
+    break;
+  case "Personnal information - delete - no":
+    await personnalInformationDeleteNo(user);
+    break;
+  case "Personnal information - delete - yes":
+    await personnalInformationDeleteYes(user);
+    break;
+  case "Share":
+    await share(user);
     break;
   default:
     break;

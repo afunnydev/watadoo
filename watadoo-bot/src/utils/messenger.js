@@ -35,7 +35,7 @@ exports.sendTemplate = async (senderId, o) => {
     data,
     { json: true }
   ).then(function ({ statusCode, body }) {
-    console.log(body);
+    // console.log(body);
     if (statusCode === 200) { return body; }
   }).catch(function (err) {
     // eslint-disable-next-line no-console

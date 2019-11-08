@@ -5,13 +5,15 @@ const { askForLocation, askForRelationship, askForAge } = require("../messages/p
 const { askWhenMessage } = require("../messages/search");
 const { createContext } = require("../utils/context");
 
-module.exports = async (user) => {
+module.exports = async (user, greetings = false) => {
   const polyglot = new Polyglot();
   polyglot.extend(messages[user.language.toLowerCase()]);
 
-  await sendTextMessage(user.facebookid, {
-    text: polyglot.t("greet-with-name", { name: user.fname ? `${user.fname}` : "" })
-  });
+  if (greetings) {
+    await sendTextMessage(user.facebookid, {
+      text: polyglot.t("greet-with-name", { name: user.fname ? `${user.fname}` : "" })
+    });
+  }
 
   if (!user.city) {
     return await askForLocation(user.facebookid, polyglot);
