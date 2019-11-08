@@ -1,6 +1,7 @@
 require("dotenv").config({ path: ".env.development.local" });
 
 const express = require("express");
+const crypto = require("crypto");
 const createServer = require("./createServer");
 
 const bodyParser = require("body-parser");
@@ -13,7 +14,11 @@ const corsOptions = {
   origin: process.env.FRONTEND_URL
 };
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  verify(req, res, buf) {
+    req.rawBody = buf;
+  }
+}));
 
 app.get("/monitor", async (req, res) => {
   const auth = req.header("Authorization");
@@ -28,14 +33,14 @@ app.get("/monitor", async (req, res) => {
   }
 });
 
-// app.post("/webhook/dialogflow", async (req, res) => {
-//   const key = req.header("X-Dialogflow");
-//   if (key !== process.env.DIALOGFLOW_HEADER_KEY) {
-//     throw new Error("Not Authorized");
-//   }
-// });
+const fbWebhookAuth = (req, res, next) => {
+  const hmac = crypto.createHmac("sha1", process.env.FACEBOOK_APP_SECRET);
+  hmac.update(req.rawBody, "utf-8");
+  if (req.headers["x-hub-signature"] === `sha1=${hmac.digest("hex")}`) next();
+  else res.status(400).send("Invalid signature");
+};
 
-app.post("/webhook/facebook", async (req, res) => {
+app.post("/webhook/facebook", fbWebhookAuth, async (req, res) => {
   if (req.body.object === "page") {
     req.body.entry.forEach(entry => {
       entry.messaging.forEach(event => {
