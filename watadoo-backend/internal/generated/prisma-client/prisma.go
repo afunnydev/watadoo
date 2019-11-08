@@ -3646,7 +3646,7 @@ type User struct {
 	Picture                *string       `json:"picture,omitempty"`
 	Email                  *string       `json:"email,omitempty"`
 	Password               *string       `json:"password,omitempty"`
-	Language               *Language     `json:"language,omitempty"`
+	Language               Language      `json:"language"`
 	Sex                    *Sex          `json:"sex,omitempty"`
 	Age                    *int32        `json:"age,omitempty"`
 	City                   *City         `json:"city,omitempty"`
@@ -5332,7 +5332,7 @@ type UserPreviousValues struct {
 	Picture                *string       `json:"picture,omitempty"`
 	Email                  *string       `json:"email,omitempty"`
 	Password               *string       `json:"password,omitempty"`
-	Language               *Language     `json:"language,omitempty"`
+	Language               Language      `json:"language"`
 	Sex                    *Sex          `json:"sex,omitempty"`
 	Age                    *int32        `json:"age,omitempty"`
 	City                   *City         `json:"city,omitempty"`

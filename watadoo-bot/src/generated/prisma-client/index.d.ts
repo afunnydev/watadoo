@@ -2671,7 +2671,7 @@ export interface User {
   picture?: String;
   email?: String;
   password?: String;
-  language?: Language;
+  language: Language;
   sex?: Sex;
   age?: Int;
   city?: City;
@@ -3879,7 +3879,7 @@ export interface UserPreviousValues {
   picture?: String;
   email?: String;
   password?: String;
-  language?: Language;
+  language: Language;
   sex?: Sex;
   age?: Int;
   city?: City;

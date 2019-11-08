@@ -62,7 +62,7 @@ type User {
   picture: String
   email: String @unique
   password: String
-  language: Language @default(value: FR)
+  language: Language! @default(value: FR)
   sex: Sex
   age: Int
   city: City

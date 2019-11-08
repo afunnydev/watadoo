@@ -1857,7 +1857,7 @@ type User {
   picture: String
   email: String
   password: String
-  language: Language
+  language: Language!
   sex: Sex
   age: Int
   city: City
@@ -1956,7 +1956,7 @@ type UserPreviousValues {
   picture: String
   email: String
   password: String
-  language: Language
+  language: Language!
   sex: Sex
   age: Int
   city: City

@@ -50,7 +50,7 @@ module.exports = async (event) => {
 const handleIntent = async (intent, user, parameters = {}, context = []) => {
   switch (intent) {
   case "Welcome":
-    await welcome(user, false);
+    await welcome(user, true);
     break;
   case "Localisation":
     await localisation(user, parameters.city.stringValue);
