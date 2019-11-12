@@ -9,12 +9,18 @@ import (
 
 // ManageNextOccurrence parse the events in the database and update every events with it's next occurrence date.
 func ManageNextOccurrence(client *prisma.Client) error {
-	// 1) Get all events that have 1 or more occurence(s) in the past.
+	// 1) Get all events that have 1 or more occurence(s) in the past, or that has occurrences coming but a nextOccurrenceDate in the past.
 	nowString := time.Now().Format(time.RFC3339)
+	in2Months := time.Now().Add(24 * 60 * time.Hour).Format(time.RFC3339)
 	events, err := client.Events(&prisma.EventsParams{
 		Where: &prisma.EventWhereInput{
-			OccurrencesSome: &prisma.EventOccurrenceWhereInput{
-				StartDateLt: &nowString,
+			Or: []prisma.EventWhereInput{
+				{OccurrencesSome: &prisma.EventOccurrenceWhereInput{
+					StartDateLt: &nowString,
+				}},
+				{OccurrencesSome: &prisma.EventOccurrenceWhereInput{
+					StartDateLt: &in2Months,
+				}, NextOccurrenceDateLte: &nowString},
 			},
 		},
 	}).Exec(context.TODO())

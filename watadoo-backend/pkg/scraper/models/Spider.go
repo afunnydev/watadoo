@@ -48,8 +48,9 @@ func GetCronSpiders() []Spider {
 	houseOfTargSpider := GetHouseOfTargSpider()
 	liveOnElginSpider := GetLiveOnElginSpider()
 	ovationSpider := GetOvationSpider()
+	ottawaTourismSpider := GetOttawaTourismSpider()
 
-	spiders = append(spiders, cnaSpider, houseOfTargSpider, liveOnElginSpider, ovationSpider)
+	spiders = append(spiders, cnaSpider, houseOfTargSpider, liveOnElginSpider, ovationSpider, ottawaTourismSpider)
 
 	return spiders
 }
@@ -163,9 +164,10 @@ func GetOttawaTourismSpider() Spider {
 			Separated:   false,
 			DaySelector: HtmlSelector{".content-right .events-link-info span.info-item.calendar", false, ""},
 		},
-		EventVenueNameSelector: HtmlSelector{".content-right .events-link-info span.info-item.address", false, ""},
-		// This same field contains both the venue name and the location.
-		EventLocationSelector:  HtmlSelector{".content-right .events-link-info span.info-item.address", false, ""},
+		// EventVenueNameSelector: HtmlSelector{".content-right .events-link-info span.info-item.address", false, ""},
+		// EventLocationSelector:  HtmlSelector{".content-right .events-link-info span.info-item.address", false, ""},
+		// Since it's to hard to find the venue and it causes a lot of duplicates, I created this venue for manual review.
+		VenueNameOverride:      "Venue Not Found",
 		EventTicketURLSelector: HtmlSelector{".content-right .events-link-info span.info-item.website a", true, "href"},
 		EventTagsSelector:      ".content-tags a",
 	}

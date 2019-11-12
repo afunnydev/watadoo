@@ -56,6 +56,16 @@ func main() {
 		"https://m.facebook.com/British.ca/pages/permalink/?view_type=tab_events",
 		"https://m.facebook.com/LaNouvelleScene/events",
 		"https://m.facebook.com/legainsbourg/events",
+		"https://m.facebook.com/pg/Tarata-Jam-463818584458185/events/",
+		"https://m.facebook.com/pg/RelaisPleinAir/events",
+		"https://m.facebook.com/pg/laboiteagrains/events",
+		"https://m.facebook.com/pg/buckinghamenfamille/events",
+		"https://m.facebook.com/pg/TDPlaceatLansdowne/events",
+		"https://m.facebook.com/pg/CLUBALEA/events",
+		"https://m.facebook.com/pg/spectrasonic/events",
+		"https://m.facebook.com/pg/cityatnightottawa/events",
+		"https://m.facebook.com/pg/SalleDesjardins/events",
+		"https://m.facebook.com/pg/Soif.Gatineau/events",
 	}
 	for _, facebookPage := range facebookPages {
 		facebookEvents, _ := scraper.FetchFacebook(facebookPage)
