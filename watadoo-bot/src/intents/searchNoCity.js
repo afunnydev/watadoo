@@ -2,6 +2,7 @@ const Polyglot = require("node-polyglot");
 const { messages } = require("../locales");
 const { prisma } = require("../generated/prisma-client");
 const { sendTextMessage } = require("../utils/messenger");
+const { createContext, deleteContext } = require("../utils/context");
 const { makeNewSearch } = require("../messages/search");
 
 module.exports = async (user, context, city) => {
@@ -34,18 +35,13 @@ module.exports = async (user, context, city) => {
     });
     return await makeNewSearch(user, polyglot, searchQuery);
   }
-
   await prisma.createRequestedCity({ city, user: { connect: { facebookid: user.facebookid } } });
-
-  // agent.add(`Malheureusement, je n'offre pas d'événement à ${city} encore.`);
-  // agent.add("Veux-tu que je t'avertisse quand ce sera le cas?");
-  // agent.context.delete("Search-followup");
-  // agent.context.delete("Search-no-followup");
-  // return agent.context.set({
-  //   name: "CityNotAvailable-followup",
-  //   lifespan: 2,
-  //   parameters: {
-  //     city: city
-  //   }
-  // });
+  await Promise.all([
+    createContext(user.id, "CityNotAvailable-followup", 2, { city }),
+    deleteContext(user.id, "Search-followup"),
+    deleteContext(user.id, "Search-no-followup"),
+  ]);
+  await sendTextMessage(user.facebookid, {
+    text: polyglot.t("city-not-available", { city })
+  });
 };

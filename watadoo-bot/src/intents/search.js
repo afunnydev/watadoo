@@ -23,6 +23,7 @@ module.exports = async (user, { date, timePeriod, datePeriod, datePeriodString }
   }
 
   const eventMoment = findEventMoment(
+    polyglot,
     date.stringValue,
     timePeriod.structValue ? timePeriod.structValue.fields : null,
     datePeriod.structValue ? datePeriod.structValue.fields : null,
@@ -51,17 +52,17 @@ module.exports = async (user, { date, timePeriod, datePeriod, datePeriodString }
   return await Promise.all([
     updateContext(user.id, "search-followup", 5, { queryId: query.id }),
     sendTextMessage(user.facebookid, {
-      text: `Parfait! Donc, si j'ai bien compris, je cherche des événements à ${capitalize(user.city)} qui se dérouleront ${eventMoment.string}?`,
+      text: polyglot.t("confirm-search", { city: capitalize(user.city), moment: eventMoment.string}),
       "quick_replies": [
         {
           "content_type": "text",
-          "title": "Oui",
-          "payload": "oui"
+          "title": polyglot.t("Oui"),
+          "payload": polyglot.t("Oui")
         },
         {
           "content_type": "text",
-          "title": "Non",
-          "payload": "non"
+          "title": polyglot.t("Non"),
+          "payload": polyglot.t("Non")
         },
       ]
     }),

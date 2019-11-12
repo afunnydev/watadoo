@@ -24,6 +24,7 @@ module.exports = async (user, context, { date, timePeriod, datePeriod, datePerio
   }
 
   const eventMoment = findEventMoment(
+    polyglot,
     date.stringValue,
     timePeriod.structValue ? timePeriod.structValue.fields : null,
     datePeriod.structValue ? datePeriod.structValue.fields : null,

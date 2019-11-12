@@ -9,12 +9,12 @@ const sendAllEventsSeenMessage = async (id, polyglot) => {
       {
         "content_type": "text",
         "title": polyglot.t("Oui"),
-        "payload": "oui"
+        "payload": polyglot.t("Oui")
       },
       {
         "content_type": "text",
         "title": polyglot.t("Non"),
-        "payload": "non"
+        "payload": polyglot.t("Non")
       },
     ]
   });
@@ -28,17 +28,17 @@ const sendSearchDoneMessage = async (id, polyglot) => {
       {
         "content_type": "text",
         "title": polyglot.t("Je veux m'inscrire"),
-        "payload": "Je veux m'inscrire"
+        "payload": polyglot.t("Je veux m'inscrire")
       },
       {
         "content_type": "text",
         "title": polyglot.t("Nouvelle recherche"),
-        "payload": "Nouvelle recherche"
+        "payload": polyglot.t("Nouvelle recherche")
       },
       {
         "content_type": "text",
         "title": polyglot.t("Partager Watadoo"),
-        "payload": "Partager Watadoo"
+        "payload": polyglot.t("Partager Watadoo")
       },
     ]
   });
@@ -51,12 +51,12 @@ const sendNothingFoundMessage = async (id, polyglot) => {
       {
         "content_type": "text",
         "title": polyglot.t("Oui"),
-        "payload": "Recherche plus large"
+        "payload": polyglot.t("Recherche plus large")
       },
       {
         "content_type": "text",
         "title": polyglot.t("Non"),
-        "payload": "Annuler"
+        "payload": polyglot.t("Annuler")
       },
     ]
   });
@@ -65,26 +65,26 @@ const sendNothingFoundMessage = async (id, polyglot) => {
 const sendNextOccurrences = async (user, polyglot, occurrences, extended = false) => {
   await sendTemplate(user.facebookid, {
     template_type: "generic",
-    elements: occurrences.slice(0, 5).map(occ => generateCard(occ, user.id))
+    elements: occurrences.slice(0, 5).map(occ => generateCard(occ, user.id, polyglot))
   });
   if (occurrences.length > 5) {
     const quickReplies = [
       {
         "content_type": "text",
         "title": polyglot.t("Voir les suivants"),
-        "payload": "suivant"
+        "payload": polyglot.t("suivant")
       },
     ];
     if (extended) {
       quickReplies.push({
         "content_type": "text",
         "title": polyglot.t("Nouvelle recherche"),
-        "payload": "Nouvelle recherche"
+        "payload": polyglot.t("Nouvelle recherche")
       });
       quickReplies.push({
         "content_type": "text",
         "title": polyglot.t("Recevoir des alertes"),
-        "payload": "Recevoir des alertes"
+        "payload": polyglot.t("Recevoir des alertes")
       });
     }
     return await sendTextMessage(user.facebookid, {
@@ -155,7 +155,7 @@ exports.askWhenMessage = async (id, polyglot) => {
     "quick_replies": moments.map(m => ({
       "content_type": "text",
       "title": polyglot.t(m),
-      "payload": m
+      "payload": polyglot.t(m)
     }))
   });
 };

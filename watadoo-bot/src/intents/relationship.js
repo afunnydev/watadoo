@@ -9,11 +9,11 @@ const { createContext } = require("../utils/context");
 module.exports = async (user, relationship) => {
   let status = "NONE";
 
-  if (relationship === "Célibataire") {
+  if (relationship === "Célibataire" || relationship === "Single") {
     status = "SINGLE";
   } else if (relationship === "Couple") {
     status = "COUPLE";
-  } else if (relationship === "Mariage") {
+  } else if (relationship === "Mariage" || relationship === "Married") {
     status = "MARRIED";
   }
 

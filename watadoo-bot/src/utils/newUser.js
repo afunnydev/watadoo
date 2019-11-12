@@ -22,14 +22,13 @@ module.exports = async (senderId) => {
     text: polyglot.t("presentation")
   });
 
-  const cities = [polyglot.t("Gatineau"), polyglot.t("Ottawa"), polyglot.t("Montréal"), polyglot.t("Québec"),];
+  const cities = ["Gatineau", "Ottawa", "Montréal", "Québec",];
   await sendTextMessage(senderId, {
     text: polyglot.t("Pour commencer, dans quelle ville es-tu? Tu peux l'écrire si elle n'est pas dans les choix."),
     quick_replies: cities.map(city => ({
       content_type: "text",
-      title: city,
-      payload: city
+      title: polyglot.t(city),
+      payload: polyglot.t(city)
     }))
   });
-  // await prisma.deleteUser({ facebookid: senderId });
 };
