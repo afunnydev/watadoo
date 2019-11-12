@@ -23,10 +23,30 @@ const EventsPage = () => {
   }
   const withNotes = {
     OR: [
-      { possibleDuplicate: true },
-      { importNotes_gt: "" },
-      { category: "UNKNOWN" },
-      { venue: { id: "ck1v91n8a2wei0729alfoa5nc" } },
+      {
+        possibleDuplicate: true,
+        occurrences_some: {
+          id_not: null
+        }
+      },
+      {
+        importNotes_gt: "",
+        occurrences_some: {
+          id_not: null
+        }
+      },
+      {
+        category: "UNKNOWN",
+        occurrences_some: {
+          id_not: null
+        }
+      },
+      {
+        venue: { id: "ck1v91n8a2wei0729alfoa5nc" },
+        occurrences_some: {
+          id_not: null
+        }
+      },
     ]
   }
   return (
