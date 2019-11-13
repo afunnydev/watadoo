@@ -10,18 +10,24 @@ module.exports = async (user, frequency) => {
 
   let newNotification = {};
 
-  switch (frequency) {
+  switch (frequency.stringValue) {
   case "N'importe quand":
     newNotification = { code: "ANYTIME", text: "n'importe quand" };
     break;
+  case "Anytime":
+    newNotification = { code: "ANYTIME", text: "anytime" };
+    break;
   case "Hebdomadairement":
     newNotification = { code: "WEEKLY", text: "à chaque semaine" };
+    break;
+  case "Weekly":
+    newNotification = { code: "WEEKLY", text: "weekly" };
     break;
   case "Bi-mensuellement":
     newNotification = { code: "BIWEEKLY", text: "aux deux semaines" };
     break;
   default:
-    newNotification = { code: "MONTHLY", text: "à chaque mois" };
+    newNotification = { code: "MONTHLY", text: polyglot.t("à chaque mois") };
   }
 
   await prisma.updateUser({
@@ -40,12 +46,12 @@ module.exports = async (user, frequency) => {
       {
         "content_type": "text",
         "title": polyglot.t("Nouvelle recherche"),
-        "payload": "Nouvelle recherche"
+        "payload": polyglot.t("Nouvelle recherche")
       },
       {
         "content_type": "text",
         "title": polyglot.t("Partager Watadoo"),
-        "payload": "Partager Watadoo"
+        "payload": polyglot.t("Partager Watadoo")
       },
     ]
   });

@@ -27,6 +27,12 @@ exports.updateContext = async (id, name, lifespan = 2, parameters = {}) => {
   });
 };
 
+exports.deleteAllContexts = async (id, name) => {
+  await sessionContext.deleteContext({
+    name: sessionContext.contextPath(projectId, id, name)
+  });
+};
+
 exports.deleteAllContexts = async (id) => {
   await sessionContext.deleteAllContexts({
     parent: sessionContext.sessionPath(projectId, id)

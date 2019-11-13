@@ -24,7 +24,7 @@ module.exports = async (user) => {
           {
             "type": "web_url",
             "url": "https://m.me/watadoo.ca",
-            "title": "Essayer Watadoo"
+            "title": polyglot.t("Essayer Watadoo")
           },
         ]
       },

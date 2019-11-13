@@ -1,8 +1,5 @@
-const daysOfTheWeek = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi",];
-
-// const daysOfTheWeek = [i18n.__("sunday"), i18n.__("monday"), i18n.__("tuesday"), i18n.__("wednesday"), i18n.__("thursday"), i18n.__("friday"), i18n.__("saturday"),];
-
-const monthsOfTheYear = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre",];
+const daysOfTheWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday",];
+const monthsOfTheYear = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december",];
 
 const getNextDayOfWeek = (date, dayOfWeek, evening = false) => {
   // TODO: need to check that date and dayOfWeek are valid
@@ -14,7 +11,7 @@ const getNextDayOfWeek = (date, dayOfWeek, evening = false) => {
   return resultDate;
 };
 
-exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") => {
+exports.findEventMoment = (polyglot, date, timePeriod, datePeriod, datePeriodString = "") => {
   let moment = {};
   const now = new Date();
 
@@ -30,29 +27,33 @@ exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") 
         // If we are passed friday, he can still ask what to do this weekend.
         moment.start = nextFriday > nextSunday ? now : nextFriday;
         moment.end = nextSunday;
-        moment.string = "en fin de semaine";
+        moment.string = polyglot.t("en fin de semaine");
       } else {
         moment.start = datePeriod.startDate.stringValue;
         moment.end = datePeriod.endDate.stringValue;
-        moment.string = datePeriodString;
+        moment.string = datePeriodString.toLowerCase();
       }
     } else {
       moment.start = datePeriod.startDate.stringValue;
       moment.end = datePeriod.endDate.stringValue;
-      moment.string = datePeriodString;
+      moment.string = datePeriodString.toLowerCase();
     }
   } else if (date) {
     const comparedDate = new Date(date);
     const todayNb = now.getDate();
     const comparedNb = comparedDate.getDate();
     if (todayNb === comparedNb) {
-      moment.string = "aujourd'hui";
+      moment.string = polyglot.t("aujourd'hui");
     } else if (todayNb + 1 === comparedNb) {
-      moment.string = "demain";
+      moment.string = polyglot.t("demain");
     } else {
       const comparedDay = comparedDate.getDay();
       const comparedMonth = comparedDate.getMonth();
-      moment.string = `${daysOfTheWeek[comparedDay]} le ${comparedNb} ${monthsOfTheYear[comparedMonth]}`;
+      moment.string = polyglot.t("date-confirmation", {
+        dayName: polyglot.t(daysOfTheWeek[comparedDay]),
+        day: comparedNb,
+        month: polyglot.t(monthsOfTheYear[comparedMonth])
+      });
     }
 
     if (timePeriod) {
@@ -60,11 +61,11 @@ exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") 
       if (start.includes("5:00:00")) {
         moment.start = comparedDate.setHours(5,0,0,0);
         moment.end = comparedDate.setHours(11,59,59,999);
-        moment.string += " en matinée";
+        moment.string += polyglot.t(" en matinée");
       } else {
         moment.start = comparedDate.setHours(17,0,0,0);
         moment.end = comparedDate.setHours(23,59,59,999);
-        moment.string += " en soirée";
+        moment.string += polyglot.t(" en soirée");
       }
     } else {
       moment.start = comparedDate.setHours(0,0,0,0);
@@ -75,7 +76,7 @@ exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") 
     // If there's only a time period, the only possible queries are 'ce soir' and 'ce matin'.
     moment.start = now.setHours(17,0,0,0);
     moment.end = now.setHours(23,59,59,999);
-    moment.string = "ce soir";
+    moment.string = polyglot.t("ce soir");
   }
 
   const startMoment = new Date(moment.start);
@@ -88,7 +89,7 @@ exports.findEventMoment = (date, timePeriod, datePeriod, datePeriodString = "") 
   };
 };
 
-exports.generateCard = (eventOccurrence, userId = "") => ({
+exports.generateCard = (eventOccurrence, userId = "", polyglot) => ({
   "title": eventOccurrence.name,
   "image_url": eventOccurrence.imageUrl,
   "subtitle": eventOccurrence.description,
@@ -101,7 +102,7 @@ exports.generateCard = (eventOccurrence, userId = "") => ({
     {
       "type": "web_url",
       "url": `https://evenements.watadoo.ca?id=${eventOccurrence.event.id}&user=${userId}`,
-      "title": "En savoir plus",
+      "title": polyglot.t("En savoir plus"),
       "webview_height_ratio": "compact"
     },
   ]

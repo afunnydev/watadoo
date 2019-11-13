@@ -219,7 +219,6 @@ func createImage(token, filename, url string) (int32, error) {
 
 	client := &http.Client{}
 
-	// Import the venue FR
 	req, err := http.NewRequest("POST", "https://watadoo.ca/wp-json/wp/v2/media", body)
 	req.Header.Set("Content-Type", writer.FormDataContentType())
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))

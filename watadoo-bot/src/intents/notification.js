@@ -12,13 +12,14 @@ module.exports = async (user) => {
   case "WEEKLY":
     currentNotification = "Tu reçois présentement des alertes à chaque semaine.";
     break;
-  case "MONTLY":
+  case "MONTHLY":
     currentNotification = "Tu reçois présentement des alertes à chaque mois.";
     break;
   case "ANYTIME":
     currentNotification = "Je peux présentement t'écrire n'importe quand.";
     break;
   }
+
   await sendTextMessage(user.facebookid, {
     text: polyglot.t(currentNotification)
   });
@@ -28,17 +29,17 @@ module.exports = async (user) => {
       {
         "content_type": "text",
         "title": polyglot.t("N'importe quand"),
-        "payload": "N'importe quand"
+        "payload": polyglot.t("N'importe quand")
       },
       {
         "content_type": "text",
         "title": polyglot.t("À chaque semaine"),
-        "payload": "À chaque semaine"
+        "payload": polyglot.t("À chaque semaine")
       },
       {
         "content_type": "text",
         "title": polyglot.t("À chaque mois"),
-        "payload": "À chaque mois"
+        "payload": polyglot.t("À chaque mois")
       },
     ]
   });

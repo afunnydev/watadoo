@@ -26,17 +26,17 @@ module.exports = async (user) => {
       {
         "content_type": "text",
         "title": polyglot.t("Supprimer mon compte"),
-        "payload": "Supprimer mon compte"
+        "payload": polyglot.t("Supprimer mon compte")
       },
       {
         "content_type": "text",
         "title": polyglot.t("Nouvelle recherche"),
-        "payload": "Nouvelle recherche"
+        "payload": polyglot.t("Nouvelle recherche")
       },
       {
         "content_type": "text",
         "title": polyglot.t("Confidentialité"),
-        "payload": "Confidentialité"
+        "payload": polyglot.t("Confidentialité")
       },
     ]
   });

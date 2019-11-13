@@ -13,7 +13,7 @@ exports.askForRelationship = async (id, polyglot) => {
     quick_replies: relationOptions.map(option => ({
       content_type: "text",
       title: polyglot.t(option.title),
-      payload: option.payload
+      payload: polyglot.t(option.payload)
     }))
   });
 };
@@ -34,7 +34,7 @@ exports.askForLocation = async (id, polyglot) => {
     quick_replies: cities.map(city => ({
       content_type: "text",
       title: polyglot.t(city),
-      payload: city
+      payload: polyglot.t(city)
     }))
   });
 };
