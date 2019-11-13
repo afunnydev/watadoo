@@ -123,7 +123,7 @@ exports.messages = {
     "search-no-fallback": "Malheureusement, je n'ai pas compris comment tu veux modifier ta recherche. Tu peux modifier la ville ou le moment pour lequel tu cherches des événements en me disant directement la nouvelle ville ou la nouvelle date.",
     "search-no-fallback-2": "Sinon, tu peux annuler ta recherche en disant 'Annuler'.",
     "date-confirmation": "%{dayName} le %{day} %{month}",
-    "default-intent": "Désolé %{name}, je n'ai pas compris ce que vous essayez de me dire. Voici quelques options qui pourraient vous aider:"
+    "default-intent": "Désolé %{name}, je n'ai pas compris ce tu essayes de me dire. Voici quelques options qui pourraient t'aider:"
   },
   en: {
     "monday": "monday",
@@ -193,7 +193,7 @@ exports.messages = {
     "Non": "No",
     "Recherche plus large": "Broader search",
     "Annuler": "Cancel",
-    "Tu recherches quelque chose à faire à quel moment? Tu peux aussi écrire un autre moment que les choix ci-bas.": "For which date are you searching for something to do? You can also write down another moment if it is not listed in the choices below.",
+    "Tu recherches quelque chose à faire à quel moment? Tu peux aussi écrire un autre moment que les choix ci-bas.": "For which date are you searching for something to do? You can also write down your request if it's not listed in the choices below.",
     "city-not-available": "Unfortunately, we don't cover %{city} yet. Would you like me to notify you when we do?",
     "share-text": "You can share the experience with a friend by following those quick steps:\n\n1) Press the forward button next to the card below.\n2) Type or select the contact's name.\n3) Hit 'Send'.\n\n Try that to the following card! 👇",
     "À bientôt 😎": "Talk to you soon 😎",
@@ -230,7 +230,7 @@ exports.messages = {
     "city-adjusted": "Good, I changed the city for your search to %{city}.",
     "Malheureusement, je n'offre pas d'événement à %s encore.": "Unfortunately, I don't have any events to suggest for %s yet.",
     "location_confirmation": "Awesome, I know a lot of events happening in %{city}",
-    "Pas de problème. Tu peux me donner une autre ville ou une autre date pour ta recherche.": "No worries. You can change the city or the date.",
+    "Pas de problème. Tu peux me donner une autre ville ou une autre date pour ta recherche.": "No worries. Please write down the date or the city you would prefer for my search.",
     "date-adjusted": "Good, I adjusted your search for %{date}.",
     "delete-account-confirmation": "This action cannot be undone. Your information will be deleted from our servers, forever. 😰😭🤯 %{name}, are you sure you want to delete your account?",
     "delete-account-cancelled": "That was close! 😅 Thanks for your trust in me, %{name}. 🤟",

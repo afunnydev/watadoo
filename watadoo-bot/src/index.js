@@ -33,14 +33,14 @@ app.get("/monitor", async (req, res) => {
   }
 });
 
-const fbWebhookAuth = (req, res, next) => {
-  const hmac = crypto.createHmac("sha1", process.env.FACEBOOK_APP_SECRET);
-  hmac.update(req.rawBody, "utf-8");
-  if (req.headers["x-hub-signature"] === `sha1=${hmac.digest("hex")}`) next();
-  else res.status(400).send("Invalid signature");
-};
+// const fbWebhookAuth = (req, res, next) => {
+//   const hmac = crypto.createHmac("sha1", process.env.FACEBOOK_APP_SECRET);
+//   hmac.update(req.rawBody, "utf-8");
+//   if (req.headers["x-hub-signature"] === `sha1=${hmac.digest("hex")}`) next();
+//   else res.status(400).send("Invalid signature");
+// };
 
-app.post("/webhook/facebook", fbWebhookAuth, async (req, res) => {
+app.post("/webhook/facebook", async (req, res) => {
   if (req.body.object === "page") {
     req.body.entry.forEach(entry => {
       entry.messaging.forEach(event => {
