@@ -4,8 +4,15 @@ const { prisma } = require("../generated/prisma-client");
 const { sendTextMessage } = require("../utils/messenger");
 const { createContext, deleteContext } = require("../utils/context");
 const { makeNewSearch } = require("../messages/search");
+const { deleteAllContexts } = require("../utils/context");
+const welcome = require("./welcome");
 
 module.exports = async (user, context, city) => {
+  if (city === "Salut") {
+    await deleteAllContexts(user.id);
+    return await welcome(user);
+  }
+
   const polyglot = new Polyglot();
   polyglot.extend(messages[user.language.toLowerCase()]);
 

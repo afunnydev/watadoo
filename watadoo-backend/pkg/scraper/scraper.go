@@ -247,9 +247,13 @@ func fetchFacebookEvent(url string) (*models.Event, error) {
 		notes = fmt.Sprintf("Couldn't find appropriate time with %s", event.StartDate)
 	}
 
+	// The parsed FB description contains tagged pages. This regex can grabs something in the format @[1244865482249471:274:Pastel Délices] and replaces it by Pastel Délices.
+	re := regexp.MustCompile(`@\[(([0-9]+):)+(([0-9a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\-\'\\\/\[\]\.\(\)] ?)+)\]`)
+	description := re.ReplaceAllStringFunc(event.Description, getPageName)
+
 	return &models.Event{
 		Name:        event.Name,
-		Description: event.Description,
+		Description: description,
 		Link:        event.URL,
 		Image:       event.Image,
 		StartDate:   startDate,
@@ -258,4 +262,10 @@ func fetchFacebookEvent(url string) (*models.Event, error) {
 		Source:      "facebook",
 		Notes:       notes,
 	}, nil
+}
+
+func getPageName(s string) string {
+	ss := strings.Split(s, ":")
+	goodPart := ss[len(ss)-1]
+	return goodPart[:len(goodPart)-1]
 }

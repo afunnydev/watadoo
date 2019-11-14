@@ -26,6 +26,12 @@ module.exports = async (user, frequency) => {
   case "Bi-mensuellement":
     newNotification = { code: "BIWEEKLY", text: "aux deux semaines" };
     break;
+  case "Jamais":
+    newNotification = { code: "NEVER", text: "" };
+    break;
+  case "Never":
+    newNotification = { code: "NEVER", text: "" };
+    break;
   default:
     newNotification = { code: "MONTHLY", text: polyglot.t("à chaque mois") };
   }
@@ -39,9 +45,14 @@ module.exports = async (user, frequency) => {
     }
   });
 
+  let text = polyglot.t("notification-changed", { name: user.fname, frequency: newNotification.text });
+  if (newNotification.code === "NEVER") {
+    text = polyglot.t("notification-changed-never", { name: user.fname });
+  }
+
   await deleteAllContexts(user.id);
   return await sendTextMessage(user.facebookid, {
-    text: polyglot.t("notification-changed", { name: user.fname, frequency: newNotification.text}),
+    text,
     "quick_replies": [
       {
         "content_type": "text",

@@ -7,12 +7,60 @@ curl -X POST -H "Content-Type: application/json" -d '{
                 {
                     "type": "postback",
                     "title": "Nouvelle recherche",
-                    "payload": "FACEBOOK_WELCOME"
+                    "payload": "Nouvelle recherche"
                 },
                 {
                     "type": "postback",
-                    "title": "Recevoir des événements",
-                    "payload": "Alertes"
+                    "title": "Recevoir des alertes",
+                    "payload": "Recevoir des alertes"
+                }
+            ]
+        },
+        {
+            "locale": "fr_CA",
+            "composer_input_disabled": false,
+            "call_to_actions": [
+                {
+                    "type": "postback",
+                    "title": "Nouvelle recherche",
+                    "payload": "Nouvelle recherche"
+                },
+                {
+                    "type": "postback",
+                    "title": "Recevoir des alertes",
+                    "payload": "Recevoir des alertes"
+                }
+            ]
+        },
+        {
+            "locale": "fr_FR",
+            "composer_input_disabled": false,
+            "call_to_actions": [
+                {
+                    "type": "postback",
+                    "title": "Nouvelle recherche",
+                    "payload": "Nouvelle recherche"
+                },
+                {
+                    "type": "postback",
+                    "title": "Recevoir des alertes",
+                    "payload": "Recevoir des alertes"
+                }
+            ]
+        },
+        {
+            "locale": "en_US",
+            "composer_input_disabled": false,
+            "call_to_actions": [
+                {
+                    "type": "postback",
+                    "title": "New search",
+                    "payload": "New search"
+                },
+                {
+                    "type": "postback",
+                    "title": "Subscribe",
+                    "payload": "Subscribe"
                 }
             ]
         }

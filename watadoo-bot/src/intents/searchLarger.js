@@ -28,6 +28,32 @@ module.exports = async (user, context) => {
     }
   });
 
+  const eventOccurrences = await prisma.eventOccurrencesConnection({
+    where: {
+      city: searchQuery.city,
+      startDate_gte: searchQuery.startDate,
+      startDate_lte: searchQuery.endDate
+    }
+  });
+
+  if (eventOccurrences && !eventOccurrences.edges.length) {
+    return await sendTextMessage(user.facebookid, {
+      text: polyglot.t("no-event-found-again", { city: polyglot.t(searchQuery.city), name: user.fname }),
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": polyglot.t("Gatineau"),
+          "payload": polyglot.t("Gatineau")
+        },
+        {
+          "content_type": "text",
+          "title": polyglot.t("Ottawa"),
+          "payload": polyglot.t("Ottawa")
+        },
+      ]
+    });
+  }
+
   await sendTextMessage(user.facebookid, {
     text: polyglot.t("Voici les événements que j'ai durant les 2 prochaines semaines.")
   });

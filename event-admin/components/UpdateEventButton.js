@@ -28,7 +28,8 @@ const UpdateEventButton = ({ eventId, newVenueId, client }) => {
       imageUrl: event.imageUrl,
       lat: event.venue.lat,
       long: event.venue.long,
-      city: event.venue.city
+      city: event.venue.city,
+      priority: 0
     }
     for (var key in recurrencePatternObject) {
       const frequency = recurrencePatternObject[key]["frequency"]

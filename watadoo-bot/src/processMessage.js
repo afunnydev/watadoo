@@ -2,14 +2,14 @@
 const dialogflow = require("dialogflow");
 
 const { prisma } = require("./generated/prisma-client");
-const { welcome, localisation, relationship, age, search, searchYes, searchNext, searchCancel, searchNo, searchNoDate, searchNoCity, searchNoFallback, searchLarger, notification, notificationFrequency, personnalInformation, personnalInformationDelete, personnalInformationDeleteNo, personnalInformationDeleteYes, share, goodbye, language, languageYes, languageNo, about, cityNotAvailable, cityNotAvailableYes, cityNotAvailableNo, help, thankYou, defaultIntent } = require("./intents");
+const { welcome, localisation, relationship, age, search, searchYes, searchNext, searchCancel, searchNo, searchNoDate, searchNoCity, searchNoFallback, searchLarger, notification, notificationFrequency, personnalInformation, personnalInformationDelete, personnalInformationDeleteNo, personnalInformationDeleteYes, share, goodbye, language, languageYes, languageNo, languageFrench, languageEnglish, about, cityNotAvailable, cityNotAvailableYes, cityNotAvailableNo, help, thankYou, defaultIntent, smallTalk } = require("./intents");
 const newUser = require("./utils/newUser");
 
 // Instantiates a session client
 const sessionClient = new dialogflow.SessionsClient();
 const projectId = "watadoo-13c84";
 
-module.exports = async (event) => {
+module.exports = async (event, text = "") => {
   const senderId = event.sender.id;
   const user = await prisma.user({ facebookid: senderId });
 
@@ -21,12 +21,16 @@ module.exports = async (event) => {
   const sessionId = user.id;
   const sessionPath = sessionClient.sessionPath(projectId, sessionId);
 
+  if (text === "") {
+    text = event.message.quick_reply ? event.message.quick_reply.payload : event.message.text;
+  }
+
   // The text query request.
   const request = {
     session: sessionPath,
     queryInput: {
       text: {
-        text: event.message.text,
+        text,
         languageCode: language.toLowerCase()
       }
     }
@@ -126,6 +130,12 @@ const handleIntent = async (intent, user, parameters = {}, context = []) => {
   case "Language - no":
     await languageNo(user);
     break;
+  case "Language - french":
+    await languageFrench(user);
+    break;
+  case "Language - english":
+    await languageEnglish(user);
+    break;
   case "About":
     await about(user);
     break;
@@ -143,6 +153,12 @@ const handleIntent = async (intent, user, parameters = {}, context = []) => {
     break;
   case "Thank you":
     await thankYou(user);
+    break;
+  case "Default Fallback Intent":
+    await defaultIntent(user);
+    break;
+  case "":
+    await smallTalk(user);
     break;
   default:
     await defaultIntent(user);

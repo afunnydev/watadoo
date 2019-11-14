@@ -8,7 +8,7 @@ module.exports = async (user) => {
 
   const langQuery = polyglot.t("new-lang");
   return await sendTextMessage(user.facebookid, {
-    text: polyglot.t("default-intent", { name: user.fname }),
+    text: polyglot.t("no-small-talk", { name: user.fname }),
     "quick_replies": [
       {
         "content_type": "text",

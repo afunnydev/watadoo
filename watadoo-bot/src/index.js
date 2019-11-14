@@ -45,8 +45,9 @@ app.post("/webhook/facebook", fbWebhookAuth, async (req, res) => {
     req.body.entry.forEach(entry => {
       entry.messaging.forEach(event => {
         if (event.message && event.message.text) {
-          // eslint-disable-next-line no-console
           processMessage(event);
+        } else if (event.postback ) {
+          processMessage(event, event.postback.payload);
         }
       });
     });

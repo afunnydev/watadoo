@@ -108,18 +108,27 @@ exports.makeNewSearch = async (user, polyglot, searchQuery) => {
       }
     }
   `;
-  const eventOccurrences = await prisma.eventOccurrences({
+  let eventOccurrences = await prisma.eventOccurrences({
     where: {
       city: searchQuery.city,
       startDate_gte: searchQuery.startDate,
       startDate_lte: searchQuery.endDate
     },
-    first: 20
+    first: 20,
+    orderBy: "priority_DESC"
   }).$fragment(occurrenceWithEventFragment);
 
   if (!eventOccurrences.length) {
     return await sendNothingFoundMessage(user.facebookid, polyglot);
   }
+
+  // Remove occurrences with the same parent event id.
+  eventOccurrences = eventOccurrences.filter((occ, index, self) =>
+    index === self.findIndex((t) => (
+      t.event.id === occ.event.id
+    ))
+  );
+
   const searchWithUserFragment = `
     fragment SearchWithUser on Search {
       id
