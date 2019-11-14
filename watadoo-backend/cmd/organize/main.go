@@ -23,10 +23,10 @@ func main() {
 	}
 
 	// Save next occurrence for every events
-	// err = automation.ManageNextOccurrence(client)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	err = automation.ManageNextOccurrence(client)
+	if err != nil {
+		log.Fatal(err)
+	}
 	// Manage occurrences for recurring events
 
 	// Delete old events and old occurrences

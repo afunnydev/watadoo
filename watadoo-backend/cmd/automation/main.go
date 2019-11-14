@@ -33,17 +33,17 @@ func main() {
 	}
 
 	var events []models.Event
-	spiders := models.GetCronSpiders()
+	// spiders := models.GetCronSpiders()
 
-	for _, spider := range spiders {
-		spiderEvents, _ := scraper.FetchListPage(spider)
-		fmt.Printf("There's %d from %s\n", len(spiderEvents), spider.Domain)
-		events = append(events, spiderEvents...)
-	}
+	// for _, spider := range spiders {
+	// 	spiderEvents, _ := scraper.FetchListPage(spider)
+	// 	fmt.Printf("There's %d from %s\n", len(spiderEvents), spider.Domain)
+	// 	events = append(events, spiderEvents...)
+	// }
 
 	// All the special scrapers need to be run manually
-	tourismeOutaouaisEvents, _ := scraper.FetchTourismeOutaouais()
-	events = append(events, tourismeOutaouaisEvents...)
+	// tourismeOutaouaisEvents, _ := scraper.FetchTourismeOutaouais()
+	// events = append(events, tourismeOutaouaisEvents...)
 
 	facebookPages := []string{
 		"https://m.facebook.com/BarMinotaure/events",
@@ -56,16 +56,33 @@ func main() {
 		"https://m.facebook.com/British.ca/pages/permalink/?view_type=tab_events",
 		"https://m.facebook.com/LaNouvelleScene/events",
 		"https://m.facebook.com/legainsbourg/events",
-		"https://m.facebook.com/pg/Tarata-Jam-463818584458185/events/",
-		"https://m.facebook.com/pg/RelaisPleinAir/events",
-		"https://m.facebook.com/pg/laboiteagrains/events",
-		"https://m.facebook.com/pg/buckinghamenfamille/events",
-		"https://m.facebook.com/pg/TDPlaceatLansdowne/events",
-		"https://m.facebook.com/pg/CLUBALEA/events",
-		"https://m.facebook.com/pg/spectrasonic/events",
-		"https://m.facebook.com/pg/cityatnightottawa/events",
-		"https://m.facebook.com/pg/SalleDesjardins/events",
-		"https://m.facebook.com/pg/Soif.Gatineau/events",
+		"https://m.facebook.com/Tarata-Jam-463818584458185/events/",
+		"https://m.facebook.com/RelaisPleinAir/events",
+		"https://m.facebook.com/laboiteagrains/events",
+		"https://m.facebook.com/buckinghamenfamille/events",
+		"https://m.facebook.com/TDPlaceatLansdowne/events",
+		"https://m.facebook.com/CLUBALEA/events",
+		"https://m.facebook.com/spectrasonic/events",
+		"https://m.facebook.com/cityatnightottawa/events",
+		"https://m.facebook.com/SalleDesjardins/events",
+		"https://m.facebook.com/Soif.Gatineau/events",
+		"https://m.facebook.com/alzheimeroutaouais/events",
+		"https://m.facebook.com/ccgatineau/events",
+		"https://m.facebook.com/barlazone/events",
+		"https://m.facebook.com/ChezPutters/events",
+		"https://m.facebook.com/hippiemylk/events",
+		"https://m.facebook.com/GlowOttawa/events",
+		"https://m.facebook.com/florahallbrewing/events",
+		"https://m.facebook.com/thebourbonroomottawa/events",
+		"https://m.facebook.com/LowertownBreweryOttawa/events",
+		"https://m.facebook.com/BeyondThePaleBrewingCompany/events",
+		"https://m.facebook.com/thelaffottawa/events",
+		"https://m.facebook.com/themomoSpot/events",
+		"https://m.facebook.com/actionquartiers/events",
+		"https://m.facebook.com/sybo.art/events",
+		"https://m.facebook.com/villegatineau/events",
+		"https://m.facebook.com/TonikUQO/events",
+		"https://m.facebook.com/bieresgallicus/events",
 	}
 	for _, facebookPage := range facebookPages {
 		facebookEvents, _ := scraper.FetchFacebook(facebookPage)
