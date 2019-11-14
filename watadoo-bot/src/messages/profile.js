@@ -27,7 +27,8 @@ exports.askForAge = async (id, polyglot) => {
   });
 };
 
-const cities = ["Gatineau", "Ottawa", "Montréal", "Québec",];
+// const cities = ["Gatineau", "Ottawa", "Montréal", "Québec",];
+const cities = ["Gatineau", "Ottawa",];
 exports.askForLocation = async (id, polyglot) => {
   return await sendTextMessage(id, {
     text: polyglot.t("Pour commencer, dans quelle ville es-tu? Tu peux l'écrire si elle n'est pas dans les choix."),

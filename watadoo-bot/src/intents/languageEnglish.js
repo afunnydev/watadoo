@@ -21,7 +21,8 @@ module.exports = async (user) => {
   });
 
   if (!user.age && !user.relationship) {
-    const cities = ["Gatineau", "Ottawa", "Montréal", "Québec",];
+    // const cities = ["Gatineau", "Ottawa", "Montréal", "Québec",];
+    const cities = ["Gatineau", "Ottawa",];
     await sendTextMessage(user.facebookid, {
       text: polyglot.t("Pour commencer, dans quelle ville es-tu? Tu peux l'écrire si elle n'est pas dans les choix."),
       quick_replies: cities.map(city => ({

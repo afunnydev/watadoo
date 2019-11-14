@@ -25,7 +25,8 @@ module.exports = async (user, context, city) => {
   const queryId = context.fields.queryId.stringValue;
 
   // This needs to be checked because these are our cities in the enum. TODO: Shouldn't be checked manually...
-  const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
+  // const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
+  const cities = ["Gatineau", "Ottawa", "gatineau", "ottawa",];
   if (cities.includes(city)) {
     const searchQuery = await prisma.updateSearch({
       data: {
