@@ -16,17 +16,17 @@ import (
 )
 
 func init() {
-	// env := os.Getenv("WATADOO_ENV")
-	// if "" == env {
-	// 	env = "development"
-	// }
+	env := os.Getenv("WATADOO_ENV")
+	if "" == env {
+		env = "development"
+	}
 
-	// godotenv.Load(".env." + env + ".local")
-	// if "test" != env {
-	// 	godotenv.Load(".env.local")
-	// }
-	// godotenv.Load(".env." + env)
-	godotenv.Load(".env.production")
+	godotenv.Load(".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(".env.local")
+	}
+	godotenv.Load(".env." + env)
+	godotenv.Load(".env")
 }
 
 // CreatePrismaClient returns a configured Prisma Client
