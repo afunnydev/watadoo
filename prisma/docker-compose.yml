@@ -11,18 +11,20 @@ services:
         managementApiSecret: mysecret42
         databases:
           default:
-            connector: mysql
-            host: mysql
-            port: 3306
+            connector: postgres
+            host: prisma-db
+            port: 5432
             user: root
             password: prisma
             migrations: true
-  mysql:
-    image: mysql:5.7
+  db:
+    container_name: prisma-db
+    image: postgres
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: prisma
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: prisma
     volumes:
-      - mysql:/var/lib/mysql
+      - postgres:/var/lib/postgres
 volumes:
-  mysql:
+  postgres:
