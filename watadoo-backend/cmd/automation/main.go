@@ -33,17 +33,17 @@ func main() {
 	}
 
 	var events []models.Event
-	// spiders := models.GetCronSpiders()
+	spiders := models.GetCronSpiders()
 
-	// for _, spider := range spiders {
-	// 	spiderEvents, _ := scraper.FetchListPage(spider)
-	// 	fmt.Printf("There's %d from %s\n", len(spiderEvents), spider.Domain)
-	// 	events = append(events, spiderEvents...)
-	// }
+	for _, spider := range spiders {
+		spiderEvents, _ := scraper.FetchListPage(spider)
+		fmt.Printf("There's %d from %s\n", len(spiderEvents), spider.Domain)
+		events = append(events, spiderEvents...)
+	}
 
 	// All the special scrapers need to be run manually
-	// tourismeOutaouaisEvents, _ := scraper.FetchTourismeOutaouais()
-	// events = append(events, tourismeOutaouaisEvents...)
+	tourismeOutaouaisEvents, _ := scraper.FetchTourismeOutaouais()
+	events = append(events, tourismeOutaouaisEvents...)
 
 	facebookPages := []string{
 		"https://m.facebook.com/BarMinotaure/events",
