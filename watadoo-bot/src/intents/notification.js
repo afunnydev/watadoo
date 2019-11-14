@@ -6,17 +6,17 @@ module.exports = async (user) => {
   const polyglot = new Polyglot();
   polyglot.extend(messages[user.language.toLowerCase()]);
 
-  let currentNotification = "Tu ne reçois présentement aucune alerte.";
+  let currentNotification = "subscription-never";
 
   switch (user.messengerNotifications) {
   case "WEEKLY":
-    currentNotification = "Tu reçois présentement des alertes à chaque semaine.";
+    currentNotification = "subscription-weekly";
     break;
   case "MONTHLY":
-    currentNotification = "Tu reçois présentement des alertes à chaque mois.";
+    currentNotification = "subscription-monthly";
     break;
   case "ANYTIME":
-    currentNotification = "Je peux présentement t'écrire n'importe quand.";
+    currentNotification = "subscription-anytime";
     break;
   }
 
@@ -40,6 +40,11 @@ module.exports = async (user) => {
         "content_type": "text",
         "title": polyglot.t("À chaque mois"),
         "payload": polyglot.t("À chaque mois")
+      },
+      {
+        "content_type": "text",
+        "title": polyglot.t("Jamais"),
+        "payload": polyglot.t("Jamais")
       },
     ]
   });

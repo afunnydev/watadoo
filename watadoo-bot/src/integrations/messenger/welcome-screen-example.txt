@@ -1,0 +1,21 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+	"greeting": [
+	    {
+	      "locale":"default",
+	      "text":"Ton conseiller d'activités" 
+	    },
+	    {
+	      "locale":"fr_CA",
+	      "text":"Ton conseiller d'activités"
+	    },
+	    {
+	      "locale":"fr_FR",
+	      "text":"Ton conseiller d'activités"
+	    },
+	    {
+	      "locale":"en_US",
+	      "text":"Your outing assistant"
+	    }
+	]
+}' "https://graph.facebook.com/v3.3/me/messenger_profile?access_token=<PAGE_ACCESS_TOKEN>"
+

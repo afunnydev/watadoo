@@ -4,9 +4,15 @@ const { sendTextMessage } = require("../utils/messenger");
 const { prisma } = require("../generated/prisma-client");
 const { askForRelationship, askForAge } = require("../messages/profile");
 const { askWhenMessage } = require("../messages/search");
-const { createContext } = require("../utils/context");
+const { createContext, deleteAllContexts } = require("../utils/context");
+const welcome = require("./welcome");
 
 module.exports = async (user, city) => {
+  // There's a city called "Salut"... It shouldn't trigger this intention but I can't use Negative examples in Dialogflow.
+  if (city === "Salut") {
+    await deleteAllContexts(user.id);
+    return await welcome(user);
+  }
   const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
   const polyglot = new Polyglot();
   polyglot.extend(messages[user.language.toLowerCase()]);

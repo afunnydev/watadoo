@@ -4,10 +4,9 @@ const { prisma } = require("../generated/prisma-client");
 const { sendTextMessage } = require("../utils/messenger");
 
 module.exports = async (user) => {
-  const newLang = user.language === "FR" ? "EN" : "FR";
   const newUser = await prisma.updateUser({
     data: {
-      language: newLang
+      language: "EN"
     },
     where: {
       facebookid: user.facebookid
