@@ -6,7 +6,8 @@ const { askWhenMessage } = require("../messages/search");
 const { createContext } = require("../utils/context");
 
 module.exports = async (user, city) => {
-  const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
+  // const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
+  const cities = ["Gatineau", "Ottawa", "gatineau", "ottawa",];
   const polyglot = new Polyglot();
   polyglot.extend(messages[user.language.toLowerCase()]);
 

@@ -13,7 +13,8 @@ module.exports = async (user, city) => {
     await deleteAllContexts(user.id);
     return await welcome(user);
   }
-  const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
+  // const cities = ["Gatineau", "Ottawa", "Montréal", "Québec", "gatineau", "ottawa", "Montreal", "montreal", "Quebec", "quebec",];
+  const cities = ["Gatineau", "Ottawa", "gatineau", "ottawa",];
   const polyglot = new Polyglot();
   polyglot.extend(messages[user.language.toLowerCase()]);
 
@@ -38,12 +39,11 @@ module.exports = async (user, city) => {
 
     return await askWhenMessage(user.facebookid, polyglot);
 
-  } else {
-    await prisma.createRequestedCity({ city, user: { connect: { facebookid: user.facebookid } } });
-
-    createContext(user.id, "CityNotAvailable-followup", 2, { city });
-    await sendTextMessage(user.facebookid, {
-      text: polyglot.t("city-not-available", { city })
-    });
   }
+  await prisma.createRequestedCity({ city, user: { connect: { facebookid: user.facebookid } } });
+
+  createContext(user.id, "CityNotAvailable-followup", 2, { city });
+  return await sendTextMessage(user.facebookid, {
+    text: polyglot.t("city-not-available", { city })
+  });
 };
